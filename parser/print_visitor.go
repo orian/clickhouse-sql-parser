@@ -3,20 +3,28 @@ package parser
 import "strings"
 
 type PrintVisitor struct {
-	builder strings.Builder
+	DefaultVisitor
+	builder *strings.Builder
+}
+
+func NewPrintVisitor() *PrintVisitor {
+	v := &PrintVisitor{
+		builder: &strings.Builder{},
+	}
+	v.self = v
+	return v
 }
 
 func (p *PrintVisitor) VisitAliasExpr(a *AliasExpr) error {
-	builder := p.builder
 	if _, isSelect := a.Expr.(*SelectQuery); isSelect {
-		builder.WriteByte('(')
-		builder.WriteString(a.Expr.String())
-		builder.WriteByte(')')
+		p.builder.WriteByte('(')
+		p.builder.WriteString(a.Expr.String())
+		p.builder.WriteByte(')')
 	} else {
-		builder.WriteString(a.Expr.String())
+		p.builder.WriteString(a.Expr.String())
 	}
-	builder.WriteString(" AS ")
-	builder.WriteString(a.Alias.String())
+	p.builder.WriteString(" AS ")
+	p.builder.WriteString(a.Alias.String())
 	return nil
 }
 func (p *PrintVisitor) VisitAlterRole(a *AlterRole) error {
@@ -1003,6 +1011,8 @@ func (p *PrintVisitor) VisitIdent(i *Ident) error {
 		p.builder.WriteString("`" + i.Name + "`")
 	} else if i.QuoteType == DoubleQuote {
 		p.builder.WriteString(`"` + i.Name + `"`)
+	} else {
+		p.builder.WriteString(i.Name)
 	}
 	return nil
 }
@@ -1122,7 +1132,7 @@ func (p *PrintVisitor) VisitJoinExpr(j *JoinExpr) error {
 	builder := p.builder
 	builder.WriteString(j.Left.String())
 	if j.Right != nil {
-		buildJoinString(&builder, j.Right)
+		buildJoinString(builder, j.Right)
 	}
 	return nil
 }

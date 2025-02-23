@@ -12,7 +12,7 @@ import (
 )
 
 func TestVisitor_Identical(t *testing.T) {
-	visitor := DefaultASTVisitor{}
+	visitor := DeprecatedDefaultASTVisitor{}
 
 	for _, dir := range []string{"./testdata/dml", "./testdata/ddl", "./testdata/query", "./testdata/basic"} {
 		outputDir := dir + "/format"
@@ -58,10 +58,13 @@ func TestVisitor_Identical(t *testing.T) {
 }
 
 type simpleRewriteVisitor struct {
-	DefaultASTVisitor
+	DefaultVisitor
 }
 
 func (v *simpleRewriteVisitor) VisitTableIdentifier(expr *TableIdentifier) error {
+	if err := v.DefaultVisitor.VisitTableIdentifier(expr); err != nil {
+		return err
+	}
 	if expr.Table.String() == "group_by_all" {
 		expr.Table = &Ident{Name: "hack"}
 	}
@@ -69,12 +72,16 @@ func (v *simpleRewriteVisitor) VisitTableIdentifier(expr *TableIdentifier) error
 }
 
 func (v *simpleRewriteVisitor) VisitOrderByExpr(expr *OrderExpr) error {
+	if err := v.DefaultVisitor.VisitOrderByExpr(expr); err != nil {
+		return err
+	}
 	expr.Direction = OrderDirectionDesc
 	return nil
 }
 
 func TestVisitor_SimpleRewrite(t *testing.T) {
-	visitor := simpleRewriteVisitor{}
+	visitor := &simpleRewriteVisitor{}
+	visitor.self = visitor
 
 	sql := `SELECT a, COUNT(b) FROM group_by_all GROUP BY CUBE(a) WITH CUBE WITH TOTALS ORDER BY a;`
 	parser := NewParser(sql)
@@ -84,17 +91,17 @@ func TestVisitor_SimpleRewrite(t *testing.T) {
 	require.Equal(t, 1, len(stmts))
 	stmt := stmts[0]
 
-	err = stmt.Accept(&visitor)
+	err = stmt.Accept(visitor)
 	require.NoError(t, err)
 	newSql := stmt.String()
 
 	require.NotSame(t, sql, newSql)
-	require.True(t, strings.Contains(newSql, "hack"))
-	require.True(t, strings.Contains(newSql, string(OrderDirectionDesc)))
+	require.Contains(t, newSql, "hack")
+	require.Contains(t, newSql, string(OrderDirectionDesc))
 }
 
 type nestedRewriteVisitor struct {
-	DefaultASTVisitor
+	DefaultVisitor
 	stack []Expr
 }
 
@@ -116,7 +123,8 @@ func (v *nestedRewriteVisitor) leave(expr Expr) {
 }
 
 func TestVisitor_NestRewrite(t *testing.T) {
-	visitor := nestedRewriteVisitor{}
+	visitor := &nestedRewriteVisitor{}
+	visitor.self = visitor
 
 	sql := `SELECT replica_name FROM system.ha_replicas UNION DISTINCT SELECT replica_name FROM system.ha_unique_replicas format JSON`
 	parser := NewParser(sql)
@@ -126,7 +134,7 @@ func TestVisitor_NestRewrite(t *testing.T) {
 	require.Equal(t, 1, len(stmts))
 	stmt := stmts[0]
 
-	err = stmt.Accept(&visitor)
+	err = stmt.Accept(visitor)
 	require.NoError(t, err)
 	newSql := stmt.String()
 
