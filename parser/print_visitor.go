@@ -269,7 +269,8 @@ func (p *PrintVisitor) VisitAlterTableModifyTTL(a *AlterTableModifyTTL) error {
 	return nil
 }
 func (p *PrintVisitor) VisitAlterTableRemoveTTL(a *AlterTableRemoveTTL) error {
-	return "REMOVE TTL"
+	p.builder.WriteString("REMOVE TTL")
+	return nil
 }
 
 func (p *PrintVisitor) VisitAlterTableRenameColumn(a *AlterTableRenameColumn) error {
@@ -293,8 +294,9 @@ func (p *PrintVisitor) VisitAlterTableReplacePartition(a *AlterTableReplaceParti
 	return nil
 }
 
-func (p *PrintVisitor) VisitArrayJoinClause(a *ArrayJoinClause) error {
-	return a.Type + " ARRAY JOIN " + a.Expr.String()
+func (p *PrintVisitor) VisitArrayJoinExpr(a *ArrayJoinClause) error {
+	p.builder.WriteString(a.Type + " ARRAY JOIN " + a.Expr.String())
+	return nil
 }
 func (p *PrintVisitor) VisitArrayParamList(a *ArrayParamList) error {
 	builder := p.builder
@@ -309,7 +311,7 @@ func (p *PrintVisitor) VisitArrayParamList(a *ArrayParamList) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitAssignmentValues(v *AssignmentValues) error {
+func (p *PrintVisitor) VisitValuesExpr(v *AssignmentValues) error {
 	builder := p.builder
 	builder.WriteByte('(')
 	for i, value := range v.Values {
@@ -349,7 +351,7 @@ func (pv *PrintVisitor) VisitBinaryExpr(p *BinaryOperation) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitCTEStmt(c *CTEStmt) error {
+func (p *PrintVisitor) VisitCTEExpr(c *CTEStmt) error {
 	builder := p.builder
 	builder.WriteString(c.Expr.String())
 	builder.WriteString(" AS ")
@@ -393,7 +395,7 @@ func (p *PrintVisitor) VisitCastExpr(c *CastExpr) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitCheckStmt(c *CheckStmt) error {
+func (p *PrintVisitor) VisitCheckExpr(c *CheckStmt) error {
 	builder := p.builder
 	builder.WriteString("CHECK TABLE ")
 	builder.WriteString(c.Table.String())
@@ -403,7 +405,7 @@ func (p *PrintVisitor) VisitCheckStmt(c *CheckStmt) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitClusterClause(o *ClusterClause) error {
+func (p *PrintVisitor) VisitOnClusterExpr(o *ClusterClause) error {
 	builder := p.builder
 	builder.WriteString("ON CLUSTER ")
 	builder.WriteString(o.Expr.String())
@@ -485,12 +487,13 @@ func (p *PrintVisitor) VisitColumnExprList(c *ColumnExprList) error {
 }
 func (p *PrintVisitor) VisitColumnIdentifier(c *ColumnIdentifier) error {
 	if c.Database != nil {
-		return c.Database.String() + "." + c.Table.String() + "." + c.Column.String()
+		p.builder.WriteString(c.Database.String() + "." + c.Table.String() + "." + c.Column.String())
 	} else if c.Table != nil {
-		return c.Table.String() + "." + c.Column.String()
+		p.builder.WriteString(c.Table.String() + "." + c.Column.String())
 	} else {
-		return c.Column.String()
+		p.builder.WriteString(c.Column.String())
 	}
+	return nil
 }
 
 func (p *PrintVisitor) VisitColumnNamesExpr(c *ColumnNamesExpr) error {
@@ -506,7 +509,8 @@ func (p *PrintVisitor) VisitColumnNamesExpr(c *ColumnNamesExpr) error {
 	return nil
 }
 func (p *PrintVisitor) VisitColumnTypeExpr(c *ColumnTypeExpr) error {
-	return c.Name.String()
+	p.builder.WriteString(c.Name.String())
+	return nil
 }
 func (p *PrintVisitor) VisitComplexType(c *ComplexType) error {
 	builder := p.builder
@@ -544,7 +548,7 @@ func (p *PrintVisitor) VisitCompressionCodec(c *CompressionCodec) error {
 	builder.WriteByte(')')
 	return nil
 }
-func (p *PrintVisitor) VisitConstraintClause(c *ConstraintClause) error {
+func (p *PrintVisitor) VisitConstraintExpr(c *ConstraintClause) error {
 	builder := p.builder
 	builder.WriteString(c.Constraint.String())
 	builder.WriteByte(' ')
@@ -755,7 +759,7 @@ func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitDeduplicateClause(d *DeduplicateClause) error {
+func (p *PrintVisitor) VisitDeduplicateExpr(d *DeduplicateClause) error {
 	builder := p.builder
 	builder.WriteString(" DEDUPLICATE")
 	if d.By != nil {
@@ -769,7 +773,7 @@ func (p *PrintVisitor) VisitDeduplicateClause(d *DeduplicateClause) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitDeleteClause(d *DeleteClause) error {
+func (p *PrintVisitor) VisitDeleteFromExpr(d *DeleteClause) error {
 	builder := p.builder
 	builder.WriteString("DELETE FROM ")
 	builder.WriteString(d.Table.String())
@@ -783,7 +787,7 @@ func (p *PrintVisitor) VisitDeleteClause(d *DeleteClause) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitDestinationClause(d *DestinationClause) error {
+func (p *PrintVisitor) VisitDestinationExpr(d *DestinationClause) error {
 	builder := p.builder
 	builder.WriteString("TO ")
 	builder.WriteString(d.TableIdentifier.String())
@@ -901,7 +905,7 @@ func (p *PrintVisitor) VisitEnumValue(e *EnumValue) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitExplainStmt(e *ExplainStmt) error {
+func (p *PrintVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	builder := p.builder
 	builder.WriteString("EXPLAIN ")
 	builder.WriteString(e.Type)
@@ -919,15 +923,18 @@ func (p *PrintVisitor) VisitExtractExpr(e *ExtractExpr) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitFormatClause(f *FormatClause) error {
-	return "FORMAT " + f.Format.String()
+func (p *PrintVisitor) VisitFormatExpr(f *FormatClause) error {
+	p.builder.WriteString("FORMAT " + f.Format.String())
+	return nil
 }
-func (p *PrintVisitor) VisitFromClause(f *FromClause) error {
+
+func (p *PrintVisitor) VisitFromExpr(f *FromClause) error {
 	builder := p.builder
 	builder.WriteString("FROM ")
 	builder.WriteString(f.Expr.String())
 	return nil
 }
+
 func (p *PrintVisitor) VisitFunctionExpr(f *FunctionExpr) error {
 	builder := p.builder
 	builder.WriteString(f.Name.String())
@@ -935,11 +942,12 @@ func (p *PrintVisitor) VisitFunctionExpr(f *FunctionExpr) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitGlobalInOperation(g *GlobalInOperation) error {
-	return "GLOBAL " + g.Expr.String()
+func (p *PrintVisitor) VisitGlobalInExpr(g *GlobalInOperation) error {
+	p.builder.WriteString("GLOBAL " + g.Expr.String())
+	return nil
 }
 
-func (p *PrintVisitor) VisitGrantPrivilegeStmt(g *GrantPrivilegeStmt) error {
+func (p *PrintVisitor) VisitGrantPrivilegeExpr(g *GrantPrivilegeStmt) error {
 	builder := p.builder
 	builder.WriteString("GRANT ")
 	if g.OnCluster != nil {
@@ -967,7 +975,7 @@ func (p *PrintVisitor) VisitGrantPrivilegeStmt(g *GrantPrivilegeStmt) error {
 
 	return nil
 }
-func (p *PrintVisitor) VisitGroupByClause(g *GroupByClause) error {
+func (p *PrintVisitor) VisitGroupByExpr(g *GroupByClause) error {
 	builder := p.builder
 	builder.WriteString("GROUP BY ")
 	if g.AggregateType != "" {
@@ -986,8 +994,9 @@ func (p *PrintVisitor) VisitGroupByClause(g *GroupByClause) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitHavingClause(h *HavingClause) error {
-	return "HAVING " + h.Expr.String()
+func (p *PrintVisitor) VisitHavingExpr(h *HavingClause) error {
+	p.builder.WriteString("HAVING " + h.Expr.String())
+	return nil
 }
 func (p *PrintVisitor) VisitIdent(i *Ident) error {
 	if i.QuoteType == BackTicks {
@@ -1005,7 +1014,7 @@ func (p *PrintVisitor) VisitIndexOperation(i *IndexOperation) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitInsertStmt(i *InsertStmt) error {
+func (p *PrintVisitor) VisitInsertExpr(i *InsertStmt) error {
 	builder := p.builder
 	builder.WriteString("INSERT INTO TABLE ")
 	builder.WriteString(i.Table.String())
@@ -1098,7 +1107,7 @@ func (p *PrintVisitor) VisitJSONType(j *JSONType) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitJoinConstraintClause(j *JoinConstraintClause) error {
+func (p *PrintVisitor) VisitJoinConstraintExpr(j *JoinConstraintClause) error {
 	builder := p.builder
 	if j.On != nil {
 		builder.WriteString("ON ")
@@ -1130,7 +1139,7 @@ func (p *PrintVisitor) VisitJoinTableExpr(j *JoinTableExpr) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitLimitByClause(l *LimitByClause) error {
+func (p *PrintVisitor) VisitLimitByExpr(l *LimitByClause) error {
 	builder := p.builder
 	if l.Limit != nil {
 		builder.WriteString(l.Limit.String())
@@ -1141,7 +1150,7 @@ func (p *PrintVisitor) VisitLimitByClause(l *LimitByClause) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitLimitClause(l *LimitClause) error {
+func (p *PrintVisitor) VisitLimitExpr(l *LimitClause) error {
 	builder := p.builder
 	builder.WriteString("LIMIT ")
 	builder.WriteString(l.Limit.String())
@@ -1168,13 +1177,17 @@ func (p *PrintVisitor) VisitMapLiteral(m *MapLiteral) error {
 }
 
 func (p *PrintVisitor) VisitNegateExpr(n *NegateExpr) error {
-	return "-" + n.Expr.String()
+	p.builder.WriteString("-" + n.Expr.String())
+	return nil
 }
+
 func (p *PrintVisitor) VisitNestedIdentifier(n *NestedIdentifier) error {
 	if n.DotIdent != nil {
-		return n.Ident.String() + "." + n.DotIdent.String()
+		p.builder.WriteString(n.Ident.String() + "." + n.DotIdent.String())
+		return nil
 	}
-	return n.Ident.String()
+	p.builder.WriteString(n.Ident.String())
+	return nil
 }
 
 func (p *PrintVisitor) VisitNestedType(n *NestedType) error {
@@ -1194,26 +1207,30 @@ func (p *PrintVisitor) VisitNestedType(n *NestedType) error {
 }
 
 func (p *PrintVisitor) VisitNotExpr(n *NotExpr) error {
-	return "NOT " + n.Expr.String()
+	p.builder.WriteString("NOT ")
+	return n.Expr.Accept(p)
 }
 func (p *PrintVisitor) VisitNotNullLiteral(n *NotNullLiteral) error {
-	return "NOT NULL"
+	p.builder.WriteString("NOT NULL")
+	return nil
 }
 func (p *PrintVisitor) VisitNullLiteral(n *NullLiteral) error {
-	return "NULL"
-}
-
-func (p *PrintVisitor) VisitNumberLiteral(n *NumberLiteral) error {
-	return n.Literal
-}
-func (p *PrintVisitor) VisitObjectParams(o *ObjectParams) error {
-	builder := p.builder
-	builder.WriteString(o.Object.String())
-	builder.WriteString(o.Params.String())
+	p.builder.WriteString("NULL")
 	return nil
 }
 
-func (p *PrintVisitor) VisitOnClause(o *OnClause) error {
+func (p *PrintVisitor) VisitNumberLiteral(n *NumberLiteral) error {
+	p.builder.WriteString(n.Literal)
+	return nil
+}
+func (p *PrintVisitor) VisitObjectParams(o *ObjectParams) error {
+	if err := o.Object.Accept(p); err != nil {
+		return err
+	}
+	return o.Params.Accept(p)
+}
+
+func (p *PrintVisitor) VisitOnExpr(o *OnClause) error {
 	builder := p.builder
 	builder.WriteString("ON ")
 	builder.WriteString(o.On.String())
@@ -1224,7 +1241,7 @@ func (p *PrintVisitor) VisitOperationExpr(o *OperationExpr) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitOptimizeStmt(o *OptimizeStmt) error {
+func (p *PrintVisitor) VisitOptimizeExpr(o *OptimizeStmt) error {
 	builder := p.builder
 	builder.WriteString("OPTIMIZE TABLE ")
 	builder.WriteString(o.Table.String())
@@ -1244,7 +1261,7 @@ func (p *PrintVisitor) VisitOptimizeStmt(o *OptimizeStmt) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitOrderByClause(o *OrderByClause) error {
+func (p *PrintVisitor) VisitOrderByListExpr(o *OrderByClause) error {
 	builder := p.builder
 	builder.WriteString("ORDER BY ")
 	for i, item := range o.Items {
@@ -1256,7 +1273,7 @@ func (p *PrintVisitor) VisitOrderByClause(o *OrderByClause) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitOrderExpr(o *OrderExpr) error {
+func (p *PrintVisitor) VisitOrderByExpr(o *OrderExpr) error {
 	builder := p.builder
 	builder.WriteString(o.Expr.String())
 	if o.Alias != nil {
@@ -1282,107 +1299,111 @@ func (p *PrintVisitor) VisitParamExprList(f *ParamExprList) error {
 	builder.WriteString(")")
 	return nil
 }
-func (p *PrintVisitor) VisitPartitionByClause(p *PartitionByClause) error {
-	builder := p.builder
-	builder.WriteString("PARTITION BY ")
-	builder.WriteString(p.Expr.String())
-	return nil
+func (p *PrintVisitor) VisitPartitionByExpr(part *PartitionByClause) error {
+	p.builder.WriteString("PARTITION BY ")
+	return part.Expr.Accept(p)
 }
-func (p *PrintVisitor) VisitPartitionClause(p *PartitionClause) error {
-	builder := p.builder
-	builder.WriteString("PARTITION ")
-	if p.ID != nil {
-		builder.WriteString(p.ID.String())
-	} else if p.All {
-		builder.WriteString("ALL")
+func (p *PrintVisitor) VisitPartitionExpr(part *PartitionClause) error {
+	p.builder.WriteString("PARTITION ")
+	if part.ID != nil {
+		part.ID.Accept(p)
+	} else if part.All {
+		p.builder.WriteString("ALL")
 	} else {
-		builder.WriteString(p.Expr.String())
+		return part.Expr.Accept(p)
 	}
 	return nil
 }
 
-func (p *PrintVisitor) VisitPlaceHolder(p *PlaceHolder) error {
-	return p.Type
-}
-
-func (p *PrintVisitor) VisitPrewhereClause(w *PrewhereClause) error {
-	return "PREWHERE " + w.Expr.String()
-}
-func (p *PrintVisitor) VisitPrimaryKeyClause(p *PrimaryKeyClause) error {
-	builder := p.builder
-	builder.WriteString("PRIMARY KEY ")
-	builder.WriteString(p.Expr.String())
+func (p *PrintVisitor) VisitPlaceHolderExpr(ph *PlaceHolder) error {
+	p.builder.WriteString(ph.Type)
 	return nil
 }
 
-func (p *PrintVisitor) VisitPrivilegeClause(p *PrivilegeClause) error {
+func (p *PrintVisitor) VisitPrewhereExpr(w *PrewhereClause) error {
+	p.builder.WriteString("PREWHERE ")
+	return w.Expr.Accept(p)
+}
+func (p *PrintVisitor) VisitPrimaryKeyExpr(pkc *PrimaryKeyClause) error {
+	p.builder.WriteString("PRIMARY KEY ")
+	return pkc.Expr.Accept(p)
+}
+
+func (p *PrintVisitor) VisitPrivilegeExpr(pc *PrivilegeClause) error {
 	builder := p.builder
-	for i, keyword := range p.Keywords {
+	for i, keyword := range pc.Keywords {
 		if i > 0 {
 			builder.WriteByte(' ')
 		}
 		builder.WriteString(keyword)
 	}
-	if p.Params != nil {
-		builder.WriteString(p.Params.String())
+	if pc.Params != nil {
+		return pc.Accept(p)
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitProjectionOrderByClause(p *ProjectionOrderByClause) error {
-	builder := p.builder
-	builder.WriteString("ORDER BY ")
-	builder.WriteString(p.Columns.String())
-	return nil
+func (pv *PrintVisitor) VisitProjectionOrderBy(p *ProjectionOrderByClause) error {
+	pv.builder.WriteString("ORDER BY ")
+	return p.Columns.Accept(pv)
 }
 
-func (p *PrintVisitor) VisitProjectionSelectStmt(p *ProjectionSelectStmt) error {
-	builder := p.builder
-	builder.WriteString("(")
+func (pv *PrintVisitor) VisitProjectionSelect(p *ProjectionSelectStmt) error {
+	pv.builder.WriteString("(")
 	if p.With != nil {
-		builder.WriteString(p.With.String())
-		builder.WriteByte(' ')
+		if err := p.With.Accept(pv); err != nil {
+			return err
+		}
+		pv.builder.WriteByte(' ')
 	}
-	builder.WriteString("SELECT ")
-	builder.WriteString(p.SelectColumns.String())
+	pv.builder.WriteString("SELECT ")
+	if err := p.SelectColumns.Accept(pv); err != nil {
+		return err
+	}
 	if p.GroupBy != nil {
-		builder.WriteString(" ")
-		builder.WriteString(p.GroupBy.String())
+		pv.builder.WriteString(" ")
+		if err := p.GroupBy.Accept(pv); err != nil {
+			return err
+		}
 	}
 	if p.OrderBy != nil {
-		builder.WriteString(" ")
-		builder.WriteString(p.OrderBy.String())
+		pv.builder.WriteString(" ")
+		if err := p.OrderBy.Accept(pv); err != nil {
+			return err
+		}
 	}
-	builder.WriteString(")")
+	pv.builder.WriteString(")")
 	return nil
 }
 
 func (p *PrintVisitor) VisitPropertyType(c *PropertyType) error {
-	return c.Name.String()
+	return c.Name.Accept(p)
 }
+
 func (p *PrintVisitor) VisitQueryParam(q *QueryParam) error {
-	builder := p.builder
-	builder.WriteString("{")
-	builder.WriteString(q.Name.String())
-	builder.WriteString(": ")
-	builder.WriteString(q.Type.String())
-	builder.WriteString("}")
+	p.builder.WriteString("{")
+	if err := q.Name.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(": ")
+	if err := q.Type.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString("}")
 	return nil
 }
 
 func (p *PrintVisitor) VisitRatioExpr(r *RatioExpr) error {
-	builder := p.builder
-	builder.WriteString(r.Numerator.String())
+	p.builder.WriteString(r.Numerator.String())
 	if r.Denominator != nil {
-		builder.WriteString("/")
-		builder.WriteString(r.Denominator.String())
+		p.builder.WriteString("/")
+		p.builder.WriteString(r.Denominator.String())
 	}
 	return nil
 }
 func (p *PrintVisitor) VisitRemovePropertyType(a *RemovePropertyType) error {
-	builder := p.builder
-	builder.WriteString(" REMOVE ")
-	builder.WriteString(a.PropertyType.String())
-	return nil
+	p.builder.WriteString(" REMOVE ")
+
+	return a.PropertyType.Accept(p)
 }
 
 func (p *PrintVisitor) VisitRenameStmt(r *RenameStmt) error {
@@ -1442,14 +1463,14 @@ func (p *PrintVisitor) VisitRoleSetting(r *RoleSetting) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitSampleByClause(s *SampleByClause) error {
+func (p *PrintVisitor) VisitSampleByExpr(s *SampleByClause) error {
 	builder := p.builder
 	builder.WriteString("SAMPLE BY ")
 	builder.WriteString(s.Expr.String())
 	return nil
 }
 
-func (p *PrintVisitor) VisitSampleClause(s *SampleClause) error {
+func (p *PrintVisitor) VisitSampleRatioExpr(s *SampleClause) error {
 	builder := p.builder
 	builder.WriteString("SAMPLE ")
 	builder.WriteString(s.Ratio.String())
@@ -1460,7 +1481,7 @@ func (p *PrintVisitor) VisitSampleClause(s *SampleClause) error {
 	return nil
 }
 func (p *PrintVisitor) VisitScalarType(s *ScalarType) error {
-	return s.Name.String()
+	return s.Name.Accept(p)
 }
 func (p *PrintVisitor) VisitSelectItem(s *SelectItem) error {
 	builder := p.builder
@@ -1561,7 +1582,7 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitSetStmt(s *SetStmt) error {
+func (p *PrintVisitor) VisitSetExpr(s *SetStmt) error {
 	builder := p.builder
 	builder.WriteString("SET ")
 	for i, item := range s.Settings.Items {
@@ -1572,7 +1593,7 @@ func (p *PrintVisitor) VisitSetStmt(s *SetStmt) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitSettingExprList(s *SettingExprList) error {
+func (p *PrintVisitor) VisitSettingsExpr(s *SettingExprList) error {
 	builder := p.builder
 	builder.WriteString(s.Name.String())
 	builder.WriteByte('=')
@@ -1593,7 +1614,7 @@ func (p *PrintVisitor) VisitSettingPair(s *SettingPair) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitSettingsClause(s *SettingsClause) error {
+func (p *PrintVisitor) VisitSettingsExprList(s *SettingsClause) error {
 	builder := p.builder
 	builder.WriteString("SETTINGS ")
 	for i, item := range s.Items {
@@ -1606,18 +1627,23 @@ func (p *PrintVisitor) VisitSettingsClause(s *SettingsClause) error {
 }
 
 func (p *PrintVisitor) VisitStringLiteral(s *StringLiteral) error {
-	return "'" + s.Literal + "'"
+	p.builder.WriteString("'")
+	p.builder.WriteString(s.Literal)
+	p.builder.WriteString("'")
+	return nil
 }
 
-func (p *PrintVisitor) VisitSubQuery(s *SubQuery) error {
+func (p *PrintVisitor) VisitSubQueryExpr(s *SubQuery) error {
 	if s.HasParen {
-		builder := p.builder
-		builder.WriteString("(")
-		builder.WriteString(s.Select.String())
-		builder.WriteString(")")
+		p.builder.WriteString("(")
+		if err := s.Select.Accept(p); err != nil {
+			return err
+		}
+		p.builder.WriteString(s.Select.String())
+		p.builder.WriteString(")")
 		return nil
 	}
-	return s.Select.String()
+	return s.Select.Accept(p)
 }
 
 func (p *PrintVisitor) VisitSystemCtrlExpr(s *SystemCtrlExpr) error {
@@ -1633,7 +1659,9 @@ func (p *PrintVisitor) VisitSystemCtrlExpr(s *SystemCtrlExpr) error {
 }
 
 func (p *PrintVisitor) VisitSystemDropExpr(s *SystemDropExpr) error {
-	return "DROP " + s.Type
+	p.builder.WriteString("DROP ")
+	p.builder.WriteString(s.Type)
+	return nil
 }
 func (p *PrintVisitor) VisitSystemFlushExpr(s *SystemFlushExpr) error {
 	builder := p.builder
@@ -1656,8 +1684,9 @@ func (p *PrintVisitor) VisitSystemReloadExpr(s *SystemReloadExpr) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitSystemStmt(s *SystemStmt) error {
-	return "SYSTEM " + s.Expr.String()
+func (p *PrintVisitor) VisitSystemExpr(s *SystemStmt) error {
+	p.builder.WriteString("SYSTEM ")
+	return s.Expr.Accept(p)
 }
 
 func (p *PrintVisitor) VisitSystemSyncExpr(s *SystemSyncExpr) error {
@@ -1666,7 +1695,7 @@ func (p *PrintVisitor) VisitSystemSyncExpr(s *SystemSyncExpr) error {
 	builder.WriteString(s.Cluster.String())
 	return nil
 }
-func (p *PrintVisitor) VisitTTLClause(t *TTLClause) error {
+func (p *PrintVisitor) VisitTTLExprList(t *TTLClause) error {
 	builder := p.builder
 	builder.WriteString("TTL ")
 	for i, item := range t.Items {
@@ -1715,10 +1744,14 @@ func (p *PrintVisitor) VisitTableFunctionExpr(t *TableFunctionExpr) error {
 }
 func (p *PrintVisitor) VisitTableIdentifier(t *TableIdentifier) error {
 	if t.Database != nil {
-		return t.Database.String() + "." + t.Table.String()
+		if err := t.Database.Accept(p); err != nil {
+			return err
+		}
+		p.builder.WriteString(".")
 	}
-	return t.Table.String()
+	return t.Table.Accept(p)
 }
+
 func (p *PrintVisitor) VisitTableIndex(a *TableIndex) error {
 	builder := p.builder
 	builder.WriteString("INDEX")
@@ -1747,7 +1780,7 @@ func (p *PrintVisitor) VisitTableProjection(t *TableProjection) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitTableSchemaClause(t *TableSchemaClause) error {
+func (p *PrintVisitor) VisitTableSchemaExpr(t *TableSchemaClause) error {
 	builder := p.builder
 	if len(t.Columns) > 0 {
 		builder.WriteString("(")
@@ -1771,7 +1804,11 @@ func (p *PrintVisitor) VisitTableSchemaClause(t *TableSchemaClause) error {
 }
 
 func (p *PrintVisitor) VisitTargetPair(t *TargetPair) error {
-	return t.Old.String() + " TO " + t.New.String()
+	if err := t.Old.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(" TO ")
+	return t.New.Accept(p)
 }
 func (p *PrintVisitor) VisitTernaryExpr(t *TernaryOperation) error {
 	builder := p.builder
@@ -1783,12 +1820,13 @@ func (p *PrintVisitor) VisitTernaryExpr(t *TernaryOperation) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitTopClause(t *TopClause) error {
-	builder := p.builder
-	builder.WriteString("TOP ")
-	builder.WriteString(t.Number.Literal)
+func (p *PrintVisitor) VisitTopExpr(t *TopClause) error {
+	p.builder.WriteString("TOP ")
+	if err := t.Number.Accept(p); err != nil {
+		return err
+	}
 	if t.WithTies {
-		return "WITH TIES"
+		p.builder.WriteString(" WITH TIES")
 	}
 	return nil
 }
@@ -1810,6 +1848,7 @@ func (p *PrintVisitor) VisitTruncateTable(t *TruncateTable) error {
 	}
 	return nil
 }
+
 func (p *PrintVisitor) VisitTypeWithParams(s *TypeWithParams) error {
 	builder := p.builder
 	builder.WriteString(s.Name.String())
@@ -1823,23 +1862,30 @@ func (p *PrintVisitor) VisitTypeWithParams(s *TypeWithParams) error {
 	builder.WriteByte(')')
 	return nil
 }
+
 func (p *PrintVisitor) VisitUUID(u *UUID) error {
-	return "UUID " + u.Value.String()
+	p.builder.WriteString("UUID ")
+	return u.Value.Accept(p)
 }
 
 func (p *PrintVisitor) VisitUnaryExpr(n *UnaryExpr) error {
-	return "-" + n.Expr.String()
+	p.builder.WriteString("-")
+	return n.Expr.Accept(p)
 }
-func (p *PrintVisitor) VisitUseStmt(u *UseStmt) error {
-	return "USE " + u.Database.String()
+
+func (p *PrintVisitor) VisitUseExpr(u *UseStmt) error {
+	p.builder.WriteString("USE ")
+	return u.Database.Accept(p)
 }
-func (p *PrintVisitor) VisitUsingClause(u *UsingClause) error {
+
+func (p *PrintVisitor) VisitUsingExpr(u *UsingClause) error {
 	builder := p.builder
 	builder.WriteString("USING ")
 	builder.WriteString(u.Using.String())
 	return nil
 }
-func (p *PrintVisitor) VisitWhenClause(w *WhenClause) error {
+
+func (p *PrintVisitor) VisitWhenExpr(w *WhenClause) error {
 	builder := p.builder
 	builder.WriteString("WHEN ")
 	builder.WriteString(w.When.String())
@@ -1852,14 +1898,14 @@ func (p *PrintVisitor) VisitWhenClause(w *WhenClause) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitWhereClause(w *WhereClause) error {
+func (p *PrintVisitor) VisitWhereExpr(w *WhereClause) error {
 	builder := p.builder
 	builder.WriteString("WHERE ")
 	builder.WriteString(w.Expr.String())
 	return nil
 }
 
-func (p *PrintVisitor) VisitWindowClause(w *WindowClause) error {
+func (p *PrintVisitor) VisitWindowExpr(w *WindowClause) error {
 	builder := p.builder
 	builder.WriteString("WINDOW ")
 	builder.WriteString(w.Name.String())
@@ -1867,7 +1913,8 @@ func (p *PrintVisitor) VisitWindowClause(w *WindowClause) error {
 	builder.WriteString(w.WindowExpr.String())
 	return nil
 }
-func (p *PrintVisitor) VisitWindowExpr(w *WindowExpr) error {
+
+func (p *PrintVisitor) VisitWindowConditionExpr(w *WindowExpr) error {
 	builder := p.builder
 	builder.WriteByte('(')
 	if w.PartitionBy != nil {
@@ -1886,7 +1933,7 @@ func (p *PrintVisitor) VisitWindowExpr(w *WindowExpr) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitWindowFrameClause(f *WindowFrameClause) error {
+func (p *PrintVisitor) VisitWindowFrameExpr(f *WindowFrameClause) error {
 	builder := p.builder
 	builder.WriteString(f.Type)
 	builder.WriteString(" ")
@@ -1895,10 +1942,12 @@ func (p *PrintVisitor) VisitWindowFrameClause(f *WindowFrameClause) error {
 }
 
 func (p *PrintVisitor) VisitWindowFrameCurrentRow(f *WindowFrameCurrentRow) error {
-	return "CURRENT ROW"
+	p.builder.WriteString("CURRENT ROW")
+	return nil
 }
+
 func (p *PrintVisitor) VisitWindowFrameExtendExpr(f *WindowFrameExtendExpr) error {
-	return f.Expr.String()
+	return f.Expr.Accept(p)
 }
 
 func (p *PrintVisitor) VisitWindowFrameNumber(f *WindowFrameNumber) error {
@@ -1908,9 +1957,13 @@ func (p *PrintVisitor) VisitWindowFrameNumber(f *WindowFrameNumber) error {
 	builder.WriteString(f.Direction)
 	return nil
 }
+
 func (p *PrintVisitor) VisitWindowFrameUnbounded(f *WindowFrameUnbounded) error {
-	return f.Direction + " UNBOUNDED"
+	p.builder.WriteString(f.Direction)
+	p.builder.WriteString(" UNBOUNDED")
+	return nil
 }
+
 func (p *PrintVisitor) VisitWindowFunctionExpr(w *WindowFunctionExpr) error {
 	builder := p.builder
 	builder.WriteString(w.Function.String())
@@ -1919,7 +1972,7 @@ func (p *PrintVisitor) VisitWindowFunctionExpr(w *WindowFunctionExpr) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitWithClause(w *WithClause) error {
+func (p *PrintVisitor) VisitWithExpr(w *WithClause) error {
 	builder := p.builder
 	builder.WriteString("WITH ")
 	for i, cte := range w.CTEs {
@@ -1931,9 +1984,13 @@ func (p *PrintVisitor) VisitWithClause(w *WithClause) error {
 	return nil
 }
 
-func (p *PrintVisitor) VisitWithTimeoutClause(w *WithTimeoutClause) error {
+func (p *PrintVisitor) VisitWithTimeoutExpr(w *WithTimeoutClause) error {
 	builder := p.builder
 	builder.WriteString("WITH TIMEOUT ")
 	builder.WriteString(w.Number.String())
 	return nil
 }
+
+func (p *PrintVisitor) enter(expr Expr) {}
+
+func (p *PrintVisitor) leave(expr Expr) {}

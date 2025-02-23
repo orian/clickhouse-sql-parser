@@ -2104,9 +2104,6 @@ func (visitor MyDefaultVisitor) VisitWithTimeoutExpr(w *WithTimeoutClause) error
 	return nil
 }
 
-func (visitor MyDefaultVisitor) enter(expr Expr) {
-}
+func (visitor MyDefaultVisitor) enter(expr Expr) {}
 
-func (visitor MyDefaultVisitor) leave(expr Expr) {
-
-}
+func (visitor MyDefaultVisitor) leave(expr Expr) {}
