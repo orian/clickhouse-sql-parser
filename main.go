@@ -65,7 +65,11 @@ func main() {
 		fmt.Println(string(bytes))
 	} else { // format SQL
 		for _, stmt := range stmts {
-			fmt.Println(stmt.String())
+			printer := clickhouse.NewPrintVisitor()
+			if err := stmt.Accept(printer); err != nil {
+				os.Exit(1)
+			}
+			fmt.Println(printer.String())
 		}
 	}
 }

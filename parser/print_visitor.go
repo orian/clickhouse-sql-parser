@@ -1,6 +1,8 @@
 package parser
 
-import "strings"
+import (
+	"strings"
+)
 
 type PrintVisitor struct {
 	DefaultVisitor
@@ -13,6 +15,10 @@ func NewPrintVisitor() *PrintVisitor {
 	}
 	v.self = v
 	return v
+}
+
+func (v *PrintVisitor) String() string {
+	return v.builder.String()
 }
 
 func (p *PrintVisitor) VisitAliasExpr(a *AliasExpr) error {
