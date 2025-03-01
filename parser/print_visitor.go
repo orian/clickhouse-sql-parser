@@ -1885,7 +1885,8 @@ func (p *PrintVisitor) VisitUUID(u *UUID) error {
 }
 
 func (p *PrintVisitor) VisitUnaryExpr(n *UnaryExpr) error {
-	p.builder.WriteString("-")
+	p.builder.WriteString(string(n.Kind))
+	p.builder.WriteByte(' ')
 	return n.Expr.Accept(p)
 }
 
