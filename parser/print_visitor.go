@@ -13,7 +13,7 @@ func NewPrintVisitor() *PrintVisitor {
 	v := &PrintVisitor{
 		builder: &strings.Builder{},
 	}
-	v.self = v
+	v.Self = v
 	return v
 }
 

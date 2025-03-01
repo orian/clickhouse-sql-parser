@@ -13,7 +13,7 @@ import (
 
 func TestVisitor_Identical(t *testing.T) {
 	visitor := &DefaultASTVisitor{}
-	visitor.self = visitor
+	visitor.Self = visitor
 
 	for _, dir := range []string{"./testdata/dml", "./testdata/ddl", "./testdata/query", "./testdata/basic"} {
 		outputDir := dir + "/format"
@@ -82,7 +82,7 @@ func (v *simpleRewriteVisitor) VisitOrderByExpr(expr *OrderExpr) error {
 
 func TestVisitor_SimpleRewrite(t *testing.T) {
 	visitor := &simpleRewriteVisitor{}
-	visitor.self = visitor
+	visitor.Self = visitor
 
 	sql := `SELECT a, COUNT(b) FROM group_by_all GROUP BY CUBE(a) WITH CUBE WITH TOTALS ORDER BY a;`
 	parser := NewParser(sql)
@@ -125,7 +125,7 @@ func (v *nestedRewriteVisitor) leave(expr Expr) {
 
 func TestVisitor_NestRewrite(t *testing.T) {
 	visitor := &nestedRewriteVisitor{}
-	visitor.self = visitor
+	visitor.Self = visitor
 
 	sql := `SELECT replica_name FROM system.ha_replicas UNION DISTINCT SELECT replica_name FROM system.ha_unique_replicas format JSON`
 	parser := NewParser(sql)

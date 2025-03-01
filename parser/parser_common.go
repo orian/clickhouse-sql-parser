@@ -278,7 +278,7 @@ func (p *Parser) parseLiteral(pos Pos) (Literal, error) {
 	}
 }
 
-func (p *Parser) ParseNestedIdentifier(pos Pos) (*NestedIdentifier, error) {
+func (p *Parser) ParseNestedIdentifier(_ Pos) (*NestedIdentifier, error) {
 	ident, err := p.parseIdent()
 	if err != nil {
 		return nil, err
