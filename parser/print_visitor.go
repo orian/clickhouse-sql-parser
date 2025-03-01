@@ -5,7 +5,7 @@ import (
 )
 
 type PrintVisitor struct {
-	DefaultVisitor
+	DefaultASTVisitor
 	builder *strings.Builder
 }
 

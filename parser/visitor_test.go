@@ -12,7 +12,8 @@ import (
 )
 
 func TestVisitor_Identical(t *testing.T) {
-	visitor := DeprecatedDefaultASTVisitor{}
+	visitor := &DefaultASTVisitor{}
+	visitor.self = visitor
 
 	for _, dir := range []string{"./testdata/dml", "./testdata/ddl", "./testdata/query", "./testdata/basic"} {
 		outputDir := dir + "/format"
@@ -37,7 +38,7 @@ func TestVisitor_Identical(t *testing.T) {
 				builder.WriteString("\n\n-- Format SQL:\n")
 				var formatSQLBuilder strings.Builder
 				for _, stmt := range stmts {
-					err := stmt.Accept(&visitor)
+					err := stmt.Accept(visitor)
 					require.NoError(t, err)
 
 					formatSQLBuilder.WriteString(stmt.String())
@@ -58,11 +59,11 @@ func TestVisitor_Identical(t *testing.T) {
 }
 
 type simpleRewriteVisitor struct {
-	DefaultVisitor
+	DefaultASTVisitor
 }
 
 func (v *simpleRewriteVisitor) VisitTableIdentifier(expr *TableIdentifier) error {
-	if err := v.DefaultVisitor.VisitTableIdentifier(expr); err != nil {
+	if err := v.DefaultASTVisitor.VisitTableIdentifier(expr); err != nil {
 		return err
 	}
 	if expr.Table.String() == "group_by_all" {
@@ -72,7 +73,7 @@ func (v *simpleRewriteVisitor) VisitTableIdentifier(expr *TableIdentifier) error
 }
 
 func (v *simpleRewriteVisitor) VisitOrderByExpr(expr *OrderExpr) error {
-	if err := v.DefaultVisitor.VisitOrderByExpr(expr); err != nil {
+	if err := v.DefaultASTVisitor.VisitOrderByExpr(expr); err != nil {
 		return err
 	}
 	expr.Direction = OrderDirectionDesc
@@ -101,7 +102,7 @@ func TestVisitor_SimpleRewrite(t *testing.T) {
 }
 
 type nestedRewriteVisitor struct {
-	DefaultVisitor
+	DefaultASTVisitor
 	stack []Expr
 }
 
