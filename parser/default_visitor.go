@@ -35,6 +35,13 @@ func (visitor DefaultASTVisitor) VisitAlterRole(a *AlterRole) error {
 func (visitor DefaultASTVisitor) VisitAlterTable(a *AlterTable) error {
 	visitor.enter(a)
 	defer visitor.leave(a)
+
+	if a.TableIdentifier != nil {
+		if err := a.TableIdentifier.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+
 	if a.OnCluster != nil {
 		if err := a.OnCluster.Accept(visitor.Self); err != nil {
 			return err
@@ -703,6 +710,11 @@ func (visitor DefaultASTVisitor) VisitCreateRole(c *CreateRole) error {
 func (visitor DefaultASTVisitor) VisitCreateTable(c *CreateTable) error {
 	visitor.enter(c)
 	defer visitor.leave(c)
+	if c.Name != nil {
+		if err := c.Name.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if c.UUID != nil {
 		if err := c.UUID.Accept(visitor.Self); err != nil {
 			return err
