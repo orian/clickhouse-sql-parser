@@ -1809,6 +1809,64 @@ func (visitor DefaultASTVisitor) VisitTTLExpr(t *TTLExpr) error {
 	if err := t.Expr.Accept(visitor.Self); err != nil {
 		return err
 	}
+	if t.Policy != nil {
+		if err := t.Policy.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitTTLPolicy(t *TTLPolicy) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	if t.Item != nil {
+		if err := t.Item.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if t.Where != nil {
+		if err := t.Where.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if t.GroupBy != nil {
+		if err := t.GroupBy.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitTTLPolicyRule(t *TTLPolicyRule) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	if t.ToVolume != nil {
+		if err := t.ToVolume.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if t.ToDisk != nil {
+		if err := t.ToDisk.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if t.Action != nil {
+		if err := t.Action.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitTTLPolicyItemAction(t *TTLPolicyRuleAction) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	if t.Codec != nil {
+		if err := t.Codec.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (visitor DefaultASTVisitor) VisitTableArgListExpr(t *TableArgListExpr) error {

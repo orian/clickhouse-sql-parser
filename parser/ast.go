@@ -7,7 +7,7 @@ import (
 type OrderDirection string
 
 const (
-	OrderDirectionNone OrderDirection = "None"
+	OrderDirectionNone OrderDirection = ""
 	OrderDirectionAsc  OrderDirection = "ASC"
 	OrderDirectionDesc OrderDirection = "DESC"
 )
@@ -2275,9 +2275,134 @@ func (s *SampleByClause) Accept(visitor ASTVisitor) error {
 	return visitor.VisitSampleByExpr(s)
 }
 
+type TTLPolicyRuleAction struct {
+	ActionPos Pos
+	ActionEnd Pos
+	Action    string
+	Codec     *CompressionCodec
+}
+
+func (t *TTLPolicyRuleAction) Pos() Pos {
+	return t.ActionPos
+}
+
+func (t *TTLPolicyRuleAction) End() Pos {
+	if t.Codec != nil {
+		return t.Codec.End()
+	}
+	return t.ActionEnd
+}
+
+func (t *TTLPolicyRuleAction) String() string {
+	var builder strings.Builder
+	builder.WriteString(t.Action)
+	if t.Codec != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.Codec.String())
+	}
+	return builder.String()
+}
+
+func (t *TTLPolicyRuleAction) Accept(visitor ASTVisitor) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	return visitor.VisitTTLPolicyItemAction(t)
+}
+
+type TTLPolicyRule struct {
+	RulePos  Pos
+	ToVolume *StringLiteral
+	ToDisk   *StringLiteral
+	Action   *TTLPolicyRuleAction
+}
+
+func (t *TTLPolicyRule) Pos() Pos {
+	return t.RulePos
+}
+
+func (t *TTLPolicyRule) End() Pos {
+	if t.Action != nil {
+		return t.Action.End()
+	}
+	if t.ToDisk != nil {
+		return t.ToDisk.LiteralEnd
+	}
+	return t.ToVolume.LiteralEnd
+}
+
+func (t *TTLPolicyRule) String() string {
+	var builder strings.Builder
+	if t.ToVolume != nil {
+		builder.WriteString("TO VOLUME ")
+		builder.WriteString(t.ToVolume.String())
+	} else if t.ToDisk != nil {
+		builder.WriteString("TO DISK ")
+		builder.WriteString(t.ToDisk.String())
+	} else if t.Action != nil {
+		builder.WriteString(t.Action.String())
+	}
+	return builder.String()
+}
+
+func (t *TTLPolicyRule) Accept(visitor ASTVisitor) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	return visitor.VisitTTLPolicyRule(t)
+}
+
+type TTLPolicy struct {
+	Item    *TTLPolicyRule
+	Where   *WhereClause
+	GroupBy *GroupByClause
+}
+
+func (t *TTLPolicy) Pos() Pos {
+	if t.Item != nil {
+		return t.Item.Pos()
+	}
+	if t.Where != nil {
+		return t.Where.Pos()
+	}
+	return t.GroupBy.Pos()
+}
+
+func (t *TTLPolicy) End() Pos {
+	if t.GroupBy != nil {
+		return t.GroupBy.End()
+	}
+	if t.Where != nil {
+		return t.Where.End()
+	}
+	return t.Item.End()
+}
+
+func (t *TTLPolicy) String() string {
+	var builder strings.Builder
+
+	if t.Item != nil {
+		builder.WriteString(t.Item.String())
+	}
+	if t.Where != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.Where.String())
+	}
+	if t.GroupBy != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.GroupBy.String())
+	}
+	return builder.String()
+}
+
+func (t *TTLPolicy) Accept(visitor ASTVisitor) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	return visitor.VisitTTLPolicy(t)
+}
+
 type TTLExpr struct {
 	TTLPos Pos
 	Expr   Expr
+	Policy *TTLPolicy
 }
 
 func (t *TTLExpr) Pos() Pos {
@@ -2291,13 +2416,16 @@ func (t *TTLExpr) End() Pos {
 func (t *TTLExpr) String() string {
 	var builder strings.Builder
 	builder.WriteString(t.Expr.String())
+	if t.Policy != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.Policy.String())
+	}
 	return builder.String()
 }
 
 func (t *TTLExpr) Accept(visitor ASTVisitor) error {
 	visitor.enter(t)
 	defer visitor.leave(t)
-
 	return visitor.VisitTTLExpr(t)
 }
 

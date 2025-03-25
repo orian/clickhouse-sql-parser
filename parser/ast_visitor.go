@@ -61,6 +61,9 @@ type ASTVisitor interface {
 	VisitSampleByExpr(expr *SampleByClause) error
 	VisitTTLExpr(expr *TTLExpr) error
 	VisitTTLExprList(expr *TTLClause) error
+	VisitTTLPolicy(expr *TTLPolicy) error
+	VisitTTLPolicyRule(expr *TTLPolicyRule) error
+	VisitTTLPolicyItemAction(expr *TTLPolicyRuleAction) error
 	VisitOrderByExpr(expr *OrderExpr) error
 	VisitOrderByListExpr(expr *OrderByClause) error
 	VisitSettingsExpr(expr *SettingExprList) error

@@ -1725,6 +1725,25 @@ func (p *PrintVisitor) VisitTTLExprList(t *TTLClause) error {
 func (p *PrintVisitor) VisitTTLExpr(t *TTLExpr) error {
 	builder := p.builder
 	builder.WriteString(t.Expr.String())
+	if t.Policy != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.Policy.String())
+	}
+	return nil
+}
+
+func (p *PrintVisitor) VisitTTLPolicy(t *TTLPolicy) error {
+	p.builder.WriteString(t.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitTTLPolicyRule(t *TTLPolicyRule) error {
+	p.builder.WriteString(t.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitTTLPolicyItemAction(t *TTLPolicyRuleAction) error {
+	p.builder.WriteString(t.String())
 	return nil
 }
 func (p *PrintVisitor) VisitTableArgListExpr(t *TableArgListExpr) error {
