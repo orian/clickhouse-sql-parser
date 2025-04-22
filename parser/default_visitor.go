@@ -1004,8 +1004,10 @@ func (visitor DefaultASTVisitor) VisitGrantPrivilegeExpr(g *GrantPrivilegeStmt) 
 func (visitor DefaultASTVisitor) VisitGroupByExpr(g *GroupByClause) error {
 	visitor.enter(g)
 	defer visitor.leave(g)
-	if err := g.Expr.Accept(visitor.Self); err != nil {
-		return err
+	if g.Expr != nil {
+		if err := g.Expr.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	return nil
 }

@@ -710,6 +710,9 @@ func (p *PrintVisitor) VisitCreateRole(c *CreateRole) error {
 func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 	builder := p.builder
 	builder.WriteString("CREATE")
+	if c.OrReplace {
+		builder.WriteString(" OR REPLACE")
+	}
 	if c.HasTemporary {
 		builder.WriteString(" TEMPORARY")
 	}
@@ -746,7 +749,11 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 
 func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 	builder := p.builder
-	builder.WriteString("CREATE VIEW ")
+	builder.WriteString("CREATE")
+	if c.OrReplace {
+		builder.WriteString(" OR REPLACE")
+	}
+	builder.WriteString(" VIEW ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
