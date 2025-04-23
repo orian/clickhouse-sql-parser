@@ -486,6 +486,11 @@ func (p *PrintVisitor) VisitColumnExpr(c *ColumnExpr) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitTypedPlaceholder(t *TypedPlaceholder) error {
+	p.builder.WriteString(t.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitColumnExprList(c *ColumnExprList) error {
 	builder := p.builder
 	if c.HasDistinct {

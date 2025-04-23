@@ -486,6 +486,18 @@ func (visitor DefaultASTVisitor) VisitColumnExpr(c *ColumnExpr) error {
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitTypedPlaceholder(t *TypedPlaceholder) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	if err := t.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := t.Type.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitColumnExprList(c *ColumnExprList) error {
 	visitor.enter(c)
 	defer visitor.leave(c)

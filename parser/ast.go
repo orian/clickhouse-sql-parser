@@ -2827,6 +2827,37 @@ func (w *WindowFunctionExpr) Accept(visitor ASTVisitor) error {
 	return visitor.VisitWindowFunctionExpr(w)
 }
 
+type TypedPlaceholder struct {
+	LeftBracePos  Pos
+	RightBracePos Pos
+	Name          *Ident
+	Type          ColumnType
+}
+
+func (t *TypedPlaceholder) Pos() Pos {
+	return t.LeftBracePos
+}
+
+func (t *TypedPlaceholder) End() Pos {
+	return t.RightBracePos
+}
+
+func (t *TypedPlaceholder) String() string {
+	var builder strings.Builder
+	builder.WriteString("{")
+	builder.WriteString(t.Name.String())
+	builder.WriteByte(':')
+	builder.WriteString(t.Type.String())
+	builder.WriteString("}")
+	return builder.String()
+}
+
+func (t *TypedPlaceholder) Accept(visitor ASTVisitor) error {
+	visitor.enter(t)
+	defer visitor.leave(t)
+	return visitor.VisitTypedPlaceholder(t)
+}
+
 type ColumnExpr struct {
 	Expr  Expr
 	Alias *Ident

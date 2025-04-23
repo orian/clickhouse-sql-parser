@@ -77,6 +77,7 @@ type ASTVisitor interface {
 	VisitWindowFunctionExpr(expr *WindowFunctionExpr) error
 	VisitColumnDef(expr *ColumnDef) error
 	VisitColumnExpr(expr *ColumnExpr) error
+	VisitTypedPlaceholder(expr *TypedPlaceholder) error
 	VisitScalarType(expr *ScalarType) error
 	VisitJSONType(expr *JSONType) error
 	VisitPropertyType(expr *PropertyType) error
