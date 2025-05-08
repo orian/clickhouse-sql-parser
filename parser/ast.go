@@ -1387,7 +1387,6 @@ func (c *CreateTable) String() string {
 func (c *CreateTable) Accept(visitor ASTVisitor) error {
 	visitor.enter(c)
 	defer visitor.leave(c)
-
 	return visitor.VisitCreateTable(c)
 }
 
