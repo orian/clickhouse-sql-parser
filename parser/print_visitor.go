@@ -656,6 +656,30 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 		builder.WriteString(" ")
 		builder.WriteString(c.OnCluster.String())
 	}
+	if c.Refresh != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Refresh.String())
+	}
+	if c.RandomizeFor != nil {
+		builder.WriteString(" RANDOMIZE FOR ")
+		builder.WriteString(c.RandomizeFor.String())
+	}
+	if c.DependsOn != nil {
+		builder.WriteString(" DEPENDS ON ")
+		for i, dep := range c.DependsOn {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(dep.String())
+		}
+	}
+	if c.Settings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Settings.String())
+	}
+	if c.HasAppend {
+		builder.WriteString(" APPEND")
+	}
 	if c.Engine != nil {
 		builder.WriteString(c.Engine.String())
 	}
@@ -666,6 +690,9 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 			builder.WriteString(" ")
 			builder.WriteString(c.Destination.TableSchema.String())
 		}
+	}
+	if c.HasEmpty {
+		builder.WriteString(" EMPTY")
 	}
 	if c.Populate {
 		builder.WriteString(" POPULATE ")
@@ -679,6 +706,11 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
 	}
+	return nil
+}
+
+func (p *PrintVisitor) VisitRefreshExpr(r *RefreshExpr) error {
+	p.builder.WriteString(r.String())
 	return nil
 }
 

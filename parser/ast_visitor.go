@@ -64,6 +64,7 @@ type ASTVisitor interface {
 	VisitTTLPolicy(expr *TTLPolicy) error
 	VisitTTLPolicyRule(expr *TTLPolicyRule) error
 	VisitTTLPolicyItemAction(expr *TTLPolicyRuleAction) error
+	VisitRefreshExpr(expr *RefreshExpr) error
 	VisitOrderByExpr(expr *OrderExpr) error
 	VisitOrderByListExpr(expr *OrderByClause) error
 	VisitSettingsExpr(expr *SettingExprList) error

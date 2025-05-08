@@ -491,6 +491,22 @@ func (visitor DefaultASTVisitor) VisitColumnExpr(c *ColumnExpr) error {
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitRefreshExpr(r *RefreshExpr) error {
+	visitor.enter(r)
+	defer visitor.leave(r)
+	if r.Interval != nil {
+		if err := r.Interval.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if r.Offset != nil {
+		if err := r.Offset.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitTypedPlaceholder(t *TypedPlaceholder) error {
 	visitor.enter(t)
 	defer visitor.leave(t)
@@ -678,6 +694,26 @@ func (visitor DefaultASTVisitor) VisitCreateMaterializedView(c *CreateMaterializ
 	}
 	if c.OnCluster != nil {
 		if err := c.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Refresh != nil {
+		if err := c.Refresh.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.RandomizeFor != nil {
+		if err := c.RandomizeFor.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, dep := range c.DependsOn {
+		if err := dep.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Settings != nil {
+		if err := c.Settings.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}

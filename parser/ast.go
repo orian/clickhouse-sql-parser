@@ -1396,7 +1396,13 @@ type CreateMaterializedView struct {
 	Name         *TableIdentifier
 	IfNotExists  bool
 	OnCluster    *ClusterClause
+	Refresh      *RefreshExpr
+	RandomizeFor *IntervalExpr
+	DependsOn    []*TableIdentifier
+	Settings     *SettingsClause
+	HasAppend    bool
 	Engine       *EngineExpr
+	HasEmpty     bool
 	Destination  *DestinationClause
 	SubQuery     *SubQuery
 	Populate     bool
@@ -1426,6 +1432,30 @@ func (c *CreateMaterializedView) String() string {
 		builder.WriteString(" ")
 		builder.WriteString(c.OnCluster.String())
 	}
+	if c.Refresh != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Refresh.String())
+	}
+	if c.RandomizeFor != nil {
+		builder.WriteString(" RANDOMIZE FOR ")
+		builder.WriteString(c.RandomizeFor.String())
+	}
+	if c.DependsOn != nil {
+		builder.WriteString(" DEPENDS ON ")
+		for i, dep := range c.DependsOn {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(dep.String())
+		}
+	}
+	if c.Settings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Settings.String())
+	}
+	if c.HasAppend {
+		builder.WriteString(" APPEND")
+	}
 	if c.Engine != nil {
 		builder.WriteString(c.Engine.String())
 	}
@@ -1436,6 +1466,9 @@ func (c *CreateMaterializedView) String() string {
 			builder.WriteString(" ")
 			builder.WriteString(c.Destination.TableSchema.String())
 		}
+	}
+	if c.HasEmpty {
+		builder.WriteString(" EMPTY")
 	}
 	if c.Populate {
 		builder.WriteString(" POPULATE ")
@@ -1455,7 +1488,6 @@ func (c *CreateMaterializedView) String() string {
 func (c *CreateMaterializedView) Accept(visitor ASTVisitor) error {
 	visitor.enter(c)
 	defer visitor.leave(c)
-
 	return visitor.VisitCreateMaterializedView(c)
 }
 
@@ -2315,6 +2347,45 @@ func (t *TTLPolicyRuleAction) Accept(visitor ASTVisitor) error {
 	visitor.enter(t)
 	defer visitor.leave(t)
 	return visitor.VisitTTLPolicyItemAction(t)
+}
+
+type RefreshExpr struct {
+	RefreshPos Pos
+	Frequency  string // EVERY|AFTER
+	Interval   *IntervalExpr
+	Offset     *IntervalExpr
+}
+
+func (r *RefreshExpr) Pos() Pos {
+	return r.RefreshPos
+}
+
+func (r *RefreshExpr) End() Pos {
+	if r.Offset != nil {
+		return r.Offset.End()
+	}
+	return r.Interval.End()
+}
+
+func (r *RefreshExpr) String() string {
+	var builder strings.Builder
+	builder.WriteString("REFRESH ")
+	builder.WriteString(r.Frequency)
+	if r.Interval != nil {
+		builder.WriteString(" ")
+		builder.WriteString(r.Interval.String())
+	}
+	if r.Offset != nil {
+		builder.WriteString(" OFFSET ")
+		builder.WriteString(r.Offset.String())
+	}
+	return builder.String()
+}
+
+func (r *RefreshExpr) Accept(visitor ASTVisitor) error {
+	visitor.enter(r)
+	defer visitor.leave(r)
+	return visitor.VisitRefreshExpr(r)
 }
 
 type TTLPolicyRule struct {
@@ -3467,13 +3538,18 @@ func (e *EnumType) Type() string {
 }
 
 type IntervalExpr struct {
+	// INTERVAL keyword position which might be omitted(IntervalPos = 0)
 	IntervalPos Pos
-	Expr        Expr
-	Unit        *Ident
+
+	Expr Expr
+	Unit *Ident
 }
 
 func (i *IntervalExpr) Pos() Pos {
-	return i.IntervalPos
+	if i.IntervalPos != 0 {
+		return i.IntervalPos
+	}
+	return i.Expr.Pos()
 }
 
 func (i *IntervalExpr) End() Pos {
@@ -3482,7 +3558,9 @@ func (i *IntervalExpr) End() Pos {
 
 func (i *IntervalExpr) String() string {
 	var builder strings.Builder
-	builder.WriteString("INTERVAL ")
+	if i.IntervalPos != 0 {
+		builder.WriteString("INTERVAL ")
+	}
 	builder.WriteString(i.Expr.String())
 	builder.WriteByte(' ')
 	builder.WriteString(i.Unit.String())
