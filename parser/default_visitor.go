@@ -323,6 +323,11 @@ func (visitor DefaultASTVisitor) VisitValuesExpr(v *AssignmentValues) error {
 func (visitor DefaultASTVisitor) VisitBetweenClause(f *BetweenClause) error {
 	visitor.enter(f)
 	defer visitor.leave(f)
+	if f.Expr != nil {
+		if err := f.Expr.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if err := f.Between.Accept(visitor.Self); err != nil {
 		return err
 	}

@@ -4585,7 +4585,6 @@ func (f *BetweenClause) String() string {
 func (f *BetweenClause) Accept(visitor ASTVisitor) error {
 	visitor.enter(f)
 	defer visitor.leave(f)
-
 	return visitor.VisitBetweenClause(f)
 }
 
