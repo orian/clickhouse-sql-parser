@@ -1407,6 +1407,8 @@ type CreateMaterializedView struct {
 	SubQuery     *SubQuery
 	Populate     bool
 	Comment      *StringLiteral
+	Definer      *Ident
+	SQLSecurity  string
 }
 
 func (c *CreateMaterializedView) Pos() Pos {
@@ -1470,14 +1472,21 @@ func (c *CreateMaterializedView) String() string {
 	if c.HasEmpty {
 		builder.WriteString(" EMPTY")
 	}
+	if c.Definer != nil {
+		builder.WriteString(" DEFINER = ")
+		builder.WriteString(c.Definer.String())
+	}
+	if c.SQLSecurity != "" {
+		builder.WriteString(" SQL SECURITY ")
+		builder.WriteString(c.SQLSecurity)
+	}
 	if c.Populate {
-		builder.WriteString(" POPULATE ")
+		builder.WriteString(" POPULATE")
 	}
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
 		builder.WriteString(c.SubQuery.String())
 	}
-
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())

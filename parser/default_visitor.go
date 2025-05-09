@@ -737,6 +737,16 @@ func (visitor DefaultASTVisitor) VisitCreateMaterializedView(c *CreateMaterializ
 			return err
 		}
 	}
+	if c.Definer != nil {
+		if err := c.Definer.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Comment != nil {
+		if err := c.Comment.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
