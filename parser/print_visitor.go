@@ -275,6 +275,11 @@ func (p *PrintVisitor) VisitAlterTableModifyColumn(a *AlterTableModifyColumn) er
 	}
 	return nil
 }
+func (p *PrintVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQuery) error {
+	p.builder.WriteString(a.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitAlterTableModifyTTL(a *AlterTableModifyTTL) error {
 	builder := p.builder
 	builder.WriteString("MODIFY ")

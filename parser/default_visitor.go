@@ -250,6 +250,15 @@ func (visitor DefaultASTVisitor) VisitAlterTableModifyColumn(a *AlterTableModify
 	}
 	return nil
 }
+func (visitor DefaultASTVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQuery) error {
+	visitor.enter(a)
+	defer visitor.leave(a)
+	if err := a.SelectExpr.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitAlterTableModifyTTL(a *AlterTableModifyTTL) error {
 	visitor.enter(a)
 	defer visitor.leave(a)

@@ -27,6 +27,7 @@ type ASTVisitor interface {
 	VisitAlterTableMaterializeProjection(expr *AlterTableMaterializeProjection) error
 	VisitAlterTableRenameColumn(expr *AlterTableRenameColumn) error
 	VisitAlterTableModifyTTL(expr *AlterTableModifyTTL) error
+	VisitAlterTableModifyQuery(expr *AlterTableModifyQuery) error
 	VisitAlterTableModifyColumn(expr *AlterTableModifyColumn) error
 	VisitAlterTableReplacePartition(expr *AlterTableReplacePartition) error
 	VisitRemovePropertyType(expr *RemovePropertyType) error
