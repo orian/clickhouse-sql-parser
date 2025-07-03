@@ -764,6 +764,106 @@ func (visitor DefaultASTVisitor) VisitCreateMaterializedView(c *CreateMaterializ
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitAuthenticationClause(a *AuthenticationClause) error {
+	visitor.Enter(a)
+	defer visitor.Leave(a)
+	if a.AuthValue != nil {
+		if err := a.AuthValue.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if a.LdapServer != nil {
+		if err := a.LdapServer.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if a.KerberosRealm != nil {
+		if err := a.KerberosRealm.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitHostClause(h *HostClause) error {
+	visitor.Enter(h)
+	defer visitor.Leave(h)
+	if h.HostValue != nil {
+		if err := h.HostValue.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDefaultRoleClause(d *DefaultRoleClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	for _, role := range d.Roles {
+		if err := role.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitGranteesClause(g *GranteesClause) error {
+	visitor.Enter(g)
+	defer visitor.Leave(g)
+	for _, grantee := range g.Grantees {
+		if err := grantee.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, except := range g.ExceptUsers {
+		if err := except.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitCreateUser(c *CreateUser) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	for _, userName := range c.UserNames {
+		if err := userName.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Authentication != nil {
+		if err := c.Authentication.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, host := range c.Hosts {
+		if err := host.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.DefaultRole != nil {
+		if err := c.DefaultRole.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.DefaultDatabase != nil {
+		if err := c.DefaultDatabase.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Grantees != nil {
+		if err := c.Grantees.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, setting := range c.Settings {
+		if err := setting.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitCreateRole(c *CreateRole) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)

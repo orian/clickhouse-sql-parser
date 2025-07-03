@@ -43,6 +43,11 @@ type ASTVisitor interface {
 	VisitSettingPair(expr *SettingPair) error
 	VisitRoleSetting(expr *RoleSetting) error
 	VisitCreateRole(expr *CreateRole) error
+	VisitCreateUser(expr *CreateUser) error
+	VisitAuthenticationClause(expr *AuthenticationClause) error
+	VisitHostClause(expr *HostClause) error
+	VisitDefaultRoleClause(expr *DefaultRoleClause) error
+	VisitGranteesClause(expr *GranteesClause) error
 	VisitAlterRole(expr *AlterRole) error
 	VisitRoleRenamePair(expr *RoleRenamePair) error
 	VisitDestinationExpr(expr *DestinationClause) error

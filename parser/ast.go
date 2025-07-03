@@ -1830,6 +1830,266 @@ func (c *CreateRole) Accept(visitor ASTVisitor) error {
 	return visitor.VisitCreateRole(c)
 }
 
+type AuthenticationClause struct {
+	AuthPos       Pos
+	AuthEnd       Pos
+	NotIdentified bool
+	AuthType      string // "no_password", "plaintext_password", "sha256_password", etc.
+	AuthValue     *StringLiteral
+	LdapServer    *StringLiteral
+	KerberosRealm *StringLiteral
+	IsKerberos    bool
+}
+
+func (a *AuthenticationClause) Pos() Pos {
+	return a.AuthPos
+}
+
+func (a *AuthenticationClause) End() Pos {
+	return a.AuthEnd
+}
+
+func (a *AuthenticationClause) String() string {
+	var builder strings.Builder
+	if a.NotIdentified {
+		builder.WriteString("NOT IDENTIFIED")
+		return builder.String()
+	}
+	builder.WriteString("IDENTIFIED")
+	if a.AuthType != "" {
+		builder.WriteString(" WITH ")
+		builder.WriteString(a.AuthType)
+	}
+	if a.AuthValue != nil {
+		builder.WriteString(" BY ")
+		builder.WriteString(a.AuthValue.String())
+	}
+	if a.LdapServer != nil {
+		builder.WriteString(" WITH ldap SERVER ")
+		builder.WriteString(a.LdapServer.String())
+	}
+	if a.IsKerberos {
+		builder.WriteString(" WITH kerberos")
+		if a.KerberosRealm != nil && a.KerberosRealm.Literal != "" {
+			builder.WriteString(" REALM ")
+			builder.WriteString(a.KerberosRealm.String())
+		}
+	}
+	return builder.String()
+}
+
+func (a *AuthenticationClause) Accept(visitor ASTVisitor) error {
+	visitor.Enter(a)
+	defer visitor.Leave(a)
+	return visitor.VisitAuthenticationClause(a)
+}
+
+type HostClause struct {
+	HostPos   Pos
+	HostEnd   Pos
+	HostType  string // "LOCAL", "NAME", "REGEXP", "IP", "LIKE", "ANY", "NONE"
+	HostValue *StringLiteral
+}
+
+func (h *HostClause) Pos() Pos {
+	return h.HostPos
+}
+
+func (h *HostClause) End() Pos {
+	return h.HostEnd
+}
+
+func (h *HostClause) String() string {
+	var builder strings.Builder
+	builder.WriteString("HOST ")
+	builder.WriteString(h.HostType)
+	if h.HostValue != nil {
+		builder.WriteString(" ")
+		builder.WriteString(h.HostValue.String())
+	}
+	return builder.String()
+}
+
+func (h *HostClause) Accept(visitor ASTVisitor) error {
+	visitor.Enter(h)
+	defer visitor.Leave(h)
+	return visitor.VisitHostClause(h)
+}
+
+type DefaultRoleClause struct {
+	DefaultPos Pos
+	DefaultEnd Pos
+	Roles      []*RoleName
+	None       bool
+}
+
+func (d *DefaultRoleClause) Pos() Pos {
+	return d.DefaultPos
+}
+
+func (d *DefaultRoleClause) End() Pos {
+	return d.DefaultEnd
+}
+
+func (d *DefaultRoleClause) String() string {
+	var builder strings.Builder
+	builder.WriteString("DEFAULT ROLE ")
+	if d.None {
+		builder.WriteString("NONE")
+	} else {
+		for i, role := range d.Roles {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(role.String())
+		}
+	}
+	return builder.String()
+}
+
+func (d *DefaultRoleClause) Accept(visitor ASTVisitor) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	return visitor.VisitDefaultRoleClause(d)
+}
+
+type GranteesClause struct {
+	GranteesPos Pos
+	GranteesEnd Pos
+	Grantees    []*RoleName
+	ExceptUsers []*RoleName
+	Any         bool
+	None        bool
+}
+
+func (g *GranteesClause) Pos() Pos {
+	return g.GranteesPos
+}
+
+func (g *GranteesClause) End() Pos {
+	return g.GranteesEnd
+}
+
+func (g *GranteesClause) String() string {
+	var builder strings.Builder
+	builder.WriteString("GRANTEES ")
+	if g.Any {
+		builder.WriteString("ANY")
+	} else if g.None {
+		builder.WriteString("NONE")
+	} else {
+		for i, grantee := range g.Grantees {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(grantee.String())
+		}
+	}
+	if len(g.ExceptUsers) > 0 {
+		builder.WriteString(" EXCEPT ")
+		for i, except := range g.ExceptUsers {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(except.String())
+		}
+	}
+	return builder.String()
+}
+
+func (g *GranteesClause) Accept(visitor ASTVisitor) error {
+	visitor.Enter(g)
+	defer visitor.Leave(g)
+	return visitor.VisitGranteesClause(g)
+}
+
+type CreateUser struct {
+	CreatePos       Pos
+	StatementEnd    Pos
+	IfNotExists     bool
+	OrReplace       bool
+	UserNames       []*RoleName
+	Authentication  *AuthenticationClause
+	Hosts           []*HostClause
+	DefaultRole     *DefaultRoleClause
+	DefaultDatabase *Ident
+	DefaultDbNone   bool
+	Grantees        *GranteesClause
+	Settings        []*RoleSetting
+}
+
+func (c *CreateUser) Pos() Pos {
+	return c.CreatePos
+}
+
+func (c *CreateUser) End() Pos {
+	return c.StatementEnd
+}
+
+func (c *CreateUser) Type() string {
+	return "USER"
+}
+
+func (c *CreateUser) String() string {
+	var builder strings.Builder
+	builder.WriteString("CREATE USER ")
+	if c.IfNotExists {
+		builder.WriteString("IF NOT EXISTS ")
+	}
+	if c.OrReplace {
+		builder.WriteString("OR REPLACE ")
+	}
+	for i, userName := range c.UserNames {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(userName.String())
+	}
+	if c.Authentication != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Authentication.String())
+	}
+	if len(c.Hosts) > 0 {
+		builder.WriteString(" ")
+		for i, host := range c.Hosts {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(host.String())
+		}
+	}
+	if c.DefaultRole != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.DefaultRole.String())
+	}
+	if c.DefaultDatabase != nil {
+		builder.WriteString(" DEFAULT DATABASE ")
+		builder.WriteString(c.DefaultDatabase.String())
+	} else if c.DefaultDbNone {
+		builder.WriteString(" DEFAULT DATABASE NONE")
+	}
+	if c.Grantees != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Grantees.String())
+	}
+	if len(c.Settings) > 0 {
+		builder.WriteString(" SETTINGS ")
+		for i, setting := range c.Settings {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(setting.String())
+		}
+	}
+	return builder.String()
+}
+
+func (c *CreateUser) Accept(visitor ASTVisitor) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	return visitor.VisitCreateUser(c)
+}
+
 type AlterRole struct {
 	AlterPos        Pos
 	StatementEnd    Pos

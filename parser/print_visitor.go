@@ -734,6 +734,31 @@ func (p *PrintVisitor) VisitRefreshExpr(r *RefreshExpr) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitAuthenticationClause(a *AuthenticationClause) error {
+	p.builder.WriteString(a.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitHostClause(h *HostClause) error {
+	p.builder.WriteString(h.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDefaultRoleClause(d *DefaultRoleClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitGranteesClause(g *GranteesClause) error {
+	p.builder.WriteString(g.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitCreateUser(c *CreateUser) error {
+	p.builder.WriteString(c.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitCreateRole(c *CreateRole) error {
 	builder := p.builder
 	builder.WriteString("CREATE ROLE ")
