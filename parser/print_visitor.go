@@ -734,6 +734,81 @@ func (p *PrintVisitor) VisitRefreshExpr(r *RefreshExpr) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitCreateDictionary(c *CreateDictionary) error {
+	builder := p.builder
+	builder.WriteString("CREATE")
+	if c.OrReplace {
+		builder.WriteString(" OR REPLACE")
+	}
+	builder.WriteString(" DICTIONARY ")
+	if c.IfNotExists {
+		builder.WriteString("IF NOT EXISTS ")
+	}
+	builder.WriteString(c.Name.String())
+	if c.UUID != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.UUID.String())
+	}
+	if c.OnCluster != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.OnCluster.String())
+	}
+	if c.Schema != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Schema.String())
+	}
+	if c.Engine != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Engine.String())
+	}
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionarySchemaClause(d *DictionarySchemaClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionaryAttribute(d *DictionaryAttribute) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionaryEngineClause(d *DictionaryEngineClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionaryPrimaryKeyClause(d *DictionaryPrimaryKeyClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionarySourceClause(d *DictionarySourceClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionaryArgExpr(d *DictionaryArgExpr) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionaryLifetimeClause(d *DictionaryLifetimeClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionaryLayoutClause(d *DictionaryLayoutClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDictionaryRangeClause(d *DictionaryRangeClause) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitAuthenticationClause(a *AuthenticationClause) error {
 	p.builder.WriteString(a.String())
 	return nil

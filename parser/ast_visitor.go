@@ -108,6 +108,16 @@ type ASTVisitor interface {
 	VisitWithExpr(expr *WithClause) error
 	VisitTopExpr(expr *TopClause) error
 	VisitCreateLiveView(expr *CreateLiveView) error
+	VisitCreateDictionary(expr *CreateDictionary) error
+	VisitDictionarySchemaClause(expr *DictionarySchemaClause) error
+	VisitDictionaryAttribute(expr *DictionaryAttribute) error
+	VisitDictionaryEngineClause(expr *DictionaryEngineClause) error
+	VisitDictionaryPrimaryKeyClause(expr *DictionaryPrimaryKeyClause) error
+	VisitDictionarySourceClause(expr *DictionarySourceClause) error
+	VisitDictionaryArgExpr(expr *DictionaryArgExpr) error
+	VisitDictionaryLifetimeClause(expr *DictionaryLifetimeClause) error
+	VisitDictionaryLayoutClause(expr *DictionaryLayoutClause) error
+	VisitDictionaryRangeClause(expr *DictionaryRangeClause) error
 	VisitWithTimeoutExpr(expr *WithTimeoutClause) error
 	VisitTableExpr(expr *TableExpr) error
 	VisitOnExpr(expr *OnClause) error

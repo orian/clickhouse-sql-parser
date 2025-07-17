@@ -864,6 +864,186 @@ func (visitor DefaultASTVisitor) VisitCreateUser(c *CreateUser) error {
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitCreateDictionary(c *CreateDictionary) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	if err := c.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if c.UUID != nil {
+		if err := c.UUID.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.OnCluster != nil {
+		if err := c.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Schema != nil {
+		if err := c.Schema.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Engine != nil {
+		if err := c.Engine.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionarySchemaClause(d *DictionarySchemaClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	for _, attr := range d.Attributes {
+		if err := attr.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionaryAttribute(d *DictionaryAttribute) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := d.Type.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if d.Default != nil {
+		if err := d.Default.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Expression != nil {
+		if err := d.Expression.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionaryEngineClause(d *DictionaryEngineClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if d.PrimaryKey != nil {
+		if err := d.PrimaryKey.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Source != nil {
+		if err := d.Source.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Lifetime != nil {
+		if err := d.Lifetime.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Layout != nil {
+		if err := d.Layout.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Range != nil {
+		if err := d.Range.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Settings != nil {
+		if err := d.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionaryPrimaryKeyClause(d *DictionaryPrimaryKeyClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Keys.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionarySourceClause(d *DictionarySourceClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Source.Accept(visitor.Self); err != nil {
+		return err
+	}
+	for _, arg := range d.Args {
+		if err := arg.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionaryArgExpr(d *DictionaryArgExpr) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := d.Value.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionaryLifetimeClause(d *DictionaryLifetimeClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if d.Value != nil {
+		if err := d.Value.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Min != nil {
+		if err := d.Min.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if d.Max != nil {
+		if err := d.Max.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionaryLayoutClause(d *DictionaryLayoutClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Layout.Accept(visitor.Self); err != nil {
+		return err
+	}
+	for _, arg := range d.Args {
+		if err := arg.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDictionaryRangeClause(d *DictionaryRangeClause) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Min.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := d.Max.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitCreateRole(c *CreateRole) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)
