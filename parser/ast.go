@@ -6703,6 +6703,12 @@ func (t *TargetPair) String() string {
 	return t.Old.String() + " TO " + t.New.String()
 }
 
+func (t *TargetPair) Accept(visitor ASTVisitor) error {
+	visitor.Enter(t)
+	defer visitor.Leave(t)
+	return visitor.VisitTargetPairExpr(t)
+}
+
 type ExplainStmt struct {
 	ExplainPos Pos
 	Type       string

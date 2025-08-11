@@ -1044,6 +1044,18 @@ func (visitor DefaultASTVisitor) VisitDictionaryRangeClause(d *DictionaryRangeCl
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitTargetPairExpr(t *TargetPair) error {
+	visitor.Enter(t)
+	defer visitor.Leave(t)
+	if err := t.Old.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := t.New.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitCreateRole(c *CreateRole) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)
