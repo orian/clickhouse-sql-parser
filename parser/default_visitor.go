@@ -1044,6 +1044,26 @@ func (visitor DefaultASTVisitor) VisitDictionaryRangeClause(d *DictionaryRangeCl
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitShowExpr(s *ShowStmt) error {
+	visitor.Enter(s)
+	defer visitor.Leave(s)
+	if s.Target != nil {
+		if err := s.Target.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDescribeExpr(d *DescribeStmt) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Target.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitTargetPairExpr(t *TargetPair) error {
 	visitor.Enter(t)
 	defer visitor.Leave(t)

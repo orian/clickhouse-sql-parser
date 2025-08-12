@@ -178,6 +178,8 @@ type ASTVisitor interface {
 	VisitExplainExpr(expr *ExplainStmt) error
 	VisitPrivilegeExpr(expr *PrivilegeClause) error
 	VisitGrantPrivilegeExpr(expr *GrantPrivilegeStmt) error
+	VisitShowExpr(expr *ShowStmt) error
+	VisitDescribeExpr(expr *DescribeStmt) error
 	VisitSelectItem(expr *SelectItem) error
 	VisitTargetPairExpr(expr *TargetPair) error
 

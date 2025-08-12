@@ -809,6 +809,16 @@ func (p *PrintVisitor) VisitDictionaryRangeClause(d *DictionaryRangeClause) erro
 	return nil
 }
 
+func (p *PrintVisitor) VisitShowExpr(s *ShowStmt) error {
+	p.builder.WriteString(s.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitDescribeExpr(d *DescribeStmt) error {
+	p.builder.WriteString(d.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitTargetPairExpr(t *TargetPair) error {
 	p.builder.WriteString(t.String())
 	return nil
