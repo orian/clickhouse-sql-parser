@@ -1052,6 +1052,26 @@ func (visitor DefaultASTVisitor) VisitShowExpr(s *ShowStmt) error {
 			return err
 		}
 	}
+	if s.LikePattern != nil {
+		if err := s.LikePattern.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.Limit != nil {
+		if err := s.Limit.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.OutFile != nil {
+		if err := s.OutFile.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.Format != nil {
+		if err := s.Format.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
