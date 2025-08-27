@@ -29,6 +29,8 @@ type ASTVisitor interface {
 	VisitAlterTableModifyTTL(expr *AlterTableModifyTTL) error
 	VisitAlterTableModifyQuery(expr *AlterTableModifyQuery) error
 	VisitAlterTableModifyColumn(expr *AlterTableModifyColumn) error
+	VisitAlterTableModifySetting(expr *AlterTableModifySetting) error
+	VisitAlterTableResetSetting(expr *AlterTableResetSetting) error
 	VisitAlterTableReplacePartition(expr *AlterTableReplacePartition) error
 	VisitRemovePropertyType(expr *RemovePropertyType) error
 	VisitTableIndex(expr *TableIndex) error
@@ -73,7 +75,7 @@ type ASTVisitor interface {
 	VisitRefreshExpr(expr *RefreshExpr) error
 	VisitOrderByExpr(expr *OrderExpr) error
 	VisitOrderByListExpr(expr *OrderByClause) error
-	VisitSettingsExpr(expr *SettingExprList) error
+	VisitSettingsExpr(expr *SettingExpr) error
 	VisitSettingsExprList(expr *SettingsClause) error
 	VisitParamExprList(expr *ParamExprList) error
 	VisitMapLiteral(expr *MapLiteral) error

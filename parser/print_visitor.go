@@ -280,6 +280,16 @@ func (p *PrintVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQuery) erro
 	return nil
 }
 
+func (p *PrintVisitor) VisitAlterTableModifySetting(a *AlterTableModifySetting) error {
+	p.builder.WriteString(a.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitAlterTableResetSetting(a *AlterTableResetSetting) error {
+	p.builder.WriteString(a.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitAlterTableModifyTTL(a *AlterTableModifyTTL) error {
 	builder := p.builder
 	builder.WriteString("MODIFY ")
@@ -1802,7 +1812,7 @@ func (p *PrintVisitor) VisitSetExpr(s *SetStmt) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitSettingsExpr(s *SettingExprList) error {
+func (p *PrintVisitor) VisitSettingsExpr(s *SettingExpr) error {
 	builder := p.builder
 	builder.WriteString(s.Name.String())
 	builder.WriteByte('=')

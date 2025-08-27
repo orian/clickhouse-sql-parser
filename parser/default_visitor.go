@@ -259,6 +259,28 @@ func (visitor DefaultASTVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQ
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitAlterTableModifySetting(a *AlterTableModifySetting) error {
+	visitor.Enter(a)
+	defer visitor.Leave(a)
+	for _, setting := range a.Settings {
+		if err := setting.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitAlterTableResetSetting(a *AlterTableResetSetting) error {
+	visitor.Enter(a)
+	defer visitor.Leave(a)
+	for _, setting := range a.Settings {
+		if err := setting.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitAlterTableModifyTTL(a *AlterTableModifyTTL) error {
 	visitor.Enter(a)
 	defer visitor.Leave(a)
@@ -2097,7 +2119,7 @@ func (visitor DefaultASTVisitor) VisitSetExpr(s *SetStmt) error {
 	}
 	return nil
 }
-func (visitor DefaultASTVisitor) VisitSettingsExpr(s *SettingExprList) error {
+func (visitor DefaultASTVisitor) VisitSettingsExpr(s *SettingExpr) error {
 	visitor.Enter(s)
 	defer visitor.Leave(s)
 	if err := s.Name.Accept(visitor.Self); err != nil {
