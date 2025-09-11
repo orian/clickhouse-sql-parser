@@ -1106,6 +1106,17 @@ func (visitor DefaultASTVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitPath(p *Path) error {
+	visitor.Enter(p)
+	defer visitor.Leave(p)
+	for _, ident := range p.Fields {
+		if err := ident.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitTargetPairExpr(t *TargetPair) error {
 	visitor.Enter(t)
 	defer visitor.Leave(t)
