@@ -823,6 +823,11 @@ func (p *PrintVisitor) VisitPath(path *Path) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitDistinctOn(s *DistinctOn) error {
+	p.builder.WriteString(s.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitTargetPairExpr(t *TargetPair) error {
 	p.builder.WriteString(t.String())
 	return nil
@@ -1723,6 +1728,10 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 	builder.WriteString("SELECT ")
 	if s.HasDistinct {
 		builder.WriteString("DISTINCT ")
+		if s.DistinctOn != nil {
+			builder.WriteString(s.DistinctOn.String())
+			builder.WriteString(" ")
+		}
 	}
 	if s.Top != nil {
 		builder.WriteString(s.Top.String())

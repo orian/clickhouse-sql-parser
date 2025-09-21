@@ -5629,6 +5629,7 @@ type SelectQuery struct {
 	With          *WithClause
 	Top           *TopClause
 	HasDistinct   bool
+	DistinctOn    *DistinctOn
 	SelectItems   []*SelectItem
 	From          *FromClause
 	ArrayJoin     *ArrayJoinClause
@@ -5672,6 +5673,11 @@ func (s *SelectQuery) String() string { // nolint: funlen
 	builder.WriteString("SELECT ")
 	if s.HasDistinct {
 		builder.WriteString("DISTINCT ")
+
+		if s.DistinctOn != nil {
+			builder.WriteString(s.DistinctOn.String())
+			builder.WriteString(" ")
+		}
 	}
 	if s.Top != nil {
 		builder.WriteString(s.Top.String())
@@ -5749,6 +5755,39 @@ func (s *SelectQuery) Accept(visitor ASTVisitor) error {
 	defer visitor.Leave(s)
 
 	return visitor.VisitSelectQuery(s)
+}
+
+type DistinctOn struct {
+	Idents        []*Ident
+	DistinctOnPos Pos
+	DistinctOnEnd Pos
+}
+
+func (s *DistinctOn) Pos() Pos {
+	return s.DistinctOnPos
+}
+
+func (s *DistinctOn) End() Pos {
+	return s.DistinctOnEnd
+}
+
+func (s *DistinctOn) String() string {
+	var builder strings.Builder
+	builder.WriteString("ON (")
+	for i, ident := range s.Idents {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(ident.String())
+	}
+	builder.WriteByte(')')
+	return builder.String()
+}
+
+func (s *DistinctOn) Accept(visitor ASTVisitor) error {
+	visitor.Enter(s)
+	defer visitor.Leave(s)
+	return visitor.VisitDistinctOn(s)
 }
 
 type SubQuery struct {

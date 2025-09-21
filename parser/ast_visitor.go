@@ -184,6 +184,7 @@ type ASTVisitor interface {
 	VisitDescribeExpr(expr *DescribeStmt) error
 	VisitSelectItem(expr *SelectItem) error
 	VisitTargetPairExpr(expr *TargetPair) error
+	VisitDistinctOn(expr *DistinctOn) error
 
 	Enter(expr Expr)
 	Leave(expr Expr)

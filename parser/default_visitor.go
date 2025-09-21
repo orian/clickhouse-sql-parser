@@ -1098,6 +1098,17 @@ func (visitor DefaultASTVisitor) VisitPath(p *Path) error {
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitDistinctOn(s *DistinctOn) error {
+	visitor.Enter(s)
+	defer visitor.Leave(s)
+	for _, ident := range s.Idents {
+		if err := ident.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitTargetPairExpr(t *TargetPair) error {
 	visitor.Enter(t)
 	defer visitor.Leave(t)
