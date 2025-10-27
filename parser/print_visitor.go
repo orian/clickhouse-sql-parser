@@ -280,6 +280,21 @@ func (p *PrintVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQuery) erro
 	return nil
 }
 
+func (p *PrintVisitor) VisitAlterTableDelete(a *AlterTableDelete) error {
+	p.builder.WriteString(a.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitAlterTableUpdate(a *AlterTableUpdate) error {
+	p.builder.WriteString(a.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitUpdateAssignment(u *UpdateAssignment) error {
+	p.builder.WriteString(u.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitAlterTableModifySetting(a *AlterTableModifySetting) error {
 	p.builder.WriteString(a.String())
 	return nil

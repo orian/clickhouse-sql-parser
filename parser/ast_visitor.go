@@ -32,6 +32,9 @@ type ASTVisitor interface {
 	VisitAlterTableModifySetting(expr *AlterTableModifySetting) error
 	VisitAlterTableResetSetting(expr *AlterTableResetSetting) error
 	VisitAlterTableReplacePartition(expr *AlterTableReplacePartition) error
+	VisitAlterTableDelete(expr *AlterTableDelete) error
+	VisitAlterTableUpdate(expr *AlterTableUpdate) error
+	VisitUpdateAssignment(expr *UpdateAssignment) error
 	VisitRemovePropertyType(expr *RemovePropertyType) error
 	VisitTableIndex(expr *TableIndex) error
 	VisitIdent(expr *Ident) error
