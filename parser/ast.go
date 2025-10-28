@@ -1287,6 +1287,7 @@ type AlterTableUpdate struct {
 	UpdatePos    Pos
 	StatementEnd Pos
 	Assignments  []*UpdateAssignment
+	InPartition  *PartitionClause
 	WhereClause  Expr
 }
 
@@ -1310,6 +1311,10 @@ func (a *AlterTableUpdate) String() string {
 			builder.WriteString(", ")
 		}
 		builder.WriteString(assignment.String())
+	}
+	if a.InPartition != nil {
+		builder.WriteString(" IN ")
+		builder.WriteString(a.InPartition.String())
 	}
 	builder.WriteString(" WHERE ")
 	builder.WriteString(a.WhereClause.String())

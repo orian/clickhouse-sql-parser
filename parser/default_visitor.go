@@ -262,6 +262,11 @@ func (visitor DefaultASTVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQ
 func (visitor DefaultASTVisitor) VisitAlterTableDelete(a *AlterTableDelete) error {
 	visitor.Enter(a)
 	defer visitor.Leave(a)
+	if a.InPartition != nil {
+		if err := a.InPartition.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if err := a.WhereClause.Accept(visitor.Self); err != nil {
 		return err
 	}
@@ -273,6 +278,11 @@ func (visitor DefaultASTVisitor) VisitAlterTableUpdate(a *AlterTableUpdate) erro
 	defer visitor.Leave(a)
 	for _, assignment := range a.Assignments {
 		if err := assignment.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if a.InPartition != nil {
+		if err := a.InPartition.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
