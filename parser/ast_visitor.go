@@ -148,6 +148,7 @@ type ASTVisitor interface {
 	VisitWindowFrameCurrentRow(expr *WindowFrameCurrentRow) error
 	VisitWindowFrameUnbounded(expr *WindowFrameUnbounded) error
 	VisitWindowFrameNumber(expr *WindowFrameNumber) error
+	VisitWindowFrameParam(expr *WindowFrameParam) error
 	VisitArrayJoinExpr(expr *ArrayJoinClause) error
 	VisitSelectQuery(expr *SelectQuery) error
 	VisitSubQueryExpr(expr *SubQuery) error

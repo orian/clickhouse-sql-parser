@@ -5554,12 +5554,38 @@ func (w *WindowExpr) Accept(visitor ASTVisitor) error {
 	return visitor.VisitWindowConditionExpr(w)
 }
 
-type WindowClause struct {
-	*WindowExpr
+type WindowDefinition struct {
+	Name  *Ident
+	AsPos Pos
+	Expr  *WindowExpr
+}
 
+func (w *WindowDefinition) Pos() Pos {
+	if w == nil || w.Name == nil {
+		return 0
+	}
+	return w.Name.Pos()
+}
+
+func (w *WindowDefinition) End() Pos {
+	if w == nil || w.Expr == nil {
+		return 0
+	}
+	return w.Expr.End()
+}
+
+func (w *WindowDefinition) String() string {
+	var builder strings.Builder
+	builder.WriteString(w.Name.String())
+	builder.WriteString(" AS ")
+	builder.WriteString(w.Expr.String())
+	return builder.String()
+}
+
+type WindowClause struct {
 	WindowPos Pos
-	Name      *Ident
-	AsPos     Pos
+	EndPos    Pos
+	Windows   []*WindowDefinition
 }
 
 func (w *WindowClause) Pos() Pos {
@@ -5567,22 +5593,30 @@ func (w *WindowClause) Pos() Pos {
 }
 
 func (w *WindowClause) End() Pos {
-	return w.WindowExpr.End()
+	if w.EndPos != 0 {
+		return w.EndPos
+	}
+	if len(w.Windows) == 0 {
+		return w.WindowPos
+	}
+	return w.Windows[len(w.Windows)-1].End()
 }
 
 func (w *WindowClause) String() string {
 	var builder strings.Builder
 	builder.WriteString("WINDOW ")
-	builder.WriteString(w.Name.String())
-	builder.WriteString(" AS ")
-	builder.WriteString(w.WindowExpr.String())
+	for i, window := range w.Windows {
+		builder.WriteString(window.String())
+		if i != len(w.Windows)-1 {
+			builder.WriteString(", ")
+		}
+	}
 	return builder.String()
 }
 
 func (w *WindowClause) Accept(visitor ASTVisitor) error {
 	visitor.Enter(w)
 	defer visitor.Leave(w)
-
 	return visitor.VisitWindowExpr(w)
 }
 
@@ -5616,7 +5650,9 @@ func (f *WindowFrameClause) Accept(visitor ASTVisitor) error {
 }
 
 type WindowFrameExtendExpr struct {
-	Expr Expr
+	Expr      Expr
+	Direction string
+	EndPos    Pos
 }
 
 func (f *WindowFrameExtendExpr) Pos() Pos {
@@ -5624,11 +5660,20 @@ func (f *WindowFrameExtendExpr) Pos() Pos {
 }
 
 func (f *WindowFrameExtendExpr) End() Pos {
+	if f.EndPos != 0 {
+		return f.EndPos
+	}
 	return f.Expr.End()
 }
 
 func (f *WindowFrameExtendExpr) String() string {
-	return f.Expr.String()
+	var builder strings.Builder
+	builder.WriteString(f.Expr.String())
+	if f.Direction != "" {
+		builder.WriteByte(' ')
+		builder.WriteString(f.Direction)
+	}
+	return builder.String()
 }
 
 func (f *WindowFrameExtendExpr) Accept(visitor ASTVisitor) error {
@@ -5722,9 +5767,9 @@ func (f *WindowFrameUnbounded) Accept(visitor ASTVisitor) error {
 }
 
 type WindowFrameNumber struct {
-	Number       *NumberLiteral
-	UnboundedEnd Pos
-	Direction    string
+	Number    *NumberLiteral
+	EndPos    Pos
+	Direction string
 }
 
 func (f *WindowFrameNumber) Pos() Pos {
@@ -5732,7 +5777,7 @@ func (f *WindowFrameNumber) Pos() Pos {
 }
 
 func (f *WindowFrameNumber) End() Pos {
-	return f.UnboundedEnd
+	return f.EndPos
 }
 
 func (f *WindowFrameNumber) String() string {
@@ -5748,6 +5793,37 @@ func (f *WindowFrameNumber) Accept(visitor ASTVisitor) error {
 	defer visitor.Leave(f)
 
 	return visitor.VisitWindowFrameNumber(f)
+}
+
+type WindowFrameParam struct {
+	Param     *QueryParam
+	EndPos    Pos
+	Direction string
+}
+
+func (f *WindowFrameParam) Pos() Pos {
+	return f.Param.Pos()
+}
+
+func (f *WindowFrameParam) End() Pos {
+	return f.EndPos
+}
+
+func (f *WindowFrameParam) String() string {
+	var builder strings.Builder
+	builder.WriteString(f.Param.String())
+	builder.WriteByte(' ')
+	builder.WriteString(f.Direction)
+	return builder.String()
+}
+
+func (f *WindowFrameParam) Accept(visitor ASTVisitor) error {
+	visitor.Enter(f)
+	defer visitor.Leave(f)
+	if err := f.Param.Accept(visitor); err != nil {
+		return err
+	}
+	return visitor.VisitWindowFrameParam(f)
 }
 
 type ArrayJoinClause struct {

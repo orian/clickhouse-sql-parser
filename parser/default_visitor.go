@@ -2551,16 +2551,27 @@ func (visitor DefaultASTVisitor) VisitWhereExpr(w *WhereClause) error {
 func (visitor DefaultASTVisitor) VisitWindowExpr(w *WindowClause) error {
 	visitor.Enter(w)
 	defer visitor.Leave(w)
-	if w.WindowExpr != nil {
-		if err := w.WindowExpr.Accept(visitor.Self); err != nil {
-			return err
+	for _, window := range w.Windows {
+		if window == nil {
+			continue
+		}
+		if window.Name != nil {
+			if err := window.Name.Accept(visitor.Self); err != nil {
+				return err
+			}
+		}
+		if window.Expr != nil {
+			if err := window.Expr.Accept(visitor.Self); err != nil {
+				return err
+			}
 		}
 	}
-	if w.Name != nil {
-		if err := w.Name.Accept(visitor.Self); err != nil {
-			return err
-		}
-	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitWindowFrameParam(p *WindowFrameParam) error {
+	visitor.Enter(p)
+	defer visitor.Leave(p)
 	return nil
 }
 func (visitor DefaultASTVisitor) VisitWindowConditionExpr(w *WindowExpr) error {

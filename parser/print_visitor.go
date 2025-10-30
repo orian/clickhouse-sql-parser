@@ -2166,11 +2166,12 @@ func (p *PrintVisitor) VisitWhereExpr(w *WhereClause) error {
 }
 
 func (p *PrintVisitor) VisitWindowExpr(w *WindowClause) error {
-	builder := p.builder
-	builder.WriteString("WINDOW ")
-	builder.WriteString(w.Name.String())
-	builder.WriteString(" AS ")
-	builder.WriteString(w.WindowExpr.String())
+	p.builder.WriteString(w.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitWindowFrameParam(f *WindowFrameParam) error {
+	p.builder.WriteString(f.String())
 	return nil
 }
 
