@@ -775,6 +775,10 @@ func (p *PrintVisitor) VisitCreateDictionary(c *CreateDictionary) error {
 		builder.WriteString(" ")
 		builder.WriteString(c.Engine.String())
 	}
+	if c.Comment != nil {
+		builder.WriteString(" COMMENT ")
+		builder.WriteString(c.Comment.String())
+	}
 	return nil
 }
 

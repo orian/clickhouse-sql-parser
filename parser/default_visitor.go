@@ -933,6 +933,11 @@ func (visitor DefaultASTVisitor) VisitCreateDictionary(c *CreateDictionary) erro
 			return err
 		}
 	}
+	if c.Comment != nil {
+		if err := c.Comment.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 

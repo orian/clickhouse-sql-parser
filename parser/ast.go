@@ -4544,6 +4544,7 @@ type CreateDictionary struct {
 	OnCluster    *ClusterClause
 	Schema       *DictionarySchemaClause
 	Engine       *DictionaryEngineClause
+	Comment      *StringLiteral
 }
 
 func (c *CreateDictionary) Type() string {
@@ -4588,6 +4589,11 @@ func (c *CreateDictionary) String() string {
 	if c.Engine != nil {
 		builder.WriteString(" ")
 		builder.WriteString(c.Engine.String())
+	}
+
+	if c.Comment != nil {
+		builder.WriteString(" COMMENT ")
+		builder.WriteString(c.Comment.String())
 	}
 
 	return builder.String()
