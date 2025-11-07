@@ -1788,6 +1788,11 @@ func (visitor DefaultASTVisitor) VisitOrderByListExpr(o *OrderByClause) error {
 			return err
 		}
 	}
+	if o.Interpolate != nil {
+		if err := o.Interpolate.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (visitor DefaultASTVisitor) VisitOrderByExpr(o *OrderExpr) error {
@@ -1798,6 +1803,62 @@ func (visitor DefaultASTVisitor) VisitOrderByExpr(o *OrderExpr) error {
 	}
 	if o.Alias != nil {
 		if err := o.Alias.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if o.Fill != nil {
+		if err := o.Fill.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitFill(f *Fill) error {
+	visitor.Enter(f)
+	defer visitor.Leave(f)
+	if f.From != nil {
+		if err := f.From.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if f.To != nil {
+		if err := f.To.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if f.Step != nil {
+		if err := f.Step.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if f.Staleness != nil {
+		if err := f.Staleness.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitInterpolateItem(i *InterpolateItem) error {
+	visitor.Enter(i)
+	defer visitor.Leave(i)
+	if err := i.Column.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if i.Expr != nil {
+		if err := i.Expr.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitInterpolateClause(i *InterpolateClause) error {
+	visitor.Enter(i)
+	defer visitor.Leave(i)
+	for _, item := range i.Items {
+		if err := item.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}

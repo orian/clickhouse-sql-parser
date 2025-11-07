@@ -78,6 +78,9 @@ type ASTVisitor interface {
 	VisitRefreshExpr(expr *RefreshExpr) error
 	VisitOrderByExpr(expr *OrderExpr) error
 	VisitOrderByListExpr(expr *OrderByClause) error
+	VisitFill(expr *Fill) error
+	VisitInterpolateItem(expr *InterpolateItem) error
+	VisitInterpolateClause(expr *InterpolateClause) error
 	VisitSettingsExpr(expr *SettingExpr) error
 	VisitSettingsExprList(expr *SettingsClause) error
 	VisitParamExprList(expr *ParamExprList) error

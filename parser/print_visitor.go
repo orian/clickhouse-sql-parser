@@ -2179,6 +2179,21 @@ func (p *PrintVisitor) VisitWindowFrameParam(f *WindowFrameParam) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitFill(f *Fill) error {
+	p.builder.WriteString(f.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitInterpolateItem(i *InterpolateItem) error {
+	p.builder.WriteString(i.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitInterpolateClause(i *InterpolateClause) error {
+	p.builder.WriteString(i.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitWindowConditionExpr(w *WindowExpr) error {
 	builder := p.builder
 	builder.WriteByte('(')
