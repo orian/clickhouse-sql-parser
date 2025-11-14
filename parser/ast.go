@@ -4030,11 +4030,13 @@ func (c *CompressionCodec) String() string {
 		builder.WriteByte(',')
 		builder.WriteByte(' ')
 	}
-	builder.WriteString(c.Name.String())
-	if c.Level != nil {
-		builder.WriteByte('(')
-		builder.WriteString(c.Level.String())
-		builder.WriteByte(')')
+	if c.Name != nil {
+		builder.WriteString(c.Name.String())
+		if c.Level != nil {
+			builder.WriteByte('(')
+			builder.WriteString(c.Level.String())
+			builder.WriteByte(')')
+		}
 	}
 	builder.WriteByte(')')
 	return builder.String()
@@ -4043,7 +4045,6 @@ func (c *CompressionCodec) String() string {
 func (c *CompressionCodec) Accept(visitor ASTVisitor) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)
-
 	return visitor.VisitCompressionCodec(c)
 }
 

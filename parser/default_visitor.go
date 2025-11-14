@@ -635,16 +635,20 @@ func (visitor DefaultASTVisitor) VisitComplexType(c *ComplexType) error {
 func (visitor DefaultASTVisitor) VisitCompressionCodec(c *CompressionCodec) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)
-	if err := c.Type.Accept(visitor.Self); err != nil {
-		return err
+	if c.Type != nil {
+		if err := c.Type.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	if c.TypeLevel != nil {
 		if err := c.TypeLevel.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
-	if err := c.Name.Accept(visitor.Self); err != nil {
-		return err
+	if c.Name != nil {
+		if err := c.Name.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	if c.Level != nil {
 		if err := c.Level.Accept(visitor.Self); err != nil {
