@@ -1136,6 +1136,12 @@ func (visitor DefaultASTVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitBoolLiteral(b *BoolLiteral) error {
+	visitor.Enter(b)
+	defer visitor.Leave(b)
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitPath(p *Path) error {
 	visitor.Enter(p)
 	defer visitor.Leave(p)

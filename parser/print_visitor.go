@@ -837,6 +837,11 @@ func (p *PrintVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitBoolLiteral(b *BoolLiteral) error {
+	p.builder.WriteString(b.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitPath(path *Path) error {
 	p.builder.WriteString(path.String())
 	return nil
