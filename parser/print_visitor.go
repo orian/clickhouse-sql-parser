@@ -945,6 +945,10 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 		builder.WriteString(" AS ")
 		builder.WriteString(c.SubQuery.String())
 	}
+	if c.TableFunction != nil {
+		builder.WriteString(" AS ")
+		builder.WriteString(c.TableFunction.String())
+	}
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
