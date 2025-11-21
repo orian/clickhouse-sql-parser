@@ -85,6 +85,7 @@ type ASTVisitor interface {
 	VisitSettingsExprList(expr *SettingsClause) error
 	VisitParamExprList(expr *ParamExprList) error
 	VisitMapLiteral(expr *MapLiteral) error
+	VisitNamedParameterExpr(expr *NamedParameterExpr) error
 	VisitArrayParamList(expr *ArrayParamList) error
 	VisitQueryParam(expr *QueryParam) error
 	VisitObjectParams(expr *ObjectParams) error

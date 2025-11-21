@@ -3384,6 +3384,34 @@ func (m *MapLiteral) Accept(visitor ASTVisitor) error {
 	return visitor.VisitMapLiteral(m)
 }
 
+type NamedParameterExpr struct {
+	NamePos Pos
+	Name    *Ident
+	Value   Expr
+}
+
+func (n *NamedParameterExpr) Pos() Pos {
+	return n.NamePos
+}
+
+func (n *NamedParameterExpr) End() Pos {
+	return n.Value.End()
+}
+
+func (n *NamedParameterExpr) String() string {
+	var builder strings.Builder
+	builder.WriteString(n.Name.String())
+	builder.WriteByte('=')
+	builder.WriteString(n.Value.String())
+	return builder.String()
+}
+
+func (n *NamedParameterExpr) Accept(visitor ASTVisitor) error {
+	visitor.Enter(n)
+	defer visitor.Leave(n)
+	return visitor.VisitNamedParameterExpr(n)
+}
+
 type QueryParam struct {
 	LBracePos Pos
 	RBracePos Pos
