@@ -160,6 +160,7 @@ type ASTVisitor interface {
 	VisitNegateExpr(expr *NegateExpr) error
 	VisitGlobalInExpr(expr *GlobalInOperation) error
 	VisitExtractExpr(expr *ExtractExpr) error
+	VisitIntervalFrom(expr *IntervalFrom) error
 	VisitDropDatabase(expr *DropDatabase) error
 	VisitDropStmt(expr *DropStmt) error
 	VisitDropUserOrRole(expr *DropUserOrRole) error

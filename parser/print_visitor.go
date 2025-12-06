@@ -1149,12 +1149,12 @@ func (p *PrintVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	return nil
 }
 func (p *PrintVisitor) VisitExtractExpr(e *ExtractExpr) error {
-	builder := p.builder
-	builder.WriteString("EXTRACT(")
-	builder.WriteString(e.Interval.String())
-	builder.WriteString(" FROM ")
-	builder.WriteString(e.FromExpr.String())
-	builder.WriteByte(')')
+	p.builder.WriteString(e.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitIntervalFrom(i *IntervalFrom) error {
+	p.builder.WriteString(i.String())
 	return nil
 }
 

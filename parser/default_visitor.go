@@ -1441,7 +1441,21 @@ func (visitor DefaultASTVisitor) VisitExplainExpr(e *ExplainStmt) error {
 func (visitor DefaultASTVisitor) VisitExtractExpr(e *ExtractExpr) error {
 	visitor.Enter(e)
 	defer visitor.Leave(e)
-	if err := e.FromExpr.Accept(visitor.Self); err != nil {
+	for _, param := range e.Parameters {
+		if err := param.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitIntervalFrom(i *IntervalFrom) error {
+	visitor.Enter(i)
+	defer visitor.Leave(i)
+	if err := i.Interval.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := i.FromExpr.Accept(visitor.Self); err != nil {
 		return err
 	}
 	return nil
