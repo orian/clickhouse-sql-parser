@@ -1685,8 +1685,10 @@ func (visitor DefaultASTVisitor) VisitLimitByExpr(l *LimitByClause) error {
 func (visitor DefaultASTVisitor) VisitLimitExpr(l *LimitClause) error {
 	visitor.Enter(l)
 	defer visitor.Leave(l)
-	if err := l.Limit.Accept(visitor.Self); err != nil {
-		return err
+	if l.Limit != nil {
+		if err := l.Limit.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	if l.Offset != nil {
 		if err := l.Offset.Accept(visitor.Self); err != nil {
