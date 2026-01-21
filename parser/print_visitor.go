@@ -1780,9 +1780,9 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 		builder.WriteString(" ")
 		builder.WriteString(s.From.String())
 	}
-	if s.ArrayJoin != nil {
+	for _, arrayJoin := range s.ArrayJoin {
 		builder.WriteString(" ")
-		builder.WriteString(s.ArrayJoin.String())
+		builder.WriteString(arrayJoin.String())
 	}
 	if s.Window != nil {
 		builder.WriteString(" ")

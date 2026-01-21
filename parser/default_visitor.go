@@ -2190,8 +2190,8 @@ func (visitor DefaultASTVisitor) VisitSelectQuery(s *SelectQuery) error {
 			return err
 		}
 	}
-	if s.ArrayJoin != nil {
-		if err := s.ArrayJoin.Accept(visitor.Self); err != nil {
+	for _, arrayJoin := range s.ArrayJoin {
+		if err := arrayJoin.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
