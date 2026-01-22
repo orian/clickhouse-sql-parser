@@ -359,14 +359,6 @@ func (visitor DefaultASTVisitor) VisitAlterTableReplacePartition(a *AlterTableRe
 	return nil
 }
 
-func (visitor DefaultASTVisitor) VisitArrayJoinExpr(a *ArrayJoinClause) error {
-	visitor.Enter(a)
-	defer visitor.Leave(a)
-	if err := a.Expr.Accept(visitor.Self); err != nil {
-		return err
-	}
-	return nil
-}
 func (visitor DefaultASTVisitor) VisitArrayParamList(a *ArrayParamList) error {
 	visitor.Enter(a)
 	defer visitor.Leave(a)
@@ -2187,11 +2179,6 @@ func (visitor DefaultASTVisitor) VisitSelectQuery(s *SelectQuery) error {
 	}
 	if s.From != nil {
 		if err := s.From.Accept(visitor.Self); err != nil {
-			return err
-		}
-	}
-	for _, arrayJoin := range s.ArrayJoin {
-		if err := arrayJoin.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}

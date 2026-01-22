@@ -338,10 +338,6 @@ func (p *PrintVisitor) VisitAlterTableReplacePartition(a *AlterTableReplaceParti
 	return nil
 }
 
-func (p *PrintVisitor) VisitArrayJoinExpr(a *ArrayJoinClause) error {
-	p.builder.WriteString(a.Type + " ARRAY JOIN " + a.Expr.String())
-	return nil
-}
 func (p *PrintVisitor) VisitArrayParamList(a *ArrayParamList) error {
 	builder := p.builder
 	builder.WriteString("[")
@@ -1779,10 +1775,6 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 	if s.From != nil {
 		builder.WriteString(" ")
 		builder.WriteString(s.From.String())
-	}
-	for _, arrayJoin := range s.ArrayJoin {
-		builder.WriteString(" ")
-		builder.WriteString(arrayJoin.String())
 	}
 	if s.Window != nil {
 		builder.WriteString(" ")
