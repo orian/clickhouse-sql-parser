@@ -67,6 +67,11 @@ func (visitor DefaultASTVisitor) VisitAlterTableAddColumn(a *AlterTableAddColumn
 			return err
 		}
 	}
+	if a.Settings != nil {
+		if err := a.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
