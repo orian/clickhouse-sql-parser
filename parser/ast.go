@@ -4542,7 +4542,10 @@ func (c *CaseExpr) String() string {
 	if c.Expr != nil {
 		builder.WriteString(c.Expr.String())
 	}
-	for _, when := range c.Whens {
+	for i, when := range c.Whens {
+		if i > 0 {
+			builder.WriteByte(' ')
+		}
 		builder.WriteString(when.String())
 	}
 	if c.Else != nil {
