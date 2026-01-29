@@ -4810,6 +4810,89 @@ func (c *CreateDictionary) Accept(visitor ASTVisitor) error {
 	return visitor.VisitCreateDictionary(c)
 }
 
+type CreateNamedCollection struct {
+	CreatePos    Pos
+	StatementEnd Pos
+	Name         *Ident
+	IfNotExists  bool
+	OnCluster    *ClusterClause
+	Params       []*NamedCollectionParam
+}
+
+func (c *CreateNamedCollection) Pos() Pos {
+	return c.CreatePos
+}
+
+func (c *CreateNamedCollection) End() Pos {
+	return c.StatementEnd
+}
+
+func (c *CreateNamedCollection) Type() string {
+	return "NAMED COLLECTION"
+}
+
+func (c *CreateNamedCollection) String() string {
+	var builder strings.Builder
+	builder.WriteString("CREATE NAMED COLLECTION ")
+	if c.IfNotExists {
+		builder.WriteString("IF NOT EXISTS ")
+	}
+	builder.WriteString(c.Name.String())
+	if c.OnCluster != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.OnCluster.String())
+	}
+	builder.WriteString(" AS ")
+	for i, param := range c.Params {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(param.String())
+	}
+	return builder.String()
+}
+
+func (c *CreateNamedCollection) Accept(visitor ASTVisitor) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	return visitor.VisitCreateNamedCollection(c)
+}
+
+type NamedCollectionParam struct {
+	ParamPos      Pos
+	Name          *Ident
+	Value         Expr
+	Overridable   bool
+	NotOverridable bool
+}
+
+func (n *NamedCollectionParam) Pos() Pos {
+	return n.ParamPos
+}
+
+func (n *NamedCollectionParam) End() Pos {
+	return n.Value.End()
+}
+
+func (n *NamedCollectionParam) String() string {
+	var builder strings.Builder
+	builder.WriteString(n.Name.String())
+	builder.WriteString(" = ")
+	builder.WriteString(n.Value.String())
+	if n.NotOverridable {
+		builder.WriteString(" NOT OVERRIDABLE")
+	} else if n.Overridable {
+		builder.WriteString(" OVERRIDABLE")
+	}
+	return builder.String()
+}
+
+func (n *NamedCollectionParam) Accept(visitor ASTVisitor) error {
+	visitor.Enter(n)
+	defer visitor.Leave(n)
+	return visitor.VisitNamedCollectionParam(n)
+}
+
 type DictionarySchemaClause struct {
 	SchemaPos  Pos
 	Attributes []*DictionaryAttribute

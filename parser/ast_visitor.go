@@ -118,6 +118,8 @@ type ASTVisitor interface {
 	VisitTopExpr(expr *TopClause) error
 	VisitCreateLiveView(expr *CreateLiveView) error
 	VisitCreateDictionary(expr *CreateDictionary) error
+	VisitCreateNamedCollection(expr *CreateNamedCollection) error
+	VisitNamedCollectionParam(expr *NamedCollectionParam) error
 	VisitDictionarySchemaClause(expr *DictionarySchemaClause) error
 	VisitDictionaryAttribute(expr *DictionaryAttribute) error
 	VisitDictionaryEngineClause(expr *DictionaryEngineClause) error

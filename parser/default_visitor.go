@@ -1133,6 +1133,37 @@ func (visitor DefaultASTVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitCreateNamedCollection(c *CreateNamedCollection) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	if err := c.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if c.OnCluster != nil {
+		if err := c.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, param := range c.Params {
+		if err := param.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitNamedCollectionParam(n *NamedCollectionParam) error {
+	visitor.Enter(n)
+	defer visitor.Leave(n)
+	if err := n.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := n.Value.Accept(visitor.Self); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitNamedParameterExpr(n *NamedParameterExpr) error {
 	visitor.Enter(n)
 	defer visitor.Leave(n)

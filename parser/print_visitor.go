@@ -833,6 +833,16 @@ func (p *PrintVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitCreateNamedCollection(c *CreateNamedCollection) error {
+	p.builder.WriteString(c.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitNamedCollectionParam(n *NamedCollectionParam) error {
+	p.builder.WriteString(n.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitNamedParameterExpr(n *NamedParameterExpr) error {
 	p.builder.WriteString(n.String())
 	return nil
