@@ -6260,7 +6260,7 @@ func (s *SelectQuery) Accept(visitor ASTVisitor) error {
 }
 
 type DistinctOn struct {
-	Idents        []*Ident
+	Idents        []*NestedIdentifier
 	DistinctOnPos Pos
 	DistinctOnEnd Pos
 }
