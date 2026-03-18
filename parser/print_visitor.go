@@ -2211,6 +2211,12 @@ func (p *PrintVisitor) VisitInterpolateClause(i *InterpolateClause) error {
 }
 
 func (p *PrintVisitor) VisitWindowConditionExpr(w *WindowExpr) error {
+	if w.WindowName != nil {
+		p.builder.WriteString("(")
+		p.builder.WriteString(w.WindowName.String())
+		p.builder.WriteString(")")
+		return nil
+	}
 	builder := p.builder
 	builder.WriteByte('(')
 	if w.PartitionBy != nil {

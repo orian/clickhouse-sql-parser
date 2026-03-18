@@ -2709,6 +2709,11 @@ func (visitor DefaultASTVisitor) VisitWindowFrameParam(p *WindowFrameParam) erro
 func (visitor DefaultASTVisitor) VisitWindowConditionExpr(w *WindowExpr) error {
 	visitor.Enter(w)
 	defer visitor.Leave(w)
+	if w.WindowName != nil {
+		if err := w.WindowName.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if w.PartitionBy != nil {
 		if err := w.PartitionBy.Accept(visitor.Self); err != nil {
 			return err
