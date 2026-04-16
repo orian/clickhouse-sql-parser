@@ -2203,6 +2203,7 @@ type CreateUser struct {
 	OrReplace       bool
 	UserNames       []*RoleName
 	Authentication  *AuthenticationClause
+	ValidUntil      *StringLiteral
 	Hosts           []*HostClause
 	DefaultRole     *DefaultRoleClause
 	DefaultDatabase *Ident
@@ -2241,6 +2242,10 @@ func (c *CreateUser) String() string {
 	if c.Authentication != nil {
 		builder.WriteString(" ")
 		builder.WriteString(c.Authentication.String())
+	}
+	if c.ValidUntil != nil {
+		builder.WriteString(" VALID UNTIL ")
+		builder.WriteString(c.ValidUntil.String())
 	}
 	if len(c.Hosts) > 0 {
 		builder.WriteString(" ")

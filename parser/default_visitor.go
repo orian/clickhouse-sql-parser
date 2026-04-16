@@ -880,6 +880,11 @@ func (visitor DefaultASTVisitor) VisitCreateUser(c *CreateUser) error {
 			return err
 		}
 	}
+	if c.ValidUntil != nil {
+		if err := c.ValidUntil.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	for _, host := range c.Hosts {
 		if err := host.Accept(visitor.Self); err != nil {
 			return err
