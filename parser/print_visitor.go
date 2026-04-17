@@ -993,6 +993,11 @@ func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 		builder.WriteString(c.TableSchema.String())
 	}
 
+	if c.Comment != nil {
+		builder.WriteString(" COMMENT ")
+		builder.WriteString(c.Comment.String())
+	}
+
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
 		builder.WriteString(c.SubQuery.String())

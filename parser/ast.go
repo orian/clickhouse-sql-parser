@@ -1738,6 +1738,7 @@ type CreateView struct {
 	UUID         *UUID
 	OnCluster    *ClusterClause
 	TableSchema  *TableSchemaClause
+	Comment      *StringLiteral
 	SubQuery     *SubQuery
 }
 
@@ -1779,6 +1780,11 @@ func (c *CreateView) String() string {
 		builder.WriteString(c.TableSchema.String())
 	}
 
+	if c.Comment != nil {
+		builder.WriteString(" COMMENT ")
+		builder.WriteString(c.Comment.String())
+	}
+
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
 		builder.WriteString(c.SubQuery.String())
@@ -1789,7 +1795,6 @@ func (c *CreateView) String() string {
 func (c *CreateView) Accept(visitor ASTVisitor) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)
-
 	return visitor.VisitCreateView(c)
 }
 

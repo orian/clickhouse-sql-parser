@@ -1303,6 +1303,11 @@ func (visitor DefaultASTVisitor) VisitCreateView(c *CreateView) error {
 			return err
 		}
 	}
+	if c.Comment != nil {
+		if err := c.Comment.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if c.SubQuery != nil {
 		if err := c.SubQuery.Accept(visitor.Self); err != nil {
 			return err
