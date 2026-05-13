@@ -1987,6 +1987,9 @@ func (p *PrintVisitor) VisitTableIndex(a *TableIndex) error {
 }
 func (p *PrintVisitor) VisitTableProjection(t *TableProjection) error {
 	builder := p.builder
+	if t.IncludeProjectionKeyword {
+		builder.WriteString("PROJECTION ")
+	}
 	builder.WriteString(t.Identifier.String())
 	builder.WriteString(" ")
 	builder.WriteString(t.Select.String())
