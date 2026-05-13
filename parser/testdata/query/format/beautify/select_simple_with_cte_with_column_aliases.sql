@@ -16,5 +16,4 @@ SELECT
   f1 AS new_f1,
   f2 AS new_f2,
   f3 AS new_f3
-FROM
-  test;
+FROM test;

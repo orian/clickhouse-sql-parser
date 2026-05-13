@@ -426,20 +426,67 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 	return nil
 }
 
-// beautifyFrom emits FROM with the table expression on its own indented line.
-// Subselects in FROM are recursively beautified, with the inner SELECT indented
-// one level deeper than the surrounding query:
+// beautifyFrom emits FROM with the table expression. If the whole
+// `FROM <expr>` rendering fits within the wrap budget at the current
+// column, it stays on one line (e.g. `FROM t`); otherwise the source is
+// moved to its own indented line and any subselect inside is recursively
+// beautified:
 //
 //	FROM
 //	  (
 //	    SELECT ...
 //	  )
 func (b *BeautifyVisitor) beautifyFrom(f *FromClause) {
+	if b.fromFitsInline(f) {
+		b.writeString("FROM ")
+		b.writeString(f.Expr.String())
+		return
+	}
 	b.writeString("FROM")
 	b.indentIn()
 	b.newline()
 	b.beautifyFromExpr(f.Expr)
 	b.indentOut()
+}
+
+// fromFitsInline reports whether `FROM <expr>` should be kept on a single
+// line: the source must contain no subqueries (those always beautify into
+// an indented block) and the rendered length must stay within the wrap
+// budget at the current column.
+func (b *BeautifyVisitor) fromFitsInline(f *FromClause) bool {
+	if b.maxWidth <= 0 {
+		return true
+	}
+	if fromHasSubQuery(f.Expr) {
+		return false
+	}
+	s := f.Expr.String()
+	if strings.ContainsRune(s, '\n') {
+		return false
+	}
+	// 5 = len("FROM ").
+	return b.col+5+len(s) <= b.maxWidth
+}
+
+// fromHasSubQuery reports whether the FROM expression tree contains a
+// parenthesised SELECT — i.e. anything that should beautify as an
+// indented (\n  SELECT … \n) block rather than stay inline.
+func fromHasSubQuery(expr Expr) bool {
+	switch e := expr.(type) {
+	case *SubQuery:
+		return e.HasParen
+	case *AliasExpr:
+		return fromHasSubQuery(e.Expr)
+	case *TableExpr:
+		return fromHasSubQuery(e.Expr)
+	case *JoinTableExpr:
+		if e.Table != nil {
+			return fromHasSubQuery(e.Table)
+		}
+	case *JoinExpr:
+		return fromHasSubQuery(e.Left) || fromHasSubQuery(e.Right)
+	}
+	return false
 }
 
 // beautifyFromExpr renders whatever sits under FROM. For now only the

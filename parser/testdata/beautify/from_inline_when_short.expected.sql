@@ -1,8 +1,5 @@
 SELECT
-  a,
-  b
+  a
 FROM t
 WHERE
   x > 1
-AND
-  y < 10

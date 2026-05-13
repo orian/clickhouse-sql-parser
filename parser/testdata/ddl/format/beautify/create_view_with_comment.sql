@@ -21,5 +21,4 @@ AS
 SELECT
   id,
   name
-FROM
-  db.my_table;
+FROM db.my_table;

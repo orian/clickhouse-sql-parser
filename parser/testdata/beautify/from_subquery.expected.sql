@@ -5,8 +5,7 @@ FROM
     SELECT
       main,
       sum(two) AS one
-    FROM
-      tabl
+    FROM tabl
     WHERE
       x > 1
   )

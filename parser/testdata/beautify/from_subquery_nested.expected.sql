@@ -8,7 +8,6 @@ FROM
       (
         SELECT
           x
-        FROM
-          inner_t
+        FROM inner_t
       ) AS a
   ) AS b

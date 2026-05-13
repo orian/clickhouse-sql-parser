@@ -17,5 +17,4 @@ AS
 SELECT
   column1,
   column2
-FROM
-  my_other_table;
+FROM my_other_table;

@@ -17,8 +17,7 @@ FROM
       toFloat32(number % 10) AS n,
       'original' AS source,
       number AS inter
-    FROM
-      numbers(10)
+    FROM numbers(10)
     WHERE
       number % 3 = 1
   )

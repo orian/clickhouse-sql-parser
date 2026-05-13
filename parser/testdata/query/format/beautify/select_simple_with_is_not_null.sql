@@ -12,8 +12,7 @@ SELECT
   f1,
   f2,
   f3 AS a0
-FROM
-  test.events_local
+FROM test.events_local
 WHERE
   (f0 IN ('foo', 'bar', 'test'))
 AND

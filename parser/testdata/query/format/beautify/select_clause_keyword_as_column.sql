@@ -10,5 +10,4 @@ SELECT
   where,
   group,
   order
-FROM
-  transfers;
+FROM transfers;

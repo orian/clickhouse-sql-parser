@@ -6,5 +6,4 @@ SELECT a, limit FROM t
 SELECT
   a,
   limit
-FROM
-  t;
+FROM t;

@@ -18,5 +18,4 @@ WITH
   t2 AS (SELECT 2 AS value)
 SELECT
   *
-FROM
-  t1 LEFT JOIN t2 ON true;
+FROM t1 LEFT JOIN t2 ON true;

@@ -35,8 +35,7 @@ FROM
       f1,
       f2,
       ROW_NUMBER() OVER (PARTITION BY f0 ORDER BY coalesce(f1, f2)) AS rn
-    FROM
-      test.t
+    FROM test.t
     WHERE
       f3 IN ('foo', 'bar', 'test')
     AND

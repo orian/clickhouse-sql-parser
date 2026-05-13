@@ -34,7 +34,6 @@ SELECT
   visitParamExtractString(properties, 'd') AS d,
   visitParamExtractInt(properties, 'e') AS e,
   visitParamExtractInt(properties, 'f') AS f
-FROM
-  db.table
+FROM db.table
 WHERE
   db.table.event = 'hello';

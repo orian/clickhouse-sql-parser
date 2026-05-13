@@ -8,7 +8,6 @@ WHERE name REGEXP '^foo'
 SELECT
   a,
   b
-FROM
-  t
+FROM t
 WHERE
   name REGEXP '^foo';

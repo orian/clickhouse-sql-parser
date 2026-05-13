@@ -6,5 +6,4 @@ SELECT
   field0,
   field1 AS x,
   field2 AS y
-FROM
-  events;
+FROM events;

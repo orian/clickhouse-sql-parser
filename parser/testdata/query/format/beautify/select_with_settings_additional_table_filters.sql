@@ -17,26 +17,22 @@ SETTINGS additional_table_filters={'system.numbers':'number != 3', 'table_1':'x 
 -- Beautify SQL:
 SELECT
   *
-FROM
-  test_table
+FROM test_table
 SETTINGS
   additional_table_filters={'test_table': 'status = 1'};
 SELECT
   *
-FROM
-  test_table
+FROM test_table
 SETTINGS
   additional_table_filters={'test_table': 'value = \'test\''};
 SELECT
   *
-FROM
-  test_table
+FROM test_table
 SETTINGS
   additional_table_filters={'test_table': 'value = ''test'''};
 SELECT
   *
-FROM
-  test_table
+FROM test_table
 SETTINGS
   additional_table_filters={'test_table': 'id IN (\'a\', \'b\') AND status = \'active\''}
 FORMAT JSON;

@@ -11,5 +11,4 @@ SELECT
   usage,
   limit,
   usage_percentage
-FROM
-  service_quotas;
+FROM service_quotas;

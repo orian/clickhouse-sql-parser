@@ -9,5 +9,4 @@ SELECT
   cast,
   extract,
   interval
-FROM
-  events;
+FROM events;

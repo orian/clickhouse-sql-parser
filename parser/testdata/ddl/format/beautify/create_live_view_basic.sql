@@ -7,5 +7,4 @@ AS SELECT id FROM my_table;
 -- Beautify SQL:
 SELECT
   id
-FROM
-  my_table;
+FROM my_table;

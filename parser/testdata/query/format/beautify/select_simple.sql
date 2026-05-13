@@ -16,8 +16,7 @@ SELECT
   f0,
   coalesce(f1, f2) AS f3,
   row_number() OVER (PARTITION BY f0 ORDER BY f1 ASC) AS rn
-FROM
-  test.events_local
+FROM test.events_local
 WHERE
   (f0 IN ('foo', 'bar', 'test'))
 AND

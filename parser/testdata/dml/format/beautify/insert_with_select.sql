@@ -14,5 +14,4 @@ SELECT
   StartDate,
   Sign,
   UserID
-FROM
-  test.visits;
+FROM test.visits;

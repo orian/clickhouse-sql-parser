@@ -45,6 +45,5 @@ AS
 SELECT
   id,
   name
-FROM
-  my_table;
+FROM my_table;
 ;

@@ -14,8 +14,7 @@ FROM
     SELECT
       toFloat32(number % 10) AS n,
       'original' AS source
-    FROM
-      numbers(10)
+    FROM numbers(10)
     WHERE
       number % 3 = 1
   )

@@ -6,5 +6,4 @@ SELECT
   foo,
   bar.1,
   foo.2
-FROM
-  foo ARRAY JOIN m AS bar;
+FROM foo ARRAY JOIN m AS bar;

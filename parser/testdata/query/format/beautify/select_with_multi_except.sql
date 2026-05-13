@@ -4,15 +4,12 @@ SELECT number FROM numbers(1, 10) EXCEPT SELECT number FROM numbers(3, 6) EXCEPT
 -- Beautify SQL:
 SELECT
   number
-FROM
-  numbers(1, 10)
+FROM numbers(1, 10)
 EXCEPT
 SELECT
   number
-FROM
-  numbers(3, 6)
+FROM numbers(3, 6)
 EXCEPT
 SELECT
   number
-FROM
-  numbers(8, 9);
+FROM numbers(8, 9);

@@ -11,8 +11,7 @@ ORDER BY (interval AS i, column_name) ASC
 SELECT
   toStartOfInterval(timestamp, toIntervalMinute(1)) AS interval,
   column_name
-FROM
-  table
+FROM table
 WHERE
   true
 GROUP BY

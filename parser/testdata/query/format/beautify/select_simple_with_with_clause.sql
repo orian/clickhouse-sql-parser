@@ -19,5 +19,4 @@ SELECT
   cte1.f1,
   cte2.f2,
   t3.f3
-FROM
-  t3,cte1,cte2;
+FROM t3,cte1,cte2;

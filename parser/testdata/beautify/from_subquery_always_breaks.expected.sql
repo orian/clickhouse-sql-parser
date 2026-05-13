@@ -1,10 +1,8 @@
 SELECT
-  *
+  a
 FROM
   (
     SELECT
-      a
+      b
     FROM t
   ) AS sub
-WHERE
-  sub.a < 10

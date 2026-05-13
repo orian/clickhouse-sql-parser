@@ -7,5 +7,4 @@ SELECT
       very_long_argument_name_4
     )
   )
-FROM
-  t
+FROM t

@@ -4,11 +4,9 @@ SELECT replica_name FROM system.ha_replicas UNION DISTINCT SELECT replica_name F
 -- Beautify SQL:
 SELECT
   replica_name
-FROM
-  system.ha_replicas
+FROM system.ha_replicas
 UNION DISTINCT
 SELECT
   replica_name
-FROM
-  system.ha_unique_replicas
+FROM system.ha_unique_replicas
 FORMAT JSON;
