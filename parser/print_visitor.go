@@ -2048,7 +2048,7 @@ func (p *PrintVisitor) VisitWindowExpr(w *WindowClause) error {
 	builder := p.builder
 	builder.WriteString("WINDOW ")
 	builder.WriteString(w.Name.String())
-	builder.WriteString(" ")
+	builder.WriteString(" AS ")
 	builder.WriteString(w.WindowExpr.String())
 	return nil
 }
