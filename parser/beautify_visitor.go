@@ -195,6 +195,10 @@ func (b *BeautifyVisitor) emitExpr(expr Expr) {
 		b.emitBinaryOpMultiLine(e)
 	case *OrderExpr:
 		b.emitOrderExprMultiLine(e)
+	case *TernaryOperation:
+		b.emitTernaryMultiLine(e)
+	case *ArrayParamList:
+		b.emitArrayParamListMultiLine(e)
 	default:
 		// Unsplittable node type — fall back to compact even if it
 		// blows past the budget. Add a dedicated emitX method here
@@ -249,6 +253,52 @@ func (b *BeautifyVisitor) emitAliasExprMultiLine(a *AliasExpr) {
 		b.writeString(" AS ")
 		b.writeString(a.Alias.String())
 	}
+}
+
+// emitTernaryMultiLine prints `cond ? then : else` with the `?` and `:`
+// moved to the start of indented continuation lines:
+//
+//	condition
+//	  ? then_expr
+//	  : else_expr
+//
+// Each branch goes back through emitExpr so a long branch can recursively
+// split further.
+func (b *BeautifyVisitor) emitTernaryMultiLine(t *TernaryOperation) {
+	b.emitExpr(t.Condition)
+	b.indentIn()
+	b.newline()
+	b.writeString("? ")
+	b.emitExpr(t.TrueExpr)
+	b.newline()
+	b.writeString(": ")
+	b.emitExpr(t.FalseExpr)
+	b.indentOut()
+}
+
+// emitArrayParamListMultiLine prints `[item1, item2, ...]` with each
+// element on its own indented line when the inline form overshoots the
+// budget. Each element is routed back through emitExpr for recursive
+// splitting.
+func (b *BeautifyVisitor) emitArrayParamListMultiLine(a *ArrayParamList) {
+	if a.Items == nil || len(a.Items.Items) == 0 {
+		b.writeString(a.String())
+		return
+	}
+	b.writeString("[")
+	b.indentIn()
+	for i, item := range a.Items.Items {
+		if i == 0 {
+			b.newline()
+		} else {
+			b.writeString(",")
+			b.newline()
+		}
+		b.emitExpr(item)
+	}
+	b.indentOut()
+	b.newline()
+	b.writeString("]")
 }
 
 // emitOrderExprMultiLine prints an ORDER BY item where the underlying

@@ -70,7 +70,10 @@ FROM
         SELECT
           sum(total) AS count,
           day_start AS day_start,
-          [ifNull(toString(breakdown_value_1), '$$_posthog_breakdown_null_$$'), ifNull(toString(breakdown_value_2), '$$_posthog_breakdown_null_$$')] AS breakdown_value
+          [
+            ifNull(toString(breakdown_value_1), '$$_posthog_breakdown_null_$$'),
+            ifNull(toString(breakdown_value_2), '$$_posthog_breakdown_null_$$')
+          ] AS breakdown_value
         FROM
           (
             SELECT
@@ -78,7 +81,9 @@ FROM
                 sum(
                   accurateCastOrNull(
                     accurateCastOrNull(
-                      has(e.properties_group_ai, '$ai_cache_read_input_tokens') ? e.properties_group_ai['$ai_cache_read_input_tokens'] : null,
+                      has(e.properties_group_ai, '$ai_cache_read_input_tokens')
+                        ? e.properties_group_ai['$ai_cache_read_input_tokens']
+                        : null,
                       'Float64'
                     ),
                     'Float64'
