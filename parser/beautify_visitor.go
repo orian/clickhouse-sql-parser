@@ -17,26 +17,36 @@ import "strings"
 // VisitX methods that break across lines and indent. Everything else falls
 // through to the node's String() method (compact). Add VisitX overrides
 // incrementally as specific subtrees need beautified output.
+// defaultMaxWidth is the soft line-length budget. Any compact rendering of
+// an expression that would push the current line past this width is split
+// across multiple indented lines instead. 100 cols matches modern editor
+// defaults; tune via the maxWidth field if needed.
+const defaultMaxWidth = 100
+
 type BeautifyVisitor struct {
 	DefaultASTVisitor
-	builder strings.Builder
-	depth   int
-	indent  string
+	builder  strings.Builder
+	depth    int
+	indent   string
+	col      int // running column of the next byte to be written
+	maxWidth int // soft wrap budget for compact renderings (0 = no wrap)
 }
 
 func NewBeautifyVisitor() *BeautifyVisitor {
-	v := &BeautifyVisitor{indent: "  "}
+	v := &BeautifyVisitor{indent: "  ", maxWidth: defaultMaxWidth}
 	v.Self = v
 	return v
 }
 
 func (b *BeautifyVisitor) String() string { return b.builder.String() }
 
-// writeIndent emits depth-many copies of the indent string.
+// writeIndent emits depth-many copies of the indent string and resets the
+// column to its trailing position.
 func (b *BeautifyVisitor) writeIndent() {
 	for i := 0; i < b.depth; i++ {
 		b.builder.WriteString(b.indent)
 	}
+	b.col = b.depth * len(b.indent)
 }
 
 // newline emits a newline followed by the current indent on the next line.
@@ -50,9 +60,186 @@ func (b *BeautifyVisitor) indentIn()  { b.depth++ }
 func (b *BeautifyVisitor) indentOut() { b.depth-- }
 
 // writeSpace emits a single space.
-func (b *BeautifyVisitor) writeSpace() { b.builder.WriteByte(' ') }
+func (b *BeautifyVisitor) writeSpace() {
+	b.builder.WriteByte(' ')
+	b.col++
+}
 
-func (b *BeautifyVisitor) writeString(s string) { b.builder.WriteString(s) }
+func (b *BeautifyVisitor) writeString(s string) {
+	b.builder.WriteString(s)
+	if i := strings.LastIndexByte(s, '\n'); i >= 0 {
+		b.col = len(s) - i - 1
+	} else {
+		b.col += len(s)
+	}
+}
+
+// emitExpr writes an expression respecting the line-width budget. If its
+// compact one-line rendering (via .String()) would still fit within
+// maxWidth at the current column, it's emitted as-is; otherwise the
+// expression is dispatched to a node-type-specific multi-line emitter,
+// which recursively applies the same logic to children. The upshot is
+// that splitting cascades top-down: a SELECT item that's a list of
+// function calls splits each call onto its own line first; if any one
+// call is still too long, that call's arguments split next, and so on.
+func (b *BeautifyVisitor) emitExpr(expr Expr) {
+	if expr == nil {
+		return
+	}
+	if b.fitsCompact(expr) {
+		b.writeString(expr.String())
+		return
+	}
+	switch e := expr.(type) {
+	case *SelectItem:
+		b.emitSelectItemMultiLine(e)
+	case *ColumnExpr:
+		b.emitColumnExprMultiLine(e)
+	case *FunctionExpr:
+		b.emitFunctionMultiLine(e)
+	case *AliasExpr:
+		b.emitAliasExprMultiLine(e)
+	case *BinaryOperation:
+		b.emitBinaryOpMultiLine(e)
+	default:
+		// Unsplittable node type — fall back to compact even if it
+		// blows past the budget. Add a dedicated emitX method here
+		// to extend coverage.
+		b.writeString(expr.String())
+	}
+}
+
+// fitsCompact reports whether expr's compact rendering would stay within
+// the wrap budget given the current column. A zero (or negative) maxWidth
+// disables wrapping.
+func (b *BeautifyVisitor) fitsCompact(expr Expr) bool {
+	if b.maxWidth <= 0 {
+		return true
+	}
+	s := expr.String()
+	if strings.ContainsRune(s, '\n') {
+		return false
+	}
+	return b.col+len(s) <= b.maxWidth
+}
+
+// emitSelectItemMultiLine prints a SELECT item with a multi-line expression.
+// Modifiers and AS-alias stay on the closing line.
+func (b *BeautifyVisitor) emitSelectItemMultiLine(s *SelectItem) {
+	b.emitExpr(s.Expr)
+	for _, mod := range s.Modifiers {
+		b.writeSpace()
+		b.writeString(mod.String())
+	}
+	if s.Alias != nil {
+		b.writeString(" AS ")
+		b.writeString(s.Alias.String())
+	}
+}
+
+// emitColumnExprMultiLine prints a ColumnExpr (Expr [AS Alias]) with the
+// inner expression possibly multi-line and the alias on the closing line.
+func (b *BeautifyVisitor) emitColumnExprMultiLine(c *ColumnExpr) {
+	b.emitExpr(c.Expr)
+	if c.Alias != nil {
+		b.writeString(" AS ")
+		b.writeString(c.Alias.String())
+	}
+}
+
+// emitAliasExprMultiLine handles `<expr> AS <alias>` when the wrapped expr
+// is long enough to need splitting.
+func (b *BeautifyVisitor) emitAliasExprMultiLine(a *AliasExpr) {
+	b.emitExpr(a.Expr)
+	if a.Alias != nil {
+		b.writeString(" AS ")
+		b.writeString(a.Alias.String())
+	}
+}
+
+// emitBinaryOpMultiLine prints `left <op> right` with the operator at the
+// start of a new line and each operand routed back through emitExpr so a
+// long operand (typically a function call) further splits its arguments.
+//
+// Tight-binding operators (like the ::-cast, `.` member access) are never
+// broken: their compact form is emitted even if it overshoots the budget,
+// because splitting them produces obviously-wrong-looking SQL.
+func (b *BeautifyVisitor) emitBinaryOpMultiLine(p *BinaryOperation) {
+	if isTightBinaryOp(p.Operation) {
+		b.writeString(p.String())
+		return
+	}
+	b.emitExpr(p.LeftExpr)
+	b.newline()
+	if p.HasNot {
+		b.writeString("NOT ")
+	} else if p.HasGlobal {
+		b.writeString("GLOBAL ")
+	}
+	b.writeString(string(p.Operation))
+	b.writeSpace()
+	b.emitExpr(p.RightExpr)
+}
+
+// isTightBinaryOp reports operators that should never be split across lines.
+func isTightBinaryOp(op TokenKind) bool {
+	switch string(op) {
+	case "::", ".":
+		return true
+	}
+	return false
+}
+
+// emitFunctionMultiLine prints a function call with each argument on its
+// own indented line. Each argument is itself routed through emitExpr so
+// nested function calls split recursively when they overflow.
+//
+//	some_func(
+//	  arg1,
+//	  another_func(
+//	    inner_arg1,
+//	    inner_arg2
+//	  ),
+//	  arg3
+//	)
+func (b *BeautifyVisitor) emitFunctionMultiLine(f *FunctionExpr) {
+	b.writeString(f.Name.String())
+	b.writeString("(")
+	if f.Params == nil || f.Params.Items == nil || len(f.Params.Items.Items) == 0 {
+		b.writeString(")")
+		return
+	}
+	if f.Params.Items.HasDistinct {
+		b.indentIn()
+		b.newline()
+		b.writeString("DISTINCT")
+		// Continue with items on the same indent level as DISTINCT.
+		for _, item := range f.Params.Items.Items {
+			b.writeString(",")
+			b.newline()
+			b.emitExpr(item)
+		}
+		b.indentOut()
+		b.newline()
+	} else {
+		b.indentIn()
+		for i, item := range f.Params.Items.Items {
+			if i == 0 {
+				b.newline()
+			} else {
+				b.writeString(",")
+				b.newline()
+			}
+			b.emitExpr(item)
+		}
+		b.indentOut()
+		b.newline()
+	}
+	b.writeString(")")
+	if f.Params.ColumnArgList != nil {
+		b.writeString(f.Params.ColumnArgList.String())
+	}
+}
 
 // VisitSelectQuery beautifies a SELECT statement:
 //
@@ -102,7 +289,7 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 			b.writeString(",")
 			b.newline()
 		}
-		b.writeString(item.String())
+		b.emitExpr(item)
 	}
 	b.indentOut()
 
