@@ -82,6 +82,10 @@ if you want to update them, you can run the following command:
 $ make update_test
 ```
 
+## refactor-visitor (fork-local divergence)
+
+This fork's `refactor-visitor` branch restructures AST traversal: child-walking moved from each node's `Accept` into `DefaultASTVisitor`, and pretty-printing moved out of `Expr.String()` into a dedicated `PrintVisitor`. See [`refactor-visitor.md`](./refactor-visitor.md) for the full rationale, mechanical rules, and a checklist for merging upstream changes.
+
 ## Contact us
 
 Feel free to open an issue or discussion if you have any issues or questions.
