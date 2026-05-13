@@ -18,7 +18,5 @@ CREATE VIEW IF NOT EXISTS db.my_view (
 )
 COMMENT '{"blueprint_hash":"abc123"}'
 AS
-SELECT
-  id,
-  name
+SELECT id, name
 FROM db.my_table;

@@ -2,8 +2,7 @@
 SELECT Timestamp FROM events ORDER BY Timestamp;
 
 -- Beautify SQL:
-SELECT
-  Timestamp
+SELECT Timestamp
 FROM events
 ORDER BY
   Timestamp;

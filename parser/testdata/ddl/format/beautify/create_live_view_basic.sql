@@ -5,6 +5,5 @@ AS SELECT id FROM my_table;
 
 
 -- Beautify SQL:
-SELECT
-  id
+SELECT id
 FROM my_table;

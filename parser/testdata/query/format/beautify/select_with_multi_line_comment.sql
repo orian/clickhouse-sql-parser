@@ -7,6 +7,5 @@ from
     t0
 
 -- Beautify SQL:
-SELECT
-  *
+SELECT *
 FROM t0;

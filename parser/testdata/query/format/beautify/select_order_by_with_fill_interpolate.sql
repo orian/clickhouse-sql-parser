@@ -7,16 +7,10 @@ INTERPOLATE (inter AS inter + 1);
 
 
 -- Beautify SQL:
-SELECT
-  n,
-  source,
-  inter
+SELECT n, source, inter
 FROM
   (
-    SELECT
-      toFloat32(number % 10) AS n,
-      'original' AS source,
-      number AS inter
+    SELECT toFloat32(number % 10) AS n, 'original' AS source, number AS inter
     FROM numbers(10)
     WHERE
       number % 3 = 1

@@ -3,6 +3,5 @@ SELECT * FROM 'test_table'
 
 
 -- Beautify SQL:
-SELECT
-  *
+SELECT *
 FROM 'test_table';

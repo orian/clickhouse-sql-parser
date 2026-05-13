@@ -3,5 +3,4 @@ SELECT interval
 
 
 -- Beautify SQL:
-SELECT
-  interval;
+SELECT interval;

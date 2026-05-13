@@ -2,8 +2,7 @@
 SELECT * FROM t0 WHERE id = ?;
 
 -- Beautify SQL:
-SELECT
-  *
+SELECT *
 FROM t0
 WHERE
   id = ?;

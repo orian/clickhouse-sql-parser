@@ -1,10 +1,7 @@
-SELECT
-  one
+SELECT one
 FROM
   (
-    SELECT
-      main,
-      sum(two) AS one
+    SELECT main, sum(two) AS one
     FROM tabl
     WHERE
       x > 1

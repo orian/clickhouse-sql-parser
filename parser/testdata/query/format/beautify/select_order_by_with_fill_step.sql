@@ -6,14 +6,10 @@ SELECT date, value FROM (
 
 
 -- Beautify SQL:
-SELECT
-  date,
-  value
+SELECT date, value
 FROM
   (
-    SELECT
-      toDate('2020-01-01') + INTERVAL number DAY AS date,
-      number AS value
+    SELECT toDate('2020-01-01') + INTERVAL number DAY AS date, number AS value
     FROM numbers(5)
   )
 ORDER BY

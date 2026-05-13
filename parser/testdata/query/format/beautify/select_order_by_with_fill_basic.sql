@@ -6,14 +6,10 @@ SELECT n, source FROM (
 
 
 -- Beautify SQL:
-SELECT
-  n,
-  source
+SELECT n, source
 FROM
   (
-    SELECT
-      toFloat32(number % 10) AS n,
-      'original' AS source
+    SELECT toFloat32(number % 10) AS n, 'original' AS source
     FROM numbers(10)
     WHERE
       number % 3 = 1

@@ -5,9 +5,5 @@ SELECT $abc, a$$bc, abc$$;
 
 
 -- Beautify SQL:
-SELECT
-  'abc' AS "value2";
-SELECT
-  $abc,
-  a$$bc,
-  abc$$;
+SELECT 'abc' AS "value2";
+SELECT $abc, a$$bc, abc$$;

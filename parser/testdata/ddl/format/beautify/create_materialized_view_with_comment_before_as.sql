@@ -21,9 +21,6 @@ TO db.dst_table (
   `created_at` DateTime64(9)
 )
 AS
-SELECT
-  shop_id,
-  event_type,
-  created_at
+SELECT shop_id, event_type, created_at
 FROM db.src_table
 COMMENT '{"blueprint_hash":"abc123","timestamp":"2026-04-08T12:00:00Z"}';

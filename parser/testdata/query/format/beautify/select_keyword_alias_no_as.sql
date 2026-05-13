@@ -2,6 +2,5 @@
 SELECT 'Joe' name FROM users
 
 -- Beautify SQL:
-SELECT
-  'Joe' AS name
+SELECT 'Joe' AS name
 FROM users;

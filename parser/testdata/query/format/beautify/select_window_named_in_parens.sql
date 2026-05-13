@@ -5,7 +5,6 @@ WINDOW w AS (PARTITION BY y ORDER BY x);
 
 
 -- Beautify SQL:
-SELECT
-  sum(x) OVER (w) AS sum_over_w
+SELECT sum(x) OVER (w) AS sum_over_w
 FROM t
 WINDOW w AS (PARTITION BY y ORDER BY x);

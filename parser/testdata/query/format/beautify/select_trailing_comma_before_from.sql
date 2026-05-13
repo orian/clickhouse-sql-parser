@@ -4,6 +4,5 @@ FROM cloud_assets
 
 
 -- Beautify SQL:
-SELECT
-  count(x)
+SELECT count(x)
 FROM cloud_assets;

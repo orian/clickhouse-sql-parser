@@ -1,8 +1,6 @@
-SELECT
-  a
+SELECT a
 FROM
   (
-    SELECT
-      b
+    SELECT b
     FROM t
   ) AS sub

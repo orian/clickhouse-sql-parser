@@ -1,9 +1,7 @@
-SELECT
-  *
+SELECT *
 FROM
   (
-    SELECT
-      a
+    SELECT a
     FROM t
   ) AS sub
 WHERE

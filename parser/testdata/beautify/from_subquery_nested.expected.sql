@@ -1,13 +1,10 @@
-SELECT
-  *
+SELECT *
 FROM
   (
-    SELECT
-      *
+    SELECT *
     FROM
       (
-        SELECT
-          x
+        SELECT x
         FROM inner_t
       ) AS a
   ) AS b

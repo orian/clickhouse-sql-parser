@@ -74,6 +74,44 @@ func (b *BeautifyVisitor) writeString(s string) {
 	}
 }
 
+// selectItemsInlineMaxLen is the rendered-length budget for keeping SELECT
+// items on the same line as the SELECT keyword (without the keyword/space
+// prefix). Combined with selectItemsInlineMaxCount it controls when a
+// short SELECT stays compact:
+//
+//	SELECT a, b, c FROM t
+//
+// instead of breaking each item onto its own indented line.
+const (
+	selectItemsInlineMaxLen   = 80
+	selectItemsInlineMaxCount = 7
+)
+
+// selectItemsFitInline reports whether the SELECT items should stay on
+// the SELECT line. They stay inline only when there are fewer than
+// selectItemsInlineMaxCount items and the joined `item1, item2, ...`
+// rendering is shorter than selectItemsInlineMaxLen.
+func selectItemsFitInline(items []*SelectItem) bool {
+	if len(items) >= selectItemsInlineMaxCount {
+		return false
+	}
+	total := 0
+	for i, item := range items {
+		if i > 0 {
+			total += 2 // ", "
+		}
+		s := item.String()
+		if strings.ContainsRune(s, '\n') {
+			return false
+		}
+		total += len(s)
+		if total >= selectItemsInlineMaxLen {
+			return false
+		}
+	}
+	return true
+}
+
 // emitExpr writes an expression respecting the line-width budget. If its
 // compact one-line rendering (via .String()) would still fit within
 // maxWidth at the current column, it's emitted as-is; otherwise the
@@ -281,17 +319,27 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.writeString(s.Top.String())
 	}
 
-	b.indentIn()
-	for i, item := range s.SelectItems {
-		if i == 0 {
-			b.newline()
-		} else {
-			b.writeString(",")
-			b.newline()
+	if selectItemsFitInline(s.SelectItems) {
+		b.writeSpace()
+		for i, item := range s.SelectItems {
+			if i > 0 {
+				b.writeString(", ")
+			}
+			b.writeString(item.String())
 		}
-		b.emitExpr(item)
+	} else {
+		b.indentIn()
+		for i, item := range s.SelectItems {
+			if i == 0 {
+				b.newline()
+			} else {
+				b.writeString(",")
+				b.newline()
+			}
+			b.emitExpr(item)
+		}
+		b.indentOut()
 	}
-	b.indentOut()
 
 	if s.From != nil {
 		b.newline()

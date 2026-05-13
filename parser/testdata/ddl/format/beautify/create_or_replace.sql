@@ -42,8 +42,6 @@ CREATE OR REPLACE VIEW IF NOT EXISTS my_view (
   col2 String
 )
 AS
-SELECT
-  id,
-  name
+SELECT id, name
 FROM my_table;
 ;

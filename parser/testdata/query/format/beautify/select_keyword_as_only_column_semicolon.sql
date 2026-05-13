@@ -3,5 +3,4 @@ SELECT case;
 
 
 -- Beautify SQL:
-SELECT
-  case;
+SELECT case;

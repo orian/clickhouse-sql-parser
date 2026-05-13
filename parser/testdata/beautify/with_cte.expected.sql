@@ -1,5 +1,4 @@
 WITH
   x AS (SELECT 1)
-SELECT
-  *
+SELECT *
 FROM x

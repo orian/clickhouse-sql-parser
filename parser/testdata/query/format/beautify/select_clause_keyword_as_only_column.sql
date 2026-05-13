@@ -3,5 +3,4 @@ SELECT limit
 
 
 -- Beautify SQL:
-SELECT
-  limit;
+SELECT limit;

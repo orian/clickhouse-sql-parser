@@ -1,6 +1,4 @@
-SELECT
-  a,
-  b
+SELECT a, b
 FROM t
 WHERE
   x > 1

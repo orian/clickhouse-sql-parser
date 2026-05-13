@@ -1,5 +1,4 @@
-SELECT
-  *
+SELECT *
 FROM t
 SETTINGS
   max_threads=8,

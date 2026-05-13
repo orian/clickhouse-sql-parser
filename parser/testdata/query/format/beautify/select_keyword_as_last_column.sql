@@ -3,7 +3,5 @@ SELECT a, limit FROM t
 
 
 -- Beautify SQL:
-SELECT
-  a,
-  limit
+SELECT a, limit
 FROM t;
