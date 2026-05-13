@@ -1044,7 +1044,10 @@ func (p *PrintVisitor) VisitIndexOperation(i *IndexOperation) error {
 
 func (p *PrintVisitor) VisitInsertExpr(i *InsertStmt) error {
 	builder := p.builder
-	builder.WriteString("INSERT INTO TABLE ")
+	builder.WriteString("INSERT INTO ")
+	if i.HasTableKeyword {
+		builder.WriteString("TABLE ")
+	}
 	builder.WriteString(i.Table.String())
 	if i.ColumnNames != nil {
 		builder.WriteString(" ")
@@ -1055,11 +1058,11 @@ func (p *PrintVisitor) VisitInsertExpr(i *InsertStmt) error {
 		builder.WriteString(i.Format.String())
 	}
 
-	builder.WriteString(" ")
 	if i.SelectExpr != nil {
+		builder.WriteString(" ")
 		builder.WriteString(i.SelectExpr.String())
-	} else {
-		builder.WriteString("VALUES ")
+	} else if len(i.Values) > 0 {
+		builder.WriteString(" VALUES ")
 		for j, value := range i.Values {
 			if j > 0 {
 				builder.WriteString(", ")
