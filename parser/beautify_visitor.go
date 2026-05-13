@@ -108,7 +108,7 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 
 	if s.From != nil {
 		b.newline()
-		b.writeString(s.From.String())
+		b.beautifyFrom(s.From)
 	}
 	if s.Window != nil {
 		b.newline()
@@ -116,23 +116,31 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 	}
 	if s.Prewhere != nil {
 		b.newline()
-		b.writeString(s.Prewhere.String())
+		b.writeString("PREWHERE")
+		b.indentIn()
+		b.newline()
+		b.writeString(s.Prewhere.Expr.String())
+		b.indentOut()
 	}
 	if s.Where != nil {
 		b.newline()
-		b.writeString(s.Where.String())
+		b.beautifyWhere(s.Where)
 	}
 	if s.GroupBy != nil {
 		b.newline()
-		b.writeString(s.GroupBy.String())
+		b.beautifyGroupBy(s.GroupBy)
 	}
 	if s.Having != nil {
 		b.newline()
-		b.writeString(s.Having.String())
+		b.writeString("HAVING")
+		b.indentIn()
+		b.newline()
+		b.writeString(s.Having.Expr.String())
+		b.indentOut()
 	}
 	if s.OrderBy != nil {
 		b.newline()
-		b.writeString(s.OrderBy.String())
+		b.beautifyOrderBy(s.OrderBy)
 	}
 	if s.LimitBy != nil {
 		b.newline()
@@ -229,6 +237,108 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 		b.writeString(c.Comment.String())
 	}
 	return nil
+}
+
+// beautifyFrom emits FROM with the table expression on its own indented line.
+//
+//	FROM
+//	  t
+func (b *BeautifyVisitor) beautifyFrom(f *FromClause) {
+	b.writeString("FROM")
+	b.indentIn()
+	b.newline()
+	b.writeString(f.Expr.String())
+	b.indentOut()
+}
+
+// beautifyWhere emits WHERE with each AND/OR conjunct on its own indented line.
+//
+//	WHERE
+//	  a > 1
+//	AND
+//	  b < 10
+func (b *BeautifyVisitor) beautifyWhere(w *WhereClause) {
+	b.writeString("WHERE")
+	conjuncts, ops := splitBoolean(w.Expr)
+	b.indentIn()
+	for i, c := range conjuncts {
+		if i > 0 {
+			b.indentOut()
+			b.newline()
+			b.writeString(ops[i-1])
+			b.indentIn()
+		}
+		b.newline()
+		b.writeString(c.String())
+	}
+	b.indentOut()
+}
+
+// splitBoolean splits an expression on top-level AND/OR into a flat list.
+// Returns the conjuncts and the operators joining them. For "a AND b OR c"
+// returns ([a, b, c], ["AND", "OR"]).
+func splitBoolean(expr Expr) ([]Expr, []string) {
+	bop, ok := expr.(*BinaryOperation)
+	if !ok {
+		return []Expr{expr}, nil
+	}
+	opStr := strings.ToUpper(string(bop.Operation))
+	if opStr != "AND" && opStr != "OR" {
+		return []Expr{expr}, nil
+	}
+	left, lops := splitBoolean(bop.LeftExpr)
+	right, rops := splitBoolean(bop.RightExpr)
+	conjuncts := append(left, right...)
+	ops := append(lops, opStr)
+	ops = append(ops, rops...)
+	return conjuncts, ops
+}
+
+// beautifyGroupBy emits GROUP BY with the expression(s) on their own indented line.
+func (b *BeautifyVisitor) beautifyGroupBy(g *GroupByClause) {
+	b.writeString("GROUP BY")
+	if g.AggregateType != "" {
+		b.writeSpace()
+		b.writeString(g.AggregateType)
+	}
+	if g.Expr != nil {
+		b.indentIn()
+		b.newline()
+		b.writeString(g.Expr.String())
+		b.indentOut()
+	}
+	if g.WithCube {
+		b.newline()
+		b.writeString("WITH CUBE")
+	}
+	if g.WithRollup {
+		b.newline()
+		b.writeString("WITH ROLLUP")
+	}
+	if g.WithTotals {
+		b.newline()
+		b.writeString("WITH TOTALS")
+	}
+}
+
+// beautifyOrderBy emits ORDER BY with each item on its own indented line.
+func (b *BeautifyVisitor) beautifyOrderBy(o *OrderByClause) {
+	b.writeString("ORDER BY")
+	b.indentIn()
+	for i, item := range o.Items {
+		if i == 0 {
+			b.newline()
+		} else {
+			b.writeString(",")
+			b.newline()
+		}
+		b.writeString(item.String())
+	}
+	b.indentOut()
+	if o.Interpolate != nil {
+		b.newline()
+		b.writeString(o.Interpolate.String())
+	}
 }
 
 func (b *BeautifyVisitor) beautifyTableSchema(t *TableSchemaClause) {
@@ -418,8 +528,10 @@ func (b *BeautifyVisitor) VisitInsertExpr(i *InsertStmt) error {
 	}
 	b.writeString(i.Table.String())
 	if i.ColumnNames != nil {
+		b.indentIn()
 		b.newline()
 		b.writeString(i.ColumnNames.String())
+		b.indentOut()
 	}
 	if i.Format != nil {
 		b.newline()
