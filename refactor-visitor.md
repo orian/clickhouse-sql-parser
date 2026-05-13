@@ -77,6 +77,14 @@ Default traversals call `child.Accept(visitor.Self)`. Any custom visitor created
 
 `main.go`'s `-format` path uses `NewPrintVisitor()` instead of `stmt.String()`. Node `String()` methods in `ast.go` still exist (tests rely on them, and a few `PrintVisitor.VisitX` methods call `.String()` on children as shorthand), but new printing logic should go in `PrintVisitor`.
 
+### 6. `BeautifyVisitor` for indented/line-broken output (separate visitor, not a node method)
+
+Upstream `master` introduced a `Formatter` type and a `FormatSQL(*Formatter)` method on every AST node (commit `9275c63` and the beautify follow-ups). That puts formatting back onto the nodes, which contradicts invariant 5. We **do not** adopt that approach.
+
+Instead, beautify output lives in `parser/beautify_visitor.go` (`BeautifyVisitor`), a sibling of `PrintVisitor` that embeds `DefaultASTVisitor`. Currently a stub — port a specific upstream beautify improvement (e.g. FROM/JOIN indentation, INSERT column-list wrapping, ON CLUSTER line breaks) by translating the corresponding `FormatSQL` body from upstream's `parser/format.go` into a `VisitX` method on `BeautifyVisitor`, writing into `b.builder` with `Indent()`/`Outdent()`.
+
+Upstream's `parser/format.go` and `format/beautify/` golden fixtures are **deliberately skipped** during merges — see the conflict-hotspots note below.
+
 ## Checklist for merging upstream `master`
 
 When upstream adds, renames, or modifies an AST node, do all the following:
@@ -97,10 +105,12 @@ When upstream adds, renames, or modifies an AST node, do all the following:
 
 ### Conflict hotspots
 
-- `parser/ast.go` — most likely place for upstream conflicts. Upstream will keep child-walking inside `Accept`; you must collapse to the 3-liner.
+- `parser/ast.go` — most likely place for upstream conflicts. Upstream will keep child-walking inside `Accept`; you must collapse to the 3-liner. Upstream may also try to remove `String()` methods (post `9275c63`) — keep them; we still rely on `String()` for `PrintVisitor` and node text in tests.
 - `parser/default_visitor.go` — does not exist upstream. If upstream adds nodes, you must add `DefaultASTVisitor.VisitX` entries here that you wouldn't otherwise see in their diff.
 - `parser/print_visitor.go` — does not exist upstream. Same situation.
-- `parser/ast_visitor.go` — upstream may add `VisitX` interface methods; merge those entries.
+- `parser/beautify_visitor.go` — does not exist upstream. New beautify behavior gets a `VisitX` method here, not a `FormatSQL` body on the node.
+- `parser/ast_visitor.go` — upstream may add `VisitX` interface methods; merge those entries. Upstream's own `DefaultASTVisitor` block (callback-style, post `9275c63`) lives in this same file; drop everything past the interface closing brace and let our `parser/default_visitor.go` be the only implementation.
+- `parser/format.go` — **delete on sight.** Upstream adds it in `9275c63` as the home for the `Formatter` API; we explicitly skip that refactor. The `parser/testdata/**/format/beautify/` golden directories should also be deleted when they appear.
 - `main.go` — upstream's `-format` path uses `stmt.String()`. Keep the branch's `NewPrintVisitor()` version.
 
 ### Already cherry-picked from upstream
@@ -110,6 +120,13 @@ These fixes are already in the branch and should be skipped if you see them in a
 - `601ddf7` ← `8bea76f` — #127 fix the expr might be empty in window frame.
 - `a774291` ← `b083fa0` — #128 SELECT query as table function argument.
 - `12b000d` ← `d03ad5b` — #130 panic with invalid SQL.
+
+### Deliberately skipped upstream commits
+
+These were intentionally **not** integrated because they conflict with the visitor architecture:
+
+- `9275c63` — *Introduce `FormatSQL` API to allow customizing different formats.* Moves all `String()` methods to a new `parser/format.go` and adds `FormatSQL(*Formatter)` to every node. That re-puts formatting on the nodes (violating invariant 5). Replacement on this branch: `BeautifyVisitor` (invariant 6).
+- `925428d`, `95a195f`, `2588297`, `50c0046`, `6d0175c`, `1cf1e3d`, `033e873`, `4b92d70`, `3b8db28`, `b2d2add`, `17e829d`, `bf5be12`, `a812844`, `ece3a11`, `089230e`, `74e0ba3`, `af5073c`, `461102b`, `5d7a71f`, `d468e13` — beautify-format improvements that depend on the `Formatter` API from `9275c63`. Port piecemeal into `BeautifyVisitor` if a specific feature is needed.
 
 ## Commit-by-commit walkthrough
 
