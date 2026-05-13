@@ -5,5 +5,6 @@ SELECT
   d,
   e,
   f,
-  g
+  g,
+  h
 FROM t

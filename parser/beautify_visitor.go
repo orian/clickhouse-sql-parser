@@ -88,11 +88,11 @@ const (
 )
 
 // selectItemsFitInline reports whether the SELECT items should stay on
-// the SELECT line. They stay inline only when there are fewer than
+// the SELECT line. They stay inline only when there are at most
 // selectItemsInlineMaxCount items and the joined `item1, item2, ...`
 // rendering is shorter than selectItemsInlineMaxLen.
 func selectItemsFitInline(items []*SelectItem) bool {
-	if len(items) >= selectItemsInlineMaxCount {
+	if len(items) > selectItemsInlineMaxCount {
 		return false
 	}
 	total := 0
