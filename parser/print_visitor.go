@@ -2211,27 +2211,7 @@ func (p *PrintVisitor) VisitInterpolateClause(i *InterpolateClause) error {
 }
 
 func (p *PrintVisitor) VisitWindowConditionExpr(w *WindowExpr) error {
-	if w.WindowName != nil {
-		p.builder.WriteString("(")
-		p.builder.WriteString(w.WindowName.String())
-		p.builder.WriteString(")")
-		return nil
-	}
-	builder := p.builder
-	builder.WriteByte('(')
-	if w.PartitionBy != nil {
-		builder.WriteString(" ")
-		builder.WriteString(w.PartitionBy.String())
-	}
-	if w.OrderBy != nil {
-		builder.WriteString(" ")
-		builder.WriteString(w.OrderBy.String())
-	}
-	if w.Frame != nil {
-		builder.WriteString(" ")
-		builder.WriteString(w.Frame.String())
-	}
-	builder.WriteByte(')')
+	p.builder.WriteString(w.String())
 	return nil
 }
 

@@ -5835,10 +5835,10 @@ func (w *WindowExpr) End() Pos {
 }
 
 func (w *WindowExpr) String() string {
-	if w.WindowName != nil {
-		return "(" + w.WindowName.String() + ")"
-	}
 	parts := make([]string, 0)
+	if w.WindowName != nil {
+		parts = append(parts, w.WindowName.String())
+	}
 	if w.PartitionBy != nil {
 		parts = append(parts, w.PartitionBy.String())
 	}
@@ -6013,8 +6013,9 @@ func (f *BetweenClause) String() string {
 	var builder strings.Builder
 	if f.Expr != nil {
 		builder.WriteString(f.Expr.String())
+		builder.WriteString(" ")
 	}
-	builder.WriteString(" BETWEEN ")
+	builder.WriteString("BETWEEN ")
 	builder.WriteString(f.Between.String())
 	builder.WriteString(" AND ")
 	builder.WriteString(f.And.String())
