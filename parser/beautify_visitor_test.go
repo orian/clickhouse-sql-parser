@@ -94,3 +94,21 @@ func TestBeautifyVisitor_FallthroughForUnhandledStatements(t *testing.T) {
 	got := beautify(t, "USE db1")
 	require.Equal(t, "", got)
 }
+
+// Subselects in FROM are beautified with an extra indent level.
+func TestBeautifyVisitor_FromSubquery(t *testing.T) {
+	got := beautify(t, "select one from (select main,sum(two) as one from tabl where x>1) where main like '%olsztyn%' order by one desc limit 10")
+	want := "SELECT\n  one\nFROM\n  (\n    SELECT\n      main,\n      sum(two) AS one\n    FROM\n      tabl\n    WHERE\n      x > 1\n  )\nWHERE\n  main LIKE '%olsztyn%'\nORDER BY\n  one DESC\nLIMIT 10"
+	require.Equal(t, want, got)
+}
+
+func TestBeautifyVisitor_FromSubqueryWithAlias(t *testing.T) {
+	got := beautify(t, "SELECT * FROM (SELECT a FROM t) AS sub WHERE sub.a < 10")
+	require.Contains(t, got, "FROM\n  (\n    SELECT\n      a\n    FROM\n      t\n  ) AS sub")
+}
+
+func TestBeautifyVisitor_FromSubqueryNested(t *testing.T) {
+	got := beautify(t, "SELECT * FROM (SELECT * FROM (SELECT x FROM inner_t) AS a) AS b")
+	// Outer subquery indents 1 level, inner indents 2 levels (4 spaces relative to outer SELECT).
+	require.Contains(t, got, "FROM\n  (\n    SELECT\n      *\n    FROM\n      (\n        SELECT\n          x\n        FROM\n          inner_t\n      ) AS a\n  ) AS b")
+}

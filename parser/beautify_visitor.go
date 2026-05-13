@@ -240,15 +240,84 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 }
 
 // beautifyFrom emits FROM with the table expression on its own indented line.
+// Subselects in FROM are recursively beautified, with the inner SELECT indented
+// one level deeper than the surrounding query:
 //
 //	FROM
-//	  t
+//	  (
+//	    SELECT ...
+//	  )
 func (b *BeautifyVisitor) beautifyFrom(f *FromClause) {
 	b.writeString("FROM")
 	b.indentIn()
 	b.newline()
-	b.writeString(f.Expr.String())
+	b.beautifyFromExpr(f.Expr)
 	b.indentOut()
+}
+
+// beautifyFromExpr renders whatever sits under FROM. For now only the
+// JoinTableExpr → TableExpr → SubQuery shape is line-broken; everything else
+// (joins, table functions, plain idents) falls back to compact .String().
+func (b *BeautifyVisitor) beautifyFromExpr(expr Expr) {
+	jt, ok := expr.(*JoinTableExpr)
+	if !ok || jt.Table == nil {
+		b.writeString(expr.String())
+		return
+	}
+	b.beautifyTableExpr(jt.Table)
+	if jt.SampleRatio != nil {
+		b.writeSpace()
+		b.writeString(jt.SampleRatio.String())
+	}
+	if jt.HasFinal {
+		b.writeString(" FINAL")
+	}
+}
+
+// beautifyTableExpr emits a TableExpr; if its inner expression is a SubQuery
+// (optionally wrapped in an AliasExpr for `(SELECT …) AS x`), the subselect is
+// rendered as a beautified, indented block.
+func (b *BeautifyVisitor) beautifyTableExpr(t *TableExpr) {
+	sub, suffix := unwrapSubQueryTable(t.Expr)
+	if sub == nil || !sub.HasParen {
+		b.writeString(t.String())
+		return
+	}
+	b.writeString("(")
+	b.indentIn()
+	b.newline()
+	// Recurse through the visitor so VisitSelectQuery formats the inner
+	// SELECT (and any nested subqueries) the same way as the outer one.
+	_ = sub.Select.Accept(b.Self)
+	b.indentOut()
+	b.newline()
+	b.writeString(")")
+	if suffix != "" {
+		b.writeSpace()
+		b.writeString(suffix)
+	}
+	if t.Alias != nil {
+		b.writeSpace()
+		b.writeString(t.Alias.String())
+	}
+	if t.HasFinal {
+		b.writeString(" FINAL")
+	}
+}
+
+// unwrapSubQueryTable returns the inner SubQuery if expr is one (possibly
+// wrapped in an AliasExpr for `(SELECT …) AS alias`). The second return is
+// the alias text to print after the closing paren, or "" if there isn't one.
+func unwrapSubQueryTable(expr Expr) (*SubQuery, string) {
+	switch e := expr.(type) {
+	case *SubQuery:
+		return e, ""
+	case *AliasExpr:
+		if inner, ok := e.Expr.(*SubQuery); ok {
+			return inner, "AS " + e.Alias.String()
+		}
+	}
+	return nil, ""
 }
 
 // beautifyWhere emits WHERE with each AND/OR conjunct on its own indented line.
