@@ -1586,6 +1586,9 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 		builder.WriteString(" ")
 	}
 	builder.WriteString("SELECT ")
+	if s.HasDistinct {
+		builder.WriteString("DISTINCT ")
+	}
 	if s.Top != nil {
 		builder.WriteString(s.Top.String())
 		builder.WriteString(" ")
