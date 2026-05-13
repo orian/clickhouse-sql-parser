@@ -1147,6 +1147,14 @@ func (p *PrintVisitor) VisitJSONOption(j *JSONOption) error {
 		builder.WriteString(" SKIP REGEXP ")
 		builder.WriteString(j.SkipRegex.String())
 	}
+	if j.MaxDynamicPaths != nil {
+		builder.WriteString("max_dynamic_paths=")
+		builder.WriteString(j.MaxDynamicPaths.String())
+	}
+	if j.MaxDynamicTypes != nil {
+		builder.WriteString("max_dynamic_types=")
+		builder.WriteString(j.MaxDynamicTypes.String())
+	}
 	return nil
 }
 
