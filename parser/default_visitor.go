@@ -262,11 +262,6 @@ func (visitor DefaultASTVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQ
 func (visitor DefaultASTVisitor) VisitAlterTableDelete(a *AlterTableDelete) error {
 	visitor.Enter(a)
 	defer visitor.Leave(a)
-	if a.InPartition != nil {
-		if err := a.InPartition.Accept(visitor.Self); err != nil {
-			return err
-		}
-	}
 	if err := a.WhereClause.Accept(visitor.Self); err != nil {
 		return err
 	}
