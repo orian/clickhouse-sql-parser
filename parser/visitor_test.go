@@ -111,13 +111,13 @@ func (v *nestedRewriteVisitor) VisitTableIdentifier(expr *TableIdentifier) error
 	return nil
 }
 
-func (v *nestedRewriteVisitor) enter(expr Expr) {
+func (v *nestedRewriteVisitor) Enter(expr Expr) {
 	if s, ok := expr.(*SelectQuery); ok {
 		v.stack = append(v.stack, s)
 	}
 }
 
-func (v *nestedRewriteVisitor) leave(expr Expr) {
+func (v *nestedRewriteVisitor) Leave(expr Expr) {
 	if _, ok := expr.(*SelectQuery); ok {
 		v.stack = v.stack[1:]
 	}

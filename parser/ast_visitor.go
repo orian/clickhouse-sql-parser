@@ -165,6 +165,6 @@ type ASTVisitor interface {
 	VisitGrantPrivilegeExpr(expr *GrantPrivilegeStmt) error
 	VisitSelectItem(expr *SelectItem) error
 
-	enter(expr Expr)
-	leave(expr Expr)
+	Enter(expr Expr)
+	Leave(expr Expr)
 }
