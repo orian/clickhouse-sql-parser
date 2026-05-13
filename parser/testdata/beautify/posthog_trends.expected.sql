@@ -91,7 +91,18 @@ FROM
               ifNull(nullIf(toString(e.`mat_$ai_provider`), ''), '$$_posthog_breakdown_null_$$') AS breakdown_value_2
             FROM events AS e SAMPLE 1
             WHERE
-              and(equals(e.team_id, 1), greaterOrEquals(toTimeZone(e.timestamp, 'UTC'), assumeNotNull(toDateTime('2025-09-09 00:00:00', 'UTC'))), lessOrEquals(toTimeZone(e.timestamp, 'UTC'), assumeNotNull(toDateTime('2025-12-08 08:59:59', 'UTC'))), equals(e.event, '$ai_generation'))
+              and(
+                equals(e.team_id, 1),
+                greaterOrEquals(
+                  toTimeZone(e.timestamp, 'UTC'),
+                  assumeNotNull(toDateTime('2025-09-09 00:00:00', 'UTC'))
+                ),
+                lessOrEquals(
+                  toTimeZone(e.timestamp, 'UTC'),
+                  assumeNotNull(toDateTime('2025-12-08 08:59:59', 'UTC'))
+                ),
+                equals(e.event, '$ai_generation')
+              )
             GROUP BY
               day_start, breakdown_value_1, breakdown_value_2
           )
@@ -102,7 +113,11 @@ FROM
     GROUP BY
       breakdown_value
     ORDER BY
-      if(has(breakdown_value, '$$_posthog_breakdown_other_$$'), 2, if(has(breakdown_value, '$$_posthog_breakdown_null_$$'), 1, 0)) ASC,
+      if(
+        has(breakdown_value, '$$_posthog_breakdown_other_$$'),
+        2,
+        if(has(breakdown_value, '$$_posthog_breakdown_null_$$'), 1, 0)
+      ) ASC,
       arraySum(total) DESC,
       breakdown_value ASC
   )
@@ -110,7 +125,11 @@ WHERE arrayExists(x -> isNotNull(x), breakdown_value)
 GROUP BY
   breakdown_value
 ORDER BY
-  if(has(breakdown_value, '$$_posthog_breakdown_other_$$'), 2, if(has(breakdown_value, '$$_posthog_breakdown_null_$$'), 1, 0)) ASC,
+  if(
+    has(breakdown_value, '$$_posthog_breakdown_other_$$'),
+    2,
+    if(has(breakdown_value, '$$_posthog_breakdown_null_$$'), 1, 0)
+  ) ASC,
   arraySum(total) DESC,
   breakdown_value ASC
 LIMIT 50000

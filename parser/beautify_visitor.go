@@ -193,6 +193,8 @@ func (b *BeautifyVisitor) emitExpr(expr Expr) {
 		b.emitAliasExprMultiLine(e)
 	case *BinaryOperation:
 		b.emitBinaryOpMultiLine(e)
+	case *OrderExpr:
+		b.emitOrderExprMultiLine(e)
 	default:
 		// Unsplittable node type — fall back to compact even if it
 		// blows past the budget. Add a dedicated emitX method here
@@ -246,6 +248,31 @@ func (b *BeautifyVisitor) emitAliasExprMultiLine(a *AliasExpr) {
 	if a.Alias != nil {
 		b.writeString(" AS ")
 		b.writeString(a.Alias.String())
+	}
+}
+
+// emitOrderExprMultiLine prints an ORDER BY item where the underlying
+// expression is too long to fit. The direction (ASC/DESC) and optional
+// WITH FILL stay on the closing line, with the body recursively split:
+//
+//	if(
+//	  has(...),
+//	  2,
+//	  if(has(...), 1, 0)
+//	) ASC
+func (b *BeautifyVisitor) emitOrderExprMultiLine(o *OrderExpr) {
+	b.emitExpr(o.Expr)
+	if o.Alias != nil {
+		b.writeString(" AS ")
+		b.writeString(o.Alias.String())
+	}
+	if o.Direction != OrderDirectionNone {
+		b.writeSpace()
+		b.writeString(string(o.Direction))
+	}
+	if o.Fill != nil {
+		b.writeSpace()
+		b.writeString(o.Fill.String())
 	}
 }
 
@@ -698,7 +725,7 @@ func (b *BeautifyVisitor) beautifyWhere(w *WhereClause) {
 			b.indentIn()
 		}
 		b.newline()
-		b.writeString(c.String())
+		b.emitExpr(c)
 	}
 	b.indentOut()
 }
@@ -860,7 +887,7 @@ func (b *BeautifyVisitor) beautifyOrderBy(o *OrderByClause) {
 			b.writeString(",")
 			b.newline()
 		}
-		b.writeString(item.String())
+		b.emitExpr(item)
 	}
 	b.indentOut()
 	if o.Interpolate != nil {
