@@ -560,25 +560,6 @@ func (visitor DefaultASTVisitor) VisitColumnExprList(c *ColumnExprList) error {
 	}
 	return nil
 }
-func (visitor DefaultASTVisitor) VisitColumnIdentifier(c *ColumnIdentifier) error {
-	visitor.Enter(c)
-	defer visitor.Leave(c)
-	if c.Database != nil {
-		if err := c.Database.Accept(visitor.Self); err != nil {
-			return err
-		}
-	}
-	if c.Table != nil {
-		if err := c.Table.Accept(visitor.Self); err != nil {
-			return err
-		}
-	}
-	if err := c.Column.Accept(visitor.Self); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (visitor DefaultASTVisitor) VisitColumnNamesExpr(c *ColumnNamesExpr) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)

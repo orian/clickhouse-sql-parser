@@ -2399,13 +2399,6 @@ func (p *Path) End() Pos {
 	return 0
 }
 
-func (c *ColumnIdentifier) Accept(visitor ASTVisitor) error {
-	visitor.Enter(c)
-	defer visitor.Leave(c)
-
-	return visitor.VisitColumnIdentifier(c)
-}
-
 func (p *Path) String() string {
 	var builder strings.Builder
 	for i, ident := range p.Fields {

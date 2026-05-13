@@ -519,17 +519,6 @@ func (p *PrintVisitor) VisitColumnExprList(c *ColumnExprList) error {
 	}
 	return nil
 }
-func (p *PrintVisitor) VisitColumnIdentifier(c *ColumnIdentifier) error {
-	if c.Database != nil {
-		p.builder.WriteString(c.Database.String() + "." + c.Table.String() + "." + c.Column.String())
-	} else if c.Table != nil {
-		p.builder.WriteString(c.Table.String() + "." + c.Column.String())
-	} else {
-		p.builder.WriteString(c.Column.String())
-	}
-	return nil
-}
-
 func (p *PrintVisitor) VisitColumnNamesExpr(c *ColumnNamesExpr) error {
 	builder := p.builder
 	builder.WriteByte('(')
