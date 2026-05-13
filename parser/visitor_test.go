@@ -163,6 +163,7 @@ func (v *exportedMethodVisitor) Leave(expr Expr) {
 // and can be overridden from external packages
 func TestVisitor_ExportedMethods(t *testing.T) {
 	visitor := &exportedMethodVisitor{}
+	visitor.Self = visitor
 
 	sql := `SELECT a FROM table1`
 	parser := NewParser(sql)
