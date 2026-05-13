@@ -50,8 +50,11 @@ Parse ClickHouse SQL into AST or beautify ClickHouse SQL format:
 ## Parse query into AST
 $ clickhouse-sql-parser "SELECT * FROM clickhouse WHERE a=100"
 
-## Beautify query
+## Compact one-line format
 $ clickhouse-sql-parser -format "SELECT * FROM clickhouse WHERE a=100"
+
+## Beautify (indented, line-broken)
+$ clickhouse-sql-parser -beautify "SELECT a, b FROM t WHERE a > 1"
 
 ## Parse query from file
 $ clickhouse-sql-parser -file ./test.sql
