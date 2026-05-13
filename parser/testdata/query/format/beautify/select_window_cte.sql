@@ -38,8 +38,5 @@ SELECT
   avg_salary,
   lag(avg_salary, 1, 0) OVER (PARTITION BY department ORDER BY month ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) AS prev_month_avg
 FROM ranked
-WHERE
-  dept_rank <= 5
-ORDER BY
-  month,
-  department;
+WHERE dept_rank <= 5
+ORDER BY month, department;

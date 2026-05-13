@@ -33,5 +33,4 @@ FROM
     AND
       env = 'test'
   ) AS tmp
-WHERE
-  rn = 1;
+WHERE rn = 1;

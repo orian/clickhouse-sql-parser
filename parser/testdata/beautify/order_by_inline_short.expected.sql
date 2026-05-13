@@ -1,0 +1,3 @@
+SELECT a
+FROM t
+ORDER BY a DESC, b

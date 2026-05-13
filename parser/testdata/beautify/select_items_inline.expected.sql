@@ -1,4 +1,3 @@
 SELECT a, b, c
 FROM t
-WHERE
-  x > 1
+WHERE x > 1

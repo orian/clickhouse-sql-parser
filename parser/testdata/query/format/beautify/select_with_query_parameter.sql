@@ -21,5 +21,4 @@ SELECT * FROM clickhouse WHERE tenant_id = {tenant_id: String};
 SELECT {a: UInt32}, {b: String}, {c: DateTime}, {d: Map(String, Array(UInt8))};
 SELECT *
 FROM clickhouse
-WHERE
-  tenant_id = {tenant_id: String};
+WHERE tenant_id = {tenant_id: String};

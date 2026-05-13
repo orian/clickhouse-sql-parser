@@ -4,5 +4,4 @@ FROM
     SELECT a
     FROM t
   ) AS sub
-WHERE
-  sub.a < 10
+WHERE sub.a < 10

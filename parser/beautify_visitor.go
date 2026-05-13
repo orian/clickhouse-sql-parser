@@ -17,11 +17,56 @@ import "strings"
 // VisitX methods that break across lines and indent. Everything else falls
 // through to the node's String() method (compact). Add VisitX overrides
 // incrementally as specific subtrees need beautified output.
-// defaultMaxWidth is the soft line-length budget. Any compact rendering of
-// an expression that would push the current line past this width is split
-// across multiple indented lines instead. 100 cols matches modern editor
-// defaults; tune via the maxWidth field if needed.
-const defaultMaxWidth = 100
+// BeautifyOptions configures the per-clause inline-vs-break thresholds
+// used by BeautifyVisitor. A given clause stays on a single line when its
+// rendered form fits both the MaxLen budget and (when applicable) the
+// MaxCount item limit; otherwise it falls back to the multi-line layout.
+// A zero MaxLen or MaxCount means "always break".
+type BeautifyOptions struct {
+	// MaxWidth is the soft line-length budget used by the expression-
+	// level wrap logic (e.g. splitting long function calls).
+	MaxWidth int
+
+	// SelectItemsMaxLen / SelectItemsMaxCount govern whether SELECT
+	// items stay on the SELECT line:
+	//
+	//   SELECT a, b, c   FROM t
+	//
+	// instead of breaking onto separate indented lines.
+	SelectItemsMaxLen   int
+	SelectItemsMaxCount int
+
+	// FromMaxLen governs whether `FROM <expr>` stays on one line.
+	// FROM expressions that contain a parenthesised subquery always
+	// break regardless of this value, so the subquery can beautify.
+	FromMaxLen int
+
+	// WhereMaxLen / WhereMaxConjuncts govern whether `WHERE <expr>`
+	// stays on one line. A conjunct is one top-level AND/OR-separated
+	// piece of the predicate; a default of 1 means any boolean
+	// splitting forces the multi-line layout.
+	WhereMaxLen       int
+	WhereMaxConjuncts int
+
+	// OrderByMaxLen / OrderByMaxCount govern whether ORDER BY items
+	// stay on one line.
+	OrderByMaxLen   int
+	OrderByMaxCount int
+}
+
+// DefaultBeautifyOptions matches the conventions the visitor used before
+// these knobs were exposed: 100-col wrap budget, with 80-char inline
+// budgets per clause and reasonable item counts.
+var DefaultBeautifyOptions = BeautifyOptions{
+	MaxWidth:            100,
+	SelectItemsMaxLen:   80,
+	SelectItemsMaxCount: 7,
+	FromMaxLen:          80,
+	WhereMaxLen:         80,
+	WhereMaxConjuncts:   1,
+	OrderByMaxLen:       80,
+	OrderByMaxCount:     5,
+}
 
 type BeautifyVisitor struct {
 	DefaultASTVisitor
@@ -30,10 +75,21 @@ type BeautifyVisitor struct {
 	indent   string
 	col      int // running column of the next byte to be written
 	maxWidth int // soft wrap budget for compact renderings (0 = no wrap)
+	opts     BeautifyOptions
 }
 
 func NewBeautifyVisitor() *BeautifyVisitor {
-	v := &BeautifyVisitor{indent: "  ", maxWidth: defaultMaxWidth}
+	return NewBeautifyVisitorWith(DefaultBeautifyOptions)
+}
+
+// NewBeautifyVisitorWith creates a BeautifyVisitor with the given option set.
+// Useful when callers want different per-clause inline thresholds.
+func NewBeautifyVisitorWith(opts BeautifyOptions) *BeautifyVisitor {
+	v := &BeautifyVisitor{
+		indent:   "  ",
+		maxWidth: opts.MaxWidth,
+		opts:     opts,
+	}
 	v.Self = v
 	return v
 }
@@ -82,17 +138,15 @@ func (b *BeautifyVisitor) writeString(s string) {
 //	SELECT a, b, c FROM t
 //
 // instead of breaking each item onto its own indented line.
-const (
-	selectItemsInlineMaxLen   = 80
-	selectItemsInlineMaxCount = 7
-)
-
 // selectItemsFitInline reports whether the SELECT items should stay on
 // the SELECT line. They stay inline only when there are at most
-// selectItemsInlineMaxCount items and the joined `item1, item2, ...`
-// rendering is shorter than selectItemsInlineMaxLen.
-func selectItemsFitInline(items []*SelectItem) bool {
-	if len(items) > selectItemsInlineMaxCount {
+// opts.SelectItemsMaxCount items and the joined `item1, item2, ...`
+// rendering is shorter than opts.SelectItemsMaxLen.
+func (b *BeautifyVisitor) selectItemsFitInline(items []*SelectItem) bool {
+	if b.opts.SelectItemsMaxCount <= 0 || b.opts.SelectItemsMaxLen <= 0 {
+		return false
+	}
+	if len(items) > b.opts.SelectItemsMaxCount {
 		return false
 	}
 	total := 0
@@ -105,7 +159,7 @@ func selectItemsFitInline(items []*SelectItem) bool {
 			return false
 		}
 		total += len(s)
-		if total >= selectItemsInlineMaxLen {
+		if total >= b.opts.SelectItemsMaxLen {
 			return false
 		}
 	}
@@ -319,7 +373,7 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.writeString(s.Top.String())
 	}
 
-	if selectItemsFitInline(s.SelectItems) {
+	if b.selectItemsFitInline(s.SelectItems) {
 		b.writeSpace()
 		for i, item := range s.SelectItems {
 			if i > 0 {
@@ -497,13 +551,13 @@ func (b *BeautifyVisitor) beautifyFrom(f *FromClause) {
 	b.indentOut()
 }
 
-// fromFitsInline reports whether `FROM <expr>` should be kept on a single
-// line: the source must contain no subqueries (those always beautify into
-// an indented block) and the rendered length must stay within the wrap
-// budget at the current column.
+// fromFitsInline reports whether `FROM <expr>` should stay on a single
+// line: the source must contain no subqueries (those always beautify
+// into an indented block) and the rendered length must stay within
+// opts.FromMaxLen.
 func (b *BeautifyVisitor) fromFitsInline(f *FromClause) bool {
-	if b.maxWidth <= 0 {
-		return true
+	if b.opts.FromMaxLen <= 0 {
+		return false
 	}
 	if fromHasSubQuery(f.Expr) {
 		return false
@@ -512,8 +566,7 @@ func (b *BeautifyVisitor) fromFitsInline(f *FromClause) bool {
 	if strings.ContainsRune(s, '\n') {
 		return false
 	}
-	// 5 = len("FROM ").
-	return b.col+5+len(s) <= b.maxWidth
+	return len(s) < b.opts.FromMaxLen
 }
 
 // fromHasSubQuery reports whether the FROM expression tree contains a
@@ -602,15 +655,29 @@ func unwrapSubQueryTable(expr Expr) (*SubQuery, string) {
 	return nil, ""
 }
 
-// beautifyWhere emits WHERE with each AND/OR conjunct on its own indented line.
+// beautifyWhere emits `WHERE <expr>`. Short single-conjunct predicates
+// stay on the same line as WHERE (`WHERE x > 1`); anything longer or
+// joined with AND/OR breaks each conjunct onto its own indented line:
 //
 //	WHERE
 //	  a > 1
 //	AND
 //	  b < 10
 func (b *BeautifyVisitor) beautifyWhere(w *WhereClause) {
-	b.writeString("WHERE")
 	conjuncts, ops := splitBoolean(w.Expr)
+	if b.whereFitsInline(conjuncts) {
+		b.writeString("WHERE ")
+		for i, c := range conjuncts {
+			if i > 0 {
+				b.writeSpace()
+				b.writeString(ops[i-1])
+				b.writeSpace()
+			}
+			b.writeString(c.String())
+		}
+		return
+	}
+	b.writeString("WHERE")
 	b.indentIn()
 	for i, c := range conjuncts {
 		if i > 0 {
@@ -623,6 +690,33 @@ func (b *BeautifyVisitor) beautifyWhere(w *WhereClause) {
 		b.writeString(c.String())
 	}
 	b.indentOut()
+}
+
+// whereFitsInline reports whether the WHERE conjuncts fit on a single
+// line: at most opts.WhereMaxConjuncts of them (default 1), joined
+// rendering shorter than opts.WhereMaxLen.
+func (b *BeautifyVisitor) whereFitsInline(conjuncts []Expr) bool {
+	if b.opts.WhereMaxConjuncts <= 0 || b.opts.WhereMaxLen <= 0 {
+		return false
+	}
+	if len(conjuncts) > b.opts.WhereMaxConjuncts {
+		return false
+	}
+	total := 0
+	for i, c := range conjuncts {
+		if i > 0 {
+			total += 5 // " AND " / " OR " upper bound
+		}
+		s := c.String()
+		if strings.ContainsRune(s, '\n') {
+			return false
+		}
+		total += len(s)
+		if total >= b.opts.WhereMaxLen {
+			return false
+		}
+	}
+	return true
 }
 
 // splitBoolean splits an expression on top-level AND/OR into a flat list.
@@ -728,8 +822,24 @@ func (b *BeautifyVisitor) beautifySettings(s *SettingsClause) {
 	b.indentOut()
 }
 
-// beautifyOrderBy emits ORDER BY with each item on its own indented line.
+// beautifyOrderBy emits ORDER BY. Short item lists stay on the same line
+// (`ORDER BY a, b DESC`); longer lists break each item onto its own
+// indented line.
 func (b *BeautifyVisitor) beautifyOrderBy(o *OrderByClause) {
+	if b.orderByFitsInline(o.Items) {
+		b.writeString("ORDER BY ")
+		for i, item := range o.Items {
+			if i > 0 {
+				b.writeString(", ")
+			}
+			b.writeString(item.String())
+		}
+		if o.Interpolate != nil {
+			b.newline()
+			b.writeString(o.Interpolate.String())
+		}
+		return
+	}
 	b.writeString("ORDER BY")
 	b.indentIn()
 	for i, item := range o.Items {
@@ -746,6 +856,33 @@ func (b *BeautifyVisitor) beautifyOrderBy(o *OrderByClause) {
 		b.newline()
 		b.writeString(o.Interpolate.String())
 	}
+}
+
+// orderByFitsInline reports whether the ORDER BY items fit on a single
+// line: at most opts.OrderByMaxCount of them and joined rendering
+// shorter than opts.OrderByMaxLen.
+func (b *BeautifyVisitor) orderByFitsInline(items []Expr) bool {
+	if b.opts.OrderByMaxCount <= 0 || b.opts.OrderByMaxLen <= 0 {
+		return false
+	}
+	if len(items) > b.opts.OrderByMaxCount {
+		return false
+	}
+	total := 0
+	for i, item := range items {
+		if i > 0 {
+			total += 2 // ", "
+		}
+		s := item.String()
+		if strings.ContainsRune(s, '\n') {
+			return false
+		}
+		total += len(s)
+		if total >= b.opts.OrderByMaxLen {
+			return false
+		}
+	}
+	return true
 }
 
 func (b *BeautifyVisitor) beautifyTableSchema(t *TableSchemaClause) {

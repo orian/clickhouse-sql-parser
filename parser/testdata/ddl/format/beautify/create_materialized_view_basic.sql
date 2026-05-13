@@ -42,6 +42,5 @@ SELECT
   visitParamExtractString(properties, 'f5') AS f5,
   visitParamExtractInt(properties, 'f6') AS f6
 FROM infra_bm.table_name1
-WHERE
-  infra_bm.table_name1.event = 'test-event'
+WHERE infra_bm.table_name1.event = 'test-event'
 COMMENT 'Comment for table';

@@ -7,5 +7,4 @@ INSERT INTO t (c) SELECT 1 WHERE 1 = 1;
 INSERT INTO t
   (c)
 SELECT 1
-WHERE
-  1 = 1;
+WHERE 1 = 1;
