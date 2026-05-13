@@ -634,6 +634,11 @@ func (visitor DefaultASTVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 			return err
 		}
 	}
+	if c.Comment != nil {
+		if err := c.Comment.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 

@@ -594,12 +594,20 @@ func (p *PrintVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 		builder.WriteString(" ")
 		builder.WriteString(c.Engine.String())
 	}
+	if c.Comment != nil {
+		builder.WriteString(" COMMENT ")
+		builder.WriteString(c.Comment.String())
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitCreateFunction(c *CreateFunction) error {
 	builder := p.builder
-	builder.WriteString("CREATE FUNCTION ")
+	builder.WriteString("CREATE")
+	if c.OrReplace {
+		builder.WriteString(" OR REPLACE")
+	}
+	builder.WriteString(" FUNCTION ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
