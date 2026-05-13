@@ -18,7 +18,9 @@ where rn = 1;
 -- Beautify SQL:
 CREATE MATERIALIZED VIEW test.t0
 ON CLUSTER default_cluster
-ENGINE = ReplicatedAggregatingMergeTree('/clickhouse/{layer}-{shard}/test/t0', '{replica}') ORDER BY (f0) PARTITION BY toYYYYMM(f0)
+ENGINE = ReplicatedAggregatingMergeTree('/clickhouse/{layer}-{shard}/test/t0', '{replica}')
+ORDER BY (f0)
+PARTITION BY toYYYYMM(f0)
 POPULATE
 AS
 SELECT

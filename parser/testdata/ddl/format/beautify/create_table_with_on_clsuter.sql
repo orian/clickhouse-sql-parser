@@ -25,4 +25,7 @@ ON CLUSTER 'default_cluster' (
   f6 String,
   f7 Datetime DEFAULT now()
 )
-ENGINE = ReplicatedMergeTree('/clickhouse/tables/{layer}-{shard}/test/events_local', '{replica}') ORDER BY (f0, f1, f2) PARTITION BY toYYYYMMDD(f3) TTL f3 + INTERVAL 6 MONTH;
+ENGINE = ReplicatedMergeTree('/clickhouse/tables/{layer}-{shard}/test/events_local', '{replica}')
+ORDER BY (f0, f1, f2)
+PARTITION BY toYYYYMMDD(f3)
+TTL f3 + INTERVAL 6 MONTH;

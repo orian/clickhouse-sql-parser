@@ -82,4 +82,10 @@ ON CLUSTER default_cluster (
   INDEX idx_f4 mapValues(f4) TYPE bloom_filter(0.01) GRANULARITY 1,
   INDEX idx_f5 name TYPE tokenbf_v1(4096, 3, 0) GRANULARITY 4
 )
-ENGINE = MergeTree ORDER BY (ts_bucket, service_name, name, toUnixTimestamp64Nano(timestamp)) PARTITION BY toDate(timestamp) TTL toDate(timestamp) + toIntervalDay(15) SETTINGS index_granularity=8192, ttl_only_drop_parts=1;
+ENGINE = MergeTree
+ORDER BY (ts_bucket, service_name, name, toUnixTimestamp64Nano(timestamp))
+PARTITION BY toDate(timestamp)
+TTL toDate(timestamp) + toIntervalDay(15)
+SETTINGS
+  index_granularity=8192,
+  ttl_only_drop_parts=1;

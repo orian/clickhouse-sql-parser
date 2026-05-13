@@ -152,7 +152,7 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 	}
 	if s.Settings != nil {
 		b.newline()
-		b.writeString(s.Settings.String())
+		b.beautifySettings(s.Settings)
 	}
 	if s.Format != nil {
 		b.newline()
@@ -216,7 +216,7 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 	}
 	if c.Engine != nil {
 		b.newline()
-		b.writeString(strings.TrimPrefix(c.Engine.String(), " "))
+		b.beautifyEngine(c.Engine)
 	}
 	if c.SubQuery != nil {
 		b.newline()
@@ -390,6 +390,62 @@ func (b *BeautifyVisitor) beautifyGroupBy(g *GroupByClause) {
 	}
 }
 
+// beautifyEngine emits ENGINE = Name(args) and each engine clause
+// (ORDER BY, PARTITION BY, PRIMARY KEY, SAMPLE BY, TTL, SETTINGS) on its own
+// line at the same indent as ENGINE. SETTINGS recursively beautifies to one
+// setting per line.
+func (b *BeautifyVisitor) beautifyEngine(e *EngineExpr) {
+	b.writeString("ENGINE = ")
+	b.writeString(e.Name)
+	if e.Params != nil {
+		b.writeString(e.Params.String())
+	}
+	if e.OrderBy != nil {
+		b.newline()
+		b.writeString(e.OrderBy.String())
+	}
+	if e.PartitionBy != nil {
+		b.newline()
+		b.writeString(e.PartitionBy.String())
+	}
+	if e.PrimaryKey != nil {
+		b.newline()
+		b.writeString(e.PrimaryKey.String())
+	}
+	if e.SampleBy != nil {
+		b.newline()
+		b.writeString(e.SampleBy.String())
+	}
+	if e.TTL != nil {
+		b.newline()
+		b.writeString(e.TTL.String())
+	}
+	if e.Settings != nil {
+		b.newline()
+		b.beautifySettings(e.Settings)
+	}
+}
+
+// beautifySettings emits SETTINGS with each item on its own indented line:
+//
+//	SETTINGS
+//	  max_threads = 8,
+//	  max_memory_usage = 1000000
+func (b *BeautifyVisitor) beautifySettings(s *SettingsClause) {
+	b.writeString("SETTINGS")
+	b.indentIn()
+	for i, item := range s.Items {
+		if i == 0 {
+			b.newline()
+		} else {
+			b.writeString(",")
+			b.newline()
+		}
+		b.writeString(item.String())
+	}
+	b.indentOut()
+}
+
 // beautifyOrderBy emits ORDER BY with each item on its own indented line.
 func (b *BeautifyVisitor) beautifyOrderBy(o *OrderByClause) {
 	b.writeString("ORDER BY")
@@ -509,7 +565,7 @@ func (b *BeautifyVisitor) VisitCreateMaterializedView(c *CreateMaterializedView)
 	}
 	if c.Settings != nil {
 		b.newline()
-		b.writeString(c.Settings.String())
+		b.beautifySettings(c.Settings)
 	}
 	if c.HasAppend {
 		b.newline()
@@ -517,7 +573,7 @@ func (b *BeautifyVisitor) VisitCreateMaterializedView(c *CreateMaterializedView)
 	}
 	if c.Engine != nil {
 		b.newline()
-		b.writeString(strings.TrimPrefix(c.Engine.String(), " "))
+		b.beautifyEngine(c.Engine)
 	}
 	if c.Destination != nil {
 		b.newline()

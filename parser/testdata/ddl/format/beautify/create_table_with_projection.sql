@@ -23,4 +23,5 @@ CREATE TABLE events (
   `huge_string` String,
   PROJECTION order_by_user_id (SELECT _part_offset ORDER BY user_id)
 )
-ENGINE = MergeTree() ORDER BY (event_id);
+ENGINE = MergeTree()
+ORDER BY (event_id);

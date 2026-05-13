@@ -24,4 +24,8 @@ CREATE TABLE test.`.inner.752391fb-44cc-4dd5-b523-91fb44cc9dd5` UUID '27673372-7
   `f5` Nullable(DateTime64(3)),
   `succeed_at` Nullable(DateTime64(3))
 )
-ENGINE = MergeTree ORDER BY label_id PARTITION BY xxHash32(tag_id) % 20 SETTINGS index_granularity=8192;
+ENGINE = MergeTree
+ORDER BY label_id
+PARTITION BY xxHash32(tag_id) % 20
+SETTINGS
+  index_granularity=8192;

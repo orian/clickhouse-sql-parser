@@ -95,6 +95,18 @@ func TestBeautifyVisitor_FallthroughForUnhandledStatements(t *testing.T) {
 	require.Equal(t, "", got)
 }
 
+// SETTINGS clauses break one item per indented line, both at SELECT level
+// and inside an engine spec.
+func TestBeautifyVisitor_SelectSettings(t *testing.T) {
+	got := beautify(t, "SELECT * FROM t SETTINGS max_threads=8, max_memory_usage=10000000")
+	require.Contains(t, got, "SETTINGS\n  max_threads=8,\n  max_memory_usage=10000000")
+}
+
+func TestBeautifyVisitor_CreateTableEngineSettings(t *testing.T) {
+	got := beautify(t, "CREATE TABLE foo (id UInt64) ENGINE = MergeTree ORDER BY id PARTITION BY toYYYYMM(d) SETTINGS index_granularity=8192, parts_to_throw_insert=300")
+	require.Contains(t, got, "ENGINE = MergeTree\nORDER BY id\nPARTITION BY toYYYYMM(d)\nSETTINGS\n  index_granularity=8192,\n  parts_to_throw_insert=300")
+}
+
 // Subselects in FROM are beautified with an extra indent level.
 func TestBeautifyVisitor_FromSubquery(t *testing.T) {
 	got := beautify(t, "select one from (select main,sum(two) as one from tabl where x>1) where main like '%olsztyn%' order by one desc limit 10")

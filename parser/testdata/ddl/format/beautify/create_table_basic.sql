@@ -46,5 +46,9 @@ CREATE TABLE IF NOT EXISTS test.events_local (
   f10 String ALIAS f11,
   f12 JSON(max_dynamic_types=10, max_dynamic_paths=3, SKIP a, SKIP a.b.c,  SKIP REGEXP 'hello')
 )
-ENGINE = MergeTree ORDER BY (f1, f2, f3) PARTITION BY toYYYYMMDD(f3) PRIMARY KEY (f0, f1, f2) TTL f3 + INTERVAL 6 MONTH
+ENGINE = MergeTree
+ORDER BY (f1, f2, f3)
+PARTITION BY toYYYYMMDD(f3)
+PRIMARY KEY (f0, f1, f2)
+TTL f3 + INTERVAL 6 MONTH
 COMMENT 'Comment for table';
