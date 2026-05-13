@@ -253,12 +253,23 @@ func (b *BeautifyVisitor) emitAliasExprMultiLine(a *AliasExpr) {
 // start of a new line and each operand routed back through emitExpr so a
 // long operand (typically a function call) further splits its arguments.
 //
-// Tight-binding operators (like the ::-cast, `.` member access) are never
-// broken: their compact form is emitted even if it overshoots the budget,
-// because splitting them produces obviously-wrong-looking SQL.
+// Two operator categories are handled specially:
+//
+//   - Tight-binding operators (::-cast, `.` member access) are never
+//     broken: their compact form is emitted even if it overshoots the
+//     budget, because splitting them produces obviously-wrong-looking SQL.
+//   - Lambda arrows (->) keep `<param> -> ` on one line and split only
+//     the body. Putting `->` on a new line, separated from its parameter,
+//     reads as broken SQL.
 func (b *BeautifyVisitor) emitBinaryOpMultiLine(p *BinaryOperation) {
 	if isTightBinaryOp(p.Operation) {
 		b.writeString(p.String())
+		return
+	}
+	if string(p.Operation) == "->" {
+		b.writeString(p.LeftExpr.String())
+		b.writeString(" -> ")
+		b.emitExpr(p.RightExpr)
 		return
 	}
 	b.emitExpr(p.LeftExpr)
