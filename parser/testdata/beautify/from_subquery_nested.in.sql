@@ -1,0 +1,1 @@
+SELECT * FROM (SELECT * FROM (SELECT x FROM inner_t) AS a) AS b
