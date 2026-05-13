@@ -12,18 +12,20 @@ import (
 
 const VERSION = "0.4.17"
 const help = `
-Usage: clickhouse-sql-parser [YOUR SQL STRING] -f [YOUR SQL FILE] -format
+Usage: clickhouse-sql-parser [YOUR SQL STRING] -f [YOUR SQL FILE] -format -beautify
 `
 
 var options struct {
-	help    bool
-	file    string
-	format  bool
-	version bool
+	help     bool
+	file     string
+	format   bool
+	beautify bool
+	version  bool
 }
 
 func init() {
-	flag.BoolVar(&options.format, "format", false, "Beautify print the ClickHouse SQL")
+	flag.BoolVar(&options.format, "format", false, "Print compact one-line ClickHouse SQL")
+	flag.BoolVar(&options.beautify, "beautify", false, "Print indented, line-broken ClickHouse SQL")
 	flag.StringVar(&options.file, "f", "", "Parse SQL from file")
 	flag.BoolVar(&options.help, "h", false, "Print help message")
 	flag.BoolVar(&options.version, "v", false, "Print version")
@@ -61,16 +63,24 @@ func main() {
 		fmt.Fprintf(os.Stderr, "parse statements error: %s\n", err.Error())
 		os.Exit(1)
 	}
-	if !options.format { // print AST
+	if !options.format && !options.beautify { // print AST
 		bytes, _ := json.MarshalIndent(stmts, "", "  ") // nolint
 		fmt.Println(string(bytes))
 	} else { // format SQL
 		for _, stmt := range stmts {
-			printer := clickhouse.NewPrintVisitor()
-			if err := stmt.Accept(printer); err != nil {
+			var visitor interface {
+				clickhouse.ASTVisitor
+				String() string
+			}
+			if options.beautify {
+				visitor = clickhouse.NewBeautifyVisitor()
+			} else {
+				visitor = clickhouse.NewPrintVisitor()
+			}
+			if err := stmt.Accept(visitor); err != nil {
 				os.Exit(1)
 			}
-			fmt.Println(printer.String())
+			fmt.Println(visitor.String())
 		}
 	}
 }

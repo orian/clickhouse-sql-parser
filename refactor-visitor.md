@@ -81,7 +81,19 @@ Default traversals call `child.Accept(visitor.Self)`. Any custom visitor created
 
 Upstream `master` introduced a `Formatter` type and a `FormatSQL(*Formatter)` method on every AST node (commit `9275c63` and the beautify follow-ups). That puts formatting back onto the nodes, which contradicts invariant 5. We **do not** adopt that approach.
 
-Instead, beautify output lives in `parser/beautify_visitor.go` (`BeautifyVisitor`), a sibling of `PrintVisitor` that embeds `DefaultASTVisitor`. Currently a stub — port a specific upstream beautify improvement (e.g. FROM/JOIN indentation, INSERT column-list wrapping, ON CLUSTER line breaks) by translating the corresponding `FormatSQL` body from upstream's `parser/format.go` into a `VisitX` method on `BeautifyVisitor`, writing into `b.builder` with `Indent()`/`Outdent()`.
+Instead, beautify output lives in `parser/beautify_visitor.go` (`BeautifyVisitor`), a sibling of `PrintVisitor` that embeds `DefaultASTVisitor`. The CLI exposes it via `-beautify`:
+
+```bash
+$ clickhouse-sql-parser -beautify "SELECT a, b FROM t WHERE a > 1 GROUP BY a"
+SELECT
+  a,
+  b
+FROM t
+WHERE a > 1
+GROUP BY a
+```
+
+**Coverage:** top-level statement types (`SelectQuery`, `CreateTable`, `CreateView`, `CreateMaterializedView`, `AlterTable`, `InsertStmt`, `SubQuery`) have hand-written `VisitX` methods that break across lines and indent. Everything else falls through — child clauses are rendered via `child.String()` (compact). To beautify a specific subtree (e.g. add line breaks inside an `ALTER TABLE` clause, or inside a complex `WindowExpr`), add a corresponding `VisitX` method to `BeautifyVisitor` and recurse into nested statements via `child.Accept(b.Self)`.
 
 Upstream's `parser/format.go` and `format/beautify/` golden fixtures are **deliberately skipped** during merges — see the conflict-hotspots note below.
 
