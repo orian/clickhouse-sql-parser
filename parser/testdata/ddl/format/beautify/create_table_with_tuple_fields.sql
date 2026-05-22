@@ -22,4 +22,4 @@ ON CLUSTER default_cluster (
 ENGINE = ReplicatedMergeTree('/clickhouse/tables/{layer}-{shard}', '{replica}')
 ORDER BY (tup1, tup2, tup3)
 SETTINGS
-  index_granularity=8192;
+  index_granularity = 8192;

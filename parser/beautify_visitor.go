@@ -905,7 +905,11 @@ func (b *BeautifyVisitor) beautifySettings(s *SettingsClause) {
 			b.writeString(",")
 			b.newline()
 		}
-		b.writeString(item.String())
+		// SettingExpr.String() emits `name=value` with no spaces; render
+		// the beautified form with spaces around the `=`.
+		b.writeString(item.Name.String())
+		b.writeString(" = ")
+		b.writeString(item.Expr.String())
 	}
 	b.indentOut()
 }
@@ -988,11 +992,65 @@ func (b *BeautifyVisitor) beautifyTableSchema(t *TableSchemaClause) {
 			b.writeString(",")
 			b.newline()
 		}
-		b.writeString(col.String())
+		if cd, ok := col.(*ColumnDef); ok {
+			b.emitColumnDef(cd)
+		} else {
+			// INDEX / CONSTRAINT / PROJECTION entries: compact form.
+			b.writeString(col.String())
+		}
 	}
 	b.indentOut()
 	b.newline()
 	b.writeString(")")
+}
+
+// emitColumnDef prints a column definition, routing the DEFAULT /
+// MATERIALIZED / ALIAS expression through emitExpr so a long function call
+// (e.g. a MATERIALIZED replaceRegexpAll(...)) wraps across indented lines
+// instead of running off as one giant line. The name+type prefix and the
+// trailing modifiers (codec, TTL, COMMENT) stay on the same line as the
+// keyword and the closing paren respectively:
+//
+//	`pmat_email` String MATERIALIZED replaceRegexpAll(
+//	  JSONExtractRaw(properties, 'email'),
+//	  concat(...),
+//	  ''
+//	) COMMENT 'column_materializer::email'
+func (b *BeautifyVisitor) emitColumnDef(c *ColumnDef) {
+	b.writeString(c.Name.String())
+	if c.Type != nil {
+		b.writeSpace()
+		b.writeString(c.Type.String())
+	}
+	if c.NotNull != nil {
+		b.writeString(" NOT NULL")
+	} else if c.Nullable != nil {
+		b.writeString(" NULL")
+	}
+	if c.DefaultExpr != nil {
+		b.writeString(" DEFAULT ")
+		b.emitExpr(c.DefaultExpr)
+	}
+	if c.MaterializedExpr != nil {
+		b.writeString(" MATERIALIZED ")
+		b.emitExpr(c.MaterializedExpr)
+	}
+	if c.AliasExpr != nil {
+		b.writeString(" ALIAS ")
+		b.emitExpr(c.AliasExpr)
+	}
+	if c.Codec != nil {
+		b.writeSpace()
+		b.writeString(c.Codec.String())
+	}
+	if c.TTL != nil {
+		b.writeSpace()
+		b.writeString(c.TTL.String())
+	}
+	if c.Comment != nil {
+		b.writeString(" COMMENT ")
+		b.writeString(c.Comment.String())
+	}
 }
 
 // VisitCreateView beautifies CREATE VIEW.

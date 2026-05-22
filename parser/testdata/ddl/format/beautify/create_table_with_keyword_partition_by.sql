@@ -20,4 +20,4 @@ ENGINE = ReplacingMergeTree
 ORDER BY (f1, f2)
 PARTITION BY date
 SETTINGS
-  index_granularity=8192;
+  index_granularity = 8192;

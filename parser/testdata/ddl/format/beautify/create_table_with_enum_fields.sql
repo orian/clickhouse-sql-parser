@@ -21,4 +21,4 @@ ORDER BY (method, timestamp)
 PARTITION BY toDate(timestamp)
 TTL toDate(timestamp) + toIntervalDay(3)
 SETTINGS
-  index_granularity=8192;
+  index_granularity = 8192;
