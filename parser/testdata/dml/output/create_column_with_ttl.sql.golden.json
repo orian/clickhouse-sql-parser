@@ -43,6 +43,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": null,
           "TTL": null,
@@ -73,6 +75,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": null,
           "TTL": {
@@ -138,6 +142,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": null,
           "TTL": {

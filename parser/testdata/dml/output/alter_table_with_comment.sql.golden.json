@@ -61,6 +61,8 @@
             "Literal": ""
           },
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": null,
           "TTL": null,
@@ -134,6 +136,8 @@
             "Literal": ""
           },
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": null,
           "TTL": null,

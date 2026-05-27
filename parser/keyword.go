@@ -68,6 +68,7 @@ const (
 	KeywordEmpty        = "EMPTY"
 	KeywordEnd          = "END"
 	KeywordEngine       = "ENGINE"
+	KeywordEphemeral    = "EPHEMERAL"
 	KeywordEstimate     = "ESTIMATE"
 	KeywordEvents       = "EVENTS"
 	KeywordEvery        = "EVERY"
@@ -325,6 +326,7 @@ var keywords = NewSet(
 	KeywordElse,
 	KeywordEnd,
 	KeywordEngine,
+	KeywordEphemeral,
 	KeywordEstimate,
 	KeywordEmbedded,
 	KeywordEmpty,

@@ -1005,6 +1005,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.MaterializedExpr, fn) {
 			return false
 		}
+		if !Walk(n.EphemeralExpr, fn) {
+			return false
+		}
 		if !Walk(n.AliasExpr, fn) {
 			return false
 		}

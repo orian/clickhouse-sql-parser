@@ -484,6 +484,13 @@ func (p *PrintVisitor) VisitColumnDef(c *ColumnDef) error {
 		builder.WriteString(" MATERIALIZED ")
 		builder.WriteString(c.MaterializedExpr.String())
 	}
+	if c.IsEphemeral {
+		builder.WriteString(" EPHEMERAL")
+		if c.EphemeralExpr != nil {
+			builder.WriteByte(' ')
+			builder.WriteString(c.EphemeralExpr.String())
+		}
+	}
 	if c.AliasExpr != nil {
 		builder.WriteString(" ALIAS ")
 		builder.WriteString(c.AliasExpr.String())

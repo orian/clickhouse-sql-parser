@@ -523,6 +523,11 @@ func (visitor DefaultASTVisitor) VisitColumnDef(c *ColumnDef) error {
 			return err
 		}
 	}
+	if c.EphemeralExpr != nil {
+		if err := c.EphemeralExpr.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if c.AliasExpr != nil {
 		if err := c.AliasExpr.Accept(visitor.Self); err != nil {
 			return err

@@ -3651,7 +3651,11 @@ type ColumnDef struct {
 
 	DefaultExpr      Expr
 	MaterializedExpr Expr
-	AliasExpr        Expr
+	// IsEphemeral is true when the column carries the EPHEMERAL keyword.
+	// EphemeralExpr is the optional default expression (may be nil).
+	IsEphemeral   bool
+	EphemeralExpr Expr
+	AliasExpr     Expr
 
 	Codec *CompressionCodec
 	TTL   *TTLClause
@@ -3687,6 +3691,13 @@ func (c *ColumnDef) String() string {
 	if c.MaterializedExpr != nil {
 		builder.WriteString(" MATERIALIZED ")
 		builder.WriteString(c.MaterializedExpr.String())
+	}
+	if c.IsEphemeral {
+		builder.WriteString(" EPHEMERAL")
+		if c.EphemeralExpr != nil {
+			builder.WriteByte(' ')
+			builder.WriteString(c.EphemeralExpr.String())
+		}
 	}
 	if c.AliasExpr != nil {
 		builder.WriteString(" ALIAS ")

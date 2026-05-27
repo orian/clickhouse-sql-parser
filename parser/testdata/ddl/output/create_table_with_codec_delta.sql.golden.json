@@ -43,6 +43,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 53,
@@ -95,6 +97,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 93,
@@ -142,6 +146,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 126,
@@ -199,6 +205,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 172,
@@ -251,6 +259,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 218,
@@ -298,6 +308,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 255,
@@ -355,6 +367,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 299,

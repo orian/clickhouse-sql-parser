@@ -1035,6 +1035,13 @@ func (b *BeautifyVisitor) emitColumnDef(c *ColumnDef) {
 		b.writeString(" MATERIALIZED ")
 		b.emitExpr(c.MaterializedExpr)
 	}
+	if c.IsEphemeral {
+		b.writeString(" EPHEMERAL")
+		if c.EphemeralExpr != nil {
+			b.writeSpace()
+			b.emitExpr(c.EphemeralExpr)
+		}
+	}
 	if c.AliasExpr != nil {
 		b.writeString(" ALIAS ")
 		b.emitExpr(c.AliasExpr)

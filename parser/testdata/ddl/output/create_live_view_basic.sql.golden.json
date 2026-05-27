@@ -55,6 +55,8 @@
           "Nullable": null,
           "DefaultExpr": null,
           "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
           "AliasExpr": null,
           "Codec": null,
           "TTL": null,

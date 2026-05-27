@@ -686,6 +686,20 @@ func (p *Parser) parseTableColumnExpr(pos Pos) (*ColumnDef, error) {
 	case p.tryConsumeKeywords(KeywordMaterialized):
 		column.MaterializedExpr, err = p.parseExpr(p.Pos())
 		columnEnd = column.MaterializedExpr.End()
+	case p.tryConsumeKeywords(KeywordEphemeral):
+		// EPHEMERAL accepts an optional expression. Skip the expression when the
+		// next token clearly ends the column definition (',' or ')') or starts
+		// a subsequent column-def clause (COMMENT, CODEC, TTL).
+		column.IsEphemeral = true
+		if p.matchTokenKind(TokenKindComma) || p.matchTokenKind(")") ||
+			p.matchKeyword(KeywordComment) || p.matchKeyword(KeywordCodec) || p.matchKeyword(KeywordTtl) {
+			columnEnd = p.Pos()
+		} else {
+			column.EphemeralExpr, err = p.parseExpr(p.Pos())
+			if err == nil {
+				columnEnd = column.EphemeralExpr.End()
+			}
+		}
 	case p.tryConsumeKeywords(KeywordAlias):
 		column.AliasExpr, err = p.parseExpr(p.Pos())
 		columnEnd = column.AliasExpr.End()

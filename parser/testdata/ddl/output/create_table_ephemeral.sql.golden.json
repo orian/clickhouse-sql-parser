@@ -1,0 +1,375 @@
+[
+  {
+    "CreatePos": 138,
+    "StatementEnd": 595,
+    "OrReplace": false,
+    "Name": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 151,
+        "NameEnd": 152
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 153,
+      "SchemaEnd": 578,
+      "Columns": [
+        {
+          "NamePos": 159,
+          "ColumnEnd": 176,
+          "Name": {
+            "Ident": {
+              "Name": "properties",
+              "QuoteType": 1,
+              "NamePos": 159,
+              "NameEnd": 169
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "String",
+              "QuoteType": 1,
+              "NamePos": 170,
+              "NameEnd": 176
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 182,
+          "ColumnEnd": 310,
+          "Name": {
+            "Ident": {
+              "Name": "properties_map_ephemeral",
+              "QuoteType": 1,
+              "NamePos": 182,
+              "NameEnd": 206
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "LeftParenPos": 211,
+            "RightParenPos": 225,
+            "Name": {
+              "Name": "Map",
+              "QuoteType": 1,
+              "NamePos": 207,
+              "NameEnd": 210
+            },
+            "Params": [
+              {
+                "Name": {
+                  "Name": "String",
+                  "QuoteType": 1,
+                  "NamePos": 211,
+                  "NameEnd": 217
+                }
+              },
+              {
+                "Name": {
+                  "Name": "String",
+                  "QuoteType": 1,
+                  "NamePos": 219,
+                  "NameEnd": 225
+                }
+              }
+            ]
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": true,
+          "EphemeralExpr": {
+            "CastPos": 237,
+            "Expr": {
+              "Name": {
+                "Name": "JSONExtractKeysAndValues",
+                "QuoteType": 1,
+                "NamePos": 242,
+                "NameEnd": 266
+              },
+              "Params": {
+                "LeftParenPos": 266,
+                "RightParenPos": 287,
+                "Items": {
+                  "ListPos": 267,
+                  "ListEnd": 286,
+                  "HasDistinct": false,
+                  "Items": [
+                    {
+                      "Expr": {
+                        "Name": "properties",
+                        "QuoteType": 1,
+                        "NamePos": 267,
+                        "NameEnd": 277
+                      },
+                      "Alias": null
+                    },
+                    {
+                      "Expr": {
+                        "LiteralPos": 280,
+                        "LiteralEnd": 286,
+                        "Literal": "String"
+                      },
+                      "Alias": null
+                    }
+                  ]
+                },
+                "ColumnArgList": null
+              }
+            },
+            "Separator": ",",
+            "AsPos": 288,
+            "AsType": {
+              "LiteralPos": 291,
+              "LiteralEnd": 310,
+              "Literal": "Map(String, String)"
+            }
+          },
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 318,
+          "ColumnEnd": 356,
+          "Name": {
+            "Ident": {
+              "Name": "hidden",
+              "QuoteType": 1,
+              "NamePos": 318,
+              "NameEnd": 324
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "String",
+              "QuoteType": 1,
+              "NamePos": 325,
+              "NameEnd": 331
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": true,
+          "EphemeralExpr": {
+            "LiteralPos": 343,
+            "LiteralEnd": 356,
+            "Literal": "default value"
+          },
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 363,
+          "ColumnEnd": 384,
+          "Name": {
+            "Ident": {
+              "Name": "bare",
+              "QuoteType": 1,
+              "NamePos": 363,
+              "NameEnd": 367
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt32",
+              "QuoteType": 1,
+              "NamePos": 368,
+              "NameEnd": 374
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": true,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 390,
+          "ColumnEnd": 447,
+          "Name": {
+            "Ident": {
+              "Name": "bare_with_comment",
+              "QuoteType": 1,
+              "NamePos": 390,
+              "NameEnd": 407
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt32",
+              "QuoteType": 1,
+              "NamePos": 408,
+              "NameEnd": 414
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": true,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": {
+            "LiteralPos": 425,
+            "LiteralEnd": 447,
+            "Literal": "no expression"
+          },
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 454,
+          "ColumnEnd": 575,
+          "Name": {
+            "Ident": {
+              "Name": "properties_map",
+              "QuoteType": 1,
+              "NamePos": 454,
+              "NameEnd": 468
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "LeftParenPos": 473,
+            "RightParenPos": 487,
+            "Name": {
+              "Name": "Map",
+              "QuoteType": 1,
+              "NamePos": 469,
+              "NameEnd": 472
+            },
+            "Params": [
+              {
+                "Name": {
+                  "Name": "String",
+                  "QuoteType": 1,
+                  "NamePos": 473,
+                  "NameEnd": 479
+                }
+              },
+              {
+                "Name": {
+                  "Name": "String",
+                  "QuoteType": 1,
+                  "NamePos": 481,
+                  "NameEnd": 487
+                }
+              }
+            ]
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": {
+            "CastPos": 502,
+            "Expr": {
+              "Name": {
+                "Name": "JSONExtractKeysAndValues",
+                "QuoteType": 1,
+                "NamePos": 507,
+                "NameEnd": 531
+              },
+              "Params": {
+                "LeftParenPos": 531,
+                "RightParenPos": 552,
+                "Items": {
+                  "ListPos": 532,
+                  "ListEnd": 551,
+                  "HasDistinct": false,
+                  "Items": [
+                    {
+                      "Expr": {
+                        "Name": "properties",
+                        "QuoteType": 1,
+                        "NamePos": 532,
+                        "NameEnd": 542
+                      },
+                      "Alias": null
+                    },
+                    {
+                      "Expr": {
+                        "LiteralPos": 545,
+                        "LiteralEnd": 551,
+                        "Literal": "String"
+                      },
+                      "Alias": null
+                    }
+                  ]
+                },
+                "ColumnArgList": null
+              }
+            },
+            "Separator": ",",
+            "AsPos": 553,
+            "AsType": {
+              "LiteralPos": 556,
+              "LiteralEnd": 575,
+              "Literal": "Map(String, String)"
+            }
+          },
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 580,
+      "EngineEnd": 595,
+      "Name": "Memory",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": null,
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null
+  }
+]
