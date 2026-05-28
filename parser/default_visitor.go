@@ -2639,6 +2639,34 @@ func (visitor DefaultASTVisitor) VisitTypeWithParams(s *TypeWithParams) error {
 	}
 	return nil
 }
+
+func (visitor DefaultASTVisitor) VisitIndexTypeKwargs(s *IndexTypeKwargs) error {
+	visitor.Enter(s)
+	defer visitor.Leave(s)
+	if err := s.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	for _, kw := range s.Kwargs {
+		if err := kw.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitIndexTypeKwarg(k *IndexTypeKwarg) error {
+	visitor.Enter(k)
+	defer visitor.Leave(k)
+	if err := k.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if k.Value != nil {
+		if err := k.Value.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
 func (visitor DefaultASTVisitor) VisitUUID(u *UUID) error {
 	visitor.Enter(u)
 	defer visitor.Leave(u)
