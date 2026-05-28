@@ -1183,23 +1183,22 @@ func (p *Parser) tryParseTTLPolicy(pos Pos) (*TTLPolicy, error) {
 		}
 		action.Codec = codec
 		rule = &TTLPolicyRule{RulePos: pos, Action: action}
-	default:
-		return nil, nil // nolint
 	}
-	policy := &TTLPolicy{Item: rule}
 
 	where, err := p.tryParseWhereClause(p.Pos())
 	if err != nil {
 		return nil, err
 	}
-	policy.Where = where
 
 	groupBy, err := p.tryParseGroupByClause(p.Pos())
 	if err != nil {
 		return nil, err
 	}
-	policy.GroupBy = groupBy
-	return policy, nil
+
+	if rule == nil && where == nil && groupBy == nil {
+		return nil, nil // nolint
+	}
+	return &TTLPolicy{Item: rule, Where: where, GroupBy: groupBy}, nil
 }
 
 func (p *Parser) parseTTLExpr(pos Pos) (*TTLExpr, error) {

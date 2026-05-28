@@ -22,6 +22,18 @@ PARTITION BY toYYYYMM(d)
 ORDER BY d
 TTL d + INTERVAL 1 MONTH DELETE WHERE toDayOfWeek(d) = 1;
 
+CREATE TABLE table_with_bare_where
+(
+    team_id Int64,
+    uuid UUID,
+    deleted_at DateTime,
+    is_deleted UInt8 DEFAULT 0
+)
+    ENGINE = MergeTree
+ORDER BY (team_id, uuid)
+TTL deleted_at + toIntervalMonth(3) WHERE is_deleted = 1
+SETTINGS index_granularity = 8192;
+
 CREATE TABLE table_for_recompression
 (
     d DateTime,
@@ -51,6 +63,17 @@ ENGINE = MergeTree
 ORDER BY d
 PARTITION BY toYYYYMM(d)
 TTL d + INTERVAL 1 MONTH DELETE WHERE toDayOfWeek(d) = 1;
+CREATE TABLE table_with_bare_where (
+  team_id Int64,
+  uuid UUID,
+  deleted_at DateTime,
+  is_deleted UInt8 DEFAULT 0
+)
+ENGINE = MergeTree
+ORDER BY (team_id, uuid)
+TTL deleted_at + toIntervalMonth(3) WHERE is_deleted = 1
+SETTINGS
+  index_granularity = 8192;
 CREATE TABLE table_for_recompression (
   d DateTime,
   key UInt64,
