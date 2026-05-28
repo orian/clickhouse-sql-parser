@@ -1,0 +1,1 @@
+CREATE VIEW db.v AS SELECT 1 COMMENT 'after as'

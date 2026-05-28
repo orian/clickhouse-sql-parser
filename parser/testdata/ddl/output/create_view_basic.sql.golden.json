@@ -87,6 +87,8 @@
       "AliasTable": null,
       "TableFunction": null
     },
+    "Definer": null,
+    "SQLSecurity": "",
     "Comment": null,
     "SubQuery": {
       "HasParen": false,

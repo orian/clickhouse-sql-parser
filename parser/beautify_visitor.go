@@ -1086,6 +1086,16 @@ func (b *BeautifyVisitor) VisitCreateView(c *CreateView) error {
 		b.writeSpace()
 		b.beautifyTableSchema(c.TableSchema)
 	}
+	if c.Definer != nil {
+		b.newline()
+		b.writeString("DEFINER = ")
+		b.writeString(c.Definer.String())
+	}
+	if c.SQLSecurity != "" {
+		b.newline()
+		b.writeString("SQL SECURITY ")
+		b.writeString(c.SQLSecurity)
+	}
 	if c.Comment != nil {
 		b.newline()
 		b.writeString("COMMENT ")

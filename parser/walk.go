@@ -641,6 +641,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.TableSchema, fn) {
 			return false
 		}
+		if !Walk(n.Definer, fn) {
+			return false
+		}
 		if !Walk(n.Comment, fn) {
 			return false
 		}

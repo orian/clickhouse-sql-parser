@@ -122,8 +122,8 @@ func (p *Parser) parseCreateMaterializedView(pos Pos) (*CreateMaterializedView, 
 
 	// Parse SQL SECURITY clause
 	if p.tryConsumeKeywords(KeywordSQL, KeywordSecurity) {
-		if !p.matchOneOfKeywords(KeywordDefiner, KeywordNone) {
-			return nil, fmt.Errorf("expected DEFINER or NONE after SQL SECURITY, got %q", p.lastTokenKind())
+		if !p.matchOneOfKeywords(KeywordDefiner, KeywordInvoker, KeywordNone) {
+			return nil, fmt.Errorf("expected DEFINER, INVOKER, or NONE after SQL SECURITY, got %q", p.lastTokenKind())
 		}
 		createMaterializedView.SQLSecurity = p.last().String
 		_ = p.lexer.consumeToken()
@@ -240,6 +240,27 @@ func (p *Parser) parseCreateView(pos Pos, orReplace bool) (*CreateView, error) {
 		createView.TableSchema = tableSchema
 	}
 
+	// Parse DEFINER clause
+	if p.tryConsumeKeywords(KeywordDefiner) {
+		if err := p.expectTokenKind(TokenKindSingleEQ); err != nil {
+			return nil, err
+		}
+		definer, err := p.parseIdent()
+		if err != nil {
+			return nil, err
+		}
+		createView.Definer = definer
+	}
+
+	// Parse SQL SECURITY clause
+	if p.tryConsumeKeywords(KeywordSQL, KeywordSecurity) {
+		if !p.matchOneOfKeywords(KeywordDefiner, KeywordInvoker, KeywordNone) {
+			return nil, fmt.Errorf("expected DEFINER, INVOKER, or NONE after SQL SECURITY, got %q", p.lastTokenKind())
+		}
+		createView.SQLSecurity = p.last().String
+		_ = p.lexer.consumeToken()
+	}
+
 	// parse COMMENT clause if exists (before AS SELECT)
 	comment, err := p.tryParseComment()
 	if err != nil {
@@ -254,6 +275,15 @@ func (p *Parser) parseCreateView(pos Pos, orReplace bool) (*CreateView, error) {
 		}
 		createView.SubQuery = subQuery
 		createView.StatementEnd = subQuery.End()
+	}
+
+	// Also try parsing COMMENT after AS SELECT (ClickHouse 25.x format)
+	if createView.Comment == nil {
+		comment, err = p.tryParseComment()
+		if err != nil {
+			return nil, err
+		}
+		createView.Comment = comment
 	}
 
 	return createView, nil
