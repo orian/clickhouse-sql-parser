@@ -98,6 +98,8 @@ type ASTVisitor interface {
 	VisitJSONType(expr *JSONType) error
 	VisitPropertyType(expr *PropertyType) error
 	VisitTypeWithParams(expr *TypeWithParams) error
+	VisitIndexTypeKwargs(expr *IndexTypeKwargs) error
+	VisitIndexTypeKwarg(expr *IndexTypeKwarg) error
 	VisitComplexType(expr *ComplexType) error
 	VisitNestedType(expr *NestedType) error
 	VisitCompressionCodec(expr *CompressionCodec) error

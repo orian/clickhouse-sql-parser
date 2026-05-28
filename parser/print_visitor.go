@@ -2154,6 +2154,16 @@ func (p *PrintVisitor) VisitTypeWithParams(s *TypeWithParams) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitIndexTypeKwargs(s *IndexTypeKwargs) error {
+	p.builder.WriteString(s.String())
+	return nil
+}
+
+func (p *PrintVisitor) VisitIndexTypeKwarg(k *IndexTypeKwarg) error {
+	p.builder.WriteString(k.String())
+	return nil
+}
+
 func (p *PrintVisitor) VisitUUID(u *UUID) error {
 	p.builder.WriteString("UUID ")
 	return u.Value.Accept(p)

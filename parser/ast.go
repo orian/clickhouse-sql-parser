@@ -1435,6 +1435,74 @@ func (a *TableIndex) Accept(visitor ASTVisitor) error {
 	return visitor.VisitTableIndex(a)
 }
 
+// IndexTypeKwarg is a single `name = value` pair inside an INDEX TYPE
+// argument list, e.g. `tokenizer = ngrams(3)`.
+type IndexTypeKwarg struct {
+	Name  *Ident
+	Value Expr
+}
+
+func (k *IndexTypeKwarg) Pos() Pos {
+	return k.Name.NamePos
+}
+
+func (k *IndexTypeKwarg) End() Pos {
+	return k.Value.End()
+}
+
+func (k *IndexTypeKwarg) String() string {
+	return k.Name.String() + " = " + k.Value.String()
+}
+
+func (k *IndexTypeKwarg) Accept(visitor ASTVisitor) error {
+	visitor.Enter(k)
+	defer visitor.Leave(k)
+	return visitor.VisitIndexTypeKwarg(k)
+}
+
+// IndexTypeKwargs is the kwarg form of an INDEX TYPE call, e.g.
+// `text(tokenizer = ngrams(3), preprocessor = lower(col))`. Used by
+// ClickHouse full-text / text indexes; mutually exclusive with the
+// positional-literal form (TypeWithParams).
+type IndexTypeKwargs struct {
+	Name          *Ident
+	LeftParenPos  Pos
+	RightParenPos Pos
+	Kwargs        []*IndexTypeKwarg
+}
+
+func (s *IndexTypeKwargs) Pos() Pos {
+	return s.Name.NamePos
+}
+
+func (s *IndexTypeKwargs) End() Pos {
+	return s.RightParenPos
+}
+
+func (s *IndexTypeKwargs) String() string {
+	var builder strings.Builder
+	builder.WriteString(s.Name.String())
+	builder.WriteByte('(')
+	for i, kw := range s.Kwargs {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(kw.String())
+	}
+	builder.WriteByte(')')
+	return builder.String()
+}
+
+func (s *IndexTypeKwargs) Accept(visitor ASTVisitor) error {
+	visitor.Enter(s)
+	defer visitor.Leave(s)
+	return visitor.VisitIndexTypeKwargs(s)
+}
+
+func (s *IndexTypeKwargs) Type() string {
+	return s.Name.Name
+}
+
 type Ident struct {
 	Name      string
 	QuoteType int

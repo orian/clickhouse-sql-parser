@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS test_local
  INDEX api_id_idx api_id TYPE set(100) GRANULARITY 2,
  INDEX arr_idx arr TYPE bloom_filter(0.01) GRANULARITY 3,
  INDEX content_idx content TYPE tokenbf_v1(30720, 2, 0) GRANULARITY 1,
- INDEX output_idx output TYPE ngrambf_v1(3, 10000, 2, 1) GRANULARITY 2
+ INDEX output_idx output TYPE ngrambf_v1(3, 10000, 2, 1) GRANULARITY 2,
+ INDEX content_text_idx content TYPE text(tokenizer = ngrams(3), preprocessor = lower(content)) GRANULARITY 100000000
 )
 ENGINE = ReplicatedMergeTree('/root/test_local', '{replica}')
 PARTITION BY toStartOfHour(`timestamp`)

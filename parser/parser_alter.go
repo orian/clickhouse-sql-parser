@@ -287,7 +287,7 @@ func (p *Parser) parseTableIndex(pos Pos) (*TableIndex, error) {
 	if err := p.expectKeyword(KeywordType); err != nil {
 		return nil, err
 	}
-	columnType, err := p.parseColumnType(p.Pos())
+	columnType, err := p.parseIndexType()
 	if err != nil {
 		return nil, err
 	}
@@ -306,6 +306,64 @@ func (p *Parser) parseTableIndex(pos Pos) (*TableIndex, error) {
 		ColumnExpr:  columnExpr,
 		ColumnType:  columnType,
 		Granularity: granularity,
+	}, nil
+}
+
+// parseIndexType parses the TYPE clause of an INDEX. ClickHouse's full-text /
+// `text` indexes accept a kwarg form like `text(tokenizer = ngrams(3), ...)`;
+// every other index type uses positional literals (`bloom_filter(0.001)`,
+// `tokenbf_v1(4096, 3, 0)`, ...) and falls back to the column-type parser.
+func (p *Parser) parseIndexType() (Expr, error) {
+	ident, err := p.parseIdent()
+	if err != nil {
+		return nil, err
+	}
+	if !p.matchTokenKind(TokenKindLParen) {
+		return p.parseColumnTypeArgs(ident)
+	}
+	// Look ahead past `(` for the kwarg form `name = ...`. If we don't
+	// find it, restore the lexer and delegate to the legacy parser so
+	// positional forms keep working unchanged.
+	saved := p.lexer.saveState()
+	lparen := p.last()
+	_ = p.lexer.consumeToken()
+	if p.matchTokenKind(TokenKindIdent) {
+		if peek, perr := p.lexer.peekToken(); perr == nil && peek != nil && peek.Kind == TokenKindSingleEQ {
+			return p.parseIndexTypeKwargs(ident, lparen.Pos)
+		}
+	}
+	p.lexer.restoreState(saved)
+	return p.parseColumnTypeArgs(ident)
+}
+
+func (p *Parser) parseIndexTypeKwargs(name *Ident, lParenPos Pos) (*IndexTypeKwargs, error) {
+	kwargs := make([]*IndexTypeKwarg, 0)
+	for {
+		kwName, err := p.parseIdent()
+		if err != nil {
+			return nil, err
+		}
+		if err := p.expectTokenKind(TokenKindSingleEQ); err != nil {
+			return nil, err
+		}
+		value, err := p.parseExpr(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		kwargs = append(kwargs, &IndexTypeKwarg{Name: kwName, Value: value})
+		if p.tryConsumeTokenKind(TokenKindComma) == nil {
+			break
+		}
+	}
+	rParenPos := p.Pos()
+	if err := p.expectTokenKind(TokenKindRParen); err != nil {
+		return nil, err
+	}
+	return &IndexTypeKwargs{
+		Name:          name,
+		LeftParenPos:  lParenPos,
+		RightParenPos: rParenPos,
+		Kwargs:        kwargs,
 	}, nil
 }
 

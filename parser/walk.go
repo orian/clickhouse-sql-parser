@@ -1041,6 +1041,22 @@ func Walk(node Expr, fn WalkFunc) bool {
 				return false
 			}
 		}
+	case *IndexTypeKwargs:
+		if !Walk(n.Name, fn) {
+			return false
+		}
+		for _, kw := range n.Kwargs {
+			if !Walk(kw, fn) {
+				return false
+			}
+		}
+	case *IndexTypeKwarg:
+		if !Walk(n.Name, fn) {
+			return false
+		}
+		if !Walk(n.Value, fn) {
+			return false
+		}
 	case *ComplexType:
 		if !Walk(n.Name, fn) {
 			return false
