@@ -16,6 +16,8 @@
     "UUID": null,
     "OnCluster": null,
     "TableSchema": null,
+    "Definer": null,
+    "SQLSecurity": "",
     "Comment": null,
     "SubQuery": {
       "HasParen": false,

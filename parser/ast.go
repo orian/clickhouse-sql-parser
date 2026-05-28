@@ -1806,6 +1806,8 @@ type CreateView struct {
 	UUID         *UUID
 	OnCluster    *ClusterClause
 	TableSchema  *TableSchemaClause
+	Definer      *Ident
+	SQLSecurity  string
 	Comment      *StringLiteral
 	SubQuery     *SubQuery
 }
@@ -1846,6 +1848,15 @@ func (c *CreateView) String() string {
 	if c.TableSchema != nil {
 		builder.WriteString(" ")
 		builder.WriteString(c.TableSchema.String())
+	}
+
+	if c.Definer != nil {
+		builder.WriteString(" DEFINER = ")
+		builder.WriteString(c.Definer.String())
+	}
+	if c.SQLSecurity != "" {
+		builder.WriteString(" SQL SECURITY ")
+		builder.WriteString(c.SQLSecurity)
 	}
 
 	if c.Comment != nil {

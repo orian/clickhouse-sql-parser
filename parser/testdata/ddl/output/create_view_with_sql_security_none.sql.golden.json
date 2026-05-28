@@ -1,0 +1,66 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 46,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 12,
+        "NameEnd": 14
+      },
+      "Table": {
+        "Name": "v",
+        "QuoteType": 1,
+        "NamePos": 15,
+        "NameEnd": 16
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": null,
+    "Definer": null,
+    "SQLSecurity": "NONE",
+    "Comment": null,
+    "SubQuery": {
+      "HasParen": false,
+      "Select": {
+        "SelectPos": 38,
+        "StatementEnd": 46,
+        "With": null,
+        "Top": null,
+        "HasDistinct": false,
+        "DistinctOn": null,
+        "SelectItems": [
+          {
+            "Expr": {
+              "NumPos": 45,
+              "NumEnd": 46,
+              "Literal": "1",
+              "Base": 10
+            },
+            "Modifiers": [],
+            "Alias": null
+          }
+        ],
+        "From": null,
+        "Window": null,
+        "Prewhere": null,
+        "Where": null,
+        "GroupBy": null,
+        "WithTotal": false,
+        "Having": null,
+        "OrderBy": null,
+        "LimitBy": null,
+        "Limit": null,
+        "Settings": null,
+        "Format": null,
+        "UnionAll": null,
+        "UnionDistinct": null,
+        "Except": null
+      }
+    }
+  }
+]

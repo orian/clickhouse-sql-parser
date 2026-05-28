@@ -1000,6 +1000,15 @@ func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 		builder.WriteString(c.TableSchema.String())
 	}
 
+	if c.Definer != nil {
+		builder.WriteString(" DEFINER = ")
+		builder.WriteString(c.Definer.String())
+	}
+	if c.SQLSecurity != "" {
+		builder.WriteString(" SQL SECURITY ")
+		builder.WriteString(c.SQLSecurity)
+	}
+
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())

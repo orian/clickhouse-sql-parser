@@ -92,6 +92,8 @@
       "AliasTable": null,
       "TableFunction": null
     },
+    "Definer": null,
+    "SQLSecurity": "",
     "Comment": {
       "LiteralPos": 84,
       "LiteralEnd": 111,

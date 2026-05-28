@@ -256,6 +256,7 @@ const (
 	KeywordWith         = "WITH"
 	KeywordYear         = "YEAR"
 	KeywordDefiner      = "DEFINER"
+	KeywordInvoker      = "INVOKER"
 	KeywordSQL          = "SQL"
 	KeywordSecurity     = "SECURITY"
 )
@@ -516,6 +517,7 @@ var keywords = NewSet(
 	KeywordWith,
 	KeywordYear,
 	KeywordDefiner,
+	KeywordInvoker,
 	KeywordSQL,
 	KeywordSecurity,
 )

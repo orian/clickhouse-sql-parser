@@ -381,11 +381,15 @@ func (p *Parser) peekKeyword(keyword string) bool {
 // clauseStarterKeywords lists the keywords that begin a clause following the
 // SELECT item list. Single source of truth used by both the terminator check
 // (current-token) and the lookahead check (peek), so they cannot drift.
+//
+// COMMENT is included so the trailing CREATE VIEW / CREATE MATERIALIZED VIEW
+// `... AS SELECT ... COMMENT '...'` form parses without paren-wrapping the
+// SELECT (ClickHouse 25.x emits this shape).
 var clauseStarterKeywords = []string{
 	KeywordFrom, KeywordWhere, KeywordPrewhere, KeywordGroup,
 	KeywordHaving, KeywordWindow, KeywordOrder, KeywordLimit,
 	KeywordOffset, KeywordSettings, KeywordFormat, KeywordUnion,
-	KeywordExcept,
+	KeywordExcept, KeywordComment,
 }
 
 // matchClauseStarterKeyword reports whether the current token is one of the

@@ -34,6 +34,8 @@
       }
     },
     "TableSchema": null,
+    "Definer": null,
+    "SQLSecurity": "",
     "Comment": null,
     "SubQuery": {
       "HasParen": true,
