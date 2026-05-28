@@ -2968,16 +2968,20 @@ func (t *TTLPolicy) End() Pos {
 
 func (t *TTLPolicy) String() string {
 	var builder strings.Builder
-
+	writeSep := func() {
+		if builder.Len() > 0 {
+			builder.WriteString(" ")
+		}
+	}
 	if t.Item != nil {
 		builder.WriteString(t.Item.String())
 	}
 	if t.Where != nil {
-		builder.WriteString(" ")
+		writeSep()
 		builder.WriteString(t.Where.String())
 	}
 	if t.GroupBy != nil {
-		builder.WriteString(" ")
+		writeSep()
 		builder.WriteString(t.GroupBy.String())
 	}
 	return builder.String()

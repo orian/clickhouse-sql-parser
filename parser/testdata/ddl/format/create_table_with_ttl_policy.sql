@@ -22,6 +22,18 @@ PARTITION BY toYYYYMM(d)
 ORDER BY d
 TTL d + INTERVAL 1 MONTH DELETE WHERE toDayOfWeek(d) = 1;
 
+CREATE TABLE table_with_bare_where
+(
+    team_id Int64,
+    uuid UUID,
+    deleted_at DateTime,
+    is_deleted UInt8 DEFAULT 0
+)
+    ENGINE = MergeTree
+ORDER BY (team_id, uuid)
+TTL deleted_at + toIntervalMonth(3) WHERE is_deleted = 1
+SETTINGS index_granularity = 8192;
+
 CREATE TABLE table_for_recompression
 (
     d DateTime,
@@ -37,4 +49,5 @@ SETTINGS min_rows_for_wide_part = 0, min_bytes_for_wide_part = 0, allow_experime
 -- Format SQL:
 CREATE TABLE tab (d DateTime, a Int) ENGINE = MergeTree ORDER BY d PARTITION BY toYYYYMM(d) TTL d + INTERVAL 1 MONTH DELETE, d + INTERVAL 1 WEEK TO VOLUME 'aaa', d + INTERVAL 2 WEEK TO DISK 'bbb';
 CREATE TABLE table_with_where (d DateTime, a Int) ENGINE = MergeTree ORDER BY d PARTITION BY toYYYYMM(d) TTL d + INTERVAL 1 MONTH DELETE WHERE toDayOfWeek(d) = 1;
+CREATE TABLE table_with_bare_where (team_id Int64, uuid UUID, deleted_at DateTime, is_deleted UInt8 DEFAULT 0) ENGINE = MergeTree ORDER BY (team_id, uuid) TTL deleted_at + toIntervalMonth(3) WHERE is_deleted = 1 SETTINGS index_granularity=8192;
 CREATE TABLE table_for_recompression (d DateTime, key UInt64, value String) ENGINE = MergeTree() ORDER BY tuple() PARTITION BY key TTL d + INTERVAL 1 MONTH RECOMPRESS CODEC(ZSTD(17)), d + INTERVAL 1 YEAR RECOMPRESS CODEC(LZ4HC(10)) SETTINGS min_rows_for_wide_part=0, min_bytes_for_wide_part=0, allow_experimental_replacing_merge_with_cleanup=true;
