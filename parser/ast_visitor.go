@@ -63,6 +63,7 @@ type ASTVisitor interface {
 	VisitNestedIdentifier(expr *NestedIdentifier) error
 	VisitTableIdentifier(expr *TableIdentifier) error
 	VisitTableSchemaExpr(expr *TableSchemaClause) error
+	VisitTimeSeriesTargetClause(expr *TimeSeriesTargetClause) error
 	VisitTableArgListExpr(expr *TableArgListExpr) error
 	VisitTableFunctionExpr(expr *TableFunctionExpr) error
 	VisitOnClusterExpr(expr *ClusterClause) error

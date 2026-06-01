@@ -498,6 +498,7 @@
     "SubQuery": null,
     "TableFunction": null,
     "HasTemporary": false,
-    "Comment": null
+    "Comment": null,
+    "TimeSeriesTargets": null
   }
 ]

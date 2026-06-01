@@ -619,6 +619,11 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Engine, fn) {
 			return false
 		}
+		for _, target := range n.TimeSeriesTargets {
+			if !Walk(target, fn) {
+				return false
+			}
+		}
 		if !Walk(n.SubQuery, fn) {
 			return false
 		}
@@ -626,6 +631,16 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 		if !Walk(n.Comment, fn) {
+			return false
+		}
+	case *TimeSeriesTargetClause:
+		if !Walk(n.External, fn) {
+			return false
+		}
+		if !Walk(n.InnerColumns, fn) {
+			return false
+		}
+		if !Walk(n.InnerEngine, fn) {
 			return false
 		}
 	case *CreateView:

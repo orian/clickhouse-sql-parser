@@ -959,6 +959,9 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 	if c.Engine != nil {
 		builder.WriteString(c.Engine.String())
 	}
+	for _, target := range c.TimeSeriesTargets {
+		builder.WriteString(target.String())
+	}
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
 		builder.WriteString(c.SubQuery.String())
@@ -2100,6 +2103,11 @@ func (p *PrintVisitor) VisitTableSchemaExpr(t *TableSchemaClause) error {
 		builder.WriteByte(' ')
 		builder.WriteString(t.TableFunction.String())
 	}
+	return nil
+}
+
+func (p *PrintVisitor) VisitTimeSeriesTargetClause(t *TimeSeriesTargetClause) error {
+	p.builder.WriteString(t.String())
 	return nil
 }
 

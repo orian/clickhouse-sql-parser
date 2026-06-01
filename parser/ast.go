@@ -1623,6 +1623,9 @@ type CreateTable struct {
 	TableFunction *TableFunctionExpr
 	HasTemporary  bool
 	Comment       *StringLiteral
+	// TimeSeriesTargets holds the optional SAMPLES/DATA, TAGS and METRICS
+	// target clauses that follow an `ENGINE = TimeSeries` expression.
+	TimeSeriesTargets []*TimeSeriesTargetClause
 }
 
 func (c *CreateTable) Pos() Pos {
@@ -1666,6 +1669,9 @@ func (c *CreateTable) String() string {
 	if c.Engine != nil {
 		builder.WriteString(c.Engine.String())
 	}
+	for _, target := range c.TimeSeriesTargets {
+		builder.WriteString(target.String())
+	}
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
 		builder.WriteString(c.SubQuery.String())
@@ -1685,6 +1691,68 @@ func (c *CreateTable) Accept(visitor ASTVisitor) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)
 	return visitor.VisitCreateTable(c)
+}
+
+// TimeSeriesTargetClause is one of the SAMPLES/DATA, TAGS or METRICS target
+// clauses that may trail an `ENGINE = TimeSeries` expression. Each clause either
+// references an external target table (External) or describes an inline target
+// via InnerColumns and an optional InnerEngine.
+type TimeSeriesTargetClause struct {
+	KindPos Pos
+	KindEnd Pos
+
+	// Kind is the normalised lowercase slot: "samples" | "tags" | "metrics".
+	Kind string
+
+	// Keyword is the verbatim source keyword ("SAMPLES" | "DATA" | "TAGS" |
+	// "METRICS"), preserved so a SHOW CREATE TABLE round-trip re-emits the same
+	// word (notably the DATA backwards-compat alias for SAMPLES).
+	Keyword string
+
+	// External holds the `<KEYWORD> db.table` form. Exactly one of External or
+	// InnerColumns is set.
+	External *TableIdentifier
+
+	// InnerColumns holds the `<KEYWORD> INNER COLUMNS (...)` body and InnerEngine
+	// the optional `<KEYWORD> INNER ENGINE = engine(args)` that may follow it.
+	InnerColumns *TableSchemaClause
+	InnerEngine  *EngineExpr
+}
+
+func (t *TimeSeriesTargetClause) Pos() Pos {
+	return t.KindPos
+}
+
+func (t *TimeSeriesTargetClause) End() Pos {
+	return t.KindEnd
+}
+
+func (t *TimeSeriesTargetClause) String() string {
+	var builder strings.Builder
+	builder.WriteString(" ")
+	builder.WriteString(t.Keyword)
+	if t.External != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.External.String())
+	}
+	if t.InnerColumns != nil {
+		builder.WriteString(" INNER COLUMNS ")
+		builder.WriteString(t.InnerColumns.String())
+	}
+	if t.InnerEngine != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.Keyword)
+		builder.WriteString(" INNER")
+		// EngineExpr.String() already emits a leading " ENGINE = ...".
+		builder.WriteString(t.InnerEngine.String())
+	}
+	return builder.String()
+}
+
+func (t *TimeSeriesTargetClause) Accept(visitor ASTVisitor) error {
+	visitor.Enter(t)
+	defer visitor.Leave(t)
+	return visitor.VisitTimeSeriesTargetClause(t)
 }
 
 type CreateMaterializedView struct {

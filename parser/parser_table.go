@@ -3,6 +3,7 @@ package parser
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 func (p *Parser) parseDDL(pos Pos) (DDL, error) {
@@ -353,6 +354,19 @@ func (p *Parser) parseCreateTable(pos Pos, orReplace bool) (*CreateTable, error)
 	if engineExpr != nil {
 		createTable.Engine = engineExpr
 		createTable.StatementEnd = engineExpr.End()
+
+		// The TimeSeries engine accepts a tail of SAMPLES/DATA, TAGS and
+		// METRICS target clauses after the engine expression.
+		if strings.EqualFold(engineExpr.Name, "TimeSeries") {
+			targets, err := p.parseTimeSeriesTargets()
+			if err != nil {
+				return nil, err
+			}
+			if len(targets) > 0 {
+				createTable.TimeSeriesTargets = targets
+				createTable.StatementEnd = targets[len(targets)-1].End()
+			}
+		}
 	}
 
 	if p.tryConsumeKeywords(KeywordAs) {
@@ -1427,6 +1441,98 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 	}
 	engineExpr.EngineEnd = engineEnd
 	return engineExpr, nil
+}
+
+// timeSeriesTargetKind normalises a TimeSeries target keyword to its slot.
+// SAMPLES and its backwards-compat alias DATA both map to "samples".
+func timeSeriesTargetKind(s string) (kind string, ok bool) {
+	switch strings.ToUpper(s) {
+	case "SAMPLES", "DATA":
+		return "samples", true
+	case "TAGS":
+		return "tags", true
+	case "METRICS":
+		return "metrics", true
+	}
+	return "", false
+}
+
+// matchTimeSeriesTarget reports the normalised slot for the current token when
+// it is an unquoted identifier naming a TimeSeries target keyword. A quoted
+// identifier (e.g. `DATA`) is intentionally not treated as a keyword.
+func (p *Parser) matchTimeSeriesTarget() (kind string, ok bool) {
+	if p.lastTokenKind() != TokenKindIdent {
+		return "", false
+	}
+	if q := p.last().QuoteType; q == DoubleQuote || q == BackTicks {
+		return "", false
+	}
+	return timeSeriesTargetKind(p.last().String)
+}
+
+// parseTimeSeriesTargets parses the optional tail of SAMPLES/DATA, TAGS and
+// METRICS target clauses that may follow an `ENGINE = TimeSeries` expression.
+// Each slot may appear at most once (DATA and SAMPLES share the "samples"
+// slot).
+func (p *Parser) parseTimeSeriesTargets() ([]*TimeSeriesTargetClause, error) {
+	var targets []*TimeSeriesTargetClause
+	seen := make(map[string]string)
+	for {
+		kind, ok := p.matchTimeSeriesTarget()
+		if !ok {
+			break
+		}
+		kwToken := p.last()
+		clause := &TimeSeriesTargetClause{
+			KindPos: kwToken.Pos,
+			KindEnd: kwToken.End,
+			Kind:    kind,
+			Keyword: kwToken.String,
+		}
+		_ = p.lexer.consumeToken() // consume the target keyword identifier
+
+		if prev, dup := seen[kind]; dup {
+			return nil, fmt.Errorf("duplicate TimeSeries target clause %q (already specified as %q)", clause.Keyword, prev)
+		}
+		seen[kind] = clause.Keyword
+
+		if p.matchKeyword(KeywordInner) {
+			_ = p.lexer.consumeToken() // INNER
+			if err := p.expectKeyword(KeywordColumns); err != nil {
+				return nil, err
+			}
+			columns, err := p.parseTableSchemaClause(p.Pos())
+			if err != nil {
+				return nil, err
+			}
+			if columns == nil {
+				return nil, fmt.Errorf("expected ( after %s INNER COLUMNS", clause.Keyword)
+			}
+			clause.InnerColumns = columns
+			clause.KindEnd = columns.End()
+
+			// Optional `<KEYWORD> INNER ENGINE = engine(...)` for the same slot.
+			if k2, ok := p.matchTimeSeriesTarget(); ok && k2 == kind && p.peekKeyword(KeywordInner) {
+				_ = p.lexer.consumeToken() // target keyword identifier
+				_ = p.lexer.consumeToken() // INNER
+				innerEngine, err := p.parseEngineExpr(p.Pos())
+				if err != nil {
+					return nil, err
+				}
+				clause.InnerEngine = innerEngine
+				clause.KindEnd = innerEngine.End()
+			}
+		} else {
+			external, err := p.parseTableIdentifier(p.Pos())
+			if err != nil {
+				return nil, err
+			}
+			clause.External = external
+			clause.KindEnd = external.End()
+		}
+		targets = append(targets, clause)
+	}
+	return targets, nil
 }
 
 func (p *Parser) parseStmt(pos Pos) (Expr, error) {

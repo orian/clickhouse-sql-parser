@@ -1274,6 +1274,11 @@ func (visitor DefaultASTVisitor) VisitCreateTable(c *CreateTable) error {
 			return err
 		}
 	}
+	for _, target := range c.TimeSeriesTargets {
+		if err := target.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if c.SubQuery != nil {
 		if err := c.SubQuery.Accept(visitor.Self); err != nil {
 			return err
@@ -1281,6 +1286,27 @@ func (visitor DefaultASTVisitor) VisitCreateTable(c *CreateTable) error {
 	}
 	if c.TableFunction != nil {
 		if err := c.TableFunction.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitTimeSeriesTargetClause(t *TimeSeriesTargetClause) error {
+	visitor.Enter(t)
+	defer visitor.Leave(t)
+	if t.External != nil {
+		if err := t.External.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if t.InnerColumns != nil {
+		if err := t.InnerColumns.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if t.InnerEngine != nil {
+		if err := t.InnerEngine.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
