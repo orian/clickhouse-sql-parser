@@ -161,7 +161,8 @@
       }
     },
     "HasTemporary": false,
-    "Comment": null
+    "Comment": null,
+    "TimeSeriesTargets": null
   },
   {
     "CreatePos": 261,
@@ -283,6 +284,7 @@
       }
     },
     "HasTemporary": false,
-    "Comment": null
+    "Comment": null,
+    "TimeSeriesTargets": null
   }
 ]

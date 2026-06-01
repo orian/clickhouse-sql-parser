@@ -1,0 +1,222 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 150,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 13,
+        "NameEnd": 15
+      },
+      "Table": {
+        "Name": "m",
+        "QuoteType": 1,
+        "NamePos": 16,
+        "NameEnd": 17
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 18,
+      "SchemaEnd": 72,
+      "Columns": [
+        {
+          "NamePos": 20,
+          "ColumnEnd": 28,
+          "Name": {
+            "Ident": {
+              "Name": "id",
+              "QuoteType": 3,
+              "NamePos": 20,
+              "NameEnd": 22
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "UUID",
+              "QuoteType": 1,
+              "NamePos": 24,
+              "NameEnd": 28
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 31,
+          "ColumnEnd": 54,
+          "Name": {
+            "Ident": {
+              "Name": "timestamp",
+              "QuoteType": 3,
+              "NamePos": 31,
+              "NameEnd": 40
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "LeftParenPos": 53,
+            "RightParenPos": 54,
+            "Name": {
+              "Name": "DateTime64",
+              "QuoteType": 1,
+              "NamePos": 42,
+              "NameEnd": 52
+            },
+            "Params": [
+              {
+                "NumPos": 53,
+                "NumEnd": 54,
+                "Literal": "3",
+                "Base": 10
+              }
+            ]
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 58,
+          "ColumnEnd": 72,
+          "Name": {
+            "Ident": {
+              "Name": "value",
+              "QuoteType": 3,
+              "NamePos": 58,
+              "NameEnd": 63
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Float64",
+              "QuoteType": 1,
+              "NamePos": 65,
+              "NameEnd": 72
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 74,
+      "EngineEnd": 93,
+      "Name": "TimeSeries",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": null,
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null,
+    "TimeSeriesTargets": [
+      {
+        "KindPos": 94,
+        "KindEnd": 114,
+        "Kind": "samples",
+        "Keyword": "SAMPLES",
+        "External": {
+          "Database": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 102,
+            "NameEnd": 104
+          },
+          "Table": {
+            "Name": "m_samples",
+            "QuoteType": 1,
+            "NamePos": 105,
+            "NameEnd": 114
+          }
+        },
+        "InnerColumns": null,
+        "InnerEngine": null
+      },
+      {
+        "KindPos": 115,
+        "KindEnd": 129,
+        "Kind": "tags",
+        "Keyword": "TAGS",
+        "External": {
+          "Database": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 120,
+            "NameEnd": 122
+          },
+          "Table": {
+            "Name": "m_tags",
+            "QuoteType": 1,
+            "NamePos": 123,
+            "NameEnd": 129
+          }
+        },
+        "InnerColumns": null,
+        "InnerEngine": null
+      },
+      {
+        "KindPos": 130,
+        "KindEnd": 150,
+        "Kind": "metrics",
+        "Keyword": "METRICS",
+        "External": {
+          "Database": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 138,
+            "NameEnd": 140
+          },
+          "Table": {
+            "Name": "m_metrics",
+            "QuoteType": 1,
+            "NamePos": 141,
+            "NameEnd": 150
+          }
+        },
+        "InnerColumns": null,
+        "InnerEngine": null
+      }
+    ]
+  }
+]

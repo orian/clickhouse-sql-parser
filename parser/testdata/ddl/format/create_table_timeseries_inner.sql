@@ -1,0 +1,6 @@
+-- Origin SQL:
+CREATE TABLE db.m (`id` UUID, `timestamp` DateTime64(3), `value` Float64) ENGINE = TimeSeries SAMPLES INNER COLUMNS (`id` UUID, `timestamp` DateTime64(3), `value` Float64) SAMPLES INNER ENGINE = MergeTree ORDER BY (id, timestamp) TAGS INNER COLUMNS (`id` UUID, `tag` String) TAGS INNER ENGINE = MergeTree ORDER BY id METRICS db.m_metrics;
+
+
+-- Format SQL:
+CREATE TABLE db.m (`id` UUID, `timestamp` DateTime64(3), `value` Float64) ENGINE = TimeSeries SAMPLES INNER COLUMNS (`id` UUID, `timestamp` DateTime64(3), `value` Float64) SAMPLES INNER ENGINE = MergeTree ORDER BY (id, timestamp) TAGS INNER COLUMNS (`id` UUID, `tag` String) TAGS INNER ENGINE = MergeTree ORDER BY id METRICS db.m_metrics;

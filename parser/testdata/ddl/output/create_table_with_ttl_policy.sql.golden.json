@@ -296,7 +296,8 @@
     "SubQuery": null,
     "TableFunction": null,
     "HasTemporary": false,
-    "Comment": null
+    "Comment": null,
+    "TimeSeriesTargets": null
   },
   {
     "CreatePos": 221,
@@ -551,7 +552,8 @@
     "SubQuery": null,
     "TableFunction": null,
     "HasTemporary": false,
-    "Comment": null
+    "Comment": null,
+    "TimeSeriesTargets": null
   },
   {
     "CreatePos": 399,
@@ -859,7 +861,8 @@
     "SubQuery": null,
     "TableFunction": null,
     "HasTemporary": false,
-    "Comment": null
+    "Comment": null,
+    "TimeSeriesTargets": null
   },
   {
     "CreatePos": 669,
@@ -1231,6 +1234,7 @@
     "SubQuery": null,
     "TableFunction": null,
     "HasTemporary": false,
-    "Comment": null
+    "Comment": null,
+    "TimeSeriesTargets": null
   }
 ]

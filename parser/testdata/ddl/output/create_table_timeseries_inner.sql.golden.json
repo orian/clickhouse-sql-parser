@@ -1,0 +1,462 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 337,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 13,
+        "NameEnd": 15
+      },
+      "Table": {
+        "Name": "m",
+        "QuoteType": 1,
+        "NamePos": 16,
+        "NameEnd": 17
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 18,
+      "SchemaEnd": 72,
+      "Columns": [
+        {
+          "NamePos": 20,
+          "ColumnEnd": 28,
+          "Name": {
+            "Ident": {
+              "Name": "id",
+              "QuoteType": 3,
+              "NamePos": 20,
+              "NameEnd": 22
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "UUID",
+              "QuoteType": 1,
+              "NamePos": 24,
+              "NameEnd": 28
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 31,
+          "ColumnEnd": 54,
+          "Name": {
+            "Ident": {
+              "Name": "timestamp",
+              "QuoteType": 3,
+              "NamePos": 31,
+              "NameEnd": 40
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "LeftParenPos": 53,
+            "RightParenPos": 54,
+            "Name": {
+              "Name": "DateTime64",
+              "QuoteType": 1,
+              "NamePos": 42,
+              "NameEnd": 52
+            },
+            "Params": [
+              {
+                "NumPos": 53,
+                "NumEnd": 54,
+                "Literal": "3",
+                "Base": 10
+              }
+            ]
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 58,
+          "ColumnEnd": 72,
+          "Name": {
+            "Ident": {
+              "Name": "value",
+              "QuoteType": 3,
+              "NamePos": 58,
+              "NameEnd": 63
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Float64",
+              "QuoteType": 1,
+              "NamePos": 65,
+              "NameEnd": 72
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 74,
+      "EngineEnd": 93,
+      "Name": "TimeSeries",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": null,
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null,
+    "TimeSeriesTargets": [
+      {
+        "KindPos": 94,
+        "KindEnd": 228,
+        "Kind": "samples",
+        "Keyword": "SAMPLES",
+        "External": null,
+        "InnerColumns": {
+          "SchemaPos": 116,
+          "SchemaEnd": 170,
+          "Columns": [
+            {
+              "NamePos": 118,
+              "ColumnEnd": 126,
+              "Name": {
+                "Ident": {
+                  "Name": "id",
+                  "QuoteType": 3,
+                  "NamePos": 118,
+                  "NameEnd": 120
+                },
+                "DotIdent": null
+              },
+              "Type": {
+                "Name": {
+                  "Name": "UUID",
+                  "QuoteType": 1,
+                  "NamePos": 122,
+                  "NameEnd": 126
+                }
+              },
+              "NotNull": null,
+              "Nullable": null,
+              "DefaultExpr": null,
+              "MaterializedExpr": null,
+              "IsEphemeral": false,
+              "EphemeralExpr": null,
+              "AliasExpr": null,
+              "Codec": null,
+              "TTL": null,
+              "Comment": null,
+              "CompressionCodec": null
+            },
+            {
+              "NamePos": 129,
+              "ColumnEnd": 152,
+              "Name": {
+                "Ident": {
+                  "Name": "timestamp",
+                  "QuoteType": 3,
+                  "NamePos": 129,
+                  "NameEnd": 138
+                },
+                "DotIdent": null
+              },
+              "Type": {
+                "LeftParenPos": 151,
+                "RightParenPos": 152,
+                "Name": {
+                  "Name": "DateTime64",
+                  "QuoteType": 1,
+                  "NamePos": 140,
+                  "NameEnd": 150
+                },
+                "Params": [
+                  {
+                    "NumPos": 151,
+                    "NumEnd": 152,
+                    "Literal": "3",
+                    "Base": 10
+                  }
+                ]
+              },
+              "NotNull": null,
+              "Nullable": null,
+              "DefaultExpr": null,
+              "MaterializedExpr": null,
+              "IsEphemeral": false,
+              "EphemeralExpr": null,
+              "AliasExpr": null,
+              "Codec": null,
+              "TTL": null,
+              "Comment": null,
+              "CompressionCodec": null
+            },
+            {
+              "NamePos": 156,
+              "ColumnEnd": 170,
+              "Name": {
+                "Ident": {
+                  "Name": "value",
+                  "QuoteType": 3,
+                  "NamePos": 156,
+                  "NameEnd": 161
+                },
+                "DotIdent": null
+              },
+              "Type": {
+                "Name": {
+                  "Name": "Float64",
+                  "QuoteType": 1,
+                  "NamePos": 163,
+                  "NameEnd": 170
+                }
+              },
+              "NotNull": null,
+              "Nullable": null,
+              "DefaultExpr": null,
+              "MaterializedExpr": null,
+              "IsEphemeral": false,
+              "EphemeralExpr": null,
+              "AliasExpr": null,
+              "Codec": null,
+              "TTL": null,
+              "Comment": null,
+              "CompressionCodec": null
+            }
+          ],
+          "AliasTable": null,
+          "TableFunction": null
+        },
+        "InnerEngine": {
+          "EnginePos": 186,
+          "EngineEnd": 228,
+          "Name": "MergeTree",
+          "Params": null,
+          "PrimaryKey": null,
+          "PartitionBy": null,
+          "SampleBy": null,
+          "TTL": null,
+          "Settings": null,
+          "OrderBy": {
+            "OrderPos": 205,
+            "ListEnd": 228,
+            "Items": [
+              {
+                "OrderPos": 205,
+                "Expr": {
+                  "LeftParenPos": 214,
+                  "RightParenPos": 228,
+                  "Items": {
+                    "ListPos": 215,
+                    "ListEnd": 228,
+                    "HasDistinct": false,
+                    "Items": [
+                      {
+                        "Expr": {
+                          "Name": "id",
+                          "QuoteType": 1,
+                          "NamePos": 215,
+                          "NameEnd": 217
+                        },
+                        "Alias": null
+                      },
+                      {
+                        "Expr": {
+                          "Name": "timestamp",
+                          "QuoteType": 1,
+                          "NamePos": 219,
+                          "NameEnd": 228
+                        },
+                        "Alias": null
+                      }
+                    ]
+                  },
+                  "ColumnArgList": null
+                },
+                "Alias": null,
+                "Direction": "",
+                "Fill": null
+              }
+            ],
+            "Interpolate": null
+          }
+        }
+      },
+      {
+        "KindPos": 230,
+        "KindEnd": 316,
+        "Kind": "tags",
+        "Keyword": "TAGS",
+        "External": null,
+        "InnerColumns": {
+          "SchemaPos": 249,
+          "SchemaEnd": 273,
+          "Columns": [
+            {
+              "NamePos": 251,
+              "ColumnEnd": 259,
+              "Name": {
+                "Ident": {
+                  "Name": "id",
+                  "QuoteType": 3,
+                  "NamePos": 251,
+                  "NameEnd": 253
+                },
+                "DotIdent": null
+              },
+              "Type": {
+                "Name": {
+                  "Name": "UUID",
+                  "QuoteType": 1,
+                  "NamePos": 255,
+                  "NameEnd": 259
+                }
+              },
+              "NotNull": null,
+              "Nullable": null,
+              "DefaultExpr": null,
+              "MaterializedExpr": null,
+              "IsEphemeral": false,
+              "EphemeralExpr": null,
+              "AliasExpr": null,
+              "Codec": null,
+              "TTL": null,
+              "Comment": null,
+              "CompressionCodec": null
+            },
+            {
+              "NamePos": 262,
+              "ColumnEnd": 273,
+              "Name": {
+                "Ident": {
+                  "Name": "tag",
+                  "QuoteType": 3,
+                  "NamePos": 262,
+                  "NameEnd": 265
+                },
+                "DotIdent": null
+              },
+              "Type": {
+                "Name": {
+                  "Name": "String",
+                  "QuoteType": 1,
+                  "NamePos": 267,
+                  "NameEnd": 273
+                }
+              },
+              "NotNull": null,
+              "Nullable": null,
+              "DefaultExpr": null,
+              "MaterializedExpr": null,
+              "IsEphemeral": false,
+              "EphemeralExpr": null,
+              "AliasExpr": null,
+              "Codec": null,
+              "TTL": null,
+              "Comment": null,
+              "CompressionCodec": null
+            }
+          ],
+          "AliasTable": null,
+          "TableFunction": null
+        },
+        "InnerEngine": {
+          "EnginePos": 286,
+          "EngineEnd": 316,
+          "Name": "MergeTree",
+          "Params": null,
+          "PrimaryKey": null,
+          "PartitionBy": null,
+          "SampleBy": null,
+          "TTL": null,
+          "Settings": null,
+          "OrderBy": {
+            "OrderPos": 305,
+            "ListEnd": 316,
+            "Items": [
+              {
+                "OrderPos": 305,
+                "Expr": {
+                  "Name": "id",
+                  "QuoteType": 1,
+                  "NamePos": 314,
+                  "NameEnd": 316
+                },
+                "Alias": null,
+                "Direction": "",
+                "Fill": null
+              }
+            ],
+            "Interpolate": null
+          }
+        }
+      },
+      {
+        "KindPos": 317,
+        "KindEnd": 337,
+        "Kind": "metrics",
+        "Keyword": "METRICS",
+        "External": {
+          "Database": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 325,
+            "NameEnd": 327
+          },
+          "Table": {
+            "Name": "m_metrics",
+            "QuoteType": 1,
+            "NamePos": 328,
+            "NameEnd": 337
+          }
+        },
+        "InnerColumns": null,
+        "InnerEngine": null
+      }
+    ]
+  }
+]

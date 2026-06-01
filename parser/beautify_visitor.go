@@ -595,6 +595,12 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 		b.newline()
 		b.beautifyEngine(c.Engine)
 	}
+	for _, target := range c.TimeSeriesTargets {
+		b.newline()
+		// Trim the leading space the String() form emits for inline rendering;
+		// the newline already provides separation.
+		b.writeString(strings.TrimPrefix(target.String(), " "))
+	}
 	if c.SubQuery != nil {
 		b.newline()
 		b.writeString("AS")

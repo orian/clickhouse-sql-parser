@@ -1,47 +1,47 @@
 [
   {
     "CreatePos": 0,
-    "StatementEnd": 90,
+    "StatementEnd": 93,
     "OrReplace": false,
     "Name": {
       "Database": {
-        "Name": "test",
+        "Name": "db",
         "QuoteType": 1,
         "NamePos": 13,
-        "NameEnd": 17
+        "NameEnd": 15
       },
       "Table": {
-        "Name": "qbit_example",
+        "Name": "m",
         "QuoteType": 1,
-        "NamePos": 18,
-        "NameEnd": 30
+        "NamePos": 16,
+        "NameEnd": 17
       }
     },
     "IfNotExists": false,
     "UUID": null,
     "OnCluster": null,
     "TableSchema": {
-      "SchemaPos": 31,
-      "SchemaEnd": 73,
+      "SchemaPos": 18,
+      "SchemaEnd": 72,
       "Columns": [
         {
-          "NamePos": 37,
-          "ColumnEnd": 46,
+          "NamePos": 20,
+          "ColumnEnd": 28,
           "Name": {
             "Ident": {
               "Name": "id",
-              "QuoteType": 1,
-              "NamePos": 37,
-              "NameEnd": 39
+              "QuoteType": 3,
+              "NamePos": 20,
+              "NameEnd": 22
             },
             "DotIdent": null
           },
           "Type": {
             "Name": {
-              "Name": "UInt32",
+              "Name": "UUID",
               "QuoteType": 1,
-              "NamePos": 40,
-              "NameEnd": 46
+              "NamePos": 24,
+              "NameEnd": 28
             }
           },
           "NotNull": null,
@@ -57,40 +57,66 @@
           "CompressionCodec": null
         },
         {
-          "NamePos": 52,
-          "ColumnEnd": 71,
+          "NamePos": 31,
+          "ColumnEnd": 54,
           "Name": {
             "Ident": {
-              "Name": "vec",
-              "QuoteType": 1,
-              "NamePos": 52,
-              "NameEnd": 55
+              "Name": "timestamp",
+              "QuoteType": 3,
+              "NamePos": 31,
+              "NameEnd": 40
             },
             "DotIdent": null
           },
           "Type": {
-            "LeftParenPos": 61,
-            "RightParenPos": 71,
+            "LeftParenPos": 53,
+            "RightParenPos": 54,
             "Name": {
-              "Name": "QBit",
+              "Name": "DateTime64",
               "QuoteType": 1,
-              "NamePos": 56,
-              "NameEnd": 60
+              "NamePos": 42,
+              "NameEnd": 52
             },
             "Params": [
               {
-                "Name": "Float32",
-                "QuoteType": 1,
-                "NamePos": 61,
-                "NameEnd": 68
-              },
-              {
-                "NumPos": 70,
-                "NumEnd": 71,
-                "Literal": "8",
+                "NumPos": 53,
+                "NumEnd": 54,
+                "Literal": "3",
                 "Base": 10
               }
             ]
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 58,
+          "ColumnEnd": 72,
+          "Name": {
+            "Ident": {
+              "Name": "value",
+              "QuoteType": 3,
+              "NamePos": 58,
+              "NameEnd": 63
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Float64",
+              "QuoteType": 1,
+              "NamePos": 65,
+              "NameEnd": 72
+            }
           },
           "NotNull": null,
           "Nullable": null,
@@ -109,9 +135,9 @@
       "TableFunction": null
     },
     "Engine": {
-      "EnginePos": 75,
-      "EngineEnd": 90,
-      "Name": "Memory",
+      "EnginePos": 74,
+      "EngineEnd": 93,
+      "Name": "TimeSeries",
       "Params": null,
       "PrimaryKey": null,
       "PartitionBy": null,
