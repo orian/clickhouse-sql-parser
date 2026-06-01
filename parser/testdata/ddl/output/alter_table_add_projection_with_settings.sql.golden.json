@@ -1,0 +1,232 @@
+[
+  {
+    "AlterPos": 0,
+    "StatementEnd": 92,
+    "TableIdentifier": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 12,
+        "NameEnd": 13
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "AddPos": 14,
+        "StatementEnd": 92,
+        "IfNotExists": false,
+        "TableProjection": {
+          "IncludeProjectionKeyword": false,
+          "ProjectionPos": 29,
+          "Identifier": {
+            "Ident": {
+              "Name": "p",
+              "QuoteType": 1,
+              "NamePos": 29,
+              "NameEnd": 30
+            },
+            "DotIdent": null
+          },
+          "Select": {
+            "LeftParenPos": 31,
+            "RightParenPos": 51,
+            "With": null,
+            "SelectColumns": {
+              "ListPos": 39,
+              "ListEnd": 40,
+              "HasDistinct": false,
+              "Items": [
+                {
+                  "Expr": {
+                    "Name": "x",
+                    "QuoteType": 1,
+                    "NamePos": 39,
+                    "NameEnd": 40
+                  },
+                  "Alias": null
+                }
+              ]
+            },
+            "GroupBy": null,
+            "OrderBy": {
+              "OrderByPos": 41,
+              "Columns": {
+                "ListPos": 50,
+                "ListEnd": 51,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "x",
+                      "QuoteType": 1,
+                      "NamePos": 50,
+                      "NameEnd": 51
+                    },
+                    "Alias": null
+                  }
+                ]
+              }
+            }
+          },
+          "WithPos": 53,
+          "Settings": {
+            "SettingsPos": 68,
+            "ListEnd": 92,
+            "Items": [
+              {
+                "SettingsPos": 68,
+                "Name": {
+                  "Name": "index_granularity",
+                  "QuoteType": 1,
+                  "NamePos": 68,
+                  "NameEnd": 85
+                },
+                "Expr": {
+                  "NumPos": 88,
+                  "NumEnd": 92,
+                  "Literal": "4096",
+                  "Base": 10
+                }
+              }
+            ]
+          },
+          "RightParenPos": 92
+        },
+        "After": null
+      }
+    ]
+  },
+  {
+    "AlterPos": 96,
+    "StatementEnd": 250,
+    "TableIdentifier": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 108,
+        "NameEnd": 109
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "AddPos": 110,
+        "StatementEnd": 250,
+        "IfNotExists": true,
+        "TableProjection": {
+          "IncludeProjectionKeyword": false,
+          "ProjectionPos": 139,
+          "Identifier": {
+            "Ident": {
+              "Name": "p2",
+              "QuoteType": 1,
+              "NamePos": 139,
+              "NameEnd": 141
+            },
+            "DotIdent": null
+          },
+          "Select": {
+            "LeftParenPos": 142,
+            "RightParenPos": 165,
+            "With": null,
+            "SelectColumns": {
+              "ListPos": 150,
+              "ListEnd": 154,
+              "HasDistinct": false,
+              "Items": [
+                {
+                  "Expr": {
+                    "Name": "x",
+                    "QuoteType": 1,
+                    "NamePos": 150,
+                    "NameEnd": 151
+                  },
+                  "Alias": null
+                },
+                {
+                  "Expr": {
+                    "Name": "y",
+                    "QuoteType": 1,
+                    "NamePos": 153,
+                    "NameEnd": 154
+                  },
+                  "Alias": null
+                }
+              ]
+            },
+            "GroupBy": null,
+            "OrderBy": {
+              "OrderByPos": 155,
+              "Columns": {
+                "ListPos": 164,
+                "ListEnd": 165,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "x",
+                      "QuoteType": 1,
+                      "NamePos": 164,
+                      "NameEnd": 165
+                    },
+                    "Alias": null
+                  }
+                ]
+              }
+            }
+          },
+          "WithPos": 167,
+          "Settings": {
+            "SettingsPos": 182,
+            "ListEnd": 241,
+            "Items": [
+              {
+                "SettingsPos": 182,
+                "Name": {
+                  "Name": "index_granularity",
+                  "QuoteType": 1,
+                  "NamePos": 182,
+                  "NameEnd": 199
+                },
+                "Expr": {
+                  "NumPos": 202,
+                  "NumEnd": 206,
+                  "Literal": "8192",
+                  "Base": 10
+                }
+              },
+              {
+                "SettingsPos": 208,
+                "Name": {
+                  "Name": "index_granularity_bytes",
+                  "QuoteType": 1,
+                  "NamePos": 208,
+                  "NameEnd": 231
+                },
+                "Expr": {
+                  "NumPos": 234,
+                  "NumEnd": 241,
+                  "Literal": "1048576",
+                  "Base": 10
+                }
+              }
+            ]
+          },
+          "RightParenPos": 241
+        },
+        "After": {
+          "Ident": {
+            "Name": "p",
+            "QuoteType": 1,
+            "NamePos": 249,
+            "NameEnd": 250
+          },
+          "DotIdent": null
+        }
+      }
+    ]
+  }
+]

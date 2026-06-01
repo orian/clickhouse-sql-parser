@@ -2597,6 +2597,11 @@ func (visitor DefaultASTVisitor) VisitTableProjection(t *TableProjection) error 
 	if err := t.Select.Accept(visitor.Self); err != nil {
 		return err
 	}
+	if t.Settings != nil {
+		if err := t.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 

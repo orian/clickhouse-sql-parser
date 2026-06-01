@@ -184,7 +184,10 @@
               "WithTotals": false
             },
             "OrderBy": null
-          }
+          },
+          "WithPos": 0,
+          "Settings": null,
+          "RightParenPos": 0
         },
         "After": null
       }

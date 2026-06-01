@@ -1471,6 +1471,11 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Select, fn) {
 			return false
 		}
+		if n.Settings != nil {
+			if !Walk(n.Settings, fn) {
+				return false
+			}
+		}
 	case *RemovePropertyType:
 		if !Walk(n.PropertyType, fn) {
 			return false
