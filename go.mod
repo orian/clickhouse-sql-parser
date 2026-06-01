@@ -1,4 +1,4 @@
-module github.com/AfterShip/clickhouse-sql-parser
+module github.com/orian/clickhouse-sql-parser
 
 go 1.21.0
 

@@ -22,7 +22,7 @@ Inspired by [memefish](https://github.com/cloudspannerecosystem/memefish).
 Parse SQL into an AST:
 
 ```go
-import clickhouse "github.com/AfterShip/clickhouse-sql-parser/parser"
+import clickhouse "github.com/orian/clickhouse-sql-parser/parser"
 
 stmts, err := clickhouse.NewParser("SELECT * FROM t WHERE a = 100").ParseStmts()
 if err != nil {
@@ -79,7 +79,7 @@ Build from this checkout:
 $ go build -o clickhouse-sql-parser .
 ```
 
-(`go install github.com/AfterShip/clickhouse-sql-parser@latest` installs the **upstream** binary, not this fork. The module path still tracks upstream so import paths stay stable.)
+(`go install github.com/orian/clickhouse-sql-parser@latest` installs this fork's binary. The upstream project lives at `github.com/AfterShip/clickhouse-sql-parser`.)
 
 Commands:
 
