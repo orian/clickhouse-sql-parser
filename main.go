@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	clickhouse "github.com/AfterShip/clickhouse-sql-parser/parser"
+	clickhouse "github.com/orian/clickhouse-sql-parser/parser"
 )
 
 const VERSION = "0.4.17"
