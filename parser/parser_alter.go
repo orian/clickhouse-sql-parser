@@ -235,12 +235,40 @@ func (p *Parser) parseTableProjection(pos Pos, includeProjectionKeyword bool) (*
 	if err != nil {
 		return nil, err
 	}
-	return &TableProjection{
+	projection := &TableProjection{
 		IncludeProjectionKeyword: includeProjectionKeyword,
 		ProjectionPos:            pos,
 		Identifier:               identifier,
 		Select:                   selectExpr,
-	}, nil
+	}
+	// Optional trailing per-projection settings: WITH SETTINGS (name = value, ...)
+	if p.matchKeyword(KeywordWith) {
+		withPos := p.Pos()
+		_ = p.tryConsumeKeywords(KeywordWith)
+		if err := p.expectKeyword(KeywordSettings); err != nil {
+			return nil, err
+		}
+		if err := p.expectTokenKind(TokenKindLParen); err != nil {
+			return nil, err
+		}
+		settingsPos := p.Pos()
+		items, err := p.parseSettingsList(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		rightParen := p.last()
+		if err := p.expectTokenKind(TokenKindRParen); err != nil {
+			return nil, err
+		}
+		projection.WithPos = withPos
+		projection.RightParenPos = rightParen.Pos
+		settings := &SettingsClause{SettingsPos: settingsPos, ListEnd: rightParen.Pos, Items: items}
+		if len(items) > 0 {
+			settings.ListEnd = items[len(items)-1].End()
+		}
+		projection.Settings = settings
+	}
+	return projection, nil
 }
 
 func (p *Parser) parseAlterTableAddProjection(pos Pos) (*AlterTableAddProjection, error) {

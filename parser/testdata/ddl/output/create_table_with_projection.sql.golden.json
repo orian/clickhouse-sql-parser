@@ -199,7 +199,10 @@
                 ]
               }
             }
-          }
+          },
+          "WithPos": 0,
+          "Settings": null,
+          "RightParenPos": 0
         }
       ],
       "AliasTable": null,

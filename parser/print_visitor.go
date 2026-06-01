@@ -2080,6 +2080,16 @@ func (p *PrintVisitor) VisitTableProjection(t *TableProjection) error {
 	builder.WriteString(t.Identifier.String())
 	builder.WriteString(" ")
 	builder.WriteString(t.Select.String())
+	if t.Settings != nil {
+		builder.WriteString(" WITH SETTINGS (")
+		for i, item := range t.Settings.Items {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(item.String())
+		}
+		builder.WriteString(")")
+	}
 	return nil
 }
 

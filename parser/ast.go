@@ -678,6 +678,9 @@ type TableProjection struct {
 	ProjectionPos            Pos
 	Identifier               *NestedIdentifier
 	Select                   *ProjectionSelectStmt
+	WithPos                  Pos
+	Settings                 *SettingsClause
+	RightParenPos            Pos
 }
 
 func (t *TableProjection) Pos() Pos {
@@ -685,6 +688,9 @@ func (t *TableProjection) Pos() Pos {
 }
 
 func (t *TableProjection) End() Pos {
+	if t.Settings != nil {
+		return t.RightParenPos
+	}
 	return t.Select.End()
 }
 
@@ -696,6 +702,16 @@ func (t *TableProjection) String() string {
 	builder.WriteString(t.Identifier.String())
 	builder.WriteString(" ")
 	builder.WriteString(t.Select.String())
+	if t.Settings != nil {
+		builder.WriteString(" WITH SETTINGS (")
+		for i, item := range t.Settings.Items {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(item.String())
+		}
+		builder.WriteString(")")
+	}
 	return builder.String()
 }
 
