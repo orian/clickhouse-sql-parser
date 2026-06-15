@@ -2491,27 +2491,27 @@ func (p *Parser) parseDictionaryLayoutClause(pos Pos) (*DictionaryLayoutClause, 
 		return nil, err
 	}
 
-	if err := p.expectTokenKind(TokenKindLParen); err != nil {
-		return nil, err
-	}
-
 	var args []*DictionaryArgExpr
-	// Parse optional arguments
-	for !p.matchTokenKind(TokenKindRParen) {
-		arg, err := p.parseDictionaryArgExpr(p.Pos())
-		if err != nil {
+	// The inner argument list is optional: ClickHouse accepts both
+	// LAYOUT(HASHED()) and the parameterless LAYOUT(FLAT) / LAYOUT(IP_TRIE).
+	if p.tryConsumeTokenKind(TokenKindLParen) != nil {
+		// Parse optional arguments
+		for !p.matchTokenKind(TokenKindRParen) {
+			arg, err := p.parseDictionaryArgExpr(p.Pos())
+			if err != nil {
+				return nil, err
+			}
+			args = append(args, arg)
+
+			// If there's no right paren, we expect another arg (no comma needed)
+			if p.matchTokenKind(TokenKindRParen) {
+				break
+			}
+		}
+
+		if err := p.expectTokenKind(TokenKindRParen); err != nil {
 			return nil, err
 		}
-		args = append(args, arg)
-
-		// If there's no right paren, we expect another arg (no comma needed)
-		if p.matchTokenKind(TokenKindRParen) {
-			break
-		}
-	}
-
-	if err := p.expectTokenKind(TokenKindRParen); err != nil {
-		return nil, err
 	}
 
 	rParenPos := p.Pos()
