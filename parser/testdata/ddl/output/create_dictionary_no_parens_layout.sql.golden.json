@@ -1,0 +1,545 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 194,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "test",
+        "QuoteType": 1,
+        "NamePos": 18,
+        "NameEnd": 22
+      },
+      "Table": {
+        "Name": "flat_dict",
+        "QuoteType": 1,
+        "NamePos": 23,
+        "NameEnd": 32
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "Schema": {
+      "SchemaPos": 33,
+      "Attributes": [
+        {
+          "NamePos": 39,
+          "Name": {
+            "Name": "id",
+            "QuoteType": 1,
+            "NamePos": 39,
+            "NameEnd": 41
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt64",
+              "QuoteType": 1,
+              "NamePos": 42,
+              "NameEnd": 48
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        },
+        {
+          "NamePos": 54,
+          "Name": {
+            "Name": "value",
+            "QuoteType": 1,
+            "NamePos": 54,
+            "NameEnd": 59
+          },
+          "Type": {
+            "Name": {
+              "Name": "String",
+              "QuoteType": 1,
+              "NamePos": 60,
+              "NameEnd": 66
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        }
+      ],
+      "RParenPos": 67
+    },
+    "Engine": {
+      "EnginePos": 69,
+      "PrimaryKey": {
+        "PrimaryKeyPos": 69,
+        "Keys": {
+          "ListPos": 81,
+          "ListEnd": 83,
+          "HasDistinct": false,
+          "Items": [
+            {
+              "Expr": {
+                "Name": "id",
+                "QuoteType": 1,
+                "NamePos": 81,
+                "NameEnd": 83
+              },
+              "Alias": null
+            }
+          ]
+        },
+        "RParenPos": 82
+      },
+      "Source": {
+        "SourcePos": 84,
+        "Source": {
+          "Name": "CLICKHOUSE",
+          "QuoteType": 1,
+          "NamePos": 91,
+          "NameEnd": 101
+        },
+        "Args": [
+          {
+            "ArgPos": 107,
+            "Name": {
+              "Name": "host",
+              "QuoteType": 1,
+              "NamePos": 107,
+              "NameEnd": 111
+            },
+            "Value": {
+              "LiteralPos": 113,
+              "LiteralEnd": 122,
+              "Literal": "localhost"
+            }
+          },
+          {
+            "ArgPos": 128,
+            "Name": {
+              "Name": "port",
+              "QuoteType": 1,
+              "NamePos": 128,
+              "NameEnd": 132
+            },
+            "Value": {
+              "NumPos": 133,
+              "NumEnd": 137,
+              "Literal": "9000",
+              "Base": 10
+            }
+          },
+          {
+            "ArgPos": 142,
+            "Name": {
+              "Name": "table",
+              "QuoteType": 1,
+              "NamePos": 142,
+              "NameEnd": 147
+            },
+            "Value": {
+              "LiteralPos": 149,
+              "LiteralEnd": 152,
+              "Literal": "src"
+            }
+          }
+        ],
+        "RParenPos": 155
+      },
+      "Lifetime": {
+        "LifetimePos": 157,
+        "Min": {
+          "NumPos": 170,
+          "NumEnd": 171,
+          "Literal": "0",
+          "Base": 10
+        },
+        "Max": {
+          "NumPos": 176,
+          "NumEnd": 180,
+          "Literal": "1000",
+          "Base": 10
+        },
+        "Value": null,
+        "RParenPos": 180
+      },
+      "Layout": {
+        "LayoutPos": 182,
+        "Layout": {
+          "Name": "FLAT",
+          "QuoteType": 1,
+          "NamePos": 189,
+          "NameEnd": 193
+        },
+        "Args": null,
+        "RParenPos": 193
+      },
+      "Range": null,
+      "Settings": null
+    },
+    "Comment": null
+  },
+  {
+    "CreatePos": 197,
+    "StatementEnd": 398,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "test",
+        "QuoteType": 1,
+        "NamePos": 215,
+        "NameEnd": 219
+      },
+      "Table": {
+        "Name": "ip_dict",
+        "QuoteType": 1,
+        "NamePos": 220,
+        "NameEnd": 227
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "Schema": {
+      "SchemaPos": 228,
+      "Attributes": [
+        {
+          "NamePos": 234,
+          "Name": {
+            "Name": "prefix",
+            "QuoteType": 1,
+            "NamePos": 234,
+            "NameEnd": 240
+          },
+          "Type": {
+            "Name": {
+              "Name": "String",
+              "QuoteType": 1,
+              "NamePos": 241,
+              "NameEnd": 247
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        },
+        {
+          "NamePos": 253,
+          "Name": {
+            "Name": "asn",
+            "QuoteType": 1,
+            "NamePos": 253,
+            "NameEnd": 256
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt32",
+              "QuoteType": 1,
+              "NamePos": 257,
+              "NameEnd": 263
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        }
+      ],
+      "RParenPos": 264
+    },
+    "Engine": {
+      "EnginePos": 266,
+      "PrimaryKey": {
+        "PrimaryKeyPos": 266,
+        "Keys": {
+          "ListPos": 278,
+          "ListEnd": 284,
+          "HasDistinct": false,
+          "Items": [
+            {
+              "Expr": {
+                "Name": "prefix",
+                "QuoteType": 1,
+                "NamePos": 278,
+                "NameEnd": 284
+              },
+              "Alias": null
+            }
+          ]
+        },
+        "RParenPos": 283
+      },
+      "Source": {
+        "SourcePos": 285,
+        "Source": {
+          "Name": "CLICKHOUSE",
+          "QuoteType": 1,
+          "NamePos": 292,
+          "NameEnd": 302
+        },
+        "Args": [
+          {
+            "ArgPos": 308,
+            "Name": {
+              "Name": "host",
+              "QuoteType": 1,
+              "NamePos": 308,
+              "NameEnd": 312
+            },
+            "Value": {
+              "LiteralPos": 314,
+              "LiteralEnd": 323,
+              "Literal": "localhost"
+            }
+          },
+          {
+            "ArgPos": 329,
+            "Name": {
+              "Name": "port",
+              "QuoteType": 1,
+              "NamePos": 329,
+              "NameEnd": 333
+            },
+            "Value": {
+              "NumPos": 334,
+              "NumEnd": 338,
+              "Literal": "9000",
+              "Base": 10
+            }
+          },
+          {
+            "ArgPos": 343,
+            "Name": {
+              "Name": "table",
+              "QuoteType": 1,
+              "NamePos": 343,
+              "NameEnd": 348
+            },
+            "Value": {
+              "LiteralPos": 350,
+              "LiteralEnd": 353,
+              "Literal": "src"
+            }
+          }
+        ],
+        "RParenPos": 356
+      },
+      "Lifetime": {
+        "LifetimePos": 358,
+        "Min": {
+          "NumPos": 371,
+          "NumEnd": 372,
+          "Literal": "0",
+          "Base": 10
+        },
+        "Max": {
+          "NumPos": 377,
+          "NumEnd": 381,
+          "Literal": "1000",
+          "Base": 10
+        },
+        "Value": null,
+        "RParenPos": 381
+      },
+      "Layout": {
+        "LayoutPos": 383,
+        "Layout": {
+          "Name": "IP_TRIE",
+          "QuoteType": 1,
+          "NamePos": 390,
+          "NameEnd": 397
+        },
+        "Args": null,
+        "RParenPos": 397
+      },
+      "Range": null,
+      "Settings": null
+    },
+    "Comment": null
+  },
+  {
+    "CreatePos": 401,
+    "StatementEnd": 601,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "test",
+        "QuoteType": 1,
+        "NamePos": 419,
+        "NameEnd": 423
+      },
+      "Table": {
+        "Name": "hashed_dict",
+        "QuoteType": 1,
+        "NamePos": 424,
+        "NameEnd": 435
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "Schema": {
+      "SchemaPos": 436,
+      "Attributes": [
+        {
+          "NamePos": 442,
+          "Name": {
+            "Name": "id",
+            "QuoteType": 1,
+            "NamePos": 442,
+            "NameEnd": 444
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt64",
+              "QuoteType": 1,
+              "NamePos": 445,
+              "NameEnd": 451
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        },
+        {
+          "NamePos": 457,
+          "Name": {
+            "Name": "value",
+            "QuoteType": 1,
+            "NamePos": 457,
+            "NameEnd": 462
+          },
+          "Type": {
+            "Name": {
+              "Name": "String",
+              "QuoteType": 1,
+              "NamePos": 463,
+              "NameEnd": 469
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        }
+      ],
+      "RParenPos": 470
+    },
+    "Engine": {
+      "EnginePos": 472,
+      "PrimaryKey": {
+        "PrimaryKeyPos": 472,
+        "Keys": {
+          "ListPos": 484,
+          "ListEnd": 486,
+          "HasDistinct": false,
+          "Items": [
+            {
+              "Expr": {
+                "Name": "id",
+                "QuoteType": 1,
+                "NamePos": 484,
+                "NameEnd": 486
+              },
+              "Alias": null
+            }
+          ]
+        },
+        "RParenPos": 485
+      },
+      "Source": {
+        "SourcePos": 487,
+        "Source": {
+          "Name": "CLICKHOUSE",
+          "QuoteType": 1,
+          "NamePos": 494,
+          "NameEnd": 504
+        },
+        "Args": [
+          {
+            "ArgPos": 510,
+            "Name": {
+              "Name": "host",
+              "QuoteType": 1,
+              "NamePos": 510,
+              "NameEnd": 514
+            },
+            "Value": {
+              "LiteralPos": 516,
+              "LiteralEnd": 525,
+              "Literal": "localhost"
+            }
+          },
+          {
+            "ArgPos": 531,
+            "Name": {
+              "Name": "port",
+              "QuoteType": 1,
+              "NamePos": 531,
+              "NameEnd": 535
+            },
+            "Value": {
+              "NumPos": 536,
+              "NumEnd": 540,
+              "Literal": "9000",
+              "Base": 10
+            }
+          },
+          {
+            "ArgPos": 545,
+            "Name": {
+              "Name": "table",
+              "QuoteType": 1,
+              "NamePos": 545,
+              "NameEnd": 550
+            },
+            "Value": {
+              "LiteralPos": 552,
+              "LiteralEnd": 555,
+              "Literal": "src"
+            }
+          }
+        ],
+        "RParenPos": 558
+      },
+      "Lifetime": {
+        "LifetimePos": 560,
+        "Min": {
+          "NumPos": 573,
+          "NumEnd": 574,
+          "Literal": "0",
+          "Base": 10
+        },
+        "Max": {
+          "NumPos": 579,
+          "NumEnd": 583,
+          "Literal": "1000",
+          "Base": 10
+        },
+        "Value": null,
+        "RParenPos": 583
+      },
+      "Layout": {
+        "LayoutPos": 585,
+        "Layout": {
+          "Name": "HASHED",
+          "QuoteType": 1,
+          "NamePos": 592,
+          "NameEnd": 598
+        },
+        "Args": null,
+        "RParenPos": 600
+      },
+      "Range": null,
+      "Settings": null
+    },
+    "Comment": null
+  }
+]
