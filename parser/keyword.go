@@ -17,6 +17,7 @@ const (
 	KeywordAsc          = "ASC"
 	KeywordAscending    = "ASCENDING"
 	KeywordAsof         = "ASOF"
+	KeywordAssume       = "ASSUME"
 	KeywordAst          = "AST"
 	KeywordAsync        = "ASYNC"
 	KeywordAttach       = "ATTACH"
@@ -278,6 +279,7 @@ var keywords = NewSet(
 	KeywordAsc,
 	KeywordAscending,
 	KeywordAsof,
+	KeywordAssume,
 	KeywordAst,
 	KeywordAsync,
 	KeywordAttach,

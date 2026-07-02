@@ -2569,6 +2569,7 @@ func (d *DestinationClause) Accept(visitor ASTVisitor) error {
 type ConstraintClause struct {
 	ConstraintPos Pos
 	Constraint    *Ident
+	Type          *Ident // CHECK or ASSUME
 	Expr          Expr
 }
 
@@ -2582,8 +2583,13 @@ func (c *ConstraintClause) End() Pos {
 
 func (c *ConstraintClause) String() string {
 	var builder strings.Builder
+	builder.WriteString("CONSTRAINT ")
 	builder.WriteString(c.Constraint.String())
 	builder.WriteByte(' ')
+	if c.Type != nil {
+		builder.WriteString(c.Type.String())
+		builder.WriteByte(' ')
+	}
 	builder.WriteString(c.Expr.String())
 	return builder.String()
 }

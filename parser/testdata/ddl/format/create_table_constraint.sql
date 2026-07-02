@@ -1,0 +1,6 @@
+-- Origin SQL:
+CREATE TABLE t (`x` Int32, CONSTRAINT c_chk CHECK x > 0, CONSTRAINT c_asm ASSUME x < 100) ENGINE = MergeTree ORDER BY x;
+
+
+-- Format SQL:
+CREATE TABLE t (`x` Int32, CONSTRAINT c_chk CHECK x > 0, CONSTRAINT c_asm ASSUME x < 100) ENGINE = MergeTree ORDER BY x;

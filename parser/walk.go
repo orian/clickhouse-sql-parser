@@ -1188,6 +1188,11 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Constraint, fn) {
 			return false
 		}
+		if n.Type != nil {
+			if !Walk(n.Type, fn) {
+				return false
+			}
+		}
 		if !Walk(n.Expr, fn) {
 			return false
 		}
