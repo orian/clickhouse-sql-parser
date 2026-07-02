@@ -618,9 +618,17 @@ func (p *Parser) parseTableColumns() ([]Expr, error) {
 			if err != nil {
 				return nil, err
 			}
-			if err := p.expectKeyword(KeywordCheck); err != nil {
-				return nil, err
+			if !p.matchOneOfKeywords(KeywordCheck, KeywordAssume) {
+				return nil, fmt.Errorf("expected keyword: %s or %s, but got %s",
+					KeywordCheck, KeywordAssume, p.lastTokenKind())
 			}
+			constraintTypeToken := p.last()
+			constraintType := &Ident{
+				NamePos: constraintTypeToken.Pos,
+				NameEnd: constraintTypeToken.End,
+				Name:    constraintTypeToken.String,
+			}
+			_ = p.lexer.consumeToken()
 			expr, err := p.parseExpr(p.Pos())
 			if err != nil {
 				return nil, err
@@ -628,6 +636,7 @@ func (p *Parser) parseTableColumns() ([]Expr, error) {
 			columns = append(columns, &ConstraintClause{
 				ConstraintPos: constraintPos,
 				Constraint:    ident,
+				Type:          constraintType,
 				Expr:          expr,
 			})
 		case p.matchKeyword(KeywordProjection):

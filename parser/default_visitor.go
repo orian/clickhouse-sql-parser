@@ -665,6 +665,11 @@ func (visitor DefaultASTVisitor) VisitConstraintExpr(c *ConstraintClause) error 
 	if err := c.Constraint.Accept(visitor.Self); err != nil {
 		return err
 	}
+	if c.Type != nil {
+		if err := c.Type.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if err := c.Expr.Accept(visitor.Self); err != nil {
 		return err
 	}

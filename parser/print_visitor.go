@@ -591,8 +591,13 @@ func (p *PrintVisitor) VisitCompressionCodec(c *CompressionCodec) error {
 }
 func (p *PrintVisitor) VisitConstraintExpr(c *ConstraintClause) error {
 	builder := p.builder
+	builder.WriteString("CONSTRAINT ")
 	builder.WriteString(c.Constraint.String())
 	builder.WriteByte(' ')
+	if c.Type != nil {
+		builder.WriteString(c.Type.String())
+		builder.WriteByte(' ')
+	}
 	builder.WriteString(c.Expr.String())
 	return nil
 }
