@@ -54,6 +54,47 @@ func TestParser_Beautify(t *testing.T) {
 	}
 }
 
+// TestBeautifyVisitor_ProjectionSelect covers issue #19: BeautifyVisitor must
+// render a projection's inner SELECT (ProjectionSelectStmt) and its ORDER BY
+// (ProjectionOrderByClause) directly. Before the VisitProjectionSelect /
+// VisitProjectionOrderBy overrides existed, Accept fell through to
+// DefaultASTVisitor and emitted nothing meaningful.
+func TestBeautifyVisitor_ProjectionSelect(t *testing.T) {
+	tests := []struct {
+		name string
+		sql  string
+		want string
+	}{
+		{
+			name: "select_star_order_by",
+			sql:  "CREATE TABLE t (id UInt64, PROJECTION p (SELECT * ORDER BY id)) ENGINE = MergeTree ORDER BY id",
+			want: "(\n  SELECT *\n  ORDER BY id\n)",
+		},
+		{
+			name: "group_by",
+			sql:  "CREATE TABLE t (user_id UInt64, user_agent String, pages UInt64, PROJECTION p (SELECT user_agent, sum(pages) GROUP BY user_id, user_agent)) ENGINE = MergeTree ORDER BY user_agent",
+			want: "(\n  SELECT user_agent, sum(pages)\n  GROUP BY\n    user_id, user_agent\n)",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			stmts, err := NewParser(tt.sql).ParseStmts()
+			require.NoError(t, err)
+			ct := stmts[0].(*CreateTable)
+			var proj *TableProjection
+			for _, c := range ct.TableSchema.Columns {
+				if p, ok := c.(*TableProjection); ok {
+					proj = p
+				}
+			}
+			require.NotNil(t, proj)
+			v := NewBeautifyVisitor()
+			require.NoError(t, proj.Select.Accept(v))
+			require.Equal(t, tt.want, v.String())
+		})
+	}
+}
+
 // TestBeautifyVisitor_Fixtures is a fixture-driven runner for the
 // hand-curated beautify cases in parser/testdata/beautify/. Each test is a
 // pair of files:
