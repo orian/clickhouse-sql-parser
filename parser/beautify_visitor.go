@@ -561,6 +561,127 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 	return nil
 }
 
+// VisitProjectionSelect beautifies a projection's inner SELECT — the
+// parenthesised `(SELECT ... [GROUP BY ...] [ORDER BY ...])` body of a
+// PROJECTION. It mirrors PrintVisitor.VisitProjectionSelect but breaks across
+// indented lines like the rest of the beautifier:
+//
+//	(
+//	  SELECT user_agent, sum(pages_visited)
+//	  GROUP BY
+//	    user_id, user_agent
+//	)
+func (b *BeautifyVisitor) VisitProjectionSelect(p *ProjectionSelectStmt) error {
+	b.Enter(p)
+	defer b.Leave(p)
+
+	b.writeString("(")
+	b.indentIn()
+	b.newline()
+
+	if p.With != nil {
+		b.writeString(p.With.String())
+		b.newline()
+	}
+
+	b.writeString("SELECT")
+	items := p.SelectColumns.Items
+	if b.projectionItemsFitInline(items) {
+		b.writeSpace()
+		b.writeString(p.SelectColumns.String())
+	} else {
+		if p.SelectColumns.HasDistinct {
+			b.writeString(" DISTINCT")
+		}
+		b.indentIn()
+		for i, item := range items {
+			if i == 0 {
+				b.newline()
+			} else {
+				b.writeString(",")
+				b.newline()
+			}
+			b.emitExpr(item)
+		}
+		b.indentOut()
+	}
+
+	if p.GroupBy != nil {
+		b.newline()
+		b.beautifyGroupBy(p.GroupBy)
+	}
+	if p.OrderBy != nil {
+		b.newline()
+		if err := p.OrderBy.Accept(b.Self); err != nil {
+			return err
+		}
+	}
+
+	b.indentOut()
+	b.newline()
+	b.writeString(")")
+	return nil
+}
+
+// projectionItemsFitInline reports whether a projection SELECT's column list
+// stays on the SELECT line, reusing the same thresholds as a top-level SELECT
+// (opts.SelectItemsMaxCount / SelectItemsMaxLen).
+func (b *BeautifyVisitor) projectionItemsFitInline(items []Expr) bool {
+	if b.opts.SelectItemsMaxCount <= 0 || b.opts.SelectItemsMaxLen <= 0 {
+		return false
+	}
+	if len(items) > b.opts.SelectItemsMaxCount {
+		return false
+	}
+	total := 0
+	for i, item := range items {
+		if i > 0 {
+			total += 2 // ", "
+		}
+		s := item.String()
+		if strings.ContainsRune(s, '\n') {
+			return false
+		}
+		total += len(s)
+		if total >= b.opts.SelectItemsMaxLen {
+			return false
+		}
+	}
+	return true
+}
+
+// VisitProjectionOrderBy beautifies a projection's ORDER BY clause, reusing the
+// same inline-vs-break thresholds as a top-level ORDER BY.
+func (b *BeautifyVisitor) VisitProjectionOrderBy(p *ProjectionOrderByClause) error {
+	b.Enter(p)
+	defer b.Leave(p)
+
+	items := p.Columns.Items
+	if b.orderByFitsInline(items) {
+		b.writeString("ORDER BY ")
+		for i, item := range items {
+			if i > 0 {
+				b.writeString(", ")
+			}
+			b.writeString(item.String())
+		}
+		return nil
+	}
+	b.writeString("ORDER BY")
+	b.indentIn()
+	for i, item := range items {
+		if i == 0 {
+			b.newline()
+		} else {
+			b.writeString(",")
+			b.newline()
+		}
+		b.emitExpr(item)
+	}
+	b.indentOut()
+	return nil
+}
+
 // VisitCreateTable beautifies CREATE TABLE.
 func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 	b.Enter(c)
