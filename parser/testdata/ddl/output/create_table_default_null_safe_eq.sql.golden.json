@@ -1,0 +1,184 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 146,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 13,
+        "NameEnd": 15
+      },
+      "Table": {
+        "Name": "things",
+        "QuoteType": 1,
+        "NamePos": 16,
+        "NameEnd": 22
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 23,
+      "SchemaEnd": 112,
+      "Columns": [
+        {
+          "NamePos": 25,
+          "ColumnEnd": 37,
+          "Name": {
+            "Ident": {
+              "Name": "name",
+              "QuoteType": 3,
+              "NamePos": 25,
+              "NameEnd": 29
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "String",
+              "QuoteType": 1,
+              "NamePos": 31,
+              "NameEnd": 37
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 40,
+          "ColumnEnd": 81,
+          "Name": {
+            "Ident": {
+              "Name": "matches",
+              "QuoteType": 3,
+              "NamePos": 40,
+              "NameEnd": 47
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Bool",
+              "QuoteType": 1,
+              "NamePos": 49,
+              "NameEnd": 53
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": {
+            "LeftExpr": {
+              "Name": "other_name",
+              "QuoteType": 1,
+              "NamePos": 62,
+              "NameEnd": 72
+            },
+            "Operation": "\u003c=\u003e",
+            "RightExpr": {
+              "Name": "name",
+              "QuoteType": 1,
+              "NamePos": 77,
+              "NameEnd": 81
+            },
+            "HasGlobal": false,
+            "HasNot": false
+          },
+          "MaterializedExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 84,
+          "ColumnEnd": 111,
+          "Name": {
+            "Ident": {
+              "Name": "other_name",
+              "QuoteType": 3,
+              "NamePos": 84,
+              "NameEnd": 94
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "LeftParenPos": 105,
+            "RightParenPos": 111,
+            "Name": {
+              "Name": "Nullable",
+              "QuoteType": 1,
+              "NamePos": 96,
+              "NameEnd": 104
+            },
+            "Params": [
+              {
+                "Name": {
+                  "Name": "String",
+                  "QuoteType": 1,
+                  "NamePos": 105,
+                  "NameEnd": 111
+                }
+              }
+            ]
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 114,
+      "EngineEnd": 146,
+      "Name": "MergeTree",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": null,
+      "OrderBy": {
+        "OrderPos": 133,
+        "ListEnd": 146,
+        "Items": [
+          {
+            "OrderPos": 133,
+            "Expr": {
+              "Name": "name",
+              "QuoteType": 1,
+              "NamePos": 142,
+              "NameEnd": 146
+            },
+            "Alias": null,
+            "Direction": "",
+            "Fill": null
+          }
+        ],
+        "Interpolate": null
+      }
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null
+  }
+]

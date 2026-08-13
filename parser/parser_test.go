@@ -187,6 +187,10 @@ func TestParser_InvalidSyntax(t *testing.T) {
 		"SELECT * FROM t RIGHT ARRAY JOIN arr AS a", // RIGHT ARRAY JOIN not supported
 		"SELECT * FROM t FULL ARRAY JOIN arr AS a",  // FULL ARRAY JOIN not supported
 		"00e1d", // invalid number that leaves lastToken nil
+		// Column clauses with an unparsable expression must error, not panic (issue #21)
+		"CREATE TABLE t (a String, b Bool DEFAULT) ENGINE = Memory",
+		"CREATE TABLE t (a String, b Bool MATERIALIZED) ENGINE = Memory",
+		"CREATE TABLE t (a String, b Bool ALIAS) ENGINE = Memory",
 	}
 	for _, sql := range invalidSQLs {
 		parser := NewParser(sql)
