@@ -48,7 +48,8 @@ func (p *Parser) getNextPrecedence() int {
 		return PrecedenceDoubleColon
 	case p.matchTokenKind(TokenKindSingleEQ), p.matchTokenKind(TokenKindLT), p.matchTokenKind(TokenKindLE),
 		p.matchTokenKind(TokenKindGE), p.matchTokenKind(TokenKindGT), p.matchTokenKind(TokenKindDoubleEQ),
-		p.matchTokenKind(TokenKindNE), p.matchTokenKind("<>"):
+		p.matchTokenKind(TokenKindNE), p.matchTokenKind("<>"),
+		p.matchTokenKind(TokenKindNullSafeEQ):
 		return PrecedenceCompare
 	case p.matchTokenKind(TokenKindConcat):
 		return PrecedenceConcat
@@ -81,7 +82,7 @@ func (p *Parser) parseInfix(expr Expr, precedence int) (Expr, error) {
 	switch {
 	case p.matchTokenKind(TokenKindSingleEQ), p.matchTokenKind(TokenKindLT), p.matchTokenKind(TokenKindLE),
 		p.matchTokenKind(TokenKindGE), p.matchTokenKind(TokenKindGT),
-		p.matchTokenKind(TokenKindNE), p.matchTokenKind("<>"),
+		p.matchTokenKind(TokenKindNE), p.matchTokenKind("<>"), p.matchTokenKind(TokenKindNullSafeEQ),
 		p.matchTokenKind(TokenKindMinus), p.matchTokenKind(TokenKindPlus), p.matchTokenKind(TokenKindMul),
 		p.matchTokenKind(TokenKindDiv), p.matchTokenKind(TokenKindMod), p.matchTokenKind(TokenKindConcat),
 		p.matchKeyword(KeywordIn), p.matchKeyword(KeywordLike),

@@ -705,10 +705,14 @@ func (p *Parser) parseTableColumnExpr(pos Pos) (*ColumnDef, error) {
 	switch {
 	case p.tryConsumeKeywords(KeywordDefault):
 		column.DefaultExpr, err = p.parseExpr(p.Pos())
-		columnEnd = column.DefaultExpr.End()
+		if err == nil {
+			columnEnd = column.DefaultExpr.End()
+		}
 	case p.tryConsumeKeywords(KeywordMaterialized):
 		column.MaterializedExpr, err = p.parseExpr(p.Pos())
-		columnEnd = column.MaterializedExpr.End()
+		if err == nil {
+			columnEnd = column.MaterializedExpr.End()
+		}
 	case p.tryConsumeKeywords(KeywordEphemeral):
 		// EPHEMERAL accepts an optional expression. Skip the expression when the
 		// next token clearly ends the column definition (',' or ')') or starts
@@ -725,7 +729,9 @@ func (p *Parser) parseTableColumnExpr(pos Pos) (*ColumnDef, error) {
 		}
 	case p.tryConsumeKeywords(KeywordAlias):
 		column.AliasExpr, err = p.parseExpr(p.Pos())
-		columnEnd = column.AliasExpr.End()
+		if err == nil {
+			columnEnd = column.AliasExpr.End()
+		}
 	}
 	if err != nil {
 		return nil, err
