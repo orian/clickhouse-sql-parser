@@ -104,6 +104,37 @@ func TestConsumeString(t *testing.T) {
 	})
 }
 
+func TestConsumeComparisonOperator(t *testing.T) {
+	testCases := []struct {
+		input    string
+		expected TokenKind
+	}{
+		{"<=>", TokenKindNullSafeEQ},
+		{"<=", TokenKindLE},
+		{"<>", "<>"},
+		{">=", TokenKindGE},
+		{"==", TokenKindDoubleEQ},
+		{"!=", TokenKindNE},
+	}
+	for _, tc := range testCases {
+		lexer := NewLexer(tc.input)
+		require.NoError(t, lexer.consumeToken(), "Failed to lex: %s", tc.input)
+		require.Equal(t, tc.expected, lexer.lastToken.Kind)
+		require.Equal(t, tc.input, lexer.lastToken.String)
+		require.True(t, lexer.isEOF())
+	}
+
+	// "<" and ">" are single-char tokens, "<=>" must not swallow a trailing operand
+	lexer := NewLexer("a<=>b")
+	require.NoError(t, lexer.consumeToken())
+	require.Equal(t, TokenKindIdent, lexer.lastToken.Kind)
+	require.NoError(t, lexer.consumeToken())
+	require.Equal(t, TokenKindNullSafeEQ, lexer.lastToken.Kind)
+	require.NoError(t, lexer.consumeToken())
+	require.Equal(t, TokenKindIdent, lexer.lastToken.Kind)
+	require.Equal(t, "b", lexer.lastToken.String)
+}
+
 func TestConsumeNumber(t *testing.T) {
 	t.Run("Integer number", func(t *testing.T) {
 		integers := []string{
