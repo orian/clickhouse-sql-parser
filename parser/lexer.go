@@ -23,6 +23,7 @@ const (
 	TokenKindLE           TokenKind = "<="
 	TokenKindGT           TokenKind = ">"
 	TokenKindGE           TokenKind = ">="
+	TokenKindNullSafeEQ   TokenKind = "<=>"
 	TokenKindQuestionMark TokenKind = "?"
 
 	TokenKindPlus   TokenKind = "+"
@@ -342,6 +343,17 @@ func (l *Lexer) consumeToken() error {
 	}
 	switch l.peekN(0) {
 	case '>', '<', '!', '=', '|':
+		// <=> (null-safe equality) has to be matched before <=
+		if l.peekN(0) == '<' && l.peekOk(2) && l.peekN(1) == '=' && l.peekN(2) == '>' {
+			l.lastToken = &Token{
+				String: l.slice(0, 3),
+				Kind:   TokenKindNullSafeEQ,
+				Pos:    Pos(l.current),
+				End:    Pos(l.current + 3),
+			}
+			l.skipN(3)
+			return nil
+		}
 		if l.peekN(0) == '|' && l.peekOk(1) && l.peekN(1) == '|' || // ||
 			l.peekN(0) == '<' && l.peekOk(1) && l.peekN(1) == '>' || // <>
 			l.peekN(0) == '=' && l.peekOk(1) && l.peekN(1) == '=' || // ==
