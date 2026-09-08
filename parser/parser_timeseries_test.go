@@ -47,6 +47,24 @@ func TestParser_TimeSeriesTargets(t *testing.T) {
 				"SAMPLES INNER COLUMNS (`id` UUID, `timestamp` DateTime64(3), `value` Float64) " +
 				"SAMPLES INNER ENGINE = MergeTree ORDER BY (id, timestamp)",
 		},
+		{
+			name: "SHOW CREATE engine-only targets",
+			sql: "CREATE TABLE db.m ENGINE = TimeSeries " +
+				"DATA ENGINE = MergeTree ORDER BY (id, timestamp) " +
+				"TAGS ENGINE = AggregatingMergeTree PRIMARY KEY metric_name ORDER BY tuple(metric_name, id) " +
+				"METRICS ENGINE = ReplacingMergeTree ORDER BY metric_family_name",
+			want: "CREATE TABLE db.m ENGINE = TimeSeries " +
+				"DATA ENGINE = MergeTree ORDER BY (id, timestamp) " +
+				"TAGS ENGINE = AggregatingMergeTree ORDER BY tuple(metric_name, id) PRIMARY KEY metric_name " +
+				"METRICS ENGINE = ReplacingMergeTree ORDER BY metric_family_name",
+		},
+		{
+			name: "engine-only target after map setting",
+			sql: `CREATE TABLE db.m ENGINE = TimeSeries SETTINGS tags_to_columns = {'foo\'bar':'foo_bar'} ` +
+				"DATA ENGINE = MergeTree ORDER BY (id, timestamp)",
+			want: `CREATE TABLE db.m ENGINE = TimeSeries SETTINGS tags_to_columns={'foo\'bar': 'foo_bar'} ` +
+				"DATA ENGINE = MergeTree ORDER BY (id, timestamp)",
+		},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -71,6 +89,24 @@ func TestParser_TimeSeriesTargets(t *testing.T) {
 			require.Equal(t, gen2[0].String(), gen3[0].String())
 		})
 	}
+}
+
+func TestParser_TimeSeriesEngineOnlyTargetAST(t *testing.T) {
+	stmts, err := NewParser(
+		"CREATE TABLE db.m ENGINE = TimeSeries DATA ENGINE = MergeTree ORDER BY (id, timestamp)",
+	).ParseStmts()
+	require.NoError(t, err)
+	require.Len(t, stmts, 1)
+
+	create, ok := stmts[0].(*CreateTable)
+	require.True(t, ok)
+	require.Len(t, create.TimeSeriesTargets, 1)
+
+	target := create.TimeSeriesTargets[0]
+	require.Nil(t, target.External)
+	require.Nil(t, target.InnerColumns)
+	require.NotNil(t, target.InnerEngine)
+	require.Equal(t, "MergeTree", target.InnerEngine.Name)
 }
 
 // TestParser_TimeSeriesDuplicateTarget verifies that repeating a target slot
