@@ -1487,8 +1487,10 @@ func (p *Parser) matchTimeSeriesTarget() (kind string, ok bool) {
 
 // parseTimeSeriesTargets parses the optional tail of SAMPLES/DATA, TAGS and
 // METRICS target clauses that may follow an `ENGINE = TimeSeries` expression.
-// Each slot may appear at most once (DATA and SAMPLES share the "samples"
-// slot).
+// Each target may reference an external table, use the documented INNER form,
+// or use ClickHouse's SHOW CREATE shorthand with an ENGINE directly after the
+// target keyword. Each slot may appear at most once (DATA and SAMPLES share the
+// "samples" slot).
 func (p *Parser) parseTimeSeriesTargets() ([]*TimeSeriesTargetClause, error) {
 	var targets []*TimeSeriesTargetClause
 	seen := make(map[string]string)
@@ -1537,6 +1539,16 @@ func (p *Parser) parseTimeSeriesTargets() ([]*TimeSeriesTargetClause, error) {
 				clause.InnerEngine = innerEngine
 				clause.KindEnd = innerEngine.End()
 			}
+		} else if p.matchKeyword(KeywordEngine) {
+			// ClickHouse emits `<KEYWORD> ENGINE = ...` for auto-generated
+			// TimeSeries targets in SHOW CREATE TABLE, omitting both INNER and
+			// an explicit column list.
+			innerEngine, err := p.parseEngineExpr(p.Pos())
+			if err != nil {
+				return nil, err
+			}
+			clause.InnerEngine = innerEngine
+			clause.KindEnd = innerEngine.End()
 		} else {
 			external, err := p.parseTableIdentifier(p.Pos())
 			if err != nil {
