@@ -1710,9 +1710,10 @@ func (c *CreateTable) Accept(visitor ASTVisitor) error {
 }
 
 // TimeSeriesTargetClause is one of the SAMPLES/DATA, TAGS or METRICS target
-// clauses that may trail an `ENGINE = TimeSeries` expression. Each clause either
-// references an external target table (External) or describes an inline target
-// via InnerColumns and an optional InnerEngine.
+// clauses that may trail an `ENGINE = TimeSeries` expression. Each clause
+// references an external target table (External), describes an inline target
+// via InnerColumns and an optional InnerEngine, or uses the engine-only SHOW
+// CREATE shorthand represented by InnerEngine without InnerColumns.
 type TimeSeriesTargetClause struct {
 	KindPos Pos
 	KindEnd Pos
@@ -1725,12 +1726,13 @@ type TimeSeriesTargetClause struct {
 	// word (notably the DATA backwards-compat alias for SAMPLES).
 	Keyword string
 
-	// External holds the `<KEYWORD> db.table` form. Exactly one of External or
-	// InnerColumns is set.
+	// External holds the `<KEYWORD> db.table` form.
 	External *TableIdentifier
 
-	// InnerColumns holds the `<KEYWORD> INNER COLUMNS (...)` body and InnerEngine
-	// the optional `<KEYWORD> INNER ENGINE = engine(args)` that may follow it.
+	// InnerColumns holds the `<KEYWORD> INNER COLUMNS (...)` body. InnerEngine is
+	// either the optional `<KEYWORD> INNER ENGINE = engine(args)` that follows
+	// InnerColumns or the engine in the `<KEYWORD> ENGINE = engine(args)` SHOW
+	// CREATE shorthand when InnerColumns is nil.
 	InnerColumns *TableSchemaClause
 	InnerEngine  *EngineExpr
 }
@@ -1756,9 +1758,11 @@ func (t *TimeSeriesTargetClause) String() string {
 		builder.WriteString(t.InnerColumns.String())
 	}
 	if t.InnerEngine != nil {
-		builder.WriteString(" ")
-		builder.WriteString(t.Keyword)
-		builder.WriteString(" INNER")
+		if t.InnerColumns != nil {
+			builder.WriteString(" ")
+			builder.WriteString(t.Keyword)
+			builder.WriteString(" INNER")
+		}
 		// EngineExpr.String() already emits a leading " ENGINE = ...".
 		builder.WriteString(t.InnerEngine.String())
 	}
