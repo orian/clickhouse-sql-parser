@@ -1227,7 +1227,44 @@ func (p *Parser) tryParseTTLPolicy(pos Pos) (*TTLPolicy, error) {
 	if rule == nil && where == nil && groupBy == nil {
 		return nil, nil // nolint
 	}
-	return &TTLPolicy{Item: rule, Where: where, GroupBy: groupBy}, nil
+	policy := &TTLPolicy{Item: rule, Where: where, GroupBy: groupBy}
+	if groupBy != nil && p.tryConsumeKeywords(KeywordSet) {
+		for {
+			pos := p.Pos()
+			column, err := p.ParseNestedIdentifier(pos)
+			if err != nil {
+				return nil, err
+			}
+			if err := p.expectTokenKind(TokenKindSingleEQ); err != nil {
+				return nil, err
+			}
+			expr, err := p.parseExpr(p.Pos())
+			if err != nil {
+				return nil, err
+			}
+			policy.Assignments = append(policy.Assignments, &UpdateAssignment{
+				AssignmentPos: pos, Column: column, Expr: expr,
+			})
+			if !p.matchTokenKind(TokenKindComma) {
+				break
+			}
+			// A comma may begin another TTL rule instead of an assignment.
+			saved := p.lexer.saveState()
+			_ = p.tryConsumeTokenKind(TokenKindComma)
+			if p.last() == nil || p.matchTokenKind(TokenKindEOF) || p.matchTokenKind(";") {
+				return nil, fmt.Errorf("expected assignment or TTL expression after comma")
+			}
+			afterComma := p.lexer.saveState()
+			_, err = p.ParseNestedIdentifier(p.Pos())
+			isAssignment := err == nil && p.matchTokenKind(TokenKindSingleEQ)
+			p.lexer.restoreState(saved)
+			if !isAssignment {
+				break
+			}
+			p.lexer.restoreState(afterComma)
+		}
+	}
+	return policy, nil
 }
 
 func (p *Parser) parseTTLExpr(pos Pos) (*TTLExpr, error) {

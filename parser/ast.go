@@ -3114,9 +3114,10 @@ func (t *TTLPolicyRule) Accept(visitor ASTVisitor) error {
 }
 
 type TTLPolicy struct {
-	Item    *TTLPolicyRule
-	Where   *WhereClause
-	GroupBy *GroupByClause
+	Item        *TTLPolicyRule
+	Where       *WhereClause
+	GroupBy     *GroupByClause
+	Assignments []*UpdateAssignment `json:",omitempty"`
 }
 
 func (t *TTLPolicy) Pos() Pos {
@@ -3130,6 +3131,9 @@ func (t *TTLPolicy) Pos() Pos {
 }
 
 func (t *TTLPolicy) End() Pos {
+	if len(t.Assignments) > 0 {
+		return t.Assignments[len(t.Assignments)-1].End()
+	}
 	if t.GroupBy != nil {
 		return t.GroupBy.End()
 	}
@@ -3156,6 +3160,15 @@ func (t *TTLPolicy) String() string {
 	if t.GroupBy != nil {
 		writeSep()
 		builder.WriteString(t.GroupBy.String())
+	}
+	if len(t.Assignments) > 0 {
+		builder.WriteString(" SET ")
+		for i, assignment := range t.Assignments {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(assignment.String())
+		}
 	}
 	return builder.String()
 }

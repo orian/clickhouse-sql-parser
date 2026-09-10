@@ -2494,6 +2494,11 @@ func (visitor DefaultASTVisitor) VisitTTLPolicy(t *TTLPolicy) error {
 			return err
 		}
 	}
+	for _, assignment := range t.Assignments {
+		if err := assignment.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
