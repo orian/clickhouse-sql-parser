@@ -1159,6 +1159,11 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.GroupBy, fn) {
 			return false
 		}
+		for _, assignment := range n.Assignments {
+			if !Walk(assignment, fn) {
+				return false
+			}
+		}
 	case *TTLPolicyRule:
 		if !Walk(n.ToVolume, fn) {
 			return false

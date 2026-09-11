@@ -1,0 +1,456 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 239,
+    "OrReplace": false,
+    "Name": {
+      "Database": null,
+      "Table": {
+        "Name": "hits",
+        "QuoteType": 1,
+        "NamePos": 13,
+        "NameEnd": 17
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 18,
+      "SchemaEnd": 135,
+      "Columns": [
+        {
+          "NamePos": 23,
+          "ColumnEnd": 41,
+          "Name": {
+            "Ident": {
+              "Name": "timestamp",
+              "QuoteType": 1,
+              "NamePos": 23,
+              "NameEnd": 32
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "DateTime",
+              "QuoteType": 1,
+              "NamePos": 33,
+              "NameEnd": 41
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 46,
+          "ColumnEnd": 55,
+          "Name": {
+            "Ident": {
+              "Name": "id",
+              "QuoteType": 1,
+              "NamePos": 46,
+              "NameEnd": 48
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "String",
+              "QuoteType": 1,
+              "NamePos": 49,
+              "NameEnd": 55
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 60,
+          "ColumnEnd": 70,
+          "Name": {
+            "Ident": {
+              "Name": "hits",
+              "QuoteType": 1,
+              "NamePos": 60,
+              "NameEnd": 64
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Int32",
+              "QuoteType": 1,
+              "NamePos": 65,
+              "NameEnd": 70
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 75,
+          "ColumnEnd": 102,
+          "Name": {
+            "Ident": {
+              "Name": "max_hits",
+              "QuoteType": 1,
+              "NamePos": 75,
+              "NameEnd": 83
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Int32",
+              "QuoteType": 1,
+              "NamePos": 84,
+              "NameEnd": 89
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": {
+            "Name": "hits",
+            "QuoteType": 1,
+            "NamePos": 98,
+            "NameEnd": 102
+          },
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 107,
+          "ColumnEnd": 134,
+          "Name": {
+            "Ident": {
+              "Name": "sum_hits",
+              "QuoteType": 1,
+              "NamePos": 107,
+              "NameEnd": 115
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Int64",
+              "QuoteType": 1,
+              "NamePos": 116,
+              "NameEnd": 121
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": {
+            "Name": "hits",
+            "QuoteType": 1,
+            "NamePos": 130,
+            "NameEnd": 134
+          },
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 137,
+      "EngineEnd": 239,
+      "Name": "MergeTree",
+      "Params": null,
+      "PrimaryKey": {
+        "PrimaryPos": 156,
+        "Expr": {
+          "LeftParenPos": 168,
+          "RightParenPos": 207,
+          "Items": {
+            "ListPos": 169,
+            "ListEnd": 207,
+            "HasDistinct": false,
+            "Items": [
+              {
+                "Expr": {
+                  "Name": "id",
+                  "QuoteType": 1,
+                  "NamePos": 169,
+                  "NameEnd": 171
+                },
+                "Alias": null
+              },
+              {
+                "Expr": {
+                  "Name": {
+                    "Name": "toStartOfDay",
+                    "QuoteType": 1,
+                    "NamePos": 173,
+                    "NameEnd": 185
+                  },
+                  "Params": {
+                    "LeftParenPos": 185,
+                    "RightParenPos": 195,
+                    "Items": {
+                      "ListPos": 186,
+                      "ListEnd": 195,
+                      "HasDistinct": false,
+                      "Items": [
+                        {
+                          "Expr": {
+                            "Name": "timestamp",
+                            "QuoteType": 1,
+                            "NamePos": 186,
+                            "NameEnd": 195
+                          },
+                          "Alias": null
+                        }
+                      ]
+                    },
+                    "ColumnArgList": null
+                  }
+                },
+                "Alias": null
+              },
+              {
+                "Expr": {
+                  "Name": "timestamp",
+                  "QuoteType": 1,
+                  "NamePos": 198,
+                  "NameEnd": 207
+                },
+                "Alias": null
+              }
+            ]
+          },
+          "ColumnArgList": null
+        }
+      },
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": {
+        "TTLPos": 209,
+        "ListEnd": 239,
+        "Items": [
+          {
+            "TTLPos": 209,
+            "Expr": {
+              "LeftExpr": {
+                "Name": "timestamp",
+                "QuoteType": 1,
+                "NamePos": 213,
+                "NameEnd": 222
+              },
+              "Operation": "+",
+              "RightExpr": {
+                "IntervalPos": 225,
+                "Expr": {
+                  "NumPos": 234,
+                  "NumEnd": 235,
+                  "Literal": "1",
+                  "Base": 10
+                },
+                "Unit": {
+                  "Name": "DAY",
+                  "QuoteType": 1,
+                  "NamePos": 236,
+                  "NameEnd": 239
+                }
+              },
+              "HasGlobal": false,
+              "HasNot": false
+            },
+            "Policy": {
+              "Item": null,
+              "Where": null,
+              "GroupBy": {
+                "GroupByPos": 244,
+                "GroupByEnd": 285,
+                "AggregateType": "",
+                "Expr": {
+                  "ListPos": 253,
+                  "ListEnd": 279,
+                  "HasDistinct": false,
+                  "Items": [
+                    {
+                      "Expr": {
+                        "Name": "id",
+                        "QuoteType": 1,
+                        "NamePos": 253,
+                        "NameEnd": 255
+                      },
+                      "Alias": null
+                    },
+                    {
+                      "Expr": {
+                        "Name": {
+                          "Name": "toStartOfDay",
+                          "QuoteType": 1,
+                          "NamePos": 257,
+                          "NameEnd": 269
+                        },
+                        "Params": {
+                          "LeftParenPos": 269,
+                          "RightParenPos": 279,
+                          "Items": {
+                            "ListPos": 270,
+                            "ListEnd": 279,
+                            "HasDistinct": false,
+                            "Items": [
+                              {
+                                "Expr": {
+                                  "Name": "timestamp",
+                                  "QuoteType": 1,
+                                  "NamePos": 270,
+                                  "NameEnd": 279
+                                },
+                                "Alias": null
+                              }
+                            ]
+                          },
+                          "ColumnArgList": null
+                        }
+                      },
+                      "Alias": null
+                    }
+                  ]
+                },
+                "WithCube": false,
+                "WithRollup": false,
+                "WithTotals": false
+              },
+              "Assignments": [
+                {
+                  "AssignmentPos": 297,
+                  "Column": {
+                    "Ident": {
+                      "Name": "max_hits",
+                      "QuoteType": 1,
+                      "NamePos": 297,
+                      "NameEnd": 305
+                    },
+                    "DotIdent": null
+                  },
+                  "Expr": {
+                    "Name": {
+                      "Name": "max",
+                      "QuoteType": 1,
+                      "NamePos": 308,
+                      "NameEnd": 311
+                    },
+                    "Params": {
+                      "LeftParenPos": 311,
+                      "RightParenPos": 320,
+                      "Items": {
+                        "ListPos": 312,
+                        "ListEnd": 320,
+                        "HasDistinct": false,
+                        "Items": [
+                          {
+                            "Expr": {
+                              "Name": "max_hits",
+                              "QuoteType": 1,
+                              "NamePos": 312,
+                              "NameEnd": 320
+                            },
+                            "Alias": null
+                          }
+                        ]
+                      },
+                      "ColumnArgList": null
+                    }
+                  }
+                },
+                {
+                  "AssignmentPos": 331,
+                  "Column": {
+                    "Ident": {
+                      "Name": "sum_hits",
+                      "QuoteType": 1,
+                      "NamePos": 331,
+                      "NameEnd": 339
+                    },
+                    "DotIdent": null
+                  },
+                  "Expr": {
+                    "Name": {
+                      "Name": "sum",
+                      "QuoteType": 1,
+                      "NamePos": 342,
+                      "NameEnd": 345
+                    },
+                    "Params": {
+                      "LeftParenPos": 345,
+                      "RightParenPos": 354,
+                      "Items": {
+                        "ListPos": 346,
+                        "ListEnd": 354,
+                        "HasDistinct": false,
+                        "Items": [
+                          {
+                            "Expr": {
+                              "Name": "sum_hits",
+                              "QuoteType": 1,
+                              "NamePos": 346,
+                              "NameEnd": 354
+                            },
+                            "Alias": null
+                          }
+                        ]
+                      },
+                      "ColumnArgList": null
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Settings": null,
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null,
+    "TimeSeriesTargets": null
+  }
+]
