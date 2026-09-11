@@ -1,0 +1,1 @@
+INSERT INTO t_dup_head_uniq_tail SELECT number % 100000 FROM numbers_mt(5000000)

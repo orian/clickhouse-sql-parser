@@ -1,0 +1,1 @@
+CREATE TABLE test_datetime (dt DateTime) ENGINE = MergeTree ORDER BY dt

@@ -1,0 +1,1 @@
+URLHash(url[, N])

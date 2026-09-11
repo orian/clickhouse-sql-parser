@@ -1,0 +1,1 @@
+SELECT tupleIntDivOrZero((5, 10, 15), (0, 0, 0))

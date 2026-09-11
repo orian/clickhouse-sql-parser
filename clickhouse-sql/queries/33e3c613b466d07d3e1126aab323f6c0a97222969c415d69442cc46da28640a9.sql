@@ -1,0 +1,1 @@
+WITH toUInt8(number) AS k, k AS k1, k + 1 AS k2 SELECT k1, k2, count() FROM numbers(100000000) GROUP BY k1, k2

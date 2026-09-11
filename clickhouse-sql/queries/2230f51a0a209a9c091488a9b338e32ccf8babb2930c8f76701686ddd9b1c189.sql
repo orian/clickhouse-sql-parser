@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_{format_fast} (s String) ENGINE = File({format_fast})

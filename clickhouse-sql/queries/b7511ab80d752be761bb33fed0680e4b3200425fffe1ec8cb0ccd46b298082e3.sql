@@ -1,0 +1,1 @@
+select toDecimal64(key_int64_1, 3),toDecimal64(key_int64_2, 3),toDecimal64(key_int64_3, 3),toDecimal64(key_int64_4, 3),toDecimal64(key_int64_5, 3), min(m1) from t_nullable group by toDecimal64(key_int64_1, 3),toDecimal64(key_int64_2, 3),toDecimal64(key_int64_3, 3),toDecimal64(key_int64_4, 3),toDecimal64(key_int64_5, 3) limit 10

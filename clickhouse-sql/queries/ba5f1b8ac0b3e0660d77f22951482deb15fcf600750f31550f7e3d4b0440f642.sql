@@ -1,0 +1,1 @@
+INSERT INTO customer SELECT number+1000, 7 FROM numbers(10000)

@@ -1,0 +1,1 @@
+SELECT CounterID, count() FROM hits_100m_single GROUP BY CounterID ORDER BY CounterID ASC LIMIT 100 FORMAT Null

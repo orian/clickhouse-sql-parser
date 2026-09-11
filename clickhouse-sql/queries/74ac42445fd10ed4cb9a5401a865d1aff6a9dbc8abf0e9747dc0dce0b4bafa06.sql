@@ -1,0 +1,1 @@
+EXPLAIN SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM wide_table_nested_select))) FORMAT Null

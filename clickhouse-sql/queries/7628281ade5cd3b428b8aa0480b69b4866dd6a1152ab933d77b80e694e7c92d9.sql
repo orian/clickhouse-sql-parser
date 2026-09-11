@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS topk_join_l

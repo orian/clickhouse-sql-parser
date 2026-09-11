@@ -1,0 +1,1 @@
+INSERT INTO t_dup_head_uniq_tail SELECT 10000000 + number FROM numbers_mt(25000000)

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(50000000) WHERE (toUInt32(number), toUInt32(intHash64(number))) IN (SELECT toUInt32(number), toUInt32(intHash64(number)) FROM numbers(1000000))

@@ -1,0 +1,1 @@
+INSERT INTO lazy_final_limit SELECT number, cityHash64(number, 1) % 100, number < 50000, toString(cityHash64(number, 11)) FROM numbers_mt(8000000)

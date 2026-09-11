@@ -1,0 +1,1 @@
+mergeTreeProjection(database, table, projection)

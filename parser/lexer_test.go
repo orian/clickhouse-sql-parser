@@ -273,3 +273,20 @@ func TestConsumeNumber(t *testing.T) {
 		}
 	})
 }
+
+func TestConsumeNumberSeparators(t *testing.T) {
+	for _, input := range []string{"20_000_000", "1_000.25_50", "1e1_0", "0xCA_FE", "-1_000"} {
+		t.Run(input, func(t *testing.T) {
+			lexer := NewLexer(input)
+			require.NoError(t, lexer.consumeToken())
+			require.Equal(t, input, lexer.lastToken.String)
+			require.Equal(t, Pos(len(input)), lexer.lastToken.End)
+			require.True(t, lexer.isEOF())
+		})
+	}
+	for _, input := range []string{"1_", "1__0", "1_.0", "1._0", "1e_2", "0x_FF"} {
+		t.Run(input, func(t *testing.T) {
+			require.Error(t, NewLexer(input).consumeToken())
+		})
+	}
+}

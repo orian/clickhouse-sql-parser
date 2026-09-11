@@ -1,0 +1,1 @@
+INSERT INTO t SELECT number AS x FROM numbers_mt(200000000) SETTINGS max_threads = 8

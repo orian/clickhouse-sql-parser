@@ -1,0 +1,1 @@
+SELECT * FROM iso_3166_1_alpha_2 WHERE c iLIKE '%A%' FORMAT Null SETTINGS max_threads = 1

@@ -1,0 +1,1 @@
+startsWithCaseInsensitive(s, prefix)

@@ -1,0 +1,1 @@
+SELECT sum(toNullable(toUInt32(number))) FROM numbers(100000000)

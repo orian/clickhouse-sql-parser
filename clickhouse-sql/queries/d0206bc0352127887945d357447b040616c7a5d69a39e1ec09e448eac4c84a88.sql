@@ -1,0 +1,1 @@
+SELECT * FROM prometheusQueryRange('promql_row_cost_ts', 'sum(rowcost_metric)', 1000000, 1061440, 10000) SETTINGS max_threads = 4 FORMAT Null

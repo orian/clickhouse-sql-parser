@@ -1,0 +1,1 @@
+    ALTER TABLE otel_traces MATERIALIZE COLUMN HostName;

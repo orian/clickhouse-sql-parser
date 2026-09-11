@@ -1,0 +1,1 @@
+select countIf(position(URL, 'yandex') > 0), count(position(URL, 'google')) FROM hits_100m_single

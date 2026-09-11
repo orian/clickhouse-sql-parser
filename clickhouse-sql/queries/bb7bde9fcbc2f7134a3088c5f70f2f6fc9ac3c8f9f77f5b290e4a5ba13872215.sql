@@ -1,0 +1,1 @@
+select argMinIf(Title::Nullable(String), EventTime::Nullable(DateTime), Title::Nullable(String) != '') from hits_100m_single group by intHash32(UserID) % {group_scale} FORMAT Null

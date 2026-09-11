@@ -1,0 +1,1 @@
+SELECT estimateCompressionRatio('T64', 1048576)(x) FROM t_t64_perf FORMAT Null

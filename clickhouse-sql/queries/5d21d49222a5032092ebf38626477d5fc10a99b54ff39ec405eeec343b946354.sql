@@ -1,0 +1,1 @@
+SELECT k, sumArray(v) FROM array_data GROUP BY k FORMAT Null

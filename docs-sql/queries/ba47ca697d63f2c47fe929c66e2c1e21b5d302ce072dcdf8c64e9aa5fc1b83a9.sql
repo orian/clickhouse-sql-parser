@@ -1,0 +1,1 @@
+SELECT fromUnixTimestamp64Micro(1640995200123456)

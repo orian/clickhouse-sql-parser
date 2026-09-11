@@ -1,0 +1,5 @@
+CREATE TABLE my_table ENGINE=TimeSeries
+SAMPLES ENGINE=ReplicatedMergeTree
+RECENT SAMPLES ENGINE=ReplicatedMergeTree
+TAGS ENGINE=ReplicatedAggregatingMergeTree
+METRICS ENGINE=ReplicatedReplacingMergeTree

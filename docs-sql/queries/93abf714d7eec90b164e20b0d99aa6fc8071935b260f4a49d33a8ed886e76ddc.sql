@@ -1,0 +1,4 @@
+SELECT *
+FROM error_log
+LIMIT 3
+FORMAT XML

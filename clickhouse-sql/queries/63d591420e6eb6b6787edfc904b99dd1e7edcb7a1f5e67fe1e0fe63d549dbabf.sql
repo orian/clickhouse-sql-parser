@@ -1,0 +1,1 @@
+INSERT INTO keys32_probe SELECT bitAnd(number % 10000000, 65535), bitShiftRight(number % 10000000, 16) FROM numbers_mt(50000000)

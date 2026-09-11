@@ -1,0 +1,1 @@
+normalizeUTF8NFC(str)

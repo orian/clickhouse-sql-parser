@@ -1,0 +1,1 @@
+SELECT a FROM t_skew_{size}_{partitions} LIMIT 10 BY a FORMAT Null

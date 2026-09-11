@@ -1,0 +1,1 @@
+INSERT INTO test1 SELECT number % 1000 , number % 1000, number % 1000 FROM numbers(100000)

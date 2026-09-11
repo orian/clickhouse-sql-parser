@@ -1,0 +1,1 @@
+isValidASCII(str)

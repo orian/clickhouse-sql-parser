@@ -1,0 +1,1 @@
+SELECT sum(arrayMin(a)) FROM (SELECT arrayMap(i -> toFloat64((number + i) % 97), range(1, 41)) AS a FROM numbers(5000000)) FORMAT Null

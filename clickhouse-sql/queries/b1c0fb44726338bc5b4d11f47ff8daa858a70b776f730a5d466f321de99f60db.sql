@@ -1,0 +1,1 @@
+SELECT count() from dt where not ignore(toRelativeMinuteNum(x))

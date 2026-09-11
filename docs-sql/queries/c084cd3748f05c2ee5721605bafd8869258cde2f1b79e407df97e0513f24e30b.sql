@@ -1,0 +1,1 @@
+randBernoulli(probability[, x])

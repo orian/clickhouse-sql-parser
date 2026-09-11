@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(50000000) WHERE NOT ignore(toDateTime('2017-01-01 00:00:00') + number % 100000000 + rand() % 100000 AS t, {datetime_transform_with_mode}(t, 0, '{time_zone}'))

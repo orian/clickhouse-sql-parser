@@ -1,0 +1,1 @@
+SELECT avg(length(s)) FROM volume_reducing_functions WHERE s < 'M' FORMAT Null

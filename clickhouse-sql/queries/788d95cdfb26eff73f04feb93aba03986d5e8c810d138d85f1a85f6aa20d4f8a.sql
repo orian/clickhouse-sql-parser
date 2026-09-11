@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE notEmpty(SearchPhrase) AND SearchPhrase < 'поисковая фраза' SETTINGS max_threads = 2

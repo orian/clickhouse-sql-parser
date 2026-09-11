@@ -1,0 +1,1 @@
+CREATE TABLE test_wide_{partitions} (a UInt64, b UInt64, c1 UInt64, c2 UInt64, c3 UInt64, c4 UInt64, c5 UInt64, c6 UInt64, s String) ENGINE = MergeTree ORDER BY tuple() PARTITION BY sipHash64(a) % {partitions}

@@ -1,0 +1,1 @@
+SELECT count() FROM {table} WHERE tryBase64Decode(base64Encode({string})) != {string}

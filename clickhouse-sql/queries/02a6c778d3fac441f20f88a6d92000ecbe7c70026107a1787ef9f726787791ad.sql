@@ -1,0 +1,1 @@
+SELECT mapPopulateSeries(range(number), range(number), 2500) FROM numbers(5000) FORMAT Null;

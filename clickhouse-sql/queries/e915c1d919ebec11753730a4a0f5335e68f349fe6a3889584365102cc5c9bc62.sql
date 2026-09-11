@@ -1,0 +1,1 @@
+CREATE TABLE nonconstant_sort_key_one (payload UInt64) ENGINE = MergeTree ORDER BY payload

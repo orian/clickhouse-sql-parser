@@ -1,0 +1,1 @@
+SELECT like('ClickHouse', '%SQL%');

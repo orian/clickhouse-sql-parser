@@ -1,0 +1,1 @@
+SELECT count(num::Int64) FROM numeric_strings FORMAT Null

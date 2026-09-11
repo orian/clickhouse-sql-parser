@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_u64_{card}

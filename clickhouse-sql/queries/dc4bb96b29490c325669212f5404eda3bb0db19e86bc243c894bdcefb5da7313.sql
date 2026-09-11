@@ -1,0 +1,1 @@
+CREATE VIEW numbers_view AS SELECT number from numbers_mt(100000000) order by number desc

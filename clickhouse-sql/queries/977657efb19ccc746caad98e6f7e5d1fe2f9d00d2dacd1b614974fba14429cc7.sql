@@ -1,0 +1,1 @@
+CREATE TABLE t_distinct_abandon_int (a UInt64) ENGINE = MergeTree ORDER BY tuple() PARTITION BY sipHash64(a) % 16

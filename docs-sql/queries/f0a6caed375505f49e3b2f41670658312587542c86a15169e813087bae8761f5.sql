@@ -1,0 +1,1 @@
+ALTER USER user1 ADD IDENTIFIED WITH no_password

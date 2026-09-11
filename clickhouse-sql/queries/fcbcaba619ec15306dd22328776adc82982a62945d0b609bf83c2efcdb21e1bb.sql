@@ -1,0 +1,1 @@
+ SELECT count() FROM zeros(1000000000) WHERE NOT ignore(if(rand32() < 3865470566, zero + 1, zero + 2)) 

@@ -1,0 +1,1 @@
+select * from (select key, sum(sipHash64(toString(number))) as val from remote('127.0.0.{{1,2}}', numbers(1e7)) group by bitAnd(number, 15) as key) where bitAnd(key, 1) = 0 settings max_threads=1

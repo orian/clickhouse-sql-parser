@@ -1,0 +1,1 @@
+CREATE TABLE lck_fs_build (k LowCardinality(FixedString(16)), w UInt64) ENGINE = Memory

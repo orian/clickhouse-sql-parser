@@ -1,0 +1,1 @@
+SELECT * FROM prometheusQuery('promql_tags_transform', 'sum by (namespace) (foo)', 100) FORMAT Null

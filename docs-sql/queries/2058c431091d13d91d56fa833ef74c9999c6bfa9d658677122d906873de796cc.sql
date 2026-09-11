@@ -1,0 +1,1 @@
+DROP NAMED COLLECTION collection2

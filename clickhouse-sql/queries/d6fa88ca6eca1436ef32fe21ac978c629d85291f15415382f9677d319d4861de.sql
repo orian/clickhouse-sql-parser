@@ -1,0 +1,1 @@
+INSERT INTO dt SELECT EventTime FROM hits_10m_single

@@ -1,0 +1,1 @@
+SELECT id, timeSeriesResampleToGridWithStaleness(0, 100000, 10, 1000)(timestamp, value) FROM ts_grid_sparse GROUP BY id FORMAT Null

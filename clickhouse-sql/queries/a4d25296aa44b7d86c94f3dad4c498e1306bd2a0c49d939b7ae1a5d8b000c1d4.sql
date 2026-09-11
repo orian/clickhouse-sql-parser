@@ -1,0 +1,1 @@
+INSERT INTO string_compact SELECT number, randomString(1000) FROM numbers(900000)

@@ -1,0 +1,1 @@
+insert into test_distinct_json_paths_wide_dynamic_paths select toJSONString(arrayMap(x -> tuple(repeat('a', 10) || x, repeat('b', 50)), range(1000))::Map(String, String)) from numbers(100000)

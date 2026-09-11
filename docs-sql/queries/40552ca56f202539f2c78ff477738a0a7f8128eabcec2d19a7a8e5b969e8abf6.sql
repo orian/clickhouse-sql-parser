@@ -1,0 +1,1 @@
+SELECT stringJaccardIndex('clickhouse', 'mouse')

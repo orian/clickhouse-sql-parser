@@ -49,8 +49,8 @@ func (p *Parser) matchTokenKind(kind TokenKind) bool {
 
 // expectTokenKind consumes the last token if it is the given kind.
 func (p *Parser) expectTokenKind(kind TokenKind) error {
-	if lastToken := p.tryConsumeTokenKind(kind); lastToken != nil {
-		return nil
+	if p.matchTokenKind(kind) {
+		return p.lexer.consumeToken()
 	}
 	return fmt.Errorf("expected the last token kind is: %s, but got %s", kind, p.lastTokenKind())
 }
@@ -81,8 +81,7 @@ func (p *Parser) expectKeyword(keyword string) error {
 	if !p.matchKeyword(keyword) {
 		return fmt.Errorf("expected keyword: %s, but got %s", keyword, p.lastTokenKind())
 	}
-	_ = p.lexer.consumeToken()
-	return nil
+	return p.lexer.consumeToken()
 }
 
 func (p *Parser) tryConsumeKeywords(keywords ...string) bool {

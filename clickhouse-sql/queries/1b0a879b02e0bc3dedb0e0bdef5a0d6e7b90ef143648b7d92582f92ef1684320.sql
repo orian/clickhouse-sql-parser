@@ -1,0 +1,1 @@
+CREATE TABLE test_multiif_t(d Nullable(Int64)) ENGINE Memory

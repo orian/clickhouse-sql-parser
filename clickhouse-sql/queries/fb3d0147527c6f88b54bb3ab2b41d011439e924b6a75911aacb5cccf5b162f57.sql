@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS dict_ip_trie_table

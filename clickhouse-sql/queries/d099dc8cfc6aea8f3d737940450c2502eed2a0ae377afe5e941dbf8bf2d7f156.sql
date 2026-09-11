@@ -1,0 +1,1 @@
+DROP DICTIONARY IF EXISTS join_hashed_dictionary;

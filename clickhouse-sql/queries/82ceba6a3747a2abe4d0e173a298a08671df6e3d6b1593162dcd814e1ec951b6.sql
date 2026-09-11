@@ -1,0 +1,1 @@
+INSERT INTO t_uniq_stats_src SELECT rand(), rand() % 10, rand() % 100, rand() % 1000, rand() % 100000 FROM numbers(1000000)

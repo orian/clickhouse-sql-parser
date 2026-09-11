@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(1000000) WHERE NOT ignore(bitPositionsToArray(toInt128(-1) * toInt128(1 + number % 2)))

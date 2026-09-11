@@ -1,0 +1,1 @@
+INSERT INTO dim_j SELECT number FROM numbers(100000)

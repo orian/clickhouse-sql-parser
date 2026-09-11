@@ -1,0 +1,1 @@
+CREATE TABLE build_5k (id0 Int64) ENGINE = MergeTree ORDER BY tuple()

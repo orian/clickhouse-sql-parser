@@ -1,0 +1,1 @@
+SELECT modulo(i1, i2), modulo(u1, u2) FROM tab

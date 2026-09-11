@@ -1,0 +1,1 @@
+INSERT INTO permute_cache_wide SELECT * FROM permute_cache_src

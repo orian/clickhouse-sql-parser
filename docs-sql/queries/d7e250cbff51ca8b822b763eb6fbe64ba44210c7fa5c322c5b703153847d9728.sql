@@ -1,0 +1,1 @@
+getSetting(setting_name)

@@ -1,0 +1,1 @@
+SELECT DISTINCT a FROM test_{partitions} FORMAT Null

@@ -1,0 +1,1 @@
+SELECT ngramDistanceCaseInsensitiveUTF8(URL, 'Чем зАнимаешЬся') AS distance FROM {small_table} FORMAT Null

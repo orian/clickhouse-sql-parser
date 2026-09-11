@@ -1,0 +1,1 @@
+SELECT * FROM probe p FULL JOIN build_wide b ON p.{probe_key} = b.k FORMAT Null

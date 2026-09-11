@@ -1,0 +1,1 @@
+CREATE TABLE polygons (polygon Array(Array(Tuple(Float64, Float64)))) ENGINE = Memory

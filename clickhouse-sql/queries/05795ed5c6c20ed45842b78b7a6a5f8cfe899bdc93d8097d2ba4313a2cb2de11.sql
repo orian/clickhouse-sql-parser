@@ -1,0 +1,1 @@
+OPTIMIZE TABLE lot_of_arrays FINAL

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS lck_fs_probe

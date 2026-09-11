@@ -1,0 +1,1 @@
+SELECT * FROM t_streaming_read_round STREAM BOUNDED WATERMARK FOR event_time AS event_time - INTERVAL 10 SECOND FORMAT Null

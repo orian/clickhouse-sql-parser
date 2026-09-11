@@ -1,0 +1,1 @@
+INSERT INTO cdp_orders(order_id, order_complete_time, order_total_sales, mid_seq) SELECT number, addSeconds(toDateTime('2000-01-01 00:00:00'), number), number%1024, toUInt32(number) FROM numbers(10000000)

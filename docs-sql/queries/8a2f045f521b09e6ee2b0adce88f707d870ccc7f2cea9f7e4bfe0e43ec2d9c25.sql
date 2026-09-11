@@ -1,0 +1,1 @@
+parseTimeDelta(timestr)

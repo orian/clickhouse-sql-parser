@@ -1,0 +1,1 @@
+INSERT INTO {database}.upd_files SELECT l_orderkey, l_partkey, l_quantity FROM tpch10.lineitem LIMIT 30000 SETTINGS max_threads = 1, max_insert_threads = 1, iceberg_insert_max_rows_in_data_file = 10000

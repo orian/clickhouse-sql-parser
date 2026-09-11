@@ -1,0 +1,1 @@
+regionToArea(id [, geobase])

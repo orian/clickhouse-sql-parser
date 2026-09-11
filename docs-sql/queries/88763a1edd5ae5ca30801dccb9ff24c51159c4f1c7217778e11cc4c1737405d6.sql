@@ -1,0 +1,1 @@
+SELECT locate('ca', 'abcabc')

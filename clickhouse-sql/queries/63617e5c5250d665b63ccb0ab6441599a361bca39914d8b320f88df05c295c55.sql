@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_distinct_json_paths_wide_map_shared_data

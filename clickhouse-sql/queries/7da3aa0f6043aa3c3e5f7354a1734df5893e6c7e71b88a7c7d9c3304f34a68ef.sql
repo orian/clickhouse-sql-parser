@@ -1,0 +1,1 @@
+SELECT k FROM group_by_prefetch GROUP BY k SETTINGS max_threads = 32 FORMAT Null

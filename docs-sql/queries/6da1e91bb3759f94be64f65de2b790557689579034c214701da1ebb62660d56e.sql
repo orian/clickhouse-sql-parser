@@ -1,0 +1,5 @@
+CREATE MATERIALIZED VIEW paimon_mv
+REFRESH EVERY 10 SECOND
+APPEND
+TO paimon_mv_dest
+AS SELECT * FROM paimon_mv_source;

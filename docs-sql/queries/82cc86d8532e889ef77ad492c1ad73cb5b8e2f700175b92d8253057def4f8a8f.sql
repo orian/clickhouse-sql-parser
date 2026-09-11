@@ -1,0 +1,1 @@
+endsWithCaseInsensitive(s, suffix)

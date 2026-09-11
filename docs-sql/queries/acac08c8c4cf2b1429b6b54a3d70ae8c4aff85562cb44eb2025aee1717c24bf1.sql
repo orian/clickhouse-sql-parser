@@ -1,0 +1,1 @@
+ngramSimHash(string[, ngramsize])

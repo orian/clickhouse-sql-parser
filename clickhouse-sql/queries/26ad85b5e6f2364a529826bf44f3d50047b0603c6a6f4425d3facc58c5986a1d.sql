@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS rs_right_1m_nullable_x10

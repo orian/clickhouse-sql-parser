@@ -1,0 +1,1 @@
+SELECT sum(toFloat64(number)) FROM numbers(100000000)

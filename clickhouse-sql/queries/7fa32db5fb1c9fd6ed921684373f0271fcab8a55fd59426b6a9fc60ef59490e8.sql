@@ -1,0 +1,1 @@
+SELECT count() FROM test_lc_left AS a JOIN test_lc_right AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'full_sorting_merge'

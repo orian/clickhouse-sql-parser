@@ -1,0 +1,1 @@
+CREATE SETTINGS PROFILE OR REPLACE p SETTINGS max_execution_time = 60;

@@ -1,0 +1,18 @@
+
+CREATE TABLE window_transform_wide_lc
+ENGINE = MergeTree ORDER BY (p, v)
+AS SELECT
+    number AS v,
+    toUInt16(number % 128) AS p,
+    toLowCardinality(concat('category_value_', toString(number % 5000))) AS c1,
+    toLowCardinality(concat('category_value_', toString(number % 4999))) AS c2,
+    toLowCardinality(concat('category_value_', toString(number % 4998))) AS c3,
+    toLowCardinality(concat('category_value_', toString(number % 4997))) AS c4,
+    toLowCardinality(concat('category_value_', toString(number % 4996))) AS c5,
+    toLowCardinality(concat('category_value_', toString(number % 4995))) AS c6,
+    toLowCardinality(concat('category_value_', toString(number % 4994))) AS c7,
+    toLowCardinality(concat('category_value_', toString(number % 4993))) AS c8,
+    toLowCardinality(concat('category_value_', toString(number % 4992))) AS c9,
+    toLowCardinality(concat('category_value_', toString(number % 4991))) AS c10
+FROM numbers_mt(10000000);
+    

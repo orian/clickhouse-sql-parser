@@ -1,0 +1,1 @@
+INSERT INTO input SELECT * FROM numbers(10e6) SETTINGS parallelize_output_from_storages=1, min_insert_block_size_rows=10000

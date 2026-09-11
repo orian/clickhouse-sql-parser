@@ -1,0 +1,1 @@
+SELECT count() FROM test_lc_query WHERE lc = '12' OR lc = '34'

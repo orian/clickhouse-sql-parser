@@ -412,18 +412,10 @@ func (p *Parser) parseAlterTableDrop(pos Pos) (AlterTableClause, error) {
 
 // Syntax: ALTER TABLE DETACH partitionClause
 func (p *Parser) parseAlterTableDetachPartition(pos Pos) (AlterTableClause, error) {
-	partitionPos := p.Pos()
-	if err := p.expectKeyword(KeywordPartition); err != nil {
-		return nil, err
-	}
-	partition := &PartitionClause{
-		PartitionPos: partitionPos,
-	}
-	expr, err := p.parseExpr(p.Pos())
+	partition, err := p.parsePartitionClause(p.Pos())
 	if err != nil {
 		return nil, err
 	}
-	partition.Expr = expr
 
 	settings, err := p.tryParseSettingsClause(p.Pos())
 	if err != nil {
@@ -458,8 +450,12 @@ func (p *Parser) parsePartitionClause(pos Pos) (*PartitionClause, error) {
 			return nil, err
 		}
 		partition.ID = id
-	} else if p.tryConsumeKeywords(KeywordAll) {
+	} else if p.matchKeyword(KeywordAll) {
 		partition.All = true
+		partition.AllEnd = p.End()
+		if err := p.lexer.consumeToken(); err != nil {
+			return nil, err
+		}
 	} else {
 		expr, err := p.parseExpr(p.Pos())
 		if err != nil {

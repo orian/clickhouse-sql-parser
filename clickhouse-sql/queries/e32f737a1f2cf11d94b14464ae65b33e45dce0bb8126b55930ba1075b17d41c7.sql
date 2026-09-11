@@ -1,0 +1,1 @@
+INSERT INTO t_text_index_merge_{codec} SELECT number, concat('common ', 'medium' || intDiv(number, 1000), ' rare' || number) FROM numbers(200000, 100000)

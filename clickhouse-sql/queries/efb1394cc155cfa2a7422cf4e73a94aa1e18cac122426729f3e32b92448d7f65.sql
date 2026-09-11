@@ -1,0 +1,1 @@
+OPTIMIZE TABLE pmj_u64_mult2 FINAL

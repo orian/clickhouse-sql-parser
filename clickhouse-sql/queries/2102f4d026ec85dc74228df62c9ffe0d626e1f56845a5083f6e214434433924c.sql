@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS rand_1k_10m_32

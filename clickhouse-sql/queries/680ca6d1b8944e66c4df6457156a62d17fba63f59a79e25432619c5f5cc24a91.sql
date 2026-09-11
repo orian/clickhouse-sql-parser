@@ -1,0 +1,1 @@
+SELECT count() FROM string_subcolumn_tuple WHERE NOT ignore(t.s19)

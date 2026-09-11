@@ -1,0 +1,1 @@
+select a from t_{size}_{partitions} group by a format Null settings optimize_aggregation_in_order = 1

@@ -1,0 +1,1 @@
+ngramMinHash(string[, ngramsize, hashnum])

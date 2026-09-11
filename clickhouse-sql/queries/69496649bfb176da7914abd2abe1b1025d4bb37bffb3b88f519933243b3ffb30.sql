@@ -1,0 +1,1 @@
+SELECT multiIf(number % 100, number, isValidUTF8(repeat(toString(number + 10), 100))) FROM numbers(10000000) FORMAT Null

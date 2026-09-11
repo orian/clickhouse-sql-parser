@@ -1,0 +1,1 @@
+CREATE TABLE merge_tree_insert_4 (value_1 String, value_2 String, value_3 String) ENGINE = MergeTree ORDER BY (value_1) SETTINGS auto_statistics_types=''

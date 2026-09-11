@@ -1,0 +1,1 @@
+OPTIMIZE TABLE array_compact FINAL

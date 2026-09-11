@@ -1,0 +1,1 @@
+SELECT avgWeightedIf(toNullable(number), toNullable(number), toNullable(number) % 10) AS t FROM numbers(100000000) SETTINGS max_threads = 1

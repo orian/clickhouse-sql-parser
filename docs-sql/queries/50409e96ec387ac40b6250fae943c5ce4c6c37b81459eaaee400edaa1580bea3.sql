@@ -1,0 +1,5 @@
+ALTER SETTINGS PROFILE p MODIFY SETTINGS max_memory_usage = 20000000000;
+SHOW CREATE SETTINGS PROFILE p;
+-- CREATE SETTINGS PROFILE p SETTINGS
+--     max_execution_time = 60,
+--     max_memory_usage = 20000000000

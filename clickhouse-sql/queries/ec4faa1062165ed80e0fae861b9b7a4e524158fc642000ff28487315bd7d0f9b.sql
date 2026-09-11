@@ -1,0 +1,1 @@
+CREATE TABLE pmj_u64_sparse_right (k UInt64) ENGINE = MergeTree ORDER BY k

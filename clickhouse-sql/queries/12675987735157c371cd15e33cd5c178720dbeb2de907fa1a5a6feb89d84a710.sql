@@ -1,0 +1,1 @@
+INSERT INTO lck_str_probe SELECT toString(number % 1000), number FROM numbers_mt(50000000)

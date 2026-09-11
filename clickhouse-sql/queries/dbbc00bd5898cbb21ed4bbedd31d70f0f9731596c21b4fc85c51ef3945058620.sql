@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_distinct_json_paths_wide_advanced_shared_data

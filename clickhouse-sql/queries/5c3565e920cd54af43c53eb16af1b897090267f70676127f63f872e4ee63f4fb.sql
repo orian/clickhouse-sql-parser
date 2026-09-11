@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS map_basic_compact

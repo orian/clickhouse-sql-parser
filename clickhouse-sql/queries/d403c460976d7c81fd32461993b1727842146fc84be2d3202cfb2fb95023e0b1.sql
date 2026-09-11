@@ -1,0 +1,1 @@
+SELECT x, sum(DISTINCT y) from (SELECT number % 12 AS x, number % 12321 AS y FROM numbers(10000000)) GROUP BY x

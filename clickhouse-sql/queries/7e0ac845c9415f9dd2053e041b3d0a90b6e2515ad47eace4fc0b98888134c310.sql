@@ -1,0 +1,1 @@
+SELECT if(number % 2, number + intDiv(number, number + 1), 3 + intDiv(number, number + 1)), if(number % 3 = 0, number, 4 + intDiv(number, number + 1)) FROM numbers(10000000) FORMAT Null

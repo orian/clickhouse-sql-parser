@@ -1,0 +1,1 @@
+SELECT count() FROM huge_pk WHERE c001 in (2,3) and c400 in (10,0) and c100 < 2

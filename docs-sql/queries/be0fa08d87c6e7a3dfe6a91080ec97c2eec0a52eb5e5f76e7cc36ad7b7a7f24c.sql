@@ -1,0 +1,1 @@
+SELECT * FROM nestedt FORMAT TSV

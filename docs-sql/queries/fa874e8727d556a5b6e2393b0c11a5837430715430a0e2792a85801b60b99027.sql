@@ -1,0 +1,1 @@
+CREATE DATABASE r ON CLUSTER default ENGINE=Replicated;

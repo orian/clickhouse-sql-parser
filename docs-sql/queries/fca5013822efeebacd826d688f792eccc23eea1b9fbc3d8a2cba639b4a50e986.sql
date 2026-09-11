@@ -1,0 +1,1 @@
+FROM orders |> DROP cancelled

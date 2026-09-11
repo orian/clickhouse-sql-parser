@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(cutToFirstSignificantSubdomainCustom(URL, 'public_suffix_list')) SETTINGS max_threads=1

@@ -1,0 +1,1 @@
+select b from t_opt_orderby order by b

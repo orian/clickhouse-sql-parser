@@ -1,0 +1,1 @@
+create table alter_select_mt  (part_id String, col_0 String) engine=MergeTree()                                              partition by part_id order by tuple() settings max_parts_to_merge_at_once=1

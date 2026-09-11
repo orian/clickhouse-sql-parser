@@ -1,0 +1,1 @@
+SELECT CAST('2025-01-01' AS Date)

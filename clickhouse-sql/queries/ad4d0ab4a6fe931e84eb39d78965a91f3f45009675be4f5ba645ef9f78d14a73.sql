@@ -1,0 +1,1 @@
+SELECT _path, _file FROM table_{format} group by _file, _path FORMAT Null

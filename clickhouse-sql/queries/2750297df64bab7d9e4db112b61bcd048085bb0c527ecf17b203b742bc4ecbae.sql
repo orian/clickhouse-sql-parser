@@ -1,0 +1,1 @@
+SELECT sumIf(number, number % 2) FROM numbers(100000000)

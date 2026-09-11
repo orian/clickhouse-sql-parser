@@ -1,0 +1,1 @@
+DROP DICTIONARY IF EXISTS simple_key_range_hashed_dictionary;

@@ -1,0 +1,1 @@
+INSERT INTO t_text_index_analysis SELECT concat('common ', 'medium' || intDiv(number, 1000), ' rare' || number) FROM numbers(1000000)

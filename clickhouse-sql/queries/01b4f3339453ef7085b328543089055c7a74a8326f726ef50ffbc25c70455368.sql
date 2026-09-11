@@ -1,0 +1,1 @@
+INSERT INTO test_json_order_by_shared_data SELECT toJSONString(mapFromArrays(arrayMap(i -> 'p' || toString(i), range(8)), arrayMap(i -> toString(number * 8 + i), range(8)))) FROM numbers(12000)

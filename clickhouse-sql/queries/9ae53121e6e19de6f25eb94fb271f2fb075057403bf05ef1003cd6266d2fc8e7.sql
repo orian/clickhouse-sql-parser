@@ -1,0 +1,1 @@
+select bitAnd(number, 65535) as k, sum(number) from numbers(100000000) group by k with totals order by k format Null settings max_rows_to_group_by = 10, group_by_overflow_mode='any', max_block_size = 65530

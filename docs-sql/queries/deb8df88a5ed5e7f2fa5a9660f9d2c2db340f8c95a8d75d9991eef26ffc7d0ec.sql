@@ -1,0 +1,1 @@
+ALTER USER user DEFAULT ROLE role1, role2

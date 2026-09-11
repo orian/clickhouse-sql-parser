@@ -1,0 +1,1 @@
+select count(f1) from t settings max_threads=2

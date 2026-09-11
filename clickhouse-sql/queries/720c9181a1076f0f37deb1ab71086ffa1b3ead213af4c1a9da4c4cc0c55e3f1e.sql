@@ -1,0 +1,1 @@
+SELECT DISTINCT leftPad(toString(number), 1000, 'x') FROM numbers_mt(2000000) FORMAT Null

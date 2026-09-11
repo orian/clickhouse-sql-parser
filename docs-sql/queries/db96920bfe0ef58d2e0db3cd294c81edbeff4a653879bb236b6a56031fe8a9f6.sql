@@ -1,0 +1,1 @@
+<aggFunction>SimpleState(x)

@@ -1,0 +1,1 @@
+CREATE TABLE t_lc_nullable (a LowCardinality(Nullable(String))) ENGINE = MergeTree ORDER BY tuple() PARTITION BY sipHash64(coalesce(a, '')) % 16

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(1000000000) WHERE materialize(toUInt64(toDateTime64(1000000, 3))) = toUInt64(toDateTime64(1000000, 3))

@@ -1,0 +1,1 @@
+structureToCapnProtoSchema(table_structure, message)

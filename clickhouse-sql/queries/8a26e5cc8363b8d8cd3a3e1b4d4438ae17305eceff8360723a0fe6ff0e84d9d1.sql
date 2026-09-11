@@ -1,0 +1,1 @@
+SELECT * FROM prometheusQueryRange('promql_set_operator_presence_mask_ts', 'last_over_time(foo_sparse[10]) and on(instance) last_over_time(bar_sparse[10])', 100, 3090, 10) FORMAT Null

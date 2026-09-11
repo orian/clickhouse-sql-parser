@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_{partitions} FINAL

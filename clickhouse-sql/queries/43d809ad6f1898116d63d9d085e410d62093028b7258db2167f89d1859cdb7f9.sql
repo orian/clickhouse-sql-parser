@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single where UserID=1234567890 SETTINGS max_threads = 1, min_bytes_to_use_direct_io = 1, max_read_buffer_size = 10485760;

@@ -1,0 +1,1 @@
+CREATE TABLE sg_bloom_3_8 (s String, INDEX idx s TYPE sparse_grams(3, 8, 8192, 3, 0) GRANULARITY 1) ENGINE = MergeTree ORDER BY tuple()

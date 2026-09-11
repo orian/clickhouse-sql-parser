@@ -1,0 +1,1 @@
+SELECT json.key0 FROM test_shared_data_compact FORMAT Null

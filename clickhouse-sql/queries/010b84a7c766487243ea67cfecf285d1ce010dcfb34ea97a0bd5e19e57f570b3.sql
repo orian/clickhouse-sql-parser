@@ -1,0 +1,1 @@
+SELECT length(arrayFilter(x -> x IS NOT NULL, groupArray(100)(col_string))) FROM table_{format}_with_nullable_columns GROUP BY intDiv(id, 100000) FORMAT Null

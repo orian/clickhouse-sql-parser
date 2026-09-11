@@ -1,0 +1,1 @@
+OPTIMIZE TABLE map_subcol_pw_mixed FINAL SETTINGS mutations_sync=1

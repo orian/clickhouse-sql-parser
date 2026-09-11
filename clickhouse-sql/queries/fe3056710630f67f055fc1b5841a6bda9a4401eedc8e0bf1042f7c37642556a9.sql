@@ -1,0 +1,1 @@
+INSERT INTO hits_none SELECT Title FROM test.hits

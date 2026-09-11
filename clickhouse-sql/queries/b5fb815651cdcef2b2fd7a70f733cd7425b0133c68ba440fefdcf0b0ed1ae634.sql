@@ -1,0 +1,1 @@
+INSERT INTO {database}.evo_promote SELECT l_orderkey, l_suppkey, l_quantity FROM tpch10.lineitem LIMIT 100000 SETTINGS max_threads = 1, max_insert_threads = 1

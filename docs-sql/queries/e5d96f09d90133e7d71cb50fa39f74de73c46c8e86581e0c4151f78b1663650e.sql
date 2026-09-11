@@ -1,0 +1,1 @@
+ALTER USER user DEFAULT ROLE ALL EXCEPT role1, role2

@@ -1,0 +1,1 @@
+INSERT INTO fact_1000p SELECT number % 1000, number FROM numbers(1000000)

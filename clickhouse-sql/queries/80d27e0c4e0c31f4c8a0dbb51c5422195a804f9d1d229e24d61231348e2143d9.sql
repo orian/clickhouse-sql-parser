@@ -1,0 +1,1 @@
+SELECT sum(mortonDecode(2, toUInt32(number * 5)).1) FROM numbers(200000000)

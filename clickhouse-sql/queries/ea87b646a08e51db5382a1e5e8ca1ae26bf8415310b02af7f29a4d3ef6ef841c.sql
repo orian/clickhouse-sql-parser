@@ -1,0 +1,1 @@
+SELECT normalizeUTF8NFKC(SearchPhrase) FROM hits_100m_single FORMAT Null

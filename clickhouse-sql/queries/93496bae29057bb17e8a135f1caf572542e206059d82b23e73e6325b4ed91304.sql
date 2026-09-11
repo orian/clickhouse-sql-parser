@@ -1,0 +1,1 @@
+SELECT range(0, number % 100, 1) FROM numbers(10000000) FORMAT Null

@@ -1,0 +1,1 @@
+SELECT sum(divideDecimal(d40, toDecimal256(7, 1), 40)) FROM (SELECT d40 FROM div256 LIMIT 50000)

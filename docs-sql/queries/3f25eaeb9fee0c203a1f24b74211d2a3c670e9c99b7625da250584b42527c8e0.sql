@@ -1,0 +1,1 @@
+SELECT arrayPartialSort(2, [5, 9, 1, 3])

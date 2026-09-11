@@ -1,0 +1,1 @@
+SELECT estimateCompressionRatio('NONE')(number) FROM numbers(4000000000) FORMAT Null

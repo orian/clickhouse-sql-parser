@@ -1,0 +1,1 @@
+SELECT count(distinct a) FROM t_{uniq_keys} GROUP BY a FORMAT Null

@@ -1,0 +1,1 @@
+SYSTEM LOAD PRIMARY KEY [db.]name

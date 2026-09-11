@@ -1,0 +1,1 @@
+SELECT WatchID FROM table_{format} FORMAT Null

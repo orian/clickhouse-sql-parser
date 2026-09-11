@@ -1,0 +1,1 @@
+CREATE TABLE test2(d DateTime64) ENGINE Memory

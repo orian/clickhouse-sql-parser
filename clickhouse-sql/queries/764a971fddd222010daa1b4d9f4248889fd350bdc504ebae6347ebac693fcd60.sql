@@ -1,0 +1,1 @@
+CREATE TABLE merge_perf_all (date Date, category String, value Int64, customer_id String) ENGINE = Merge(currentDatabase(), '^merge_perf_t')

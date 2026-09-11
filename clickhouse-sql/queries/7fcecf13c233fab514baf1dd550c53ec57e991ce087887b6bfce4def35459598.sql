@@ -1,0 +1,1 @@
+SELECT count() FROM h3_indexes_perf WHERE NOT ignore(h3ToParent(h3, materialize(toUInt8(3))))

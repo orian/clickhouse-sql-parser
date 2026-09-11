@@ -1,0 +1,1 @@
+select * from (select randomString(1024 * 1024) as large_string, 42 as id) as left join (select 42 as id from numbers(10240)) as right on left.id = right.id format Null settings query_plan_optimize_join_order_limit=0

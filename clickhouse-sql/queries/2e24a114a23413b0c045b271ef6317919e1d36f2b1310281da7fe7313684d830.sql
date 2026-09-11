@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.lineitem WHERE l_shipdate >= toDate('1995-01-01') AND l_shipdate < toDate('1995-02-01') SETTINGS use_iceberg_partition_pruning = 1

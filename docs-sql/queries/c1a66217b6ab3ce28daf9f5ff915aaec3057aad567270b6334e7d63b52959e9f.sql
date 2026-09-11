@@ -1,0 +1,1 @@
+SELECT sumCountViews FROM analytics.monthly_aggregated_data

@@ -1,0 +1,1 @@
+SELECT avg(stringJaccardIndex(randomString(100), randomString(101))) FROM numbers(10000000)

@@ -1,0 +1,1 @@
+replaceAll(haystack, pattern, replacement)

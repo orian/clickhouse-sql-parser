@@ -1,0 +1,1 @@
+select number from numbers_mt({size}) group by number format Null

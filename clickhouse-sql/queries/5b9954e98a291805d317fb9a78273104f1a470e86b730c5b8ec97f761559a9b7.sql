@@ -1,0 +1,1 @@
+SELECT * FROM table_{format}_with_nullable_columns LIMIT 1000 FORMAT Null

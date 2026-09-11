@@ -1,0 +1,1 @@
+SYSTEM STOP MERGES t_basic_stats

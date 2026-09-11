@@ -1,0 +1,6 @@
+CREATE HANDLER [IF NOT EXISTS] name [ON CLUSTER cluster]
+[PROTOCOL protocol_name|ANY]
+URL [PREFIX|REGEXP] '/path'
+[METHODS (GET, POST)]
+[TYPE query]
+AS [SELECT|INSERT|...] ...

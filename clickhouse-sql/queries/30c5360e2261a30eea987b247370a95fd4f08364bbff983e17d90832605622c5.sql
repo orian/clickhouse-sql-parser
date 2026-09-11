@@ -1,0 +1,1 @@
+SELECT x, y FROM read_in_reverse_order_final FINAL ORDER BY x DESC LIMIT 10 FORMAT Null

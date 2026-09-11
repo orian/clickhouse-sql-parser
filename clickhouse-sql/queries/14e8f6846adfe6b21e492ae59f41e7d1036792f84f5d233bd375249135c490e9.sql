@@ -1,0 +1,1 @@
+CREATE TABLE test_bf (`id` int, `ary` Array(String), INDEX idx_ary ary TYPE bloom_filter(0.01) GRANULARITY 8192) ENGINE = MergeTree() ORDER BY id

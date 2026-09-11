@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_skew30_dup FINAL

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS promql_pk_range_ts

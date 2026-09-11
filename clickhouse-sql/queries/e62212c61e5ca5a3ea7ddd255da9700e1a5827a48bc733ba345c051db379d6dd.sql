@@ -1,0 +1,1 @@
+SELECT avg(levenshteinDistance(randomString(20), randomString(60))) FROM numbers(2000000)

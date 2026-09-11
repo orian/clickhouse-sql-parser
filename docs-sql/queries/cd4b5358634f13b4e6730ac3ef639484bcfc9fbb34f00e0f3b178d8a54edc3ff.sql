@@ -1,0 +1,1 @@
+appendTrailingCharIfAbsent(s, c)

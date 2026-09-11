@@ -1,0 +1,1 @@
+OPTIMIZE TABLE hits_NoPrimaryKey FINAL;

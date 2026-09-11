@@ -1,0 +1,1 @@
+INSERT INTO lot_of_arrays(id) SELECT number FROM numbers(1000)

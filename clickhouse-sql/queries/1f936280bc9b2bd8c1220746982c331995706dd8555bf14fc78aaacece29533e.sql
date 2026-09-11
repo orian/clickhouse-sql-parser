@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT generateUUIDv4() FROM zeros( 100000000)) 

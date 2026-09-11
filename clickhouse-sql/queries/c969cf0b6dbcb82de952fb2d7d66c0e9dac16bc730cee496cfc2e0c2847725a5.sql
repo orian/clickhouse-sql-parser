@@ -1,0 +1,1 @@
+INSERT INTO lazy_final_perf SELECT toUInt8(number * 100 / 1000000), number * 100, 2, if(number * 100 < 50000, 1, 0), repeat('y', 200) FROM numbers(100000)

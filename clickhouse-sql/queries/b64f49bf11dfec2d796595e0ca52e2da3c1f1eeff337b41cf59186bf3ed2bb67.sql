@@ -1,0 +1,1 @@
+INSERT INTO dynamic_squash_performance_1 SELECT range(number % 100)::Dynamic FROM numbers(2000000)

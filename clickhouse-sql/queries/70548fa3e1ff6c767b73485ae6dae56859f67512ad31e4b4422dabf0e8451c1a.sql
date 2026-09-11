@@ -1,0 +1,1 @@
+SELECT sumCountIf(key, key != -1)              FROM ( SELECT materialize(toNullable(number)) AS key FROM numbers(100000000) ) FORMAT Null

@@ -1,0 +1,1 @@
+SELECT sum(-1 * (((-2 * (number * -3)) * -4) * -5)) FROM numbers(50000000)

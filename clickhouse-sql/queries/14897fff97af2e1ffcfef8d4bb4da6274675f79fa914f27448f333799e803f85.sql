@@ -1,0 +1,1 @@
+INSERT INTO test_reorder_columns_in_merge SELECT '4c27c787-bc30-427e-b90c-a8029a6b079c', '4c27c787-bc30-427e-b90c-a8029a6b079c', '4c27c787-bc30-427e-b90c-a8029a6b079c', '4c27c787-bc30-427e-b90c-a8029a6b079c', 1 + (number * 2) FROM numbers_mt(30_000_000) SETTINGS min_insert_block_size_rows = 100_000_000

@@ -1,0 +1,1 @@
+mapContainsValue(map, value)

@@ -1,0 +1,1 @@
+select any(URL) from hits_100m_single where URL != '' group by intHash32(UserID) % {group_scale} FORMAT Null

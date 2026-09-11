@@ -1,0 +1,1 @@
+SELECT sigmoid(0)

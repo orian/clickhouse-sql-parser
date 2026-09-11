@@ -1,0 +1,1 @@
+SELECT count() FROM {database}.lineitem WHERE l_shipdate = toDate('1998-12-01')

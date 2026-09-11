@@ -1,0 +1,1 @@
+SELECT '123'::UInt32

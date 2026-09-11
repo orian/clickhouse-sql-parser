@@ -1,0 +1,1 @@
+SELECT intDiv(number, 1000) as key, if(key > 0, sleepEachRow(0.00001),0) as expr FROM numbers_mt(100000000) GROUP BY key WITH TOTALS FORMAT Null

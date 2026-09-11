@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE ClientIP6 < RemoteIP6

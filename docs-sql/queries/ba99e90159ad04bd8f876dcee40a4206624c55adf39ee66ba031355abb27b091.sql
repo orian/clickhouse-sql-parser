@@ -1,0 +1,1 @@
+groupConcat[(delimiter [, limit])](expression)

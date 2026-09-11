@@ -1,0 +1,1 @@
+SELECT isConstant(lc) FROM test_lc FORMAT Null

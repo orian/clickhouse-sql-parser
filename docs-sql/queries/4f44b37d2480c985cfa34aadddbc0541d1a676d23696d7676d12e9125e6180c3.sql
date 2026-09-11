@@ -1,0 +1,2 @@
+SHOW CLUSTER '<name>'
+SHOW CLUSTERS [[NOT] LIKE|ILIKE '<pattern>'] [LIMIT <N>]

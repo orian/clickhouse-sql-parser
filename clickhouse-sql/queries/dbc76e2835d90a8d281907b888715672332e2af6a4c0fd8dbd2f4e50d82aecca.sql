@@ -1,0 +1,1 @@
+SELECT arrayReduce('avg', v) FROM array_data FORMAT Null

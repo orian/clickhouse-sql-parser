@@ -1,0 +1,1 @@
+SELECT 1 FROM hits_10m_words WHERE word IN (SELECT word FROM hits_10m_words) FORMAT Null

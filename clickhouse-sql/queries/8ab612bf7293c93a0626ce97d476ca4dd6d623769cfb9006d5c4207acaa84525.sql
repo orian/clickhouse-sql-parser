@@ -1,0 +1,1 @@
+select sum(number) from numbers_mt(200000) settings max_threads=100, max_block_size = 1 format Null

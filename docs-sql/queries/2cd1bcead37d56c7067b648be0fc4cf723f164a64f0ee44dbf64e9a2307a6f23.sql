@@ -1,0 +1,1 @@
+SELECT byteHammingDistance('karolin', 'kathrin')

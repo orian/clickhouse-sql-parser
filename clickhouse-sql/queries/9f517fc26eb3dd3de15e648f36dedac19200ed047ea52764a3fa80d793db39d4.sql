@@ -1,0 +1,1 @@
+SELECT entropy(SearchPhrase) FROM hits_10m_single

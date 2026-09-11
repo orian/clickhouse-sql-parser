@@ -1,0 +1,4 @@
+SYSTEM STOP VIEW paimon_mv;
+DROP VIEW IF EXISTS paimon_mv SYNC;
+DROP TABLE IF EXISTS paimon_mv_dest SYNC;
+DROP TABLE IF EXISTS paimon_mv_source SYNC;

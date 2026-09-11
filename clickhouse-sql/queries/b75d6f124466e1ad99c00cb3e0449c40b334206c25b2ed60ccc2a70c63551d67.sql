@@ -1,0 +1,1 @@
+SELECT DISTINCT lc FROM test_lc_{card} FORMAT Null

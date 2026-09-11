@@ -1,0 +1,1 @@
+create table replacing_final_1p_ord (key1 UInt64, key2 UInt64, ver Int8, s UInt64) engine = ReplacingMergeTree(ver) order by (key1, key2)

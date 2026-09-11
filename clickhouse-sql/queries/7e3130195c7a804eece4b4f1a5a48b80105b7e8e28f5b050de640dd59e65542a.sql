@@ -1,0 +1,1 @@
+select min(FromTag) from hits_100m_single where FromTag != '' group by intHash32(UserID) % {group_scale} FORMAT Null

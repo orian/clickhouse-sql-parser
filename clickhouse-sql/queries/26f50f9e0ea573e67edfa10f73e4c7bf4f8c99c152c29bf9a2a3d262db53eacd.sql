@@ -1,0 +1,1 @@
+UPDATE test_lwu_steps SET a = 'foo' || randomPrintableASCII(3), b = 9999999999, c = rand() WHERE id % 100 = 50

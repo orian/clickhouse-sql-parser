@@ -1,0 +1,1 @@
+SELECT countMerge(v) FROM (SELECT countState() v FROM zeros(1000000000)) FORMAT Null

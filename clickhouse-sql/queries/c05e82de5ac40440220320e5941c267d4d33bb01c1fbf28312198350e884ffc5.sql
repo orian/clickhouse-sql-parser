@@ -1,0 +1,1 @@
+SELECT entropy(URL) FROM hits_10m_single

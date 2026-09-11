@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_lwu_join PARTITION ID 'all' FINAL

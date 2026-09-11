@@ -1,0 +1,1 @@
+SELECT sum(v1), sum(v2), sum(v3) FROM t_projection_index_pools WHERE category = 'needle' SETTINGS use_indexes_refiner_in_read_pools = {pools}, allow_prefetched_read_pool_for_local_filesystem = 1, local_filesystem_read_method = 'pread_threadpool'

@@ -1,0 +1,1 @@
+SELECT count(), sum(l_extendedprice) FROM {database}.lineitem WHERE l_shipdate = toDate('1994-06-15')

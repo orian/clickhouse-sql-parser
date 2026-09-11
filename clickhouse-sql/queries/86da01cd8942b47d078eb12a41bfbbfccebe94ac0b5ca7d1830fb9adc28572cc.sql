@@ -1,0 +1,1 @@
+SELECT count() FROM tab WHERE name LIKE '%service-4-prod'

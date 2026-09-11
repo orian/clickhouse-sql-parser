@@ -1,0 +1,1 @@
+SELECT (argMax(number, number) - argMin(number, number)) / (max(number) - min(number)) FROM numbers(30000000)

@@ -1,0 +1,1 @@
+select materialize(array(1.23::Decimal256(2), 4.56::Decimal256(2)))[1] from numbers(10000000) format Null

@@ -1,0 +1,1 @@
+LpNormalize(vector, p)

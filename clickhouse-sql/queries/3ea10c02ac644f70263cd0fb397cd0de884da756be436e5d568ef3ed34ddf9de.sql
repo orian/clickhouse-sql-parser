@@ -1,0 +1,1 @@
+select positionCaseInsensitive(materialize('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'), '', 10) from numbers(100000000) format Null

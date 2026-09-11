@@ -1,0 +1,1 @@
+INSERT INTO table_{format_fast} SELECT randomString(1000) FROM numbers(1000000) SETTINGS engine_file_truncate_on_insert=1

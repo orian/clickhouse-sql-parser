@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS mt_30_parts_{uniqs}_uniqs

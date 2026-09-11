@@ -1,0 +1,1 @@
+SELECT avg(length(URL)) FROM hits_10m_single GROUP BY WatchID, CounterID, WatchID - CounterID FORMAT Null

@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE notEmpty(MobilePhoneModel) AND MobilePhoneModel < 'model' SETTINGS max_threads = 1

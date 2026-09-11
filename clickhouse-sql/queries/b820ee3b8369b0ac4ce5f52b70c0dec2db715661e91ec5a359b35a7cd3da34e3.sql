@@ -1,0 +1,1 @@
+SELECT arraySort(arrayMap(x -> toUInt8(cityHash64(number, x)), range(6))) FROM numbers(10000000) FORMAT Null

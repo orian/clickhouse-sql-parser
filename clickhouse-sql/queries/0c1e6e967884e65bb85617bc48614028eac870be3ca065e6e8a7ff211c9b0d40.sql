@@ -1,0 +1,1 @@
+SELECT uniqTheta({col}) FROM hits_10m_single FORMAT Null

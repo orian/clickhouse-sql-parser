@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS complex_key_hashed_array_dictionary_source_table;

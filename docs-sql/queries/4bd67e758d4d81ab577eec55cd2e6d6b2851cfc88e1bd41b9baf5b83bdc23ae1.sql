@@ -1,0 +1,1 @@
+SYSTEM RELOAD MODELS [ON CLUSTER cluster_name]

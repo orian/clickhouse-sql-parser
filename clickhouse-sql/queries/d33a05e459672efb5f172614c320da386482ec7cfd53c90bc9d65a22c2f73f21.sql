@@ -1,0 +1,1 @@
+SELECT AdvEngineID, COUNT(*) FROM {table} WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC

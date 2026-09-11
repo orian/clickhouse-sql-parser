@@ -1,0 +1,1 @@
+LowCardinality(data_type)

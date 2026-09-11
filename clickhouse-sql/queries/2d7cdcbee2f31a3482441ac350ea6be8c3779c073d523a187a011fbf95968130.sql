@@ -1,0 +1,1 @@
+select count(1) from test1 where to_utc_timestamp(d, 'Etc/GMT+1') > '1990-01-01 12:00:00' SETTINGS max_threads=1

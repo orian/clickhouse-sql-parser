@@ -1,0 +1,1 @@
+OPTIMIZE TABLE simple_mergetree FINAL

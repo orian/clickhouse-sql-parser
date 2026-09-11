@@ -1,0 +1,3 @@
+SELECT INTERVAL '+1:30' HOUR TO MINUTE;
+-- esto es equivalente a:
+-- SELECT INTERVAL '1:30' HOUR TO MINUTE;

@@ -1,0 +1,1 @@
+SELECT count(), sum(l_extendedprice) FROM icebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/tpch_ice_sf10/lineitem/') WHERE l_shipdate = toDate('1994-06-15')

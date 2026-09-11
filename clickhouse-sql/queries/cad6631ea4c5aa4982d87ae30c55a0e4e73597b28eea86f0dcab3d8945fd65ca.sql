@@ -1,0 +1,1 @@
+select sum(x) from test_parallel_index where toStartOfDay(toStartOfDay(toStartOfDay(toStartOfDay(toStartOfDay(toStartOfDay(toStartOfDay(toDateTime(x)))))))) in (select toDateTime(number * 8) from numbers(131072));

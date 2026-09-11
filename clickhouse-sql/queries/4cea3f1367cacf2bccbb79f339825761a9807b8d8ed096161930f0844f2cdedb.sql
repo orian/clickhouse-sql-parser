@@ -1,0 +1,1 @@
+SELECT sum(stringBytesEntropy(s)) FROM test_string_bytes FORMAT Null

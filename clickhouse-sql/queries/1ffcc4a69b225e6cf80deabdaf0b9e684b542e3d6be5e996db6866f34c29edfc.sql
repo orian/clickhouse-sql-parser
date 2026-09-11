@@ -1,0 +1,1 @@
+SELECT sum(reinterpretAsUInt64(substring(MD5(toString(number)), 1, 8))) FROM numbers(10000000)

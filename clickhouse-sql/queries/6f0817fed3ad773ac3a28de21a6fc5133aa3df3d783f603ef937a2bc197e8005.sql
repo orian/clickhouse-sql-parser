@@ -1,0 +1,1 @@
+SELECT RegionID, count() FROM hits_100m_single GROUP BY RegionID ORDER BY RegionID DESC LIMIT 10 FORMAT Null

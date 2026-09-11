@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_lwu_join_2

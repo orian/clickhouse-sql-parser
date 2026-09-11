@@ -1,0 +1,1 @@
+SELECT groupUniqArray(toUInt8(number % 200)) FROM numbers(50000000) FORMAT Null

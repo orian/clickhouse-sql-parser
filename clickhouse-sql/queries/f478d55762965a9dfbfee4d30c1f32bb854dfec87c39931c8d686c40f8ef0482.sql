@@ -1,0 +1,1 @@
+SELECT count() FROM t_chain_derived AS l INNER JOIN t_chain_derived_join AS r ON l.k = r.k WHERE l.s1 < l.s2 AND l.s2 < l.s3 AND l.s3 < l.s4 AND l.s4 < repeat('p', 100) || 'd2'

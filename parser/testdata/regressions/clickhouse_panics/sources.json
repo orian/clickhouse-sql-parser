@@ -1,0 +1,704 @@
+[
+  {
+    "id": "0e8d7724c9ffcdcedbf248254c06f7a1ffc434e8ac8999ca2f131be01e3076e3",
+    "sources": [
+      {
+        "path": "tests/performance/primes.xml",
+        "line": 6,
+        "end_line": 6,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "14897fff97af2e1ffcfef8d4bb4da6274675f79fa914f27448f333799e803f85",
+    "sources": [
+      {
+        "path": "tests/performance/merge_tree_reorder_columns_merge.xml",
+        "line": 6,
+        "end_line": 6,
+        "info": "fill_query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "19cef024843533b19aaede9c1cc677e1d7dd37b592d936b122248ee17e3eaded",
+    "sources": [
+      {
+        "path": "tests/performance/window_functions_distinct.xml",
+        "line": 10,
+        "end_line": 13,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "1cceb40b2e7d7791603e661f768d1ae401c304b3197f8f81ffb6db3d1e56ad41",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 30,
+        "end_line": 32,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "1ecc5a53a8420e568ecfbb4eea6f5caf33a2da135d44ff539ebeb0aa1e673442",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03759_join_filterpushdown_granules_read.sql",
+        "line": 1,
+        "end_line": 88,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "209a991696fa419ccd2bf3b8e7767ab6f2e025698b3e7f75eab3b7b1b31d48ef",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/01283_strict_resize_bug.sql",
+        "line": 1,
+        "end_line": 7,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "319e9a1bbb40d79051fb5551383865c20dfecc82fd03cb60895fb1d52e5f8159",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03222_parallel_replicas_min_marks_to_read_overflow.sql",
+        "line": 1,
+        "end_line": 24,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "33798317f1c24a3fda2ad578465dcbe27b82e41bb157e17bf980d5e4819a2dc1",
+    "sources": [
+      {
+        "path": "tests/performance/hashed_dictionary_load_factor.xml",
+        "line": 64,
+        "end_line": 64,
+        "info": "fill_query",
+        "kind": "performance_xml",
+        "has_substitutions": true
+      },
+      {
+        "path": "tests/performance/hashed_dictionary_sharded.xml",
+        "line": 63,
+        "end_line": 63,
+        "info": "fill_query",
+        "kind": "performance_xml",
+        "has_substitutions": true
+      }
+    ]
+  },
+  {
+    "id": "340d193e8db8bd45bdca9c122af4997e481336e976ecaed8af20e1b6334749dc",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03229_query_condition_cache_nondeterministic_functions.sql",
+        "line": 1,
+        "end_line": 31,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "342019b4c769830df416c83ce7319b0f7ff614c817bafb061d984d29f6cd24c0",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 2,
+        "end_line": 4,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "34515d369b9045b5131faf3a3757ec7f479c0f380ec1040ca18c4d83a1264e07",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03222_pr_asan_index_granularity.sql",
+        "line": 1,
+        "end_line": 15,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "3682821e0f77585e0096da833eaab65b6dcd4156263efa803a923cddc320d146",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03658_joined_block_split_single_row_bytes.sql",
+        "line": 1,
+        "end_line": 38,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "397e0126f2ae83432bbc73bc8201e41cc54d91e3abf1d5eeb4d2e84319e890a4",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/02228_merge_tree_insert_memory_usage.sql",
+        "line": 1,
+        "end_line": 19,
+        "info": "sql",
+        "kind": "file",
+        "expected_errors": [
+          "{ serverError MEMORY_LIMIT_EXCEEDED }"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4028b0493aa1f79b7fd86fa3d780233020d54bd7c32be456f13d0a9d799a931c",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 22,
+        "end_line": 24,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "430a91bc061aa09fa58091579abb5f2cc36b65e3c976853ae5fda2d1455f9d84",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03513_lazy_materialization_projections_fix.sql",
+        "line": 1,
+        "end_line": 42,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "4613339a98a91d22dbe1ccf9f31982660a24b10dcc9f244fc375fe0cd6773e42",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03448_window_functions_distinct_distributed.sql",
+        "line": 1,
+        "end_line": 73,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "4aca33380f32ad733c39772dee943f7e1e6b46b5dc8a718a1a39897c663f8703",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04655_pr_plan_based_join_runtime_filter_on_worker.sql",
+        "line": 1,
+        "end_line": 81,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "4d61e69ffd16900d3c3fe855c1cd70bc8ec82f247e05198ab43b37b2f376a522",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04011_detach_rename_attach_column.sql",
+        "line": 1,
+        "end_line": 8,
+        "info": "sql",
+        "kind": "file",
+        "expected_errors": [
+          "{ serverError NO_SUCH_COLUMN_IN_TABLE }"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "509ff08b3f767dd7f1de099ffcf9f1bc2811521889f912e04b0890b63e37ec7b",
+    "sources": [
+      {
+        "path": "tests/performance/hashed_dictionary_load_factor.xml",
+        "line": 65,
+        "end_line": 65,
+        "info": "fill_query",
+        "kind": "performance_xml",
+        "has_substitutions": true
+      },
+      {
+        "path": "tests/performance/hashed_dictionary_sharded.xml",
+        "line": 64,
+        "end_line": 64,
+        "info": "fill_query",
+        "kind": "performance_xml",
+        "has_substitutions": true
+      }
+    ]
+  },
+  {
+    "id": "52a94585a6fa49c517ff04f1926827caedcb1a0734e7b5053f8c0b554b0ee535",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03782_contingency_window_functions_state_serialize_deserialize.sql",
+        "line": 1,
+        "end_line": 793,
+        "info": "sql",
+        "kind": "file",
+        "expected_errors": [
+          "{ serverError ILLEGAL_TYPE_OF_ARGUMENT }"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "575219c6b27e86b1e92e24f6d7b3b18f10b7b420d1e09563eb4a24dfd035ec5c",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04538_query_condition_cache_topk_lazy_materialization.sql",
+        "line": 1,
+        "end_line": 72,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "5bbd5dc997667d53f6ddaf545628f1ec08f14f78bf09004d61304805ee2a6d79",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 10,
+        "end_line": 12,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "5d360a718ea960ffababb6dfc78467253a2f4bf474704478816dd85bdef3a12b",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04217_query_condition_cache_topk.sql",
+        "line": 1,
+        "end_line": 92,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "5e861504f5931dde8d4141dbd78f7640c9b191ece62d9c60449c992905ee653f",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/02950_parallel_replicas_used_count.sql",
+        "line": 1,
+        "end_line": 36,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "6328c3c8d3e6ef98358953ffa6d36de48f271aec907b82a737fb2e56c76dd745",
+    "sources": [
+      {
+        "path": "tests/performance/sparse_grams_index_build.xml",
+        "line": 9,
+        "end_line": 9,
+        "info": "fill_query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "637e83239211849e8e04d6cffd8a50deaec039f93afda2620e08b0ed198f9982",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04242_query_condition_cache_topk_collate.sql",
+        "line": 1,
+        "end_line": 44,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "694659a85b233e89991c9bd2471b3ed79d4bc31a44ec2d911e8d4f9dcddf53e2",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/00088_global_in_one_shard_and_rows_before_limit.sql",
+        "line": 1,
+        "end_line": 4,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "70362092ee851544d186b97757753e89f485ec96ad012e3aecf931b18e561682",
+    "sources": [
+      {
+        "path": "tests/performance/merge_tree_reorder_columns_merge.xml",
+        "line": 5,
+        "end_line": 5,
+        "info": "fill_query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "7353dc1350510b2435e9cd60f0fc57dee382470a10609078425b828a5214f54a",
+    "sources": [
+      {
+        "path": "tests/performance/window_functions_distinct.xml",
+        "line": 2,
+        "end_line": 4,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "82b6ba21ab023fb48c81b6746de908b1c22f17e4ceb11c1e4d3b0a79ae25ac0a",
+    "sources": [
+      {
+        "path": "tests/performance/window_functions_distinct.xml",
+        "line": 6,
+        "end_line": 8,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "89b404b735c11f5512eaa92640f44ba06fbfebef368a9d7b06455bcc9cea4619",
+    "sources": [
+      {
+        "path": "tests/performance/joined_block_split_single_row.xml",
+        "line": 6,
+        "end_line": 6,
+        "info": "fill_query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "89dfbb18df343426d34ef220df176e7b8a12eceaf530c26aad71c0ac6f00519d",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/02896_cyclic_aliases_crash.sql",
+        "line": 1,
+        "end_line": 44,
+        "info": "sql",
+        "kind": "file",
+        "expected_errors": [
+          "{ serverError UNKNOWN_IDENTIFIER, CYCLIC_ALIASES }"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8e9b559bad9cfdfdb1fa5045a2b227bdfa8f568df6beaf0092ffd231083f9eec",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03913_multijoin_equivalent_sets.sql",
+        "line": 1,
+        "end_line": 61,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "90204b208d553513876a9f844d5253c613fd017b11be2e5f787b12a51aeab7b1",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04658_query_condition_cache_topk_normal_projection.sql",
+        "line": 1,
+        "end_line": 114,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "977c463cbbf202d032c58af6aef3f04c0d241c7cf546aadf4634e19a6d502f32",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03229_query_condition_cache_system_table.sql",
+        "line": 1,
+        "end_line": 40,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "9ac63e210e10259bc92d80f7426a8a677837dcd5f04a91590d2ca2e68a04c8f8",
+    "sources": [
+      {
+        "path": "tests/performance/point_in_polygon_3d_huge_multipolygon.xml",
+        "line": 85,
+        "end_line": 94,
+        "info": "create_query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "9db61493e239b0e57cd4dd399a7f2c90ecddff99277de54535c02dc41d4df53f",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03151_external_cross_join.sql",
+        "line": 1,
+        "end_line": 20,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "a8f9d846113d00f942eabee0aacd7cab7305a8aa97687fdaec8fb09afae0e676",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/00067_union_all.sql",
+        "line": 1,
+        "end_line": 15,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "abb3cef29171c728efb37d1456c9cd290a11371757d5cf3454a50d927483da94",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03811_contingency_window_functions_nested_combinators_merge.sql",
+        "line": 1,
+        "end_line": 357,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "b0061a4acdc7f048c00119ba2d7d206a464df35e42fa29a8bae6b7434573dce1",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 6,
+        "end_line": 8,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "b5193968d3052162d63a9adb1605b69f5142419e27e98abb9f43dfec0bfb6115",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03573_concurrent_hash_scatter_bug.sql",
+        "line": 1,
+        "end_line": 23,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "b89da39387f2ef281b9ffd1688d6bbe21c5fcebb23d3d6bd70bd56d8f2a983bb",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04539_query_condition_cache_topk_reuse_where.sql",
+        "line": 1,
+        "end_line": 86,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "bcd4bafbd64533ae177da8ad6ed64c37e44649a865f9fa9c1d24ee3be41d5359",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 34,
+        "end_line": 46,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "c15fda6731b31bddc4c988d5136baec0d053fe6b038ba5f3842ad4739c435774",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04628_query_condition_cache_topk_gate_off.sql",
+        "line": 1,
+        "end_line": 184,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "c3d6086e542ff81540ff23f27b4b5a9c6989727db721edf956e8bf85be674377",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 48,
+        "end_line": 60,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "cec2555fdabf184146db7c6dd548418cb8f92513a68b286076f5e452359bf235",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/02231_bloom_filter_sizing.sql",
+        "line": 1,
+        "end_line": 54,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "d0e3f96f2dbe2d965e3813aebea194fd26b5836e3d91c66ce3731f771cdafc6f",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03229_query_condition_cache_final.sql",
+        "line": 1,
+        "end_line": 31,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "d16991afbd4a283723e3a2019453520a1671087dc2c5332defc2cb3eb47db20f",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03443_pr_lazy_materialization.sql",
+        "line": 1,
+        "end_line": 26,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "d3b0fa4d694c26918825c19645d0149dab15fabf97e81d3a81cc5f177b4b0af0",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 14,
+        "end_line": 16,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "d80e6e455eb0b06e305c5c76982d0964c4abb37fddf1b38aa579b8a2cb06e90a",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 26,
+        "end_line": 28,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "da0016ace54b937db308ee51f5731f4a0fe18096c6986fe036d34585835b3657",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/00149_quantiles_timing_distributed.sql",
+        "line": 1,
+        "end_line": 5,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "dabc2dc0604430819d894e78cdb0449b719b36f120ed049a08b8cf2867cee233",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03532_pr_unused_query_cancelling_with_limit.sql",
+        "line": 1,
+        "end_line": 12,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "e30554f105eee78c5942608d321d7a2293b7fb0b99d5349f847459a902b1d902",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/00147_global_in_aggregate_function.sql",
+        "line": 1,
+        "end_line": 5,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "ed7cf4ada2d46c9e493dc9b9608c844e17716171097d0991f6b5454c64a00ce5",
+    "sources": [
+      {
+        "path": "tests/performance/contingency_functions.xml",
+        "line": 18,
+        "end_line": 20,
+        "info": "query",
+        "kind": "performance_xml"
+      }
+    ]
+  },
+  {
+    "id": "fa730f03be40f87088a630d4830ef2332cf67dcca70538dde6282f90851a198b",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/04049_virtual_row_overlap.sql",
+        "line": 1,
+        "end_line": 75,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  },
+  {
+    "id": "fab7d6212f17423c22bbb301e59cd5f64c5e27ac86b9180b044c5397ed75073d",
+    "sources": [
+      {
+        "path": "tests/queries/0_stateless/03147_datetime64_constant_index_analysis.sql",
+        "line": 1,
+        "end_line": 16,
+        "info": "sql",
+        "kind": "file"
+      }
+    ]
+  }
+]

@@ -1,0 +1,1 @@
+SELECT sum(id) FROM array_join_filter_fusion ARRAY JOIN arr AS elem WHERE elem = 'e7'

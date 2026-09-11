@@ -1,0 +1,1 @@
+SELECT DISTINCT Title, multiFuzzyMatchAny(Title, 5, ['^metrika\\.ry$']) AS distance FROM hits_100m_single WHERE distance = 1

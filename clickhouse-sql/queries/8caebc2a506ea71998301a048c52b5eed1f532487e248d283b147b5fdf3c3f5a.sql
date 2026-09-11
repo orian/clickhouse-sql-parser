@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS hits_100m_words

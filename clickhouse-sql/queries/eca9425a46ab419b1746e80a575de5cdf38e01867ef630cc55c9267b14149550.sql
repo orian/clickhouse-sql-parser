@@ -1,0 +1,1 @@
+INSERT INTO dt64 SELECT toDateTime64(toDecimal64(toUInt64(EventTime), 3) + toDecimal64((rand() % 1000) / 1000, 3), 3) FROM hits_10m_single

@@ -1,0 +1,1 @@
+select number, uniq(number) from numbers_mt(1e8) group by number limit 100 format Null

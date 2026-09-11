@@ -1,0 +1,1 @@
+CREATE TABLE test_in (`a` UInt32) ENGINE = MergeTree() ORDER BY a

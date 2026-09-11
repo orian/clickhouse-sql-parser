@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_projection_index_pools

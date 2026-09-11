@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS replacing_final_non_intersecting

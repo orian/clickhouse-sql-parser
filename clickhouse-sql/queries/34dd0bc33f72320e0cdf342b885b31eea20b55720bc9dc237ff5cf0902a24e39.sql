@@ -1,0 +1,1 @@
+SELECT count() FROM text_index_trivial_count WHERE hasToken(text, 'rareword')

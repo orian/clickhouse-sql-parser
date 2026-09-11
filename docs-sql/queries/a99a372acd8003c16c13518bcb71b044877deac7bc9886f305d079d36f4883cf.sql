@@ -1,0 +1,1 @@
+SELECT lgamma(5);

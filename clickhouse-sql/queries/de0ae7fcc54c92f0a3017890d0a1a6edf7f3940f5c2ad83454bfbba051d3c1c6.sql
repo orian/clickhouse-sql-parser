@@ -1,0 +1,1 @@
+select key_string1,key_string2,key_string3, min(m1) from t_nullable group by key_string1,key_string2,key_string3

@@ -1,0 +1,1 @@
+ALTER TABLE visits DROP COLUMN browser

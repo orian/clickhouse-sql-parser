@@ -1,0 +1,1 @@
+SYSTEM CANCEL VIEW [db.]name

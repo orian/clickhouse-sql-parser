@@ -1,0 +1,1 @@
+toUUIDOrDefault(string, default)

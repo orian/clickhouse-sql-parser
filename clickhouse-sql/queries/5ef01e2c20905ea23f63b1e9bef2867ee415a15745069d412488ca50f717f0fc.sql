@@ -1,0 +1,1 @@
+SELECT m['key0'] FROM map_100_keys FORMAT Null

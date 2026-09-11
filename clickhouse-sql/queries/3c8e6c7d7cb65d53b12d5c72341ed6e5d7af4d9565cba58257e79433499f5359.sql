@@ -1,0 +1,1 @@
+CREATE TABLE lck_str_build (k LowCardinality(String), w UInt64) ENGINE = Memory

@@ -1,0 +1,1 @@
+select sum(multiSearchAny(URL, ['yandex', 'google', 'facebook', 'wikipedia', 'reddit'])) from hits_100m_single

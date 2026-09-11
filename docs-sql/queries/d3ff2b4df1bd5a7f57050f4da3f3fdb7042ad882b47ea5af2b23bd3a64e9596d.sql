@@ -1,0 +1,1 @@
+SELECT hasSubsequenceCaseInsensitive('garbage', 'ARG');

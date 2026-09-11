@@ -1,0 +1,1 @@
+INSERT INTO perf_iceberg_delete_manifests SELECT number, toString(number) FROM numbers(100000) SETTINGS allow_insert_into_iceberg = 1

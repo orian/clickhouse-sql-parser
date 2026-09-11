@@ -1,0 +1,1 @@
+SELECT max(id) FROM perf_iceberg_data_manifests SETTINGS use_iceberg_metadata_files_cache = 0

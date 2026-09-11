@@ -1,0 +1,1 @@
+geohashEncode(longitude, latitude, [precision])

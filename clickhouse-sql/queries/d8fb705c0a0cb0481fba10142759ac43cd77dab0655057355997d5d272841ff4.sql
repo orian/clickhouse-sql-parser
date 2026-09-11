@@ -1,0 +1,1 @@
+SELECT sum(toUInt32({func}(t, 7))) FROM (SELECT toDateTime(1600000000 + number % 50000000, 'Europe/Berlin') AS t FROM numbers(50000000))

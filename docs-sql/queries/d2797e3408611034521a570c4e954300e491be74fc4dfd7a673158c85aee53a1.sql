@@ -1,0 +1,1 @@
+SHOW FUNCTIONS [LIKE | ILIKE '<pattern>']

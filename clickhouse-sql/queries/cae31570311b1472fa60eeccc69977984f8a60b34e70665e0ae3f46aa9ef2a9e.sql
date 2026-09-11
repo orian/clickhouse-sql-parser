@@ -1,0 +1,1 @@
+SELECT SearchEngineID, SearchPhrase, RegionID FROM hits_10m_single GROUP BY SearchEngineID, SearchPhrase, RegionID ORDER BY count() DESC LIMIT 10 SETTINGS max_threads = 1

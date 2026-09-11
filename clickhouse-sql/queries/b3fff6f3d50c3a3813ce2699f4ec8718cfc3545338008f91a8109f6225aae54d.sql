@@ -1,0 +1,1 @@
+INSERT INTO left SELECT number, number / 2 FROM numbers_mt(10000000)

@@ -1,0 +1,1 @@
+INSERT INTO test_in_skip_idx SELECT number, number FROM numbers(10000000)

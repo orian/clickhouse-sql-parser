@@ -1,0 +1,1 @@
+SELECT uniq(str) FROM test_{serialization}_{ratio} GROUP BY id % 11 FORMAT Null

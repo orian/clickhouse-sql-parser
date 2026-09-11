@@ -1,0 +1,1 @@
+CREATE TABLE rs_probe_100m (k UInt64) ENGINE = MergeTree ORDER BY tuple()

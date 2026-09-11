@@ -1,0 +1,1 @@
+select json.small from json_advanced_shared_data_top format Null

@@ -1,0 +1,1 @@
+INSERT INTO posts_v2 SELECT * FROM posts

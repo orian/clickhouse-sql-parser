@@ -1,0 +1,1 @@
+SELECT entropy(MobilePhoneModel) FROM hits_100m_single

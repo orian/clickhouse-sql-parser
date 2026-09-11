@@ -1,0 +1,1 @@
+SELECT sum(stringBytesUniq(s)) FROM test_string_bytes FORMAT Null

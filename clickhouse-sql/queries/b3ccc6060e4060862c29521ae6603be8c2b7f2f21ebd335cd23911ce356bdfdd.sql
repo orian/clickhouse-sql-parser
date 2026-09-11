@@ -1,0 +1,1 @@
+CREATE TABLE cdp_orders(order_id UInt64, order_complete_time DateTime, order_total_sales Float32, mid_seq UInt32) engine=MergeTree() PARTITION BY toYYYYMMDD(order_complete_time) ORDER BY (order_complete_time, order_id)

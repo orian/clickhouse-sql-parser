@@ -1,0 +1,1 @@
+INSERT INTO test_datetime SELECT toDateTime(1700000000 + number % 100) FROM numbers_mt(10000000)

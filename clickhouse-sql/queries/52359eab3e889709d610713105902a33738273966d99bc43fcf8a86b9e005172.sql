@@ -1,0 +1,1 @@
+INSERT INTO t_uniq_stats SELECT * FROM t_uniq_stats_src

@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.part_bucket WHERE l_orderkey = 12345678

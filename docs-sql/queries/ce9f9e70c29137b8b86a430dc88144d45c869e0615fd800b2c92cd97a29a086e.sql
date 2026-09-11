@@ -1,0 +1,1 @@
+bitmapBuild(array)

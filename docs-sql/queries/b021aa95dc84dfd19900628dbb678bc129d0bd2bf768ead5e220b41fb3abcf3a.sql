@@ -1,0 +1,1 @@
+clamp(value, min, max)

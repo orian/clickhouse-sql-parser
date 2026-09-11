@@ -1,0 +1,1 @@
+SELECT sum(a + b + c) FROM (SELECT arrayJoin(A) AS a, arrayJoin(B) AS b, arrayJoin(C) AS c FROM array_join_function_cross) SETTINGS query_plan_lower_array_join_function = {lower}

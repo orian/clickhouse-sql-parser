@@ -1,0 +1,1 @@
+SELECT CRC32IEEE('ClickHouse');

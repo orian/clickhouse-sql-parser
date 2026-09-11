@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT [number] a, [number * 2] b FROM numbers(10000000)) AS t ARRAY JOIN a, b WHERE NOT ignore(a + b)

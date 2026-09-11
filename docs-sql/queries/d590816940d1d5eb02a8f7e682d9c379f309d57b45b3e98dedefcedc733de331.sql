@@ -1,0 +1,1 @@
+randNormal(mean, stddev[, x])

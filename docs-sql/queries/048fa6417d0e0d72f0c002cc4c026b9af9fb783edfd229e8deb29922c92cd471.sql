@@ -1,0 +1,1 @@
+SELECT toDate(20297)

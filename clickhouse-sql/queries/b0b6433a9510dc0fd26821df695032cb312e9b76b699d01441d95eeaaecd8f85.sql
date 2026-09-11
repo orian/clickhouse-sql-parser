@@ -1,0 +1,1 @@
+ALTER TABLE {database}.del_read DELETE WHERE l_orderkey % 7 = 0

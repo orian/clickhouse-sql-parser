@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE hasToken(SearchPhrase, 'google')

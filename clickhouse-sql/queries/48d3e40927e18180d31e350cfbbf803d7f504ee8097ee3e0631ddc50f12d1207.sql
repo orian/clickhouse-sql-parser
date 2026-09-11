@@ -1,0 +1,1 @@
+INSERT INTO {database}.del_pos SELECT l_orderkey, l_quantity FROM tpch10.lineitem LIMIT 50000 SETTINGS max_threads = 1, max_insert_threads = 1

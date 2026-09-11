@@ -1,0 +1,1 @@
+removeDiacriticsUTF8(str)

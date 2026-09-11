@@ -1,0 +1,1 @@
+SELECT sum(number), avg(number), count(number) FROM numbers(1000000000) SETTINGS optimize_syntax_fuse_functions = 0 FORMAT Null

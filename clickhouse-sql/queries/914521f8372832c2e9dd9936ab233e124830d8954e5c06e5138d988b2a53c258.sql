@@ -1,0 +1,1 @@
+create table null as tmp ENGINE = Null;

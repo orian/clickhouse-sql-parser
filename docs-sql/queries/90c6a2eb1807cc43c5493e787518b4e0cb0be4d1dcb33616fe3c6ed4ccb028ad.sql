@@ -1,0 +1,1 @@
+isValidJSON(json)

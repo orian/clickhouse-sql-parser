@@ -1,0 +1,1 @@
+SELECT count() FROM fsm_nullable_left AS a JOIN fsm_nullable_right AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'full_sorting_merge', join_use_nulls = 1

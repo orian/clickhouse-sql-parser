@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS complex_key_direct_dictionary_source_table;

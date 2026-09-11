@@ -1,0 +1,1 @@
+INSERT INTO test_table_1 SELECT number, number FROM numbers(5000000)

@@ -1,0 +1,1 @@
+select sipHash64(number) from numbers(1e7) group by number format Null

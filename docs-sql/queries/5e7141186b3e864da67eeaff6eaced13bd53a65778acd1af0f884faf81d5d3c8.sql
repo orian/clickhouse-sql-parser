@@ -1,0 +1,1 @@
+accurateCastOrNull(x, T)

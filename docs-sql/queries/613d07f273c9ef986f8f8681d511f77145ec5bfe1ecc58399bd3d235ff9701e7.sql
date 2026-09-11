@@ -1,0 +1,1 @@
+CREATE RESOURCE query (QUERY)

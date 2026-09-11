@@ -1,0 +1,1 @@
+CREATE TABLE right (id UInt64, payload String) ENGINE = MergeTree ORDER BY id

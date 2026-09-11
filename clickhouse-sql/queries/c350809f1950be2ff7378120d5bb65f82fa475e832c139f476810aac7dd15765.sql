@@ -1,0 +1,1 @@
+SELECT count(*) FROM hits_100m_single WHERE SearchPhrase LIKE '%love%' OR SearchPhrase LIKE '%dead%'

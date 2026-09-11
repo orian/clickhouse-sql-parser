@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS tab_filter_{drop_pct}

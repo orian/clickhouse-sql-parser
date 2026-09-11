@@ -1,0 +1,1 @@
+exponentialTimeDecayedMax(x)(value, timeunit)

@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE SearchPhrase < '' SETTINGS max_threads = 2

@@ -1,0 +1,1 @@
+CREATE TABLE dt (x DateTime) ENGINE = MergeTree ORDER BY tuple()

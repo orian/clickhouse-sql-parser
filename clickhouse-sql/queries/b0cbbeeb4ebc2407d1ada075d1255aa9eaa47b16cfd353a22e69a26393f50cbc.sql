@@ -1,0 +1,1 @@
+SELECT sum(number) FROM numbers(2000000) SETTINGS compatibility = '21.3', max_threads = 1

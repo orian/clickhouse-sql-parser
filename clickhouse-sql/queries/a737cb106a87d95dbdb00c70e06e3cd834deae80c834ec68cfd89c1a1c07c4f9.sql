@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS nonconstant_sort_key_four

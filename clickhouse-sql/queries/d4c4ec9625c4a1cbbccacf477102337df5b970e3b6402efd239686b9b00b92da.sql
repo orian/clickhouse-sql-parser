@@ -1,0 +1,1 @@
+SELECT count() FROM iso_3166_1_alpha_2 WHERE c NOT IN ('CU', 'BN', 'VI', 'US', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ', 'BS', 'BH', 'BD', 'BB', 'BY', 'BE') FORMAT Null SETTINGS max_threads = 1

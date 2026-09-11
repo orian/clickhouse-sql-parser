@@ -1,0 +1,1 @@
+SELECT sumOrNull(number) FROM numbers(100000000)

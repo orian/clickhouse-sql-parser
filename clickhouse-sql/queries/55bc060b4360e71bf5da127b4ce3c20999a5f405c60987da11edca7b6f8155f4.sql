@@ -1,0 +1,1 @@
+select anyHeavy(UTMTerm) from hits_100m_single where UTMTerm != '' group by intHash32(UserID) % {group_scale} FORMAT Null

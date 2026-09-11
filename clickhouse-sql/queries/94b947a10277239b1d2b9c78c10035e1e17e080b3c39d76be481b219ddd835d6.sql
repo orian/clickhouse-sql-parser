@@ -1,0 +1,1 @@
+SYSTEM STOP MERGES text_index_partially_materialized

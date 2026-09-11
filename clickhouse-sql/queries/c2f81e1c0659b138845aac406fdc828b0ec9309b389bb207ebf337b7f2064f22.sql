@@ -1,0 +1,1 @@
+select * from file('test_orc_tfp.orc', 'ORC', 'tuple_column Tuple(c Nullable(Int64))') format Null

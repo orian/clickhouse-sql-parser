@@ -540,18 +540,18 @@ func (p *Parser) parseAuthenticationClause(pos Pos) (*AuthenticationClause, erro
 	auth := &AuthenticationClause{AuthPos: pos}
 
 	if p.tryConsumeKeywords(KeywordNot) {
+		auth.AuthEnd = p.End()
 		if err := p.expectKeyword(KeywordIdentified); err != nil {
 			return nil, err
 		}
 		auth.NotIdentified = true
-		auth.AuthEnd = p.last().End
 		return auth, nil
 	}
 
+	auth.AuthEnd = p.End()
 	if err := p.expectKeyword(KeywordIdentified); err != nil {
 		return nil, err
 	}
-	auth.AuthEnd = p.last().End
 
 	if p.tryConsumeKeywords(KeywordWith) {
 		if p.matchKeyword(KeywordLdap) {
@@ -566,9 +566,9 @@ func (p *Parser) parseAuthenticationClause(pos Pos) (*AuthenticationClause, erro
 			auth.LdapServer = server
 			auth.AuthEnd = server.End()
 		} else if p.matchKeyword(KeywordKerberos) {
+			auth.AuthEnd = p.End()
 			_ = p.lexer.consumeToken()
 			auth.IsKerberos = true
-			auth.AuthEnd = p.last().End
 			if p.tryConsumeKeywords(KeywordRealm) {
 				realm, err := p.parseString(p.Pos())
 				if err != nil {
@@ -580,9 +580,9 @@ func (p *Parser) parseAuthenticationClause(pos Pos) (*AuthenticationClause, erro
 		} else if p.matchTokenKind(TokenKindIdent) {
 			// Auth types like no_password, plaintext_password, etc.
 			authType := p.last().String
+			auth.AuthEnd = p.End()
 			_ = p.lexer.consumeToken()
 			auth.AuthType = authType
-			auth.AuthEnd = p.last().End
 
 			if p.tryConsumeKeywords(KeywordBy) {
 				value, err := p.parseString(p.Pos())
@@ -608,9 +608,9 @@ func (p *Parser) parseHostClause(pos Pos) (*HostClause, error) {
 	switch {
 	case p.matchOneOfKeywords(KeywordLocal, KeywordAny, KeywordNone):
 		hostType := p.last().String
+		host.HostEnd = p.End()
 		_ = p.lexer.consumeToken()
 		host.HostType = hostType
-		host.HostEnd = p.last().End
 	case p.matchOneOfKeywords(KeywordName, KeywordRegexp, KeywordIp, KeywordLike):
 		hostType := p.last().String
 		_ = p.lexer.consumeToken()
@@ -638,9 +638,10 @@ func (p *Parser) parseDefaultRoleClause(pos Pos) (*DefaultRoleClause, error) {
 
 	defaultRole := &DefaultRoleClause{DefaultPos: pos}
 
-	if p.tryConsumeKeywords(KeywordNone) {
+	if p.matchKeyword(KeywordNone) {
+		defaultRole.DefaultEnd = p.End()
+		_ = p.lexer.consumeToken()
 		defaultRole.None = true
-		defaultRole.DefaultEnd = p.last().End
 		return defaultRole, nil
 	}
 
@@ -671,12 +672,11 @@ func (p *Parser) parseGranteesClause(pos Pos) (*GranteesClause, error) {
 
 	grantees := &GranteesClause{GranteesPos: pos}
 
-	if p.tryConsumeKeywords(KeywordAny) {
-		grantees.Any = true
-		grantees.GranteesEnd = p.last().End
-	} else if p.tryConsumeKeywords(KeywordNone) {
-		grantees.None = true
-		grantees.GranteesEnd = p.last().End
+	if p.matchOneOfKeywords(KeywordAny, KeywordNone) {
+		grantees.Any = p.matchKeyword(KeywordAny)
+		grantees.None = p.matchKeyword(KeywordNone)
+		grantees.GranteesEnd = p.End()
+		_ = p.lexer.consumeToken()
 	} else {
 		// Parse list of grantees
 		granteeList := make([]*RoleName, 0)
@@ -796,9 +796,10 @@ func (p *Parser) parseDefaultClause(createUser *CreateUser) (bool, error) {
 	} else if nextToken.String == KeywordDatabase {
 		_ = p.lexer.consumeToken() // consume DEFAULT
 		_ = p.lexer.consumeToken() // consume DATABASE
-		if p.tryConsumeKeywords(KeywordNone) {
+		if p.matchKeyword(KeywordNone) {
+			createUser.StatementEnd = p.End()
+			_ = p.lexer.consumeToken()
 			createUser.DefaultDbNone = true
-			createUser.StatementEnd = p.last().End
 		} else {
 			db, err := p.parseIdent()
 			if err != nil {

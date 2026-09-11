@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(100000) WHERE NOT ignore(h3PointDistM(55.75 + rand(1) / 0x100000000, 37.62 + rand(2) / 0x100000000, 55.76 + rand(3) / 0x100000000, 37.63 + rand(4) / 0x100000000))

@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE match(URL, '^https?://(?:www\\.)?metri[kc]a\\.yandex\\.(?:ru|com|com\\.tr|ua|by|kz)/.+?2014')

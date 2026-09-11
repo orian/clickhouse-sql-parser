@@ -1,0 +1,1 @@
+ngramDistanceCaseInsensitive(haystack, needle)

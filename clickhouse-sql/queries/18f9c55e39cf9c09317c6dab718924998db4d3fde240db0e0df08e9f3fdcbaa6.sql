@@ -1,0 +1,1 @@
+SELECT json.non_existing_key FROM test_shared_data_wide FORMAT Null

@@ -1,0 +1,1 @@
+SELECT sum(number) FROM (select number from system.numbers_mt limit 1000000000)

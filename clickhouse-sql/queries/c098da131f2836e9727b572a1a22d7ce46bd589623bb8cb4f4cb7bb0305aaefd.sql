@@ -1,0 +1,1 @@
+SELECT min(length(URL)), max(length(URL)) FROM hits_10m_single GROUP BY length(URL) FORMAT Null

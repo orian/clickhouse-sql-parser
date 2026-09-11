@@ -1,0 +1,1 @@
+select substringUTF8(materialize('hello 世界'), 2, 5) from numbers(10000000)

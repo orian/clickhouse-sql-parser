@@ -1,0 +1,1 @@
+insert into t select * from numbers_mt(5e6)

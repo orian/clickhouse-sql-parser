@@ -1,0 +1,1 @@
+SELECT a, sum(b) OVER (PARTITION BY a ORDER BY b), avg(b) OVER (PARTITION BY a ORDER BY b DESC) FROM test_plain FORMAT Null

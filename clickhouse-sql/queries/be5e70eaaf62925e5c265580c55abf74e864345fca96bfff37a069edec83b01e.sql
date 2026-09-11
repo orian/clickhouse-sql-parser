@@ -1,0 +1,1 @@
+INSERT INTO test_prl SELECT number FROM numbers(100000000) SETTINGS max_insert_threads=8

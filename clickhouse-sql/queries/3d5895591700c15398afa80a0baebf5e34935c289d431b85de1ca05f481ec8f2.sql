@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(100000) WHERE (number, NULL) IN (SELECT a, CAST(NULL AS Nullable(UInt8)) FROM t_all_unique) FORMAT Null

@@ -1,0 +1,1 @@
+select count() from numbers_mt(1e8) group by number format Null

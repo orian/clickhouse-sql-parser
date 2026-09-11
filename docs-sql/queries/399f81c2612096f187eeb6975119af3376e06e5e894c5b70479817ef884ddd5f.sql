@@ -1,0 +1,1 @@
+hasColumnInTable(database, table, column)

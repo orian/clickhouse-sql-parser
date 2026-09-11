@@ -1,0 +1,1 @@
+SELECT colorSRGBToOKLAB((128, 64, 32), 2.2) AS lab;

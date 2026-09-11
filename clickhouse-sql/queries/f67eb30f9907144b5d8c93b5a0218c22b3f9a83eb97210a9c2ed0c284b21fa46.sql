@@ -1,0 +1,1 @@
+INSERT INTO tab_{type} SELECT number + 1 AS id, arrayMap(i -> id + i - 1, range({vector_size})) AS vec FROM numbers({elements})

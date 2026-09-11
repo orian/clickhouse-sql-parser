@@ -1,0 +1,5 @@
+-- パーティション名を使用
+ALTER TABLE mt DELETE IN PARTITION 2 WHERE p = 2;
+
+-- パーティションIDを使用
+ALTER TABLE mt DELETE IN PARTITION ID '2' WHERE p = 2;

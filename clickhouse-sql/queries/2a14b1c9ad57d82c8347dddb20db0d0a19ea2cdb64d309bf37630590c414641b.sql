@@ -1,0 +1,1 @@
+select sum(match(URL, 'yandex|google|http')) FROM hits_100m_single

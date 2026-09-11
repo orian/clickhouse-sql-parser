@@ -1,0 +1,1 @@
+create table t_{uniq_keys}(a UInt64) engine=MergeTree order by tuple()

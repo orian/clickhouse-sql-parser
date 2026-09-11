@@ -1,0 +1,1 @@
+INSERT INTO pfsm_payload_left SELECT number, hex(sipHash128(number)) FROM numbers_mt(5000000)

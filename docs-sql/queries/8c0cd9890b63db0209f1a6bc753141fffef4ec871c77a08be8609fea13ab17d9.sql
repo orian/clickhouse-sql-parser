@@ -1,0 +1,1 @@
+covarSampStable(x, y)

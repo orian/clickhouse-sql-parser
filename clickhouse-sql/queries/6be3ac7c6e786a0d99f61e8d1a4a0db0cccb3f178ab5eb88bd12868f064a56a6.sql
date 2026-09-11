@@ -1,0 +1,1 @@
+insert into t select number, toString(number) from numbers(2000000) settings max_threads=16, max_insert_threads=16, max_insert_block_size=100000, max_block_size=100000

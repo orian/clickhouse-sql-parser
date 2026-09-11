@@ -1,0 +1,1 @@
+SELECT max(length(Referer)) FROM hits_10m_single

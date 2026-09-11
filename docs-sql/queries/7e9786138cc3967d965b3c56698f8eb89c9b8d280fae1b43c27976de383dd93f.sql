@@ -1,0 +1,1 @@
+hasTokenCaseInsensitive(haystack, needle)

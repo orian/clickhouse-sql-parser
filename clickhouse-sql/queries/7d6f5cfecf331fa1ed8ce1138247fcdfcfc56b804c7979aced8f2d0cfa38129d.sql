@@ -1,0 +1,10 @@
+
+        WITH
+            (
+                SELECT bitmapBuild(groupArray(number))
+                FROM numbers(3000000)
+            ) AS a,
+            [a, a, a] AS b
+        SELECT sum(bitmapCardinality(b[(number % 3) + 1]))
+        FROM numbers(10000)
+    

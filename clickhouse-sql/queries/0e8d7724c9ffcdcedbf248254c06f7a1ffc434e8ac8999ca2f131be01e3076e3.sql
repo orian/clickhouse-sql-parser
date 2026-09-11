@@ -1,0 +1,1 @@
+SELECT sum(prime) FROM primes(20_000_000)

@@ -1,0 +1,1 @@
+ngramSimHashCaseInsensitive(string[, ngramsize])

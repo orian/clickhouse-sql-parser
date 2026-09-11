@@ -1,0 +1,1 @@
+SELECT sum(cosineDistance(u8, f64)) FROM array_distance_mixed_{array_size}

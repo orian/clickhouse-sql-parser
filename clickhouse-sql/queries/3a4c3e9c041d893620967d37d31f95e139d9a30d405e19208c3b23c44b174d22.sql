@@ -1,0 +1,1 @@
+DROP TABLE test_logical_functions._2_0_UInt8

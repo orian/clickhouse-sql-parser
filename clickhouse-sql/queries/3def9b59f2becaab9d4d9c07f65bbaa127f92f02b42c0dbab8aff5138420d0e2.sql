@@ -1,0 +1,1 @@
+select * from (select * from numbers_mt(1e7) group by number) group by number format Null settings max_bytes_before_external_group_by = 1, max_bytes_ratio_before_external_group_by = 0

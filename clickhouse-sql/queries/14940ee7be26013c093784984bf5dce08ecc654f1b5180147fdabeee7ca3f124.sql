@@ -1,0 +1,1 @@
+SELECT median(d128), medianExact(d128), medianExactWeighted(d128, 2) FROM (SELECT * FROM t LIMIT 1000000)

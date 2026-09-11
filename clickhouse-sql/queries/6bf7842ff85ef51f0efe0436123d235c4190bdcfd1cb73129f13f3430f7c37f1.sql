@@ -1,0 +1,1 @@
+SELECT uniq(hex(hex(number))) FROM numbers(50000000)

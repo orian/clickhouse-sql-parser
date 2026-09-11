@@ -1,0 +1,1 @@
+INSERT INTO t_json_2 SELECT toJSONString(arrayMap(x -> tuple('a' || x, x > 0 ? repeat('a', 100) : 'a'), range(1000))::Map(String, String)) FROM numbers(200000)

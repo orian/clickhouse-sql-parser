@@ -1,0 +1,1 @@
+SELECT * FROM {large_table} l JOIN small1 s1 ON l.a = s1.a JOIN small2_dup s2 ON l.b = s2.b JOIN small3_dup s3 ON l.c = s3.c FORMAT NULL SETTINGS query_plan_min_columns_for_join_lazy_indexing = {lazy_indexing}, join_algorithm = 'hash', query_plan_join_swap_table = false

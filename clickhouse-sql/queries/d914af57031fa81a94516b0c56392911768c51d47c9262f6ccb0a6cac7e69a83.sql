@@ -1,0 +1,1 @@
+CREATE TABLE cdp_tags (tag_id String, mid_seqs AggregateFunction(groupBitmap, UInt32)) engine=MergeTree() ORDER BY (tag_id) SETTINGS index_granularity=1

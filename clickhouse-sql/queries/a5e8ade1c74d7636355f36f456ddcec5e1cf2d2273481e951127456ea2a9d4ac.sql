@@ -1,0 +1,1 @@
+SELECT a FROM t_{size}_{partitions} ARRAY JOIN range(a % 4) AS e LIMIT 10 BY a FORMAT Null

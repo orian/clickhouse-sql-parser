@@ -1,0 +1,1 @@
+INSERT INTO table_src_{format} SELECT * FROM test.hits LIMIT 100000

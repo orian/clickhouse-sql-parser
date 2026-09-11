@@ -1,0 +1,1 @@
+SELECT l.a FROM keys64_probe AS l INNER JOIN keys64_build AS r ON l.a = r.a AND l.b = r.b SETTINGS join_algorithm = 'hash' FORMAT Null

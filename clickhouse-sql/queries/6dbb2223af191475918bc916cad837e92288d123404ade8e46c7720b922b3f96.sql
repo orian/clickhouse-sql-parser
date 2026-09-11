@@ -1,0 +1,1 @@
+CREATE TABLE t_skew30_dup (a UInt64) ENGINE = MergeTree ORDER BY tuple() PARTITION BY if(sipHash64(a) % 10 < 3, 0, 1 + sipHash64(a) % 15)

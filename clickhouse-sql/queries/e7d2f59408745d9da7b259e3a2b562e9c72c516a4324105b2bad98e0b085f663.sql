@@ -1,0 +1,1 @@
+select a['123'] from test_table_map_1 Format Null settings max_threads=1

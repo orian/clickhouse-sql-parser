@@ -1,0 +1,1 @@
+select a from t_lz4_uncomp format Null

@@ -1,0 +1,1 @@
+SELECT * FROM enum16_wide_sparse WHERE c LIKE '%A%' FORMAT Null SETTINGS max_threads = 1, max_block_size = 200000

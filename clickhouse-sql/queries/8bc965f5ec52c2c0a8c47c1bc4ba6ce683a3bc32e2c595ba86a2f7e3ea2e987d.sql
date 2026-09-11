@@ -1,0 +1,1 @@
+SELECT intHash32(UserID) % 100000 AS k, min(EventTime) AS m FROM hits_100m_single GROUP BY k ORDER BY m ASC LIMIT 10 FORMAT Null

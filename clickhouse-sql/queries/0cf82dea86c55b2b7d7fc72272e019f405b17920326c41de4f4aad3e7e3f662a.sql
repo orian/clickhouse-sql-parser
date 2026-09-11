@@ -1,0 +1,1 @@
+CREATE TABLE {database}.evo_drop (l_orderkey Int32, l_quantity Float64, l_comment String) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/evo_drop_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet')

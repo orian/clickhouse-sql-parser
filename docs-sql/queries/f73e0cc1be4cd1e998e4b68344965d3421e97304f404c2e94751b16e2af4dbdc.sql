@@ -1,0 +1,1 @@
+financialInternalRateOfReturn(cashflows[, guess])

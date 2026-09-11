@@ -1,0 +1,1 @@
+SELECT arraySort(arrayMap(x -> toDecimal64(toInt64(cityHash64(number, x) % 1000000000000), 4), range(32))) FROM numbers(2000000) FORMAT Null

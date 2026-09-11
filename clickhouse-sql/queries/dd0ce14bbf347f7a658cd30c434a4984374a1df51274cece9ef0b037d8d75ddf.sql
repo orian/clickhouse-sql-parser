@@ -1,0 +1,1 @@
+SELECT quantilesExact(0.1, 0.9)(d32), quantilesExactWeighted(0.1, 0.9)(d32, 2) FROM   (SELECT * FROM t LIMIT 10000000)

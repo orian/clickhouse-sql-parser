@@ -1,0 +1,1 @@
+with rand32() % 2 as x select if(x, materialize(map(1,2,3,4)), materialize(map(3,4,5,6))) from numbers(1000000) format Null

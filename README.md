@@ -215,3 +215,16 @@ Full output via `go test -bench=. -benchmem ./parser` (≈90 cases).
 ## Contact
 
 Open an issue or discussion. For the architectural divergence specifically, [`refactor-visitor.md`](./refactor-visitor.md) is the source of truth — including the rules for merging future upstream changes.
+
+### Documentation SQL coverage
+
+The separate [documentation corpus](docs-sql/README.md) contains extracted SQL
+examples from the local ClickHouse documentation, with source locations and a
+parser outcome baseline. Run `make docs-sql-test` to regenerate the detailed
+acceptance/failure report, or `make docs-sql-strict` to fail on each rejected
+example. Regenerate fixtures with `make docs-sql-extract`.
+
+The [ClickHouse source corpus](clickhouse-sql/README.md) adds upstream functional,
+integration, benchmark, and performance SQL from `../ClickHouse`. Run
+`make clickhouse-sql-test` for its separate baseline and detailed report, or
+`make clickhouse-sql-extract` to refresh the extracted examples.

@@ -1,0 +1,1 @@
+SELECT * FROM mytable LIMIT 10;

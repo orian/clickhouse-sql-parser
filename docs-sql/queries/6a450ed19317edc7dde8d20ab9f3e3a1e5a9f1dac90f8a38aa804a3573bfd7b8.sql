@@ -1,0 +1,1 @@
+    CREATE DATABASE db1 ON CLUSTER 'cluster_2S_1R';

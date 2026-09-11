@@ -1,0 +1,1 @@
+SELECT id, timeSeriesRateToGrid(0, 300000, 300, 300)(timestamp, value) FROM ts_bucketing_unsorted GROUP BY id FORMAT Null

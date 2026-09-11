@@ -1,0 +1,1 @@
+SELECT arrayReduceInRanges('count', [(1, 1000000)], range(1000000)) FROM numbers_mt(500000000) format Null

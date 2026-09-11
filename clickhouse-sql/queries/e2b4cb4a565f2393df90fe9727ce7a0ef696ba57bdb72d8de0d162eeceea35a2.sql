@@ -1,0 +1,1 @@
+SELECT ngramDistance(Title, 'baby dont hurt me') AS distance FROM hits_10m_single FORMAT Null

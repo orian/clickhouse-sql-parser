@@ -1,0 +1,1 @@
+SELECT count() FROM t_text_index_analysis WHERE hasAnyTokens(s, 'medium789 rare123456')

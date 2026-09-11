@@ -1,0 +1,1 @@
+UPDATE test_lwu_join SET uint_1p = rand() WHERE id % 100 = 0 SETTINGS max_threads=1, max_insert_block_size=3000000, min_insert_block_size_rows=3000000

@@ -1,0 +1,1 @@
+SHOW SETTINGS ILIKE '%CONNECT_timeout%'

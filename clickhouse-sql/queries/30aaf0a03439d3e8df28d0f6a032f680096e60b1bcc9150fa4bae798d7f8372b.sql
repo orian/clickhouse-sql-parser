@@ -1,0 +1,1 @@
+CREATE TABLE keys64_build (a UInt32, b UInt32) ENGINE = Memory

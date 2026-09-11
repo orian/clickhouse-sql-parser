@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(50000000) WHERE NOT ignore(toDate('2017-01-01') + number % 1000 + rand() % 10 AS t, toDayOfWeek(t))

@@ -1,0 +1,1 @@
+INSERT INTO hits_none SELECT WatchID FROM test.hits

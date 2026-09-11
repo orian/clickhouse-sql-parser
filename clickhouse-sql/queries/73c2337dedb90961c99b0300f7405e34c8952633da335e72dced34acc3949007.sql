@@ -1,0 +1,1 @@
+SELECT DISTINCT k FROM test_u64_{card} FORMAT Null

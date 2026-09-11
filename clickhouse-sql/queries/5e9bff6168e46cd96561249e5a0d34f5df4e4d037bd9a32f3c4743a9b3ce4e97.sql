@@ -1,0 +1,1 @@
+SELECT * FROM sort_mixed ORDER BY uint_col ASC, str_col DESC FORMAT Null SETTINGS max_threads = {threads}

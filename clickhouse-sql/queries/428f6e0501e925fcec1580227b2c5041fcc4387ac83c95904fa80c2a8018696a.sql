@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(100000) WHERE concat(toString(number), repeat('x', 80)) IN (SELECT a FROM t_all_unique_str) FORMAT Null

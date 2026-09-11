@@ -1,0 +1,1 @@
+SELECT * FROM bigint WHERE NOT ignore(toString(u256)) SETTINGS max_threads = 1

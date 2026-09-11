@@ -1,0 +1,1 @@
+SELECT MAX(test1.a) FROM test FULL JOIN test1 on test.b = test1.b

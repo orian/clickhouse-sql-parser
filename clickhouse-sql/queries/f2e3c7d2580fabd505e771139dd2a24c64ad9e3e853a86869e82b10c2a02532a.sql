@@ -1,0 +1,1 @@
+create table replacing_final_16p_int_keys_rnd (key1 UInt32, key2 UInt32, key3 UInt32, key4 UInt32, key5 UInt32, key6 UInt32, key7 UInt32, key8 UInt32, ver Int8, s UInt64) engine = ReplacingMergeTree(ver) order by (key1, key2, key3, key4, key5, key6, key7, key8) partition by key1 % 16 

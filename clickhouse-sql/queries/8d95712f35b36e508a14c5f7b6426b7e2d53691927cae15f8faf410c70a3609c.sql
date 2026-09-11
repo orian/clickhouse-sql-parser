@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS iceberg_manifest_entries

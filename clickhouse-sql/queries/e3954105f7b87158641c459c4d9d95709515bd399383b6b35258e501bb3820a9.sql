@@ -1,0 +1,1 @@
+INSERT INTO test_join_used_flags SELECT number AS i64, rand32() AS i32 FROM numbers_mt(1500000)

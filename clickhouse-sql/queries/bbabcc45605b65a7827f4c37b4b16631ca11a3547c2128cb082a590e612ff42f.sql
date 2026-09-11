@@ -1,0 +1,1 @@
+ALTER TABLE {database}.evo_rename RENAME COLUMN l_quantity TO qty

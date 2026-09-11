@@ -1,0 +1,1 @@
+SELECT * FROM test.hits ORDER BY EventTime LIMIT 10 FORMAT Null

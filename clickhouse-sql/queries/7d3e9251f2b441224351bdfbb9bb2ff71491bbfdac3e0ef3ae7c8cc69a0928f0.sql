@@ -1,0 +1,1 @@
+SELECT arraySort(arrayMap(x -> toDecimal128(toInt64(cityHash64(number, x)), 4), range(32))) FROM numbers(2000000) FORMAT Null

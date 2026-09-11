@@ -1,0 +1,4 @@
+SHOW TABLES FROM INFORMATION_SCHEMA;
+
+-- or:
+SHOW TABLES FROM information_schema;

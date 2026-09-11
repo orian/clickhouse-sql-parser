@@ -1,0 +1,1 @@
+INSERT INTO rand_unlimited_10m_32 SELECT rand() AS x FROM zeros(10000000)

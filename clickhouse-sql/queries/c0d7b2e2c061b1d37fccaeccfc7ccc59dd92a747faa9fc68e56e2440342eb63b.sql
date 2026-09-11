@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_distinct_json_paths_compact_map_with_buckets_shared_data

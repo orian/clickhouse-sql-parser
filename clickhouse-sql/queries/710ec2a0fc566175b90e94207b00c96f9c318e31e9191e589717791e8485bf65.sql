@@ -1,0 +1,1 @@
+CREATE TABLE {database}.nested_t (id Int64, tags Array(String), props Map(String, Int64), rec Tuple(a Int64, b String)) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/nested_t_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet')

@@ -1,0 +1,1 @@
+CREATE TABLE small_strings (s String) ENGINE = Log

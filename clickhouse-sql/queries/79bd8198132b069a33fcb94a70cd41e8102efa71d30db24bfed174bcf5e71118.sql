@@ -1,0 +1,1 @@
+select {column} from hits_100m_single format Null

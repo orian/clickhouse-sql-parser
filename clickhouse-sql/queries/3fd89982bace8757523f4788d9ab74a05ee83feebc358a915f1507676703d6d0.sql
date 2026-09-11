@@ -1,0 +1,1 @@
+SELECT DISTINCT arrayWithConstant(30, number) FROM numbers_mt(3000000) FORMAT Null

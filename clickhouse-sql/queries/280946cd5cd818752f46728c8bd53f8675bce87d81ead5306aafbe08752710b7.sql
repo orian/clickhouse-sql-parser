@@ -1,0 +1,1 @@
+select k % 10 kk, groupArraySorted({window})(v) from sorted_{millions}m group by kk format Null

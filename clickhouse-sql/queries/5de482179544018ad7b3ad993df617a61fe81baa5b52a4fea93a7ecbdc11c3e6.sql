@@ -1,0 +1,1 @@
+CREATE TABLE lck_str_probe (k LowCardinality(String), v UInt64) ENGINE = Memory

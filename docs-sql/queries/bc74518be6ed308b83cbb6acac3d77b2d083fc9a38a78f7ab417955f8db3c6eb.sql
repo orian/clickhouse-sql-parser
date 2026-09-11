@@ -1,0 +1,1 @@
+SYSTEM FLUSH OBJECT STORAGE QUEUE [db.]table_name PATH 'path'

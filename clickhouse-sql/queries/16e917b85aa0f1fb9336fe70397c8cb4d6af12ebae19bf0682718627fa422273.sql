@@ -1,0 +1,1 @@
+CREATE TABLE merge_table_streams_3 AS hits_100m_single

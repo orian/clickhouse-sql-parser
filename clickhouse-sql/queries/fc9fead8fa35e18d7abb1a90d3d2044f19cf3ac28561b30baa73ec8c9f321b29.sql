@@ -1,0 +1,1 @@
+INSERT INTO group_by_sentinel SELECT concat('key_', toString(rand64() % 1000000)), concat('v', toString(rand64() % 50000)) FROM numbers_mt(100000000)

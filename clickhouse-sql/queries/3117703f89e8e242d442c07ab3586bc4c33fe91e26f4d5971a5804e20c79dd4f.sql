@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(100000000) WHERE NOT ignore({func}(55. + toFloat64(rand(1)) / 4294967296, 37. + toFloat64(rand(2)) / 4294967296, 55. + toFloat64(rand(3)) / 4294967296, 37. + toFloat64(rand(4)) / 4294967296))

@@ -1,0 +1,1 @@
+select sum(multiSearchFirstIndex(URL, ['yandex', 'google', 'http', 'facebook', 'google'])) from hits_100m_single

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_set_index_check_in_range

@@ -1,0 +1,1 @@
+SELECT count() FROM table_{format}_with_nullable_columns WHERE length(arrayFilter(x -> x IS NULL, col_array)) > 0 FORMAT Null

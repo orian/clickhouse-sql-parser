@@ -1,0 +1,1 @@
+SELECT 'int64_json' FROM zeros(500000) WHERE NOT ignore(JSONExtract(materialize({int_json}), {low_cardinality_tuple_int64})) FORMAT Null 

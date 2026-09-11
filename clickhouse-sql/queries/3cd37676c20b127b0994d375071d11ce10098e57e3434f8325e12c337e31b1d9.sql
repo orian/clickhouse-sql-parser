@@ -1,0 +1,1 @@
+SELECT k FROM test_u64_{card} ORDER BY k LIMIT -1 BY k FORMAT Null

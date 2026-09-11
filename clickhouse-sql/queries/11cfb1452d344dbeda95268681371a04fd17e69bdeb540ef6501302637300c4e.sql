@@ -1,0 +1,1 @@
+SELECT categoricalInformationValue(Age < 15, IsMobile) from hits_100m_single

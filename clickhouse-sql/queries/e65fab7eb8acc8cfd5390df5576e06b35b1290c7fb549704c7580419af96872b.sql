@@ -1,0 +1,1 @@
+insert into group_by_fk select number, number, number % 10000, number % 2 == 0 ? number : Null, number, number, number, number % 10000, number % 2 == 0 ? number : Null from numbers_mt(1e7) settings max_insert_threads=8

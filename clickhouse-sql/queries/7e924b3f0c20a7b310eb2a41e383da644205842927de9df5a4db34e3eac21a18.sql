@@ -1,0 +1,1 @@
+CREATE TABLE t(a UInt32, b UInt32) ENGINE=MergeTree() ORDER BY a

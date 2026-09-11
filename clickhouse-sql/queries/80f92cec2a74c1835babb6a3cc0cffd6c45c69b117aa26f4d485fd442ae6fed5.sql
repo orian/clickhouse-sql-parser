@@ -1,0 +1,1 @@
+CREATE TABLE fsm_nullable_right (k Nullable(UInt64)) ENGINE = MergeTree ORDER BY tuple()

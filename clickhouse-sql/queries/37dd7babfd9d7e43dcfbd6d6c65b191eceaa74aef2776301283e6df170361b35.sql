@@ -1,0 +1,1 @@
+INSERT INTO test_shared_data_compact SELECT arrayMap(x -> tuple('key' || x, randomStringUTF8(16)), range(256))::Map(String, String) FROM numbers(150000)

@@ -1,0 +1,1 @@
+insert into replacing_final_16p_str_keys_rnd select sipHash64(number), number, number, number, number, number, number, number, 1, number from numbers_mt(8388608) 

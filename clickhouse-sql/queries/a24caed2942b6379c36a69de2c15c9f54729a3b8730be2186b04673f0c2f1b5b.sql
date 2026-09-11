@@ -1,0 +1,1 @@
+SELECT number % 10000 AS k, sum(number) AS u FROM numbers_mt(1e9) GROUP BY k ORDER BY u DESC LIMIT 10

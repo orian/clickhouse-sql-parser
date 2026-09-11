@@ -1,0 +1,1 @@
+encodeXMLComponent(s)

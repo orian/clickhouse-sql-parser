@@ -1,0 +1,1 @@
+VALUES([structure,] values...)

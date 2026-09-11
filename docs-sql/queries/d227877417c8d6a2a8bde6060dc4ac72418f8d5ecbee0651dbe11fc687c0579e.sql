@@ -1,0 +1,1 @@
+SYSTEM INSTRUMENT ADD 'QueryMetricLog::startQuery' PROFILE

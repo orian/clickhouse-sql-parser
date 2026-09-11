@@ -1,0 +1,1 @@
+select b from t_str_key_{size} group by b format Null

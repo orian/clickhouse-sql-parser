@@ -1,0 +1,1 @@
+kqlDateTimeBinAt(value, binSize, fixedPoint)

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(1000000) WHERE NOT ignore(geohashEncode(number + 91.0, number + 181.0))

@@ -1,0 +1,1 @@
+select avg(a) from remote('127.0.0.{{1,2}}', default, t_mbm) group by a format Null

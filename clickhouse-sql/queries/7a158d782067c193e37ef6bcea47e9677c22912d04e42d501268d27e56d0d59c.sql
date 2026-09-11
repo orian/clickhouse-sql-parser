@@ -1,0 +1,1 @@
+CREATE TABLE numeric_strings(num String) ENGINE Memory

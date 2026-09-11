@@ -1,0 +1,1 @@
+SYSTEM STOP MERGES test_reorder_columns_in_merge

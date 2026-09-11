@@ -1,0 +1,1 @@
+CREATE TABLE polygons(`x` Float64, `y` Float64, INDEX mm_x_y (x, y) TYPE minmax GRANULARITY 1) ENGINE = MergeTree ORDER BY x

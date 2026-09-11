@@ -1,0 +1,1 @@
+SELECT format('{1} {0} {1}', 'World', 'Hello')

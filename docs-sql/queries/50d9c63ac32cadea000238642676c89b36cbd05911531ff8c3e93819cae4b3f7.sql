@@ -1,0 +1,1 @@
+SELECT atanh(0)

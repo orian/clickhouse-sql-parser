@@ -1,0 +1,1 @@
+SELECT count() FROM tab WHERE name LIKE 'alpha-service-4%'

@@ -1,0 +1,1 @@
+SELECT 'uuid_json' FROM zeros(500000) WHERE NOT ignore(JSONExtract(materialize({uuid_json}), {low_cardinality_tuple_uuid})) FORMAT Null 

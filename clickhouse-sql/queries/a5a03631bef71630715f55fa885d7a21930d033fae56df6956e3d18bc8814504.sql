@@ -1,0 +1,1 @@
+SELECT {str1} FROM hits_10m_single ORDER BY {str1} LIMIT 9000000, 10 FORMAT Null

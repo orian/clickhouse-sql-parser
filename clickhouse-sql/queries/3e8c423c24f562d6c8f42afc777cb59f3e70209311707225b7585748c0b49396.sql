@@ -1,0 +1,1 @@
+CREATE TABLE dt64 (x DateTime64(3)) ENGINE = MergeTree ORDER BY tuple()

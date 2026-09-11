@@ -1,0 +1,1 @@
+SELECT a FROM vrow_filtered WHERE b = 1 ORDER BY a LIMIT 10 FORMAT Null

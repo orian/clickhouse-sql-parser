@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(10000000) WHERE NOT ignore(multiIf(number % 7 = 0, 1, number % 3 = 0, 2, number % 5 = 0, 3, number % 11 = 0, 4, 5))

@@ -1,0 +1,1 @@
+SELECT * FROM test_set_index WHERE SHA256(x::String) = SHA256(999999::String)

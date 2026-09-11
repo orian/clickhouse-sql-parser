@@ -1,0 +1,1 @@
+select number from numbers({size}) group by number format Null

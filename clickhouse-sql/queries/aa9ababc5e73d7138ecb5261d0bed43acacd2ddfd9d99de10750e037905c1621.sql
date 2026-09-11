@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT number FROM numbers(2500000) INTERSECT ALL SELECT number FROM numbers(2500000))

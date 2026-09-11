@@ -1,0 +1,1 @@
+CREATE TABLE rand_unlimited_10m_8 (key UInt8) Engine = Memory

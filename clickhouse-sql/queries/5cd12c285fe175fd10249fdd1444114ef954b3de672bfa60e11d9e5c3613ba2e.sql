@@ -1,0 +1,1 @@
+INSERT INTO probe SELECT number FROM numbers_mt(10000000)

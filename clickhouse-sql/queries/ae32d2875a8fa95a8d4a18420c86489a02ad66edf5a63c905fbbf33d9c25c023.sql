@@ -1,0 +1,1 @@
+SELECT if(number % 5 == 0, arraySum(bitPositionsToArray(number)), 0) from numbers(10000000) FORMAT Null

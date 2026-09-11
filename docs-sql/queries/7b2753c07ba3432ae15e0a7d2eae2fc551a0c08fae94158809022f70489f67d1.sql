@@ -1,0 +1,1 @@
+SELECT isFinite(inf)

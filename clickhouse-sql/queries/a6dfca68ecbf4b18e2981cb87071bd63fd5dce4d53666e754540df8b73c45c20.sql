@@ -1,0 +1,1 @@
+SELECT s FROM test_str ORDER BY s LIMIT -1 BY s FORMAT Null

@@ -1,0 +1,1 @@
+CREATE TABLE test_prl (n UInt64) ENGINE MergeTree ORDER BY n

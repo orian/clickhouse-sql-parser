@@ -1,0 +1,1 @@
+EXPLAIN AST ALTER TABLE t1 DELETE WHERE date = today();

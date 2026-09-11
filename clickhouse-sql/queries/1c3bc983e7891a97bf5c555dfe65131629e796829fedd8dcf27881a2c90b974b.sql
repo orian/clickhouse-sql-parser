@@ -1,0 +1,1 @@
+INSERT INTO test_in SELECT number FROM numbers(500000000)

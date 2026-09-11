@@ -1,0 +1,1 @@
+kqlBin(value, roundTo)

@@ -1,0 +1,1 @@
+CREATE TABLE left16 ( k UInt16, v UInt64 ) ENGINE = MergeTree ORDER BY tuple()

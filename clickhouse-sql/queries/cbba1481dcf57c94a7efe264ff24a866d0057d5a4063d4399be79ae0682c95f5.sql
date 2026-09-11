@@ -1,0 +1,1 @@
+SELECT uniq(negate(negate(negate(number)))) FROM numbers(50000000)

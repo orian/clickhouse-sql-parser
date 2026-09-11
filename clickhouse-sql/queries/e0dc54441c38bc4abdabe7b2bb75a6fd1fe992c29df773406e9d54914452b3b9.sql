@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_skip_index_pools FINAL

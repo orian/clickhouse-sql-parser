@@ -1,0 +1,1 @@
+SELECT arrayMap(x -> stem('ru', x), words) FROM hits_100m_words FORMAT Null

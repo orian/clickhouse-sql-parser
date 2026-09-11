@@ -1,0 +1,1 @@
+INSERT INTO dynamic_squash_performance_1 SELECT * FROM src_dynamic_squash_performance_1

@@ -1,0 +1,1 @@
+SELECT countIf(isNull(col_decimal64)) FROM table_{format}_with_nullable_columns FORMAT Null

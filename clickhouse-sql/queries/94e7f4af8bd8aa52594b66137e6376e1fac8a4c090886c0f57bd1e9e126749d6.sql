@@ -1,0 +1,1 @@
+SELECT avg(length(URL)) as x from hits_10m_single GROUP BY CounterID, EventDate, intHash32(UserID) FORMAT Null

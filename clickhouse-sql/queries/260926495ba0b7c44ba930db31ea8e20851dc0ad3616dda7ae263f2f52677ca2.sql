@@ -1,0 +1,1 @@
+select max(d64), min(d64) from t_opt_max_min

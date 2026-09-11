@@ -1,0 +1,1 @@
+mapSort([func,] map)

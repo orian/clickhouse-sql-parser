@@ -1,0 +1,1 @@
+INSERT INTO tab_{type}_wide SELECT number + 1 AS id, arrayMap(i -> id + i, range(64)) AS vec FROM numbers(375000)

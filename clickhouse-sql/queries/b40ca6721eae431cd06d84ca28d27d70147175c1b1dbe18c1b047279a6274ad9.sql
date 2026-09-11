@@ -1,0 +1,1 @@
+SELECT groupUniqArrayMerge(initializeAggregation('groupUniqArrayState', toInt8(number % 100))) FROM numbers(20000000) FORMAT Null

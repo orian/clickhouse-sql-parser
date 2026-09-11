@@ -1,0 +1,1 @@
+SELECT isNullable(lc) FROM test_lc FORMAT Null

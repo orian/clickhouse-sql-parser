@@ -1,0 +1,1 @@
+reinterpret(x, type)

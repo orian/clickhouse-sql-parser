@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE match(URL, '\\.html$') SETTINGS compile_regular_expressions = 0

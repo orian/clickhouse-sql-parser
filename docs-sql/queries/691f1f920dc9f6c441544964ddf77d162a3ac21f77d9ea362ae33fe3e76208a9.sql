@@ -1,0 +1,1 @@
+timeSeriesExtractTag(group)

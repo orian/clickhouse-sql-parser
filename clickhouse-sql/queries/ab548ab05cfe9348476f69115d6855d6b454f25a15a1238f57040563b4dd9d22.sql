@@ -1,0 +1,1 @@
+SELECT id, timeSeriesPredictLinearToGrid(0, 100000, 10, 1000, 60)(timestamp, value) FROM ts_grid_sparse GROUP BY id FORMAT Null

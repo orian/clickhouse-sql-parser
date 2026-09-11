@@ -1,0 +1,1 @@
+SELECT DISTINCT a FROM test_{partitions} ARRAY JOIN range(a % 4) AS e FORMAT Null

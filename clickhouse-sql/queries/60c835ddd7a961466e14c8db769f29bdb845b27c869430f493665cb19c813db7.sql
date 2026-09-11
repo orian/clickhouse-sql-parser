@@ -1,0 +1,1 @@
+SELECT quantilesExactHigh(0.1, 0.5, 0.9)(d32) FROM   (SELECT * FROM t LIMIT 10000000)

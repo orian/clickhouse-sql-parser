@@ -1,0 +1,2 @@
+ALTER TABLE my_table
+    MATERIALIZE TTL

@@ -1,0 +1,1 @@
+SELECT number FROM numbers_mt({numbers_threshold_value}) GROUP BY number FORMAT Null SETTINGS group_by_two_level_threshold = 1e12, group_by_two_level_threshold_bytes = 1e12

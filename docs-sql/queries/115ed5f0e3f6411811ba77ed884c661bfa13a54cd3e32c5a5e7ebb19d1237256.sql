@@ -1,0 +1,3 @@
+SELECT * FROM primes(10, 10);
+SELECT * FROM primes() LIMIT 10 OFFSET 10;
+SELECT * FROM system.primes LIMIT 10 OFFSET 10;

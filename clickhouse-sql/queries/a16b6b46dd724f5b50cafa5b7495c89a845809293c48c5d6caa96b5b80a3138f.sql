@@ -1,0 +1,1 @@
+insert into t_lz4 select number % 100 from numbers_mt(5e7) order by rand()

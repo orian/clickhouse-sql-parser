@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(20000000) WHERE NOT ignore(toDateTime64(rand(), 3))

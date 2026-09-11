@@ -1,0 +1,1 @@
+toFloat64OrNull(x)

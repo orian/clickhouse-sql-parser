@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT Referer) FROM test.hits SETTINGS max_threads = 22

@@ -1,0 +1,1 @@
+SELECT entropy(URLHash) FROM hits_10m_single

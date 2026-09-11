@@ -1,0 +1,1 @@
+ALTER TABLE nyc.trips_with_projection MATERIALIZE PROJECTION prj_tip_amount

@@ -1,0 +1,1 @@
+CREATE TABLE constant_sort_key_one (payload UInt64) ENGINE = MergeTree ORDER BY identity(1)

@@ -1,0 +1,1 @@
+SELECT errorCodeToName(252);

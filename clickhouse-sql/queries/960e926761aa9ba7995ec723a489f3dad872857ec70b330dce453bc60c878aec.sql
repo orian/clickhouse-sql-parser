@@ -1,0 +1,1 @@
+SELECT count() FROM table_{format_fast} FORMAT Null

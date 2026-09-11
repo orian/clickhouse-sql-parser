@@ -1,0 +1,1 @@
+select min((WatchID, CounterID)) from hits_100m_single FORMAT Null

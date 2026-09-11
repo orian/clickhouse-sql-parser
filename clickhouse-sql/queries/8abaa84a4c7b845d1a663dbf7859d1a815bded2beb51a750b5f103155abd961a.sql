@@ -1,0 +1,1 @@
+SELECT DISTINCT a FROM t_skew_10000000_{partitions} FORMAT Null

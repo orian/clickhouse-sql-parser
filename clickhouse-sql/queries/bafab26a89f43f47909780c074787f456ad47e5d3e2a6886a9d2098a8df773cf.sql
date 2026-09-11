@@ -1,0 +1,1 @@
+SELECT toFloat32(d32), toFloat32(d64), toFloat32(d128) FROM t FORMAT Null

@@ -1,0 +1,1 @@
+randBinomial(experiments, probability[, x])

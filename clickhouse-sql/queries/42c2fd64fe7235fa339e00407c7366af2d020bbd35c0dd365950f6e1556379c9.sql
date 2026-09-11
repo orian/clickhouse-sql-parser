@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(100000000) WHERE NOT ignore(bitXor(reinterpretAsFixedString(number), reinterpretAsFixedString(0xabcd0123cdef4567)))

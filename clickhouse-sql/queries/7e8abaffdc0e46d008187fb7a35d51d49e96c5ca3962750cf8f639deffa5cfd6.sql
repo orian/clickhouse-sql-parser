@@ -1,0 +1,1 @@
+INSERT INTO lck_str_build SELECT toString(number), number FROM numbers_mt(1000)

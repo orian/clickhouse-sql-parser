@@ -1,0 +1,1 @@
+SELECT count() FROM test_logical_functions._2_1_UInt8 WHERE NOT ignore(xor(x1,x2))

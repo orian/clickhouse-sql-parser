@@ -1,0 +1,1 @@
+INSERT INTO enum16_wide_sparse SELECT ['', 'a', 'A', 'AB', 'aBc', 'ABCD', 'xAyz', 'Foo A Bar'][(number % 8) + 1] FROM numbers(100000000)

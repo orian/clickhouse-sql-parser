@@ -1,0 +1,1 @@
+INSERT INTO keys64_probe SELECT number % 10000000 AS k, k FROM numbers_mt(50000000)

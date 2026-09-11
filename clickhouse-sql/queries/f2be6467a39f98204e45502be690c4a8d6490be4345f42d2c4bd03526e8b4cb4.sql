@@ -1,0 +1,1 @@
+SELECT sum(mortonEncode(toUInt32(number), toUInt32(number * 3))) FROM numbers(200000000)

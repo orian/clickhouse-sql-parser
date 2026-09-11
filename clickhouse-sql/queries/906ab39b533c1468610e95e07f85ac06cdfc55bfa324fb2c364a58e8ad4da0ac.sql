@@ -1,0 +1,1 @@
+SELECT SearchPhrase as col FROM hits_100m_single WHERE notEmpty(col) ORDER BY col LIMIT 10000,1

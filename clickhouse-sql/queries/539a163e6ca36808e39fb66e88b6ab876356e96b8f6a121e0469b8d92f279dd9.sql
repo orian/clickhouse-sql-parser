@@ -1,0 +1,1 @@
+SELECT sum(ifNull(col_int32, 0)), avg(ifNull(col_float64, 0)) FROM table_{format}_with_nullable_columns GROUP BY intDiv(id, 1000000) FORMAT Null

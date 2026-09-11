@@ -1,0 +1,1 @@
+SELECT 1 FROM strings WHERE short IN (SELECT long FROM strings) FORMAT Null

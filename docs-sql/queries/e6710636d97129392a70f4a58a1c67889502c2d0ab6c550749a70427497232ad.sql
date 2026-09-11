@@ -1,0 +1,1 @@
+tupleMultiplyByNumber(tuple, number)

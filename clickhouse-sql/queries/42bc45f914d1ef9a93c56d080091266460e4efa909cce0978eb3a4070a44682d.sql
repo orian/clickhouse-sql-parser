@@ -1,0 +1,1 @@
+create table t_{size}_{partitions}(a UInt64) engine=MergeTree order by a partition by sipHash64(a) % {partitions}

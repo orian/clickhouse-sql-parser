@@ -1,0 +1,1 @@
+SELECT count(c) FROM numbers_mt(100000000) AS a INNER JOIN (SELECT number, toString(number) AS c FROM numbers(2000000)) AS b ON (a.number % 10000000) = b.number settings join_algorithm='hash'

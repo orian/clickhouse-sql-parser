@@ -1,0 +1,1 @@
+CREATE TABLE action(uid UInt64, event String, time DateTime) ENGINE = MergeTree ORDER BY uid

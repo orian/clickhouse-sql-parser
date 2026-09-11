@@ -1,0 +1,1 @@
+arrayCount([func, ] arr1, ...)

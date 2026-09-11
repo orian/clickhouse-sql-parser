@@ -1,0 +1,1 @@
+SELECT sum(value) FROM timeSeriesSelector('promql_row_cost_ts', 'rowcost_metric{{dc="0"}}', 1000000, 1061440) SETTINGS max_threads = 4 FORMAT Null

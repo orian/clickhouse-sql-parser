@@ -1,0 +1,1 @@
+SELECT id FROM test_{serialization}_{ratio} ORDER BY u8, u64 DESC LIMIT 100 FORMAT Null

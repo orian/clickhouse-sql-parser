@@ -1,0 +1,1 @@
+SELECT 1 FROM strings AS l ANY LEFT JOIN strings AS r USING (long) FORMAT Null

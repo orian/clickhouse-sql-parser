@@ -1,0 +1,1 @@
+INSERT INTO t_basic_stats_src SELECT rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand() FROM numbers(1000000)

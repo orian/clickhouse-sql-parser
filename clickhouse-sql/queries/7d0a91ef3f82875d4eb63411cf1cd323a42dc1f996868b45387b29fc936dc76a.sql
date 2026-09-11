@@ -1,0 +1,1 @@
+SELECT count() FROM pmj_u64_mult2 AS a JOIN pmj_u64_mult3 AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'partial_merge'

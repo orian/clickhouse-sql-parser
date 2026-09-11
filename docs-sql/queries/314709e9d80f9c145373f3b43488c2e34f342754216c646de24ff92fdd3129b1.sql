@@ -1,0 +1,1 @@
+SELECT erfc(0);

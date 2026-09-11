@@ -1,0 +1,1 @@
+select a, d from group_by_fk group by a, d format Null

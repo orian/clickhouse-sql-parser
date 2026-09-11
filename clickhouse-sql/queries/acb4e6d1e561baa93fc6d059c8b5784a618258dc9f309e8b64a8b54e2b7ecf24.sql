@@ -1,0 +1,1 @@
+SYSTEM STOP MERGES test_{serialization}_{ratio}

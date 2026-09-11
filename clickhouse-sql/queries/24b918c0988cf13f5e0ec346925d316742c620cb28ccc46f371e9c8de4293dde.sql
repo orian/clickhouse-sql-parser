@@ -1,0 +1,1 @@
+SELECT tokens(s, 'sparseGrams(3, 8)') FROM sg_src FORMAT Null SETTINGS max_threads = 1

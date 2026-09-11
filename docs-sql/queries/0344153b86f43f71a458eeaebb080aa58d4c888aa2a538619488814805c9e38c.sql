@@ -1,0 +1,1 @@
+ALTER USER user1 DEFAULT DATABASE database1

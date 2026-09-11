@@ -1,0 +1,1 @@
+CREATE TABLE strings (short String, long String) ENGINE Memory

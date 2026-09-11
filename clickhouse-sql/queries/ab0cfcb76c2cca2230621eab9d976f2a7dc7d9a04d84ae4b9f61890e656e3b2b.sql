@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS column_map_test

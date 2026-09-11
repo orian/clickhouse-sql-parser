@@ -1,0 +1,1 @@
+INSERT INTO t_uniq_v2_uint64 SELECT * FROM t_uniq_v2_uint64_src

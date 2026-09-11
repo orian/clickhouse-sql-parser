@@ -1,0 +1,1 @@
+SELECT sum(WatchID) FROM hits_none

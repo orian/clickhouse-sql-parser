@@ -1,0 +1,1 @@
+    GRANT ALL ON *.* TO cert_user WITH GRANT OPTION;

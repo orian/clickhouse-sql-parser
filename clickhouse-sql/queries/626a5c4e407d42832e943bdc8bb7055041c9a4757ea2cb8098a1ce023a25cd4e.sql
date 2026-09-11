@@ -1,0 +1,1 @@
+SELECT p.id4, b.id1 FROM probe p LEFT JOIN build_10k b ON p.id4 = b.id1 FORMAT Null SETTINGS join_algorithm = 'hash', enable_join_fixed_hash_table_conversion = 0

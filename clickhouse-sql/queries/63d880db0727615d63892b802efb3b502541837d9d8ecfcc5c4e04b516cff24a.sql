@@ -1,0 +1,1 @@
+SELECT count(), sum(l_extendedprice) FROM {database}.sorted_li WHERE l_shipdate BETWEEN toDate('1994-06-01') AND toDate('1994-06-30')

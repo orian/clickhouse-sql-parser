@@ -1,0 +1,1 @@
+SELECT ngramDistance(Title, 'no more') AS distance FROM hits_10m_single FORMAT Null

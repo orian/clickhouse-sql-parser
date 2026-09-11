@@ -1,0 +1,1 @@
+SELECT number % 256 AS k, count(), sum(number), avg(number), min(number), max(number), uniq(number), any(number), argMin(number, number), argMax(number, number) FROM numbers_mt(16000000) GROUP BY k FORMAT Null

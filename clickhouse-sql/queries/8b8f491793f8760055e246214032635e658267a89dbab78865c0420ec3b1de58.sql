@@ -1,0 +1,1 @@
+SELECT CounterID, EventDate, RegionID, count() FROM hits_100m_single GROUP BY RegionID, EventDate, CounterID ORDER BY CounterID, EventDate LIMIT 10 FORMAT Null

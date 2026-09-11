@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT rand()           FROM zeros(1000000000)) 

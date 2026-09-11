@@ -1,0 +1,1 @@
+select has(materialize(range(10)), 5) from numbers(10000000) format Null

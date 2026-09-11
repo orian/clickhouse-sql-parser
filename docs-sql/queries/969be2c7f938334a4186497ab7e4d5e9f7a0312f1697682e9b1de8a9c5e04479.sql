@@ -1,0 +1,1 @@
+SELECT generateSerialID('id1')

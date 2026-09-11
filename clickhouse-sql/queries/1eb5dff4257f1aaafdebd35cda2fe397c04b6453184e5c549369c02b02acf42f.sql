@@ -1,0 +1,1 @@
+ALTER TABLE hits_10m_single MODIFY SETTING allow_experimental_text_index_phrase_search = 1

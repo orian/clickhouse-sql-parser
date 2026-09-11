@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE NOT ignore(sipHash64(URL)) SETTINGS max_threads = 1

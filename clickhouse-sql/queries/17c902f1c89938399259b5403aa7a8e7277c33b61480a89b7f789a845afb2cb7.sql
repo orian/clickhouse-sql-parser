@@ -1,0 +1,1 @@
+INSERT INTO {database}.manifest_grid SELECT l_orderkey, l_quantity, 199404 AS l_month FROM tpch10.lineitem LIMIT 150000, 50000 SETTINGS max_threads = 1, max_insert_threads = 1, iceberg_insert_max_rows_in_data_file = 10000

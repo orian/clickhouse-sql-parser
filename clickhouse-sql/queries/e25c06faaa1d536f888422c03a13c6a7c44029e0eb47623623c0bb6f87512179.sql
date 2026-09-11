@@ -1,0 +1,1 @@
+SELECT count() FROM test_lwu_merge WHERE NOT ignore(str_1p)

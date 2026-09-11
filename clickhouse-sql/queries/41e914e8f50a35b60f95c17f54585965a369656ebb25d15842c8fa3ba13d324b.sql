@@ -1,0 +1,1 @@
+INSERT INTO {database}.sorted_li SELECT l_orderkey, l_shipdate, l_extendedprice FROM tpch10.lineitem LIMIT 500000 SETTINGS max_threads = 1, max_insert_threads = 1, iceberg_insert_max_rows_in_data_file = 50000

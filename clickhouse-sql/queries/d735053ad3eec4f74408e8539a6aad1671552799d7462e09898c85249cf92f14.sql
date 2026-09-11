@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS join_set_maps_build

@@ -1,0 +1,1 @@
+INSERT INTO probe_used_flags SELECT number % 1111 FROM numbers(250000000)

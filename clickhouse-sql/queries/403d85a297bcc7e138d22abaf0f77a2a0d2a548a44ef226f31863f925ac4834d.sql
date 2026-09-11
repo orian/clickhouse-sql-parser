@@ -1,0 +1,1 @@
+SELECT nk FROM test_nullable ORDER BY nk LIMIT -1 BY nk FORMAT Null

@@ -1,0 +1,1 @@
+arrayWithConstant(N, x)

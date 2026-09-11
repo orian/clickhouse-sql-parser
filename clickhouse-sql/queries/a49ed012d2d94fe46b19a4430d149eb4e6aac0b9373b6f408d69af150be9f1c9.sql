@@ -1,0 +1,1 @@
+INSERT INTO lot_of_string_arrays_dst SELECT rand64() as id, columns('^col') FROM lot_of_string_arrays_src

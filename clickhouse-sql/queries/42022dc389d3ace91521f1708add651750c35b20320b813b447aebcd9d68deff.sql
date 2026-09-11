@@ -1,0 +1,1 @@
+OPTIMIZE TABLE index_test FINAL

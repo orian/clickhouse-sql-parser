@@ -1,0 +1,1 @@
+INSERT INTO replacing_expensive_key SELECT number, number, 2 FROM numbers(3000000)

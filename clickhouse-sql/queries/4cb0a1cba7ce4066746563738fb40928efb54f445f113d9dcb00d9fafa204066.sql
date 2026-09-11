@@ -1,0 +1,1 @@
+SELECT * FROM prometheusQuery('promql_tags_transform', 'foo / on(pod) bar', 100) FORMAT Null

@@ -1,0 +1,1 @@
+INSERT INTO t_half_dup SELECT number % 15000000 FROM numbers_mt(30000000)

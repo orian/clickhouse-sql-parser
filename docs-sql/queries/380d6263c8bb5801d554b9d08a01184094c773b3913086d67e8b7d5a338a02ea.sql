@@ -1,0 +1,1 @@
+SELECT kostikConsistentHash(16045690984833335023, 2);

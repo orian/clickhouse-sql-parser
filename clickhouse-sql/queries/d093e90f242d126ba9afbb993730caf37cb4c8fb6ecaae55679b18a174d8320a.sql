@@ -1,0 +1,1 @@
+SELECT intDiv(toInt256(number + 1), number + 1) FROM numbers_mt(100000000) FORMAT Null

@@ -1,0 +1,1 @@
+INSERT INTO t_opt_max_min SELECT * FROM  generateRandom('arg Int64, d32 Decimal32(2), nd32 Nullable(Decimal32(2)), d64 Decimal64(6), nd64 Nullable(Decimal64(6)), dt DateTime64(6), ndt Nullable(DateTime64(6))', 1, 10, 2) limit 10000000

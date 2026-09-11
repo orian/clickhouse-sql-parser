@@ -1,0 +1,1 @@
+SELECT * FROM (SELECT 1 AS k FROM numbers_mt(1)) t1 LEFT JOIN (SELECT 1 AS k FROM numbers_mt(10000000000) WHERE number = 1) t2 USING k

@@ -1,0 +1,1 @@
+SELECT hopStart(toDateTime('2026-01-02 03:04:05', 'UTC'), INTERVAL '1' DAY, INTERVAL '2' DAY)

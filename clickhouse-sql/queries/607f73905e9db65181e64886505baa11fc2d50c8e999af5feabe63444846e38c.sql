@@ -1,0 +1,1 @@
+select sum(length(URL)) from hits_10m_single settings max_threads=2, max_streams_for_merge_tree_reading=32, allow_asynchronous_read_from_io_pool_for_merge_tree=1

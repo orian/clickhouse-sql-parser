@@ -1,0 +1,1 @@
+SELECT stochasticLinearRegression(Age, Income, ParamPrice, Robotness, RefererHash) FROM test.hits FORMAT Null

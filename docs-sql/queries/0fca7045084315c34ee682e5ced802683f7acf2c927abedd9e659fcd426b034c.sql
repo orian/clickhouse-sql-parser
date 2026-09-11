@@ -1,0 +1,1 @@
+bitmapMin(bitmap)

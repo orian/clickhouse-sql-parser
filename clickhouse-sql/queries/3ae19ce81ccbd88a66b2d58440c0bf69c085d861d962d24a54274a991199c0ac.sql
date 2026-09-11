@@ -1,0 +1,1 @@
+SELECT sum(cosineDistance(a, b))    FROM adss_f32_{dim}

@@ -1,0 +1,1 @@
+SELECT URL, min(Title) FROM hits_100m_single GROUP BY URL FORMAT Null

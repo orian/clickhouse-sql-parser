@@ -1,0 +1,3 @@
+SELECT avg(Duration)
+FROM visits
+SAMPLE 10000000

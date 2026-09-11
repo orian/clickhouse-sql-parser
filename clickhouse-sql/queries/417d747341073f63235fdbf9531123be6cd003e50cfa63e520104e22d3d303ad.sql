@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT materialize(toUInt64(1)) AS x1, materialize(0.1) AS x2 FROM zeros(100000000)) WHERE NOT ignore(or(x1,x2))

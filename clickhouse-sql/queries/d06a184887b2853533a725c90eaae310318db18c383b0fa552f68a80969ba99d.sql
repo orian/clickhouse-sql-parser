@@ -1,0 +1,1 @@
+select sum(x), sum(y) from (select sipHash64(number) as x, bitAnd(number, 1023) as y from numbers_mt(200000000) limit 200000000) where y = 0

@@ -1,0 +1,1 @@
+h3GetPentagonIndexes(resolution)

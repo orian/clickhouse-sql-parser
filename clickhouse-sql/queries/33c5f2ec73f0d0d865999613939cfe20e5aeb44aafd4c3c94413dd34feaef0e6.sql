@@ -1,0 +1,1 @@
+INSERT INTO t_json_1 SELECT materialize({json1}) FROM numbers(200000)

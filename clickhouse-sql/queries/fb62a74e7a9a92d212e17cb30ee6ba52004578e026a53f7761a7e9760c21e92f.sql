@@ -1,0 +1,1 @@
+INSERT INTO build_wide SELECT number, number, number, number, number, number, number, number FROM numbers(2000000)

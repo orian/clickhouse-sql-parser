@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(extract(URL, '\\.html$')) SETTINGS max_threads = 1

@@ -1,0 +1,1 @@
+SELECT count() FROM perf_lc_fixed_str_groupby GROUP BY a FORMAT Null

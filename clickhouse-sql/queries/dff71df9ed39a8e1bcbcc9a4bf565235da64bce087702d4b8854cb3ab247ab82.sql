@@ -1,0 +1,1 @@
+SELECT CounterID, max(EventTime) AS m FROM hits_100m_single GROUP BY CounterID ORDER BY m DESC LIMIT 100 FORMAT Null

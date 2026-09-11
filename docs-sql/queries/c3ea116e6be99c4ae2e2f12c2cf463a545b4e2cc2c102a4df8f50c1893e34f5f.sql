@@ -1,0 +1,2 @@
+    CREATE SCHEMA ch;
+    ALTER EXTENSION pg_clickhouse SET SCHEMA ch;

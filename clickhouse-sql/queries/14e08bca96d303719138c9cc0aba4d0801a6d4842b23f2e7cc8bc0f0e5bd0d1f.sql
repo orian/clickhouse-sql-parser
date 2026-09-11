@@ -1,0 +1,1 @@
+SELECT sum(length(toString(u))) FROM div256

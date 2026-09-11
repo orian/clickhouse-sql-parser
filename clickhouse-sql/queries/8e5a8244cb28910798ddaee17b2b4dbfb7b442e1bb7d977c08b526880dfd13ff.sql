@@ -1,0 +1,1 @@
+INSERT INTO pmj_u64_mult3 SELECT number * 3 FROM numbers_mt(5000000)

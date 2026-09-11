@@ -1,0 +1,1 @@
+SELECT * FROM {database}.lineitem LIMIT 1000

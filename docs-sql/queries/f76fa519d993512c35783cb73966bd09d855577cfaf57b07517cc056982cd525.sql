@@ -1,0 +1,2 @@
+CREATE FUNCTION linear_equation AS (x, k, b) -> k*x + b;
+DROP FUNCTION linear_equation;
