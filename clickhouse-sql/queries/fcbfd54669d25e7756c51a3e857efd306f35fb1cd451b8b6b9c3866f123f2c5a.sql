@@ -1,0 +1,1 @@
+SELECT max(length(Params)) FROM hits_100m_single

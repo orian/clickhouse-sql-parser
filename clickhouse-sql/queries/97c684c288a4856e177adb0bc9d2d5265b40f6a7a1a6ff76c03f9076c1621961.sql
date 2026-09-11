@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_basic_stats_src

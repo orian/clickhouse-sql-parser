@@ -1,0 +1,1 @@
+dateTrunc(unit, datetime[, timezone])

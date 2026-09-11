@@ -1,0 +1,1 @@
+INSERT INTO test_set_index_check_in_range SELECT number DIV 8, number % 8 FROM numbers(30000000) SETTINGS max_insert_threads = 4

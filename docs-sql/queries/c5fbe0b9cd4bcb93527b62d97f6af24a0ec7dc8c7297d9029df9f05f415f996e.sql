@@ -1,0 +1,1 @@
+subtractMicroseconds(datetime, num)

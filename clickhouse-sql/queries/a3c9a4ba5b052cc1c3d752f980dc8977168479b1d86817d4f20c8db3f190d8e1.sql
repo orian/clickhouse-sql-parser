@@ -1,0 +1,1 @@
+select * from file('test_orc_tfp.orc', 'ORC', 'array_tuple_column Nested(c Nullable(Int64))') format Null

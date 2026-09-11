@@ -1,0 +1,1 @@
+INSERT INTO hits_compact(UserID) SELECT rand() FROM numbers(10000)

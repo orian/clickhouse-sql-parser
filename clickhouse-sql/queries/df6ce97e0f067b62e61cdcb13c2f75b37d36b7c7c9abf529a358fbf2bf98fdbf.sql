@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_text_index_merge_vocabulary_intersecting_{codec} DRY RUN PARTS 'all_1_1_0', 'all_2_2_0', 'all_3_3_0', 'all_4_4_0', 'all_5_5_0', 'all_6_6_0'

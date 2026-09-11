@@ -1,0 +1,1 @@
+select arrayExists(x -> x = 5, materialize(range(10))) from numbers(10000000) format Null

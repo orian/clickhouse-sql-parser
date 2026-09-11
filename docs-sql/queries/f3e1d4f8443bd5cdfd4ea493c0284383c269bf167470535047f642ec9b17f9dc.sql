@@ -1,0 +1,1 @@
+SELECT * FROM dt WHERE timestamp = '2019-01-01 00:00:00'

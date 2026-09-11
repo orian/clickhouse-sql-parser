@@ -1,0 +1,1 @@
+SELECT number % 10000000 AS k FROM numbers_mt(80000000) GROUP BY k FORMAT Null

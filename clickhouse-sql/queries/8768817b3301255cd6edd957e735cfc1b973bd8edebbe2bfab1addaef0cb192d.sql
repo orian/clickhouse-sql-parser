@@ -1,0 +1,1 @@
+SELECT groupBitOrIf(number::UInt128, rand32() % 2 = 0) FROM numbers(50000000)

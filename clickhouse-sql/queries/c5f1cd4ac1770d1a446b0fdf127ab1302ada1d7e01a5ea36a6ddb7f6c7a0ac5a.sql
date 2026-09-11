@@ -1,0 +1,1 @@
+INSERT INTO sequential_{integer_type} SELECT number, number FROM numbers(500000000)

@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(bitAnd(toFixedString(ClientIP6, 16), IPv6StringToNum('ffff:ffff:ffff:0000:0000:0000:0000:0000')))

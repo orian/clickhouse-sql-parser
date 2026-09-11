@@ -1,0 +1,1 @@
+SELECT DISTINCT toFixedString(leftPad(toString(number), 128, '0'), 128) FROM numbers_mt(8000000) FORMAT Null

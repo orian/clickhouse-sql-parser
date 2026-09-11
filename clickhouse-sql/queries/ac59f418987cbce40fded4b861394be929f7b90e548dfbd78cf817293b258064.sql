@@ -1,0 +1,1 @@
+select any(FlashMinor2) from hits_100m_single where FlashMinor2 != '' group by intHash32(UserID) % {group_scale} FORMAT Null

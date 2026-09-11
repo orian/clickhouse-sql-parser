@@ -1,0 +1,9 @@
+CREATE DICTIONARY users_dict
+(
+    `Id` UInt64,
+    `Location` String
+)
+PRIMARY KEY Id
+SOURCE(CLICKHOUSE(QUERY 'SELECT Id, Location FROM users WHERE Id >= 0'))
+LIFETIME(MIN 600 MAX 900)
+LAYOUT(HASHED())

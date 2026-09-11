@@ -1,0 +1,1 @@
+mapContainsKeyLike(map, pattern)

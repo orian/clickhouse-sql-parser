@@ -1,0 +1,1 @@
+SELECT {str1} FROM hits_10m_single ORDER BY {str1}, CounterID LIMIT 65535 format Null

@@ -1,0 +1,1 @@
+WITH arrayMap(i -> toFloat32(i + 1), range(16)) AS a SELECT sum(cosineDistance(a, w_f32_16)) FROM array_distance_const_exact_chunks

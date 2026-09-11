@@ -1,0 +1,1 @@
+select count() from ttt left join (select number from numbers(10)) r on x = number settings min_joined_block_size_bytes=0;

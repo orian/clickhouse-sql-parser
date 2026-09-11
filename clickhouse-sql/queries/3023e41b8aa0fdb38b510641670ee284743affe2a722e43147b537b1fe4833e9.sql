@@ -1,0 +1,1 @@
+SELECT groupBitOrIf(x, rand32() % 2 = 0) FROM nullint64

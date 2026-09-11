@@ -1,0 +1,1 @@
+CREATE TABLE hits_none (WatchID UInt64 CODEC(NONE)) ENGINE = MergeTree ORDER BY tuple()

@@ -1,0 +1,1 @@
+insert into ips_v6 select * from ips_v6

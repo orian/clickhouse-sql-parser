@@ -1,0 +1,1 @@
+CREATE TABLE right ( k UInt64, c1 UInt64, c2 String, c3 Float64 ) ENGINE = MergeTree ORDER BY tuple()

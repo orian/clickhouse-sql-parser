@@ -1,0 +1,1 @@
+SELECT v1 FROM agg_deserialize FORMAT Null

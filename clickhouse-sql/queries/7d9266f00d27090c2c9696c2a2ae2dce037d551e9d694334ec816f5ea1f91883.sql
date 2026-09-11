@@ -1,0 +1,1 @@
+INSERT INTO variant_squash_performance SELECT * FROM src_variant_squash_performance

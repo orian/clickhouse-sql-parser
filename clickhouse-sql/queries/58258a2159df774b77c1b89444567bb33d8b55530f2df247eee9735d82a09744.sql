@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_uniq_stats

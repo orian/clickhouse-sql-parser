@@ -1,0 +1,1 @@
+CREATE TABLE keys (key UInt64) ENGINE = MergeTree ORDER BY key;

@@ -1,0 +1,1 @@
+SELECT isValidASCII(long_ascii) FROM tab FORMAT Null

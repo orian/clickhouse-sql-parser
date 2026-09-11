@@ -1,0 +1,1 @@
+select * from t as t0 inner join t as t1 using(a) where t1.a = 100

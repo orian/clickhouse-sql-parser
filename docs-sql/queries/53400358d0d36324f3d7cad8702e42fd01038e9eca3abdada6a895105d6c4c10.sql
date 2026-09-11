@@ -1,0 +1,1 @@
+bitAnd(a, b)

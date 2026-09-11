@@ -1,0 +1,1 @@
+kostikConsistentHash(input, n)

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(5000000) WHERE NOT ignore(toString(toUInt128(number) + toUInt128('18446744073709551616'))) SETTINGS max_threads = 1

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_group_by_strings

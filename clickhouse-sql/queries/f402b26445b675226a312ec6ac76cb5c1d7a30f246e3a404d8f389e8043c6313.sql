@@ -1,0 +1,1 @@
+select count() from numbers(10000000) where number != 96594 AND number != 18511 AND number != 98085 AND number != 84177 AND number != 70314 AND number != 28083 AND number != 54202 AND number != 66522 AND number != 66939 AND number != 99469

@@ -1,0 +1,1 @@
+CREATE TABLE test (uint32 UInt32, n_uint32 Nullable(UInt32), lc LowCardinality(String)) ENGINE=File(Arrow) SETTINGS output_format_arrow_low_cardinality_as_dictionary=1

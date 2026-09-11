@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS sg_bloom_3_100

@@ -1,0 +1,1 @@
+SELECT * FROM map_100_keys WHERE m['key1'] = 1 FORMAT Null

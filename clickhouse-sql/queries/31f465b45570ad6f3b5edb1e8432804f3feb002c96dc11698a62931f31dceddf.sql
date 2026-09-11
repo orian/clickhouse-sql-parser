@@ -1,0 +1,1 @@
+SELECT entropy(ClientIP) FROM hits_10m_single

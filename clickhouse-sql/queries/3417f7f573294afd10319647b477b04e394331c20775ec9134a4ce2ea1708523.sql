@@ -1,0 +1,1 @@
+select sum(match(URL, 'yandex')), sum(match(URL, 'google')), sum(match(URL, 'facebook')), sum(match(URL, 'wikipedia')), sum(match(URL, 'reddit')) FROM hits_100m_single

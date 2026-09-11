@@ -1,0 +1,1 @@
+SELECT varPop(d32), varSamp(d32), stddevPop(d32) FROM t

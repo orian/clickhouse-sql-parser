@@ -1,0 +1,1 @@
+INSERT INTO large_str SELECT number % 10000, number % 12500, number % 11000, toString(number), toString(number * 2), toString(number * 3), toString(number * 4), toString(number * 5) FROM numbers(100000000) ORDER BY rand()

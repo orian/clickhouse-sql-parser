@@ -1,0 +1,1 @@
+SELECT sum(l_extendedprice), count() FROM {database}.lineitem WHERE l_quantity < 2 SETTINGS optimize_move_to_prewhere = 1

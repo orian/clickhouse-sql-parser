@@ -1,0 +1,1 @@
+SELECT sum(cityHash64(payload)) FROM array_join_filter_fusion ARRAY JOIN arr AS elem WHERE elem = concat('e', toString(id % 40)) SETTINGS enable_lazy_columns_replication = 0

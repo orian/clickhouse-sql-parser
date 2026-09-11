@@ -1,0 +1,1 @@
+SELECT countIf(AdvEngineID != 0) FROM hits_sparse;

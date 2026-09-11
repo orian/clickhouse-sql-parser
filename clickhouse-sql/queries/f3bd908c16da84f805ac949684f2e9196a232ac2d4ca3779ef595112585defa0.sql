@@ -1,0 +1,1 @@
+SELECT sum(x::Nullable(Float64)) FROM nullfloat32

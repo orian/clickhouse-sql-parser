@@ -1,0 +1,1 @@
+SELECT toInt128OrZero('123')

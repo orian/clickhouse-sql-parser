@@ -1,0 +1,1 @@
+SELECT URL, count() AS c FROM hits_10m_single GROUP BY URL ORDER BY c DESC LIMIT 10 SETTINGS query_plan_enable_optimizations = 1, query_plan_aggregation_bucket_top_k = 1, group_by_two_level_threshold = 100000, group_by_two_level_threshold_bytes = 50000000, automatic_parallel_replicas_mode = 0 FORMAT Null

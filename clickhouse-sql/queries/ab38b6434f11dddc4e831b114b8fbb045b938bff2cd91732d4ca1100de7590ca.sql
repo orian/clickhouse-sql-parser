@@ -1,0 +1,1 @@
+drop table t_str_key_{size}

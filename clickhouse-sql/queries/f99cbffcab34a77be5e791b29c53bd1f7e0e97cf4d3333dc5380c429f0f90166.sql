@@ -1,0 +1,1 @@
+SELECT groupUniqArray(number % 4096) FROM numbers(30000000) FORMAT Null

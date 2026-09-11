@@ -1,0 +1,1 @@
+SELECT DISTINCT a FROM t_distinct_abandon_int FORMAT Null

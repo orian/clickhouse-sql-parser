@@ -1,0 +1,1 @@
+UPDATE test_lwu_join_2 SET str_1p = randomPrintableASCII(8) WHERE id % 100 = 0

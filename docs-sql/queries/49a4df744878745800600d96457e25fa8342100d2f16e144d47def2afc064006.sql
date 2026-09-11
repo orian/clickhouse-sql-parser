@@ -1,0 +1,2 @@
+groupBitmapXor(expr)
+groupBitmapXorState(expr)

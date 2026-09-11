@@ -1,0 +1,1 @@
+INSERT INTO action SELECT arrayJoin(groupArray(number)), 'c', now() + INTERVAL 12 hour from numbers(1000000)

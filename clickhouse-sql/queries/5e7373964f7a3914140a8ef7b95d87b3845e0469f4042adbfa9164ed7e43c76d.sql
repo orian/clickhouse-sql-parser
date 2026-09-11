@@ -1,0 +1,1 @@
+WITH (SELECT v FROM vecs_{element_type} limit 1) AS a SELECT sum(dist) FROM (SELECT {norm}Distance(a, v) AS dist FROM vecs_{element_type})

@@ -1,0 +1,1 @@
+SELECT SearchPhrase FROM hits_100m_single PREWHERE SearchPhrase != '' FORMAT Null

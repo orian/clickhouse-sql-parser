@@ -1,0 +1,1 @@
+INSERT INTO join_set_maps_build SELECT number, number + 100000000, number FROM numbers_mt(5000000)

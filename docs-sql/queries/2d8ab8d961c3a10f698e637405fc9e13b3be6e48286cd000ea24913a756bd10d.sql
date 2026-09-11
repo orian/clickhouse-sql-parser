@@ -1,0 +1,1 @@
+formatRowNoNewline(format, x, y, ...)

@@ -1,0 +1,1 @@
+select argMin((Title, RegionID), EventTime) from hits_100m_single where Title != '' group by intHash32(UserID) % {group_scale} FORMAT Null

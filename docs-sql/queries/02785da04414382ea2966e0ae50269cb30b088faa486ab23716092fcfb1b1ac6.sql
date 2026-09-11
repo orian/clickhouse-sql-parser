@@ -1,0 +1,1 @@
+SELECT trimLeft('ClickHouse', 'Click');

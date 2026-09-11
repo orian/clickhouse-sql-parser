@@ -1,0 +1,1 @@
+toStartOfNanosecond(datetime[, timezone])

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS fsm_nullable_left

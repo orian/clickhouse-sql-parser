@@ -1,0 +1,1 @@
+SELECT a FROM t_{size}_{partitions} LIMIT 10 BY a FORMAT Null

@@ -1,0 +1,1 @@
+SELECT number FROM numbers_mt(100000000) GROUP BY number LIMIT 5 FORMAT Null SETTINGS optimize_trivial_group_by_limit_query = 0

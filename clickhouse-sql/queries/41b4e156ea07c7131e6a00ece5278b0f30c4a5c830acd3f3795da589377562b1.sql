@@ -1,0 +1,1 @@
+INSERT INTO test_unsorted_{partitions} SELECT number % 100000, number FROM numbers_mt(30000000)

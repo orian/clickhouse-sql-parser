@@ -1,0 +1,1 @@
+SELECT count() FROM test_lwu_join WHERE NOT ignore(uint_1p)

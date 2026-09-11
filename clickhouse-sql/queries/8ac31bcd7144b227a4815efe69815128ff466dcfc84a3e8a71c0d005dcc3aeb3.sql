@@ -1,0 +1,1 @@
+INSERT INTO t_all_unique_str SELECT concat(toString(number), repeat('x', 80)) FROM numbers_mt(10000000)

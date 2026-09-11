@@ -1,0 +1,1 @@
+OPTIMIZE TABLE fsm_u64_mult3 FINAL

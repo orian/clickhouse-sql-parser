@@ -1,0 +1,1 @@
+SELECT sum(mortonEncode(number, bitShiftRight(number, 1), bitShiftRight(number, 2), bitShiftRight(number, 3), bitShiftRight(number, 4))) FROM numbers(120000000)

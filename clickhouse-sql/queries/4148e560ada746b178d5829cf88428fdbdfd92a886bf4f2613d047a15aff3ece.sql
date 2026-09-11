@@ -1,0 +1,1 @@
+select substringIndexUTF8(materialize('www.clickhouse.com'), '.', 2) from numbers(10000000)

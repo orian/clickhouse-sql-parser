@@ -1,0 +1,1 @@
+SELECT locate('A', c) FROM iso_3166_1_alpha_2 FORMAT Null SETTINGS max_threads = 1

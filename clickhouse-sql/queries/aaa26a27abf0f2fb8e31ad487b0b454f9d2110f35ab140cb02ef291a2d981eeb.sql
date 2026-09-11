@@ -1,0 +1,1 @@
+SELECT isValidUTF8(repeat(toString(number), 100)) or isValidUTF8(repeat(toString(number + 10), 100)) or isValidUTF8(repeat(toString(number + 20), 100))  FROM numbers(1000000) FORMAT Null

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(1000000000) WHERE materialize(now()) > toString(toDateTime('2020-09-30 00:00:00'))

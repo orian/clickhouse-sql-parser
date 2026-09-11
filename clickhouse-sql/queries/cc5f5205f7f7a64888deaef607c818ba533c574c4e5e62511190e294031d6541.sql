@@ -1,0 +1,1 @@
+SELECT length(s) FROM volume_reducing_functions WHERE s < 'M' ORDER BY key FORMAT Null

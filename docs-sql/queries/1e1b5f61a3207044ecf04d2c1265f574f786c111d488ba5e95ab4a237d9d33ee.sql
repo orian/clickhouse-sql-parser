@@ -1,0 +1,1 @@
+wordShingleMinHashArgCaseInsensitive(string[, shinglesize, hashnum])

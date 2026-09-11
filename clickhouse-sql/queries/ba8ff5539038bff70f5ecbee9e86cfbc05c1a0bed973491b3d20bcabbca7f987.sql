@@ -1,0 +1,1 @@
+OPTIMIZE TABLE mt_{parts}_parts_{uniqs}_uniqs FINAL

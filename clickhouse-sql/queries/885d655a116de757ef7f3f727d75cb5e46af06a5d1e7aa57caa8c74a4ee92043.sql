@@ -1,0 +1,1 @@
+CREATE TABLE mt_{parts}_parts_{uniqs}_uniqs(id UInt32, val1 UInt32, val2 UInt32) ENGINE = MergeTree ORDER BY val1 PARTITION BY id % {parts} SETTINGS parts_to_throw_insert=10000, parts_to_delay_insert=10000

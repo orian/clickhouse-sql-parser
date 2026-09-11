@@ -1,0 +1,1 @@
+INSERT INTO FUNCTION file(test_line_as_string.tsv) SELECT randomString(1000) FROM numbers(1000000) SETTINGS engine_file_truncate_on_insert=1

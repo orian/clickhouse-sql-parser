@@ -1,0 +1,1 @@
+CREATE USER my_user IDENTIFIED WITH HTTP SERVER 'basic_server'

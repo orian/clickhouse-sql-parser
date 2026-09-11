@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_opt_max_min 

@@ -1,0 +1,1 @@
+SELECT count(), sum(qty) FROM {database}.evo_rename

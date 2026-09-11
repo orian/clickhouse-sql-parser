@@ -1,0 +1,1 @@
+INSERT INTO delta_decode_seq_{type} (n) SELECT to{type}(number) FROM system.numbers LIMIT 50000000 SETTINGS max_threads=1

@@ -1,0 +1,1 @@
+SELECT groupBitXor(number) FROM numbers(100000000)

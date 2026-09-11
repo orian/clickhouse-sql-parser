@@ -1,0 +1,1 @@
+SELECT {func} FROM whitespaces FORMAT Null

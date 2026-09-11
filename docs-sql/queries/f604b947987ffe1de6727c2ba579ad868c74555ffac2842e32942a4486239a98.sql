@@ -1,0 +1,2 @@
+SELECT topK(3)(AirlineID) AS res
+FROM VALUES('AirlineID UInt32', (19393), (19393), (19393), (19393), (19790), (19790), (19790), (19805), (19805), (20304));

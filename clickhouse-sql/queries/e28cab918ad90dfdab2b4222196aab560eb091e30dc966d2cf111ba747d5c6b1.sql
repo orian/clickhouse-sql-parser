@@ -1,0 +1,1 @@
+select os, count() from a group by os

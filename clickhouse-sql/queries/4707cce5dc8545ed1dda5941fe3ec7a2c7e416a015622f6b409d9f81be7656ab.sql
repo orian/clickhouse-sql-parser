@@ -1,0 +1,1 @@
+SELECT count() FROM test_{serialization}_{ratio} WHERE u64 > 0

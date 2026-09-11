@@ -1,0 +1,1 @@
+ATTACH DICTIONARY [IF NOT EXISTS] [db.]name [ON CLUSTER cluster]

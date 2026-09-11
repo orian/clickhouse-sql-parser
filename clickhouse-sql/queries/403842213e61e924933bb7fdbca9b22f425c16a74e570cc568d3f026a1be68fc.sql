@@ -1,0 +1,1 @@
+INSERT INTO empty_strings SELECT '' FROM zeros(100000000);

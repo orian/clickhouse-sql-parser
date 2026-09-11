@@ -1,0 +1,1 @@
+SELECT sum(modulo(small_u, 997)) FROM div128

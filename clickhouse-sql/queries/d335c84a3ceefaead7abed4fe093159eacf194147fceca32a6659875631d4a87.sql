@@ -1,0 +1,1 @@
+select sum((UserID + 1, RegionID) in (select UserID, RegionID from hits_10m_single)) from hits_10m_single

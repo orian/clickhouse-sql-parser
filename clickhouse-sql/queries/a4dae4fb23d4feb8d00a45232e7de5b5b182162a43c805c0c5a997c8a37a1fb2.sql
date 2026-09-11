@@ -1,0 +1,1 @@
+OPTIMIZE TABLE tuple_wide FINAL

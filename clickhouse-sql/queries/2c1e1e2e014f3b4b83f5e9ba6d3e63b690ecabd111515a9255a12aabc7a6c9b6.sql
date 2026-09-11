@@ -1,0 +1,1 @@
+INSERT INTO hits_100m_words SELECT splitByNonAlpha(SearchPhrase) AS words, UserID FROM hits_100m_single WHERE length(words) > 0

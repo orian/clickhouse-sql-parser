@@ -1,0 +1,1 @@
+SELECT PageCharset as col FROM hits_100m_single ORDER BY col LIMIT 10000,1

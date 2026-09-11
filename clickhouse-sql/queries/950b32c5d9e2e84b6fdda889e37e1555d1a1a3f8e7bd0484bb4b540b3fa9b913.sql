@@ -1,0 +1,1 @@
+INSERT INTO test_u64_right_{card} SELECT number FROM numbers({card})

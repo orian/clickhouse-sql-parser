@@ -1,0 +1,1 @@
+SELECT analysisOfVarianceMerge(state) FROM aov_states GROUP BY key FORMAT Null

@@ -1,0 +1,1 @@
+INSERT INTO test_logical_functions._4_1_Mixed SELECT materialize(1), materialize(1), materialize(1), materialize(1) FROM zeros(150000000)

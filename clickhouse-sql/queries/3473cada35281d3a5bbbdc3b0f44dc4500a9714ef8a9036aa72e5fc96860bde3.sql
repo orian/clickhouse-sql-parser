@@ -1,0 +1,1 @@
+SELECT count(DISTINCT col_low_cardinality) FROM table_{format}_with_nullable_columns FORMAT Null

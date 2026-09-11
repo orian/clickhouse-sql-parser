@@ -1,0 +1,1 @@
+INSERT INTO complex_key_dictionary_source_table SELECT number, toString(number), number FROM numbers(2_000_000)

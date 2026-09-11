@@ -1,0 +1,1 @@
+select any(Params) from hits_100m_single where Params != '' group by intHash32(UserID) % {group_scale} FORMAT Null

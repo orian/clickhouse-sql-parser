@@ -1,0 +1,1 @@
+select key_string3,key_int64_1,key_int64_2, min(m1) from t_nullable group by key_string3,key_int64_1,key_int64_2

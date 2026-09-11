@@ -1,0 +1,1 @@
+SELECT number, count() FROM numbers_mt(30000000) GROUP BY number FORMAT Null;

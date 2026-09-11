@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS text_index_build_src_50

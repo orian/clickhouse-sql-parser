@@ -1,0 +1,1 @@
+SELECT count(k) FROM (SELECT toNullable(k) as k FROM data, numbers(20) _a)

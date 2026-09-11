@@ -1,0 +1,1 @@
+SELECT number % 10000000 AS k FROM numbers(   10000000) GROUP BY k FORMAT Null

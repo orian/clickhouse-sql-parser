@@ -1,0 +1,1 @@
+CREATE TABLE text_index_partially_materialized (text String) ENGINE = MergeTree ORDER BY tuple()

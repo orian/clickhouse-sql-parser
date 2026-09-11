@@ -1,0 +1,1 @@
+SELECT uniqExact(a) FROM remote('127.0.0.{{1,2}}', default, t_{uniq_keys}) group by b

@@ -1,0 +1,1 @@
+drop table if exists views_max_insert_threads_null

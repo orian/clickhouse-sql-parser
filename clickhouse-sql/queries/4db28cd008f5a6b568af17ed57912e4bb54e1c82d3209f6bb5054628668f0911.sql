@@ -1,0 +1,1 @@
+ALTER TABLE hits_10m_single ADD INDEX idx_sp(SearchPhrase) TYPE text(tokenizer = 'splitByNonAlpha')

@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(2000000) WHERE NOT ignore(toString(reinterpret(reinterpretAsUInt128(randomString(16)), 'Decimal128(38)'))) SETTINGS max_threads = 1

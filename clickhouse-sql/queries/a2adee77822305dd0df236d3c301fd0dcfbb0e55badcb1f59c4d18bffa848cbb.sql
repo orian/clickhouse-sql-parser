@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_nullable_order_by

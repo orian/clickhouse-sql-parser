@@ -1,0 +1,1 @@
+select * from file('test_some_expr_matches.values', Values, 'i Int64, ari Array(Int64), ars Array(String)') format Null

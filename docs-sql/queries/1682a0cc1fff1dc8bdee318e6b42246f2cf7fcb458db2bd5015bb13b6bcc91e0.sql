@@ -1,0 +1,1 @@
+extractAllGroupsHorizontal(s, regexp)

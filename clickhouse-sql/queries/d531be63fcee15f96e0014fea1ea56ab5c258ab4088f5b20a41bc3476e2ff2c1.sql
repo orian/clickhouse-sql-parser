@@ -1,0 +1,1 @@
+INSERT INTO table_{format}_with_nullable_columns SELECT * FROM source_table

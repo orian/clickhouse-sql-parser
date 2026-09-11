@@ -1,0 +1,1 @@
+intHash64(int)

@@ -1,0 +1,1 @@
+SELECT * FROM prometheusQuery('promql_pk_range_ts', 'sum(pkr_metric{{dc="0"}})', 1003830) FORMAT Null

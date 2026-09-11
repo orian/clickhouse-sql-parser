@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_json_typed_paths_with_hints

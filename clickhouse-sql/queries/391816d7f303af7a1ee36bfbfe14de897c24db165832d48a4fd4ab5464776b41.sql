@@ -1,0 +1,1 @@
+insert into t_opt_orderby select * from  generateRandom('a UInt64, b Nullable(UInt64)') limit 10000000

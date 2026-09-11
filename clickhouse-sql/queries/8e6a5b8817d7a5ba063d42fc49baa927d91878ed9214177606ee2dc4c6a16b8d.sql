@@ -1,0 +1,1 @@
+SELECT arrayReduceInRanges('sum', arrayZip(range(1000000), range(1000000)), range(1000000))[123456]

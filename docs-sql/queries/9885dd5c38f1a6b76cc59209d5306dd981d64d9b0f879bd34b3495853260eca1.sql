@@ -1,0 +1,1 @@
+GRANT SELECT(x,y) ON db.table TO john WITH GRANT OPTION

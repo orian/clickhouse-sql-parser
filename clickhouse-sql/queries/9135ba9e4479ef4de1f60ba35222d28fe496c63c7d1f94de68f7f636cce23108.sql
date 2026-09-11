@@ -1,0 +1,1 @@
+select uniq(number) from (select DISTINCT number from numbers(1000000))

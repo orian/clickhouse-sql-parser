@@ -1,0 +1,1 @@
+WITH materialize(range(10000)) AS big SELECT sum(length(arrayFilter(i -> big[i + 1] % 2 = 0, range(100)))) FROM numbers(100) SETTINGS enable_lazy_columns_replication = {lazy_replication} FORMAT Null

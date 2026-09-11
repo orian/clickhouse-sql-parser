@@ -1,0 +1,1 @@
+WITH {plaintext} as plaintext, repeat('k', 32) as key32, substring(key32, 1, 24) as key24, substring(key32, 1, 16) as key16, repeat('iv', 8) as iv16, substring(iv16, 1, 12) as iv12 SELECT count() FROM {table} WHERE NOT ignore({func}) LIMIT 1

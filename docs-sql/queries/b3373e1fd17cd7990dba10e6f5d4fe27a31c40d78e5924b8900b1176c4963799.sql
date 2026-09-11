@@ -1,0 +1,1 @@
+GRANT accountant TO mira;

@@ -1,0 +1,1 @@
+SELECT jaroWinklerSimilarity('clickhouse', 'click')

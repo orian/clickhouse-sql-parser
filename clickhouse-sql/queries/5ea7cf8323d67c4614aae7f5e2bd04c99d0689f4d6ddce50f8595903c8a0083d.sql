@@ -1,0 +1,1 @@
+DROP DICTIONARY IF EXISTS complex_key_direct_dictionary;

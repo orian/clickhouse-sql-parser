@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(50000000) WHERE (toUInt16(number), toUInt16(intHash32(number))) IN (SELECT toUInt16(number), toUInt16(intHash32(number)) FROM numbers(1000000))

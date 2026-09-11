@@ -1,0 +1,1 @@
+SELECT count() FROM h3_indexes_perf WHERE NOT ignore(h3ToGeo(h3))

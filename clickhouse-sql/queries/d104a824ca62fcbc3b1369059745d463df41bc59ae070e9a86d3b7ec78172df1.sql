@@ -1,0 +1,1 @@
+INSERT INTO users SELECT 1 as uid, 'Max' as name, number as age FROM numbers_mt(10000)

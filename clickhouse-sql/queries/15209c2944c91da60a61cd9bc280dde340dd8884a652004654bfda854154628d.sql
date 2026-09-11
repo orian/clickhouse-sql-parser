@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE match(URL, ' *tranio\\.ru/spain/*/commercial/*') settings max_threads=5

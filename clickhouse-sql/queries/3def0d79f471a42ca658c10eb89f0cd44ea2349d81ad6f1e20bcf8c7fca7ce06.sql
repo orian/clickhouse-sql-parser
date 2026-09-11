@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_src_{format} ENGINE = File({format}) AS test.hits

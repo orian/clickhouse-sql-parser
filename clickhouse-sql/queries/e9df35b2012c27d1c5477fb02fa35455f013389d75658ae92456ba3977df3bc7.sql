@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_{format} ENGINE = File({format}, '/dev/null') AS SELECT SearchPhrase, ClientIP6, URL, Referer, URLDomain FROM test.hits limit 0

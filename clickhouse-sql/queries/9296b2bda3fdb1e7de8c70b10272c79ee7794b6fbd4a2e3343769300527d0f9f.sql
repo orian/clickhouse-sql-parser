@@ -1,0 +1,1 @@
+INSERT INTO pmj_u64_sparse_right SELECT number * 100 FROM numbers(10000)

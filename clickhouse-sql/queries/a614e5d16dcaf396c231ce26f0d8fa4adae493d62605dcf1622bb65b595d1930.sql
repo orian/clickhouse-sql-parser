@@ -1,0 +1,1 @@
+select d, count() from a group by d

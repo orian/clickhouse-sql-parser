@@ -1,0 +1,1 @@
+arrayShiftLeft(arr, n[, default])

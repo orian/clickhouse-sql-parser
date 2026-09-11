@@ -1,0 +1,1 @@
+SELECT char(65 + number % 26) || toString(cityHash64(number)) AS s FROM numbers_mt(5000000) ORDER BY s COLLATE 'en' FORMAT Null

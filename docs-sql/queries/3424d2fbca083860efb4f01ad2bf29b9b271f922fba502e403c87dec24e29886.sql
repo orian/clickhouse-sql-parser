@@ -1,0 +1,1 @@
+isMergeTreePartCoveredBy(nested_part, covering_part)

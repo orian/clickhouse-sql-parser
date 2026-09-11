@@ -1,0 +1,1 @@
+SELECT uniqExactArray([number]) FROM numbers_mt(1e7) Format Null

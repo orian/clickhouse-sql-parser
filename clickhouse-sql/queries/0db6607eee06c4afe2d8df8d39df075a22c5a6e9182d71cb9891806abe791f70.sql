@@ -1,0 +1,1 @@
+SELECT Title FROM test.hits ORDER BY Title DESC COLLATE 'tr' LIMIT 1000, 10

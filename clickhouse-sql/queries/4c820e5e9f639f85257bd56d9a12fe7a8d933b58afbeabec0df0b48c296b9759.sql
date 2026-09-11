@@ -1,0 +1,1 @@
+CREATE TABLE test_lc (lc LowCardinality(String)) ENGINE = MergeTree ORDER BY lc

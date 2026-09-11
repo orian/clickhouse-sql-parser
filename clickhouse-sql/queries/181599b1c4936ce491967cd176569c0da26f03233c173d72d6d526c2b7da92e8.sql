@@ -1,0 +1,1 @@
+SELECT count() FROM test_lwu_steps WHERE NOT ignore(a)

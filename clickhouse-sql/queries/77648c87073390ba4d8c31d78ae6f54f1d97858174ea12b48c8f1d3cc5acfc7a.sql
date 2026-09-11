@@ -1,0 +1,1 @@
+INSERT INTO insert_small_block_performance (x) SELECT toString(number) FROM numbers(10000);

@@ -115,7 +115,7 @@
   },
   {
     "CreatePos": 172,
-    "StatementEnd": 205,
+    "StatementEnd": 204,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -132,7 +132,7 @@
     ],
     "Authentication": {
       "AuthPos": 190,
-      "AuthEnd": 205,
+      "AuthEnd": 204,
       "NotIdentified": true,
       "AuthType": "",
       "AuthValue": null,
@@ -267,7 +267,7 @@
   },
   {
     "CreatePos": 402,
-    "StatementEnd": 446,
+    "StatementEnd": 445,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -284,7 +284,7 @@
     ],
     "Authentication": {
       "AuthPos": 421,
-      "AuthEnd": 446,
+      "AuthEnd": 445,
       "NotIdentified": false,
       "AuthType": "",
       "AuthValue": null,
@@ -444,7 +444,7 @@
   },
   {
     "CreatePos": 778,
-    "StatementEnd": 808,
+    "StatementEnd": 807,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -464,7 +464,7 @@
     "Hosts": [
       {
         "HostPos": 797,
-        "HostEnd": 808,
+        "HostEnd": 807,
         "HostType": "LOCAL",
         "HostValue": null
       }
@@ -477,7 +477,7 @@
   },
   {
     "CreatePos": 809,
-    "StatementEnd": 837,
+    "StatementEnd": 836,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -497,7 +497,7 @@
     "Hosts": [
       {
         "HostPos": 828,
-        "HostEnd": 837,
+        "HostEnd": 836,
         "HostType": "ANY",
         "HostValue": null
       }
@@ -510,7 +510,7 @@
   },
   {
     "CreatePos": 838,
-    "StatementEnd": 867,
+    "StatementEnd": 866,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -530,7 +530,7 @@
     "Hosts": [
       {
         "HostPos": 857,
-        "HostEnd": 867,
+        "HostEnd": 866,
         "HostType": "NONE",
         "HostValue": null
       }
@@ -785,7 +785,7 @@
   },
   {
     "CreatePos": 1161,
-    "StatementEnd": 1198,
+    "StatementEnd": 1197,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -805,7 +805,7 @@
     "Hosts": null,
     "DefaultRole": {
       "DefaultPos": 1180,
-      "DefaultEnd": 1198,
+      "DefaultEnd": 1197,
       "Roles": null,
       "None": true
     },
@@ -847,7 +847,7 @@
   },
   {
     "CreatePos": 1282,
-    "StatementEnd": 1323,
+    "StatementEnd": 1322,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -971,7 +971,7 @@
   },
   {
     "CreatePos": 1431,
-    "StatementEnd": 1463,
+    "StatementEnd": 1462,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -994,7 +994,7 @@
     "DefaultDbNone": false,
     "Grantees": {
       "GranteesPos": 1450,
-      "GranteesEnd": 1463,
+      "GranteesEnd": 1462,
       "Grantees": null,
       "ExceptUsers": null,
       "Any": true,
@@ -1004,7 +1004,7 @@
   },
   {
     "CreatePos": 1464,
-    "StatementEnd": 1497,
+    "StatementEnd": 1496,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -1027,7 +1027,7 @@
     "DefaultDbNone": false,
     "Grantees": {
       "GranteesPos": 1483,
-      "GranteesEnd": 1497,
+      "GranteesEnd": 1496,
       "Grantees": null,
       "ExceptUsers": null,
       "Any": false,

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS map_subcol_pw_mixed

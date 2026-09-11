@@ -1,0 +1,1 @@
+SELECT count() FROM perf_lc_num WHERE indexOf(arr, num) > 0

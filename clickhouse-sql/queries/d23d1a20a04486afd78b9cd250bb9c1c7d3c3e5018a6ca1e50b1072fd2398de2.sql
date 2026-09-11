@@ -1,0 +1,1 @@
+optimize table perf_avg final

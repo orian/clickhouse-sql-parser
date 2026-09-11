@@ -1,0 +1,1 @@
+INSERT INTO null SELECT * FROM tmp SETTINGS optimize_and_compare_chain=0, max_insert_threads = 1, insert_deduplicate = 0, optimize_on_insert = 0

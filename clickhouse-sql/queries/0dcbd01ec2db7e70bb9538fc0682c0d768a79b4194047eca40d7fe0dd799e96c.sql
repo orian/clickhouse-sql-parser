@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT Title) FROM test.hits SETTINGS max_threads = 64

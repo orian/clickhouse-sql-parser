@@ -1,0 +1,2 @@
+CREATE TABLE test ENGINE = MergeTree ORDER BY () AS SELECT * FROM numbers(10);
+SELECT * FROM test;

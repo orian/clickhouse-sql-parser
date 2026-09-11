@@ -1,0 +1,1 @@
+SYSTEM STOP MERGES t_text_index_merge_intersecting_{codec}

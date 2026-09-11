@@ -1,0 +1,1 @@
+SELECT * FROM test_set_index WHERE x IN (1, 100000, 500000)

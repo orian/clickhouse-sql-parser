@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS json_to_string_dynamic

@@ -1,0 +1,1 @@
+SELECT indexOf([1, 3, NULL, NULL], NULL)

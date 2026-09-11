@@ -1,0 +1,1 @@
+arrayShingles(arr, l)

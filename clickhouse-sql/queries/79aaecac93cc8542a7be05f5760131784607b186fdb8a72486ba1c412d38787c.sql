@@ -1,0 +1,1 @@
+select a, uniqMerge(b_count) as b_count from matview_10000 prewhere a='55' group by a FORMAT Null SETTINGS max_threads=1;

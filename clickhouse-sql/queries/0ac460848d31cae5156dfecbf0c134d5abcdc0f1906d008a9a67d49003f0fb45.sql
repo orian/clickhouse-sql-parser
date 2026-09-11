@@ -1,0 +1,1 @@
+SELECT DISTINCT a, b FROM distinct_final_prefix ORDER BY a FORMAT Null

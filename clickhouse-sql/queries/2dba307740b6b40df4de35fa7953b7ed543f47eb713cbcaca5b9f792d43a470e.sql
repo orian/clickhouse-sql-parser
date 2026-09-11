@@ -1,0 +1,1 @@
+SELECT URL, count() FROM hits_100m_single GROUP BY URL LIMIT 10 FORMAT Null

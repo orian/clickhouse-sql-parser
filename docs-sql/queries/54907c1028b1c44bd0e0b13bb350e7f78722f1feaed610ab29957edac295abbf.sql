@@ -1,0 +1,1 @@
+SYSTEM RELOAD CONFIG [ON CLUSTER cluster_name]

@@ -1,0 +1,1 @@
+SELECT arraySlice(arrayFill(x -> ((x % 2) >= 2), range(100000000)), 1, 10) FORMAT Null

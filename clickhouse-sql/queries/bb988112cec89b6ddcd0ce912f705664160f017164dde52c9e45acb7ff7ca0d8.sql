@@ -1,0 +1,1 @@
+select sum(cityHash64(*)) from t where key between 1050000 and 1150000 settings max_threads=1

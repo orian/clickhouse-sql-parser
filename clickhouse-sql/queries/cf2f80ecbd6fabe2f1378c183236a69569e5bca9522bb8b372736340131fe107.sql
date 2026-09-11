@@ -1,0 +1,1 @@
+CREATE TABLE test_{partitions} (a UInt64, b UInt64) ENGINE = MergeTree ORDER BY a PARTITION BY sipHash64(a) % {partitions}

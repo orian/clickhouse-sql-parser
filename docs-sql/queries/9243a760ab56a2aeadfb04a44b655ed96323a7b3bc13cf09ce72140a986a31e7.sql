@@ -1,0 +1,1 @@
+toStartOfDay(datetime)

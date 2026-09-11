@@ -1,0 +1,1 @@
+OPTIMIZE TABLE string_compact FINAL

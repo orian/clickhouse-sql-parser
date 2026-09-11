@@ -1,0 +1,1 @@
+INSERT INTO na_arrow SELECT * FROM na_src

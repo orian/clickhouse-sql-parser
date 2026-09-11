@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(10000000) WHERE NOT ignore({func}((rand(1) % 360) * 1. - 180, (number % 150) * 1.2 - 90, (number % 360) + toFloat64(rand(2)) / 4294967296 - 180, (rand(3) % 180) * 1. - 90))

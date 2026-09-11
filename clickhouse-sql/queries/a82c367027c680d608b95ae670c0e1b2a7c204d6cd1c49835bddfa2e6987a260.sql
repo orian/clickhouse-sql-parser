@@ -1,0 +1,1 @@
+CREATE TABLE join_set_maps_probe_str (s String) ENGINE = Memory

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS window_test

@@ -1,0 +1,1 @@
+ SELECT r.c1, r.c2, r.c3 FROM left AS l FULL JOIN right AS r ON r.k = l.k AND l.v >= r.k FORMAT Null

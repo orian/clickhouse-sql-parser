@@ -1,0 +1,1 @@
+SELECT min(d128), max(d128), argMin(x, d128), argMax(x, d128) FROM t

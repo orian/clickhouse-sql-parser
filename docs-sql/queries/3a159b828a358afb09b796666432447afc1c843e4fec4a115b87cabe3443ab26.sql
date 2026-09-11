@@ -1,0 +1,1 @@
+SELECT startsWithCaseInsensitive('ClickHouse', 'CLICK');

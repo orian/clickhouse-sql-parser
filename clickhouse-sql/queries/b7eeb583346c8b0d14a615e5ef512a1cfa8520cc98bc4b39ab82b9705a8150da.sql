@@ -1,0 +1,1 @@
+SELECT sum(round(d40, 5)) FROM div256

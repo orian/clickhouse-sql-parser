@@ -1,0 +1,1 @@
+insert into t_str_key_{size} select toString(number) as s, toFixedString(s, 25) from numbers_mt({size})

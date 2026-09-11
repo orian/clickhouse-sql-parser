@@ -1,0 +1,1 @@
+SELECT * FROM test_fetch ORDER BY a LIMIT 3 OFFSET 1;

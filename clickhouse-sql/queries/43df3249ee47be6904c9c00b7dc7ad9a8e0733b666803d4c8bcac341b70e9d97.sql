@@ -1,0 +1,1 @@
+DROP TABLE sum_map_{scale}

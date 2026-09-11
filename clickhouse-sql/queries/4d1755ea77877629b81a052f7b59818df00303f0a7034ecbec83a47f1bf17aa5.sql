@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.deep_history SETTINGS use_iceberg_metadata_files_cache = 0

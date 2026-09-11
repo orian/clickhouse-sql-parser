@@ -1,0 +1,1 @@
+SELECT COUNT() FROM ints l FULL JOIN ints r USING i64 WHERE i32 IN(42, 10042, 20042, 30042, 40042) SETTINGS query_plan_convert_outer_join_to_inner_join = 1, join_algorithm='hash'

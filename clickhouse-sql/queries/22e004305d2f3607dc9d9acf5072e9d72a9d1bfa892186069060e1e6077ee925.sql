@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(1000000) WHERE number IN (SELECT a FROM test_{partitions}) FORMAT Null

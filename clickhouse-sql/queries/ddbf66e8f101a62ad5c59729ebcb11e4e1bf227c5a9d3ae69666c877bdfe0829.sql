@@ -1,0 +1,1 @@
+SELECT 'rapidjson-3', count() FROM zeros(1000000) WHERE NOT ignore(JSONExtractInt(materialize({json}), 'nparam'))

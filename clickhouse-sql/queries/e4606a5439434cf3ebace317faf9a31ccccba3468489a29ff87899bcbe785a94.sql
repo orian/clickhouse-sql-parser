@@ -1,0 +1,1 @@
+CREATE TABLE join_set_maps_probe (k UInt64, k2 UInt64) ENGINE = Memory

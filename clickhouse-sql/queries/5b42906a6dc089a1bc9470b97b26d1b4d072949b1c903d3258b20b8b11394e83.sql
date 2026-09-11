@@ -1,0 +1,1 @@
+WITH number % 524289 AS k, toUInt64(k) AS k1, k1 + 1 AS k2 SELECT k1, k2, count() FROM numbers({numbers_threshold_value}) GROUP BY k1, k2 FORMAT Null

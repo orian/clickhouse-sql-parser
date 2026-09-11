@@ -1,0 +1,1 @@
+CREATE TABLE rand_100k_10m_64 (key UInt64) Engine = Memory

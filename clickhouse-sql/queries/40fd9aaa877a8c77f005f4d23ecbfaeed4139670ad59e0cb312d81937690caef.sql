@@ -1,0 +1,1 @@
+SELECT k, payload FROM lazy_mat_final_limit FINAL WHERE v = 7 ORDER BY k LIMIT 10 FORMAT Null

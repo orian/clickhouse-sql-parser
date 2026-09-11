@@ -1,0 +1,1 @@
+INSERT INTO t_skew90_uniq SELECT number FROM numbers_mt(10000000)

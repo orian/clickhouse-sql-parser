@@ -1,0 +1,1 @@
+EXPLAIN SELECT count() FROM fact_1000p AS f INNER JOIN dim_j AS d ON f.id = d.id SETTINGS use_statistics_cache = 0 FORMAT Null

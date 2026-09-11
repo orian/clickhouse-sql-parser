@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS fsm_u64_sparse_right

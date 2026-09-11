@@ -1,0 +1,1 @@
+OPTIMIZE TABLE optimized_select_final FINAL

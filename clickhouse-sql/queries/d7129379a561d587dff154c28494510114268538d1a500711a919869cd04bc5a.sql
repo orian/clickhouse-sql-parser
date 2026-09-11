@@ -1,0 +1,1 @@
+SELECT pointInPolygon((100, 100), polygon) FROM polygons FORMAT Null

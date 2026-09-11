@@ -1,0 +1,1 @@
+SELECT CAST('2024-01-15', 'Date') AS d

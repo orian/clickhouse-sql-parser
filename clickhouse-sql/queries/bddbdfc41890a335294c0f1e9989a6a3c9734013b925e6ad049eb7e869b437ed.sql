@@ -1,0 +1,1 @@
+SELECT count() FROM test_minmax_index WHERE x BETWEEN 123456 AND 789012

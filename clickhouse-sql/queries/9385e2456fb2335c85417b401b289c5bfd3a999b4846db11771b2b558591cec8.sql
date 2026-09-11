@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(1500) WHERE NOT ignore(base58Decode(base58Encode(randomString(1024))))

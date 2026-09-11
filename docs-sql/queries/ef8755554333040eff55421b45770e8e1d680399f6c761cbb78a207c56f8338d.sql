@@ -1,0 +1,1 @@
+SHOW GRANTS FOR my_user;

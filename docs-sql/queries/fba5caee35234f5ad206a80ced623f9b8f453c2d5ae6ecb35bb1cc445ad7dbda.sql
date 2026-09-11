@@ -1,0 +1,11 @@
+CREATE MATERIALIZED VIEW [IF NOT EXISTS] [db.]table_name [ON CLUSTER cluster]
+REFRESH [EVERY|AFTER interval [OFFSET interval]]
+[RANDOMIZE FOR interval]
+[DEPENDS ON [db.]name [, [db.]name [, ...]]]
+[SETTINGS name = value [, name = value [, ...]]]
+[APPEND]
+[TO[db.]name] [(columns)] [ENGINE = engine]
+[EMPTY]
+[DEFINER = { user | CURRENT_USER }] [SQL SECURITY { DEFINER | NONE }]
+AS SELECT ...
+[COMMENT 'comment']

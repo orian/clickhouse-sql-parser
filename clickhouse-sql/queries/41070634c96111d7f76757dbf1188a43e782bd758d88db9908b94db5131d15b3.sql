@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS codec_{seq_type}_{type}_{codec}

@@ -804,7 +804,7 @@ func (p *Parser) parseTableArgExpr(pos Pos) (Expr, error) {
 	case p.matchTokenKind(TokenKindInt), p.matchTokenKind(TokenKindString), p.matchKeyword(KeywordNull):
 		return p.parseLiteral(p.Pos())
 	default:
-		return nil, fmt.Errorf("unexpected token: %q, expected <Name>, <literal>", p.last().String)
+		return nil, fmt.Errorf("unexpected token: %q, expected <Name>, <literal>", p.lastTokenKind())
 	}
 }
 
@@ -1382,7 +1382,7 @@ func (p *Parser) parseSettingsExpr(pos Pos) (*SettingExpr, error) {
 			Literal:    lastToken.String,
 		}
 	default:
-		return nil, fmt.Errorf("unexpected token: %q, expected <number>, <bool> or <string>", p.last().String)
+		return nil, fmt.Errorf("unexpected token: %q, expected <number>, <bool> or <string>", p.lastTokenKind())
 	}
 
 	return &SettingExpr{

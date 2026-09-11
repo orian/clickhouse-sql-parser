@@ -1,0 +1,1 @@
+SELECT * FROM sort_lc ORDER BY lc_col, uint_col FORMAT Null SETTINGS max_threads = {threads}

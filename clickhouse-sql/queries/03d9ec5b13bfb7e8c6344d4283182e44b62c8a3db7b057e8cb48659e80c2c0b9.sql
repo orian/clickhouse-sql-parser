@@ -1,0 +1,1 @@
+CREATE TABLE na_arrow_out ENGINE = File(Arrow, '/dev/null') AS na_src

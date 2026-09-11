@@ -1,0 +1,1 @@
+create table t_lz4_norm(a UInt64) engine=MergeTree order by tuple()

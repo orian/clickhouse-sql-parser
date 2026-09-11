@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(extract(Referer, '^https?://([^/]+)')) SETTINGS max_threads = 1

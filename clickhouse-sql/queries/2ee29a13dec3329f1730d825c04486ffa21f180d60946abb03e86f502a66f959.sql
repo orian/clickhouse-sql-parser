@@ -1,0 +1,1 @@
+select k, groupArraySorted({window})(v) from sorted_{millions}m group by k format Null

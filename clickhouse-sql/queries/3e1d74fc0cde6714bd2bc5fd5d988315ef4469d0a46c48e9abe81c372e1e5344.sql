@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE match(URL, 'about/address|for_woman|^https?://lm-company.ruy/$|ultimateguitar.com')

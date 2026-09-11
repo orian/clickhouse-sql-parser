@@ -1,0 +1,1 @@
+isIPv6String(string)

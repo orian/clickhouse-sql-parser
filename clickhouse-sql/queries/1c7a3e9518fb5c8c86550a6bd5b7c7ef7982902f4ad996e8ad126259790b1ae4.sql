@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT materialize(toNullable(0)) AS x1, materialize(toNullable(0)) AS x2, materialize(toNullable(0)) AS x3 FROM zeros(50000000)) WHERE NOT ignore(and(x1,x2,x3))

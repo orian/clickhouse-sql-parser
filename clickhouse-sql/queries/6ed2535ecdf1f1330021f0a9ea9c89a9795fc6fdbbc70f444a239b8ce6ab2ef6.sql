@@ -1,0 +1,1 @@
+SELECT * FROM probe p RIGHT JOIN build_nullable b ON p.{probe_key} = b.k FORMAT Null

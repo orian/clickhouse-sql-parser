@@ -1,0 +1,1 @@
+countMatchesCaseInsensitive(haystack, pattern)

@@ -1,0 +1,1 @@
+SELECT isNaN(NaN)

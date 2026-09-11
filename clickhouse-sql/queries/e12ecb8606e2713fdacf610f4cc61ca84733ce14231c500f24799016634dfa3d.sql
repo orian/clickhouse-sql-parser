@@ -1,0 +1,1 @@
+SELECT count() FROM t_text_index_analysis WHERE hasAllTokens(s, 'common')

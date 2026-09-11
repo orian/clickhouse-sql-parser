@@ -1,0 +1,1 @@
+CREATE TABLE t_skew90 (a UInt64, b UInt64) ENGINE = MergeTree ORDER BY tuple() PARTITION BY if(sipHash64(a) % 10 < 9, 0, 1 + sipHash64(a) % 15)

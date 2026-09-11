@@ -1,0 +1,1 @@
+optimize table t_lz4 final

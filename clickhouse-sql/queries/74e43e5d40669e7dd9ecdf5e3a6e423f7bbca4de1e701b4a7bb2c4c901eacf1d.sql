@@ -1,0 +1,1 @@
+DROP TABLE t_{size}_{partitions}

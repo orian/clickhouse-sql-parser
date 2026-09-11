@@ -1,0 +1,1 @@
+SELECT i1+i2, u1+u2 FROM tab

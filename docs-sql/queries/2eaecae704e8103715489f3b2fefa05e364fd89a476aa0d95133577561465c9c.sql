@@ -1,0 +1,1 @@
+ATTACH TABLE [db.]name AS [NOT] REPLICATED

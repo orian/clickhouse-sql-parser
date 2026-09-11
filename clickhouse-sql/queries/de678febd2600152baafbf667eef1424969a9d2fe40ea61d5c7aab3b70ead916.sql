@@ -1,0 +1,1 @@
+SELECT sum(length(arrayMap(x -> substring(s, x, 1), range(10)))) FROM (SELECT materialize(randomString(100000)) AS s, range(100) AS r FROM numbers(100)) ARRAY JOIN r SETTINGS enable_lazy_columns_replication = {lazy_replication} FORMAT Null

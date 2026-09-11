@@ -1,0 +1,1 @@
+SELECT sum(x * x + x) FROM test_memory

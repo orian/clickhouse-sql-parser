@@ -1,0 +1,1 @@
+CREATE TABLE na_arrow ENGINE = File(Arrow) AS na_src

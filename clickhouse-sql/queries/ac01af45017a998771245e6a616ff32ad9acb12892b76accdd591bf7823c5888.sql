@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS {string_primary_key_table_name}

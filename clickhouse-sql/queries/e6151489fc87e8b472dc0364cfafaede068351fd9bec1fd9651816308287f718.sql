@@ -1,0 +1,1 @@
+ALTER TABLE {database}.wr_planned UPDATE l_quantity = l_quantity + 1 WHERE l_partkey < 0

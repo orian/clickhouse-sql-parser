@@ -1,0 +1,1 @@
+reverseUTF8(s)

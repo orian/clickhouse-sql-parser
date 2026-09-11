@@ -1,0 +1,1 @@
+ALTER TABLE perf_iceberg_delete_manifests DELETE WHERE id = {n} SETTINGS allow_insert_into_iceberg = 1

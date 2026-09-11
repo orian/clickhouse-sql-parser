@@ -1,0 +1,1 @@
+create table test (x UInt32, n Nullable(UInt32), s String, t Tuple(a UInt32, b String), json JSON) engine=MergeTree order by tuple()

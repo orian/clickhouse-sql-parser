@@ -1,0 +1,1 @@
+INSERT INTO test_str_{partitions} SELECT number % 100000, number, randomPrintableASCII(100) FROM numbers_mt(10000000)

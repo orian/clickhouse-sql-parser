@@ -1,0 +1,1 @@
+INSERT INTO t_t64_perf SELECT number FROM numbers(10000000)

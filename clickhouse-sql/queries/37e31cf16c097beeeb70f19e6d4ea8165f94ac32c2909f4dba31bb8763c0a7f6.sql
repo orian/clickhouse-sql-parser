@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS sequential_{integer_type}

@@ -1,0 +1,1 @@
+INSERT INTO sg_bloom_3_100 SELECT s FROM sg_src SETTINGS max_threads = 1

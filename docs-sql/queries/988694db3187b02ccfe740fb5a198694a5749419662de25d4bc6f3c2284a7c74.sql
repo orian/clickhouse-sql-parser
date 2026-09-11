@@ -1,0 +1,1 @@
+toRelativeSecondNum(date)

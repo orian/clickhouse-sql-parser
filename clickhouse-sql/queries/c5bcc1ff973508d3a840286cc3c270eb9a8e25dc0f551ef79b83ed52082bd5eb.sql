@@ -1,0 +1,1 @@
+SELECT count(), sum(l_extendedprice) FROM {database}.lineitem SETTINGS iceberg_timestamp_ms = 32503680000000

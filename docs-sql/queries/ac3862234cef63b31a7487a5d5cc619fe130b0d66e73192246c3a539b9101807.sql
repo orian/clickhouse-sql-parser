@@ -1,0 +1,1 @@
+SELECT h3ToGeo(644325524701193974) AS coordinates;

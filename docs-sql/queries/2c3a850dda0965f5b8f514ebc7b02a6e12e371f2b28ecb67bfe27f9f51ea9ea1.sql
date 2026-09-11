@@ -1,0 +1,2 @@
+CREATE TABLE hudi_table
+    ENGINE = Hudi(url, [aws_access_key_id, aws_secret_access_key,] [extra_credentials])

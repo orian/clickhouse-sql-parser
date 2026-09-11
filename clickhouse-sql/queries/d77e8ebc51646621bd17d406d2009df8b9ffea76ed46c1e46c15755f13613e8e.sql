@@ -1,0 +1,1 @@
+SELECT lc FROM group_by_sentinel GROUP BY lc SETTINGS max_threads = 32 FORMAT Null

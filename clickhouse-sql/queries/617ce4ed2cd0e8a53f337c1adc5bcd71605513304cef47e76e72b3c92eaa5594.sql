@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS agg_in_order_if_null_map

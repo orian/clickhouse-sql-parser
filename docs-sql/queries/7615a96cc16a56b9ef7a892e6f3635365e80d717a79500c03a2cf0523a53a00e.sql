@@ -1,0 +1,1 @@
+SpanAttributes['messaging.kafka.offset']

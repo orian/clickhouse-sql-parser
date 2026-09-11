@@ -1,0 +1,1 @@
+INSERT INTO data SELECT number, 1 from numbers(10000000)

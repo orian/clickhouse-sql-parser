@@ -1,0 +1,1 @@
+SELECT avgWeightedIf(toNullable(num_f),    toNullable(num_f), toNullable(num) % 10) FROM perf_avg FORMAT Null

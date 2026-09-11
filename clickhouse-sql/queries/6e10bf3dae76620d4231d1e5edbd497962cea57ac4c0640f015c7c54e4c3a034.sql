@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(1600000000) WHERE NOT ignore(reinterpretAsString(number))

@@ -1,0 +1,1 @@
+hasPhrase(input, phrase[, tokenizer])

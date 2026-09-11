@@ -1,0 +1,1 @@
+INSERT INTO test_wide_{partitions} SELECT number % 100000, number, number * 2, number * 3, number * 5, number * 7, number * 11, number * 13, toString(number) FROM numbers_mt(10000000)

@@ -1,0 +1,1 @@
+toInt256OrNull(x)

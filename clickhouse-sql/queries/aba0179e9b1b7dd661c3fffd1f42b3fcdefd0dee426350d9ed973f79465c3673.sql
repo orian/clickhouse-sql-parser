@@ -1,0 +1,1 @@
+INSERT INTO test2 SELECT toDateTime64('2023-03-16 11:22:33', 3) + number from numbers(10000000)

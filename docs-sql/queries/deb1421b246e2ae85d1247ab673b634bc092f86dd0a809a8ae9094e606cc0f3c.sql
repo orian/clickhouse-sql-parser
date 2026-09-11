@@ -1,0 +1,2 @@
+groupBitmap(expr)
+groupBitmapState(expr)

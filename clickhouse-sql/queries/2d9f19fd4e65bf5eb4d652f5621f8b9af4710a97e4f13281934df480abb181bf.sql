@@ -1,0 +1,1 @@
+select argMax(MobilePhone, MobilePhoneModel) from hits_100m_single

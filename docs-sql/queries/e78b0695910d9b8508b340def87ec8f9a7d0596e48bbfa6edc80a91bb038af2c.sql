@@ -1,0 +1,2 @@
+DESCRIBE TABLE tab
+FORMAT Vertical;

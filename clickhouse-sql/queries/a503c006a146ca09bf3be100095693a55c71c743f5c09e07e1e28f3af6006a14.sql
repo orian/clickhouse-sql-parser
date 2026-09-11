@@ -1,0 +1,1 @@
+INSERT INTO strings SELECT toString(rand()) a, a || a || a || a || a || a || a || a || a || a || a || a FROM zeros(1000000)

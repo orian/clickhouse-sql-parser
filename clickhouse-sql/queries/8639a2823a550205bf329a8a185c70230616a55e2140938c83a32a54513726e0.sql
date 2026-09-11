@@ -1,0 +1,1 @@
+CREATE TABLE build_wide (k UInt64, a UInt64, b UInt64, c UInt64, d UInt64, e UInt64, f UInt64, g UInt64) ENGINE = MergeTree ORDER BY tuple()

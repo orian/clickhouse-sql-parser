@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE match(URL, '^https?://(?:www\\.)?metri[kc]a\\.yandex\\.(?:ru|com|com\\.tr|ua|by|kz)/.+?2014') SETTINGS max_threads = 1

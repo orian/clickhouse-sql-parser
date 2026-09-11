@@ -1,0 +1,1 @@
+ALTER TABLE skip_table MATERIALIZE INDEX vix;

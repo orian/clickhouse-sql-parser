@@ -1,0 +1,1 @@
+SELECT arrayReverse(materialize(range(32)::Array({type}))) FROM numbers(2000000) FORMAT Null

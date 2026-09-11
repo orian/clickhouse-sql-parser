@@ -1,0 +1,1 @@
+SELECT count() FROM table_{format}_with_nullable_columns FORMAT Null

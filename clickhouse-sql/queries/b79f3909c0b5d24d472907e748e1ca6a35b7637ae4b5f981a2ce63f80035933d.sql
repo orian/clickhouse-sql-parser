@@ -1,0 +1,1 @@
+ALTER TABLE {database}.evo_add ADD COLUMN l_note Nullable(String)

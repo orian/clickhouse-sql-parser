@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS lazy_final_perf

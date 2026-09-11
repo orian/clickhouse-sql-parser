@@ -1,0 +1,1 @@
+SELECT * FROM {table} WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10

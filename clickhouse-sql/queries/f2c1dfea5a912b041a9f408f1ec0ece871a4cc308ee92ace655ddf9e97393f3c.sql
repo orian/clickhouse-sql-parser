@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT highlight(toString(number) || ' the quick brown fox jumps', ['quick', 'brown', 'fox']) FROM numbers(100000))

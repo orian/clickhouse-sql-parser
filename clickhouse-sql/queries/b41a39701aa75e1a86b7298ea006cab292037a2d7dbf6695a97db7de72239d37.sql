@@ -1,0 +1,1 @@
+SELECT ngramDistanceCaseInsensitiveUTF8(Title, 'Метрика') AS distance FROM hits_10m_single FORMAT Null

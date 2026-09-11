@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT materialize(0) AS x1, materialize(toUInt32(0)) AS x2, materialize(toUInt64(0)) AS x3 FROM zeros(100000000)) WHERE NOT ignore(and(x1,x2,x3))

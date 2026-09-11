@@ -1,0 +1,1 @@
+SELECT avg(d64), sum(d64), sumWithOverflow(d64) FROM t

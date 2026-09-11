@@ -1,0 +1,1 @@
+SELECT count(*) FROM hits_100m_single WHERE URL LIKE 'httx1%' OR URL LIKE 'httpx1%'

@@ -1,0 +1,1 @@
+highlightQuery(query)

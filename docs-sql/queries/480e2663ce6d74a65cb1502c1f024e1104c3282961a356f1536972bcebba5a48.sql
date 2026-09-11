@@ -1,0 +1,1 @@
+toIPv6OrZero(x)

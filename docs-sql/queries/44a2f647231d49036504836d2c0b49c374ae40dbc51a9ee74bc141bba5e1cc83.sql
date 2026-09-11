@@ -1,0 +1,2 @@
+SELECT tags
+FROM people

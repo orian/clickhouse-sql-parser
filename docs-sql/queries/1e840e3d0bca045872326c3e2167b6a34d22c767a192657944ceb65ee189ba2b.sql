@@ -1,0 +1,1 @@
+SELECT or(0, NULL);

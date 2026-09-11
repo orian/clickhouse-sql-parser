@@ -1,0 +1,1 @@
+  SET allow_experimental_materialized_postgresql_table=1

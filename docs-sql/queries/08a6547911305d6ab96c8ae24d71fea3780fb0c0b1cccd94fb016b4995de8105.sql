@@ -1,0 +1,3 @@
+USE lake;
+
+SHOW TABLES;

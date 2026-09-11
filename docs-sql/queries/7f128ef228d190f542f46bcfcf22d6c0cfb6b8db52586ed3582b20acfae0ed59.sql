@@ -1,0 +1,1 @@
+tryBase32Decode(encoded)

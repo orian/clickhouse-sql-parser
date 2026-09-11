@@ -1,0 +1,1 @@
+SELECT startsWith('ClickHouse', 'Click');

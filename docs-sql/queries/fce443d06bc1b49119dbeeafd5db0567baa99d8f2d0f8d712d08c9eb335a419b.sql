@@ -1,0 +1,1 @@
+base32Encode(plaintext)

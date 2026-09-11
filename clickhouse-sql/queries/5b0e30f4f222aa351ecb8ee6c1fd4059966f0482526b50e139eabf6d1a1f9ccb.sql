@@ -1,0 +1,1 @@
+SELECT count() FROM test_u64_left_{card} AS a JOIN test_u64_right_{card} AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'partial_merge'

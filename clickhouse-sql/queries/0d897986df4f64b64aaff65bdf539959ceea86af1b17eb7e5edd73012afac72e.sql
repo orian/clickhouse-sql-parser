@@ -1,0 +1,1 @@
+OPTIMIZE TABLE fsm_str_sparse_right FINAL

@@ -1,0 +1,1 @@
+insert into tab values (1, 1)

@@ -1,0 +1,1 @@
+INSERT INTO t SELECT number AS x, x % 1000000 AS d32, x AS d64, x d128 FROM numbers_mt(100000000, 100000000) SETTINGS max_threads = 2

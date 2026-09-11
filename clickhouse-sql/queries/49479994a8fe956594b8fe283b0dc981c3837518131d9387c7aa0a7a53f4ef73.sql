@@ -1,0 +1,1 @@
+with 'Many years later as he faced the firing squad, Colonel Aureliano Buendia was to remember that distant afternoon when his father took him to discover ice.' as s select splitByRegexp('\s+', materialize(s)) as w from numbers(20000)

@@ -1,0 +1,11 @@
+CREATE FILE FORMAT my_parquet_format TYPE = parquet;
+
+-- Create the external stage that specifies the S3 bucket to copy into
+CREATE OR REPLACE STAGE external_stage
+URL='s3://mybucket/mydataset'
+CREDENTIALS=(AWS_KEY_ID='<key>' AWS_SECRET_KEY='<secret>')
+FILE_FORMAT = my_parquet_format;
+
+-- Apply "mydataset" prefix to all files and specify a max file size of 150mb
+-- The `header=true` parameter is required to get column names
+COPY INTO @external_stage/mydataset from mydataset max_file_size=157286400 header=true;

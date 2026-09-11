@@ -1,0 +1,1 @@
+CREATE TABLE sg_text_3_8 (s String, INDEX idx s TYPE text(tokenizer = sparseGrams(3, 8)) GRANULARITY 1) ENGINE = MergeTree ORDER BY tuple()

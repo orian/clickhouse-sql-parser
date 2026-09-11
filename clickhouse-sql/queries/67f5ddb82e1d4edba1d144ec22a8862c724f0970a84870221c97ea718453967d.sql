@@ -1,0 +1,1 @@
+SELECT groupUniqArrayIf(toUInt8(number % 200), number % 3 = 0) FROM numbers(5000000) GROUP BY number FORMAT Null

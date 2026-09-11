@@ -1,0 +1,1 @@
+aiGenerate(prompt[, params])

@@ -1,0 +1,1 @@
+INSERT INTO bad_partitions SELECT * FROM numbers(10000)

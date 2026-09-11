@@ -1,0 +1,1 @@
+SELECT * FROM test.hits WHERE URL LIKE '%google%' ORDER BY CounterID, EventDate LIMIT 1000000 FORMAT Null

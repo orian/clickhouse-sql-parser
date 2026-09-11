@@ -1,0 +1,1 @@
+SELECT * FROM hits_100m_single ORDER BY (CounterID, EventDate, URL) LIMIT 100

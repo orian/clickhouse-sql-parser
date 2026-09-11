@@ -1,0 +1,1 @@
+readWKBMultiPoint(wkb_string)

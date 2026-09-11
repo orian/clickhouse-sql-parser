@@ -1,0 +1,1 @@
+SYSTEM WAIT VIEW [db.]name

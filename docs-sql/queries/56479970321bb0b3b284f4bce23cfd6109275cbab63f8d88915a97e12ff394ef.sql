@@ -1,0 +1,1 @@
+SELECT fromUnixTimestamp64Second(1640995200)

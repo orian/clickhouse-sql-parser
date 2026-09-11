@@ -1,0 +1,1 @@
+SELECT id, timeSeriesRateToGrid(0, 100000, 10, {window})(timestamp, value) FROM ts_grid GROUP BY id FORMAT Null

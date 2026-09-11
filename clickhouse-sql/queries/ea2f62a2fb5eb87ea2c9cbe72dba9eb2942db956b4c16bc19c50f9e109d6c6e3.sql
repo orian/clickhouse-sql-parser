@@ -1,0 +1,1 @@
+create table ttt (x UInt64) engine = MergeTree order by tuple();

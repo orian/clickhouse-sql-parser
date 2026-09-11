@@ -1,0 +1,1 @@
+INSERT INTO t_insert_sparse SELECT * FROM file('test_data_sparse.json', JSONEachRow)

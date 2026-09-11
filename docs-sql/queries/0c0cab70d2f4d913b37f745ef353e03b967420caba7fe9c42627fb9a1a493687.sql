@@ -1,0 +1,1 @@
+MACStringToOUI(s)

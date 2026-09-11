@@ -1,0 +1,1 @@
+CREATE TABLE pmj_u64_mult2 (k UInt64) ENGINE = MergeTree ORDER BY k

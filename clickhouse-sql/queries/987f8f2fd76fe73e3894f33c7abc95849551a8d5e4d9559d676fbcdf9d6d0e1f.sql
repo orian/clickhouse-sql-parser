@@ -1,0 +1,1 @@
+SELECT number, count() FROM numbers_mt(50000000) GROUP BY number ORDER BY number ASC LIMIT 100 FORMAT Null

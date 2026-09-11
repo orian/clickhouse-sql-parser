@@ -1,0 +1,1 @@
+select e, f, i from group_by_fk group by e, f, i format Null

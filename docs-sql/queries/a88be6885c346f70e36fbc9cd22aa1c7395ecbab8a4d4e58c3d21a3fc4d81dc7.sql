@@ -1,0 +1,1 @@
+SHOW CREATE [SETTINGS] PROFILE name1 [, name2 ...]

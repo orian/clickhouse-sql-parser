@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_minmax_stats_float64_src

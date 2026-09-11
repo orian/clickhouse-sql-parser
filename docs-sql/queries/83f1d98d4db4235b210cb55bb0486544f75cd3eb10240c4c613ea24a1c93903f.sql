@@ -1,0 +1,2 @@
+ALTER USER MAPPING FOR CURRENT_USER SERVER taxi_srv
+       OPTIONS (SET user 'default');

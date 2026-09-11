@@ -1,0 +1,1 @@
+select coalesce(materialize(null), -1) from numbers(1000000000) format Null settings max_block_size = 8192

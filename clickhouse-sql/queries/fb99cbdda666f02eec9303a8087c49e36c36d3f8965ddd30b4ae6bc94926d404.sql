@@ -1,0 +1,1 @@
+CREATE TABLE orders(o_orderkey Int32, o_custkey Int32, o_totalprice Decimal(15, 2)) ENGINE MergeTree ORDER BY o_orderkey

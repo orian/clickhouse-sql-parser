@@ -1,0 +1,1 @@
+DROP DICTIONARY IF EXISTS complex_key_{layout_suffix}_dictionary_s{shards}

@@ -1,0 +1,1 @@
+SELECT a, s, count(b) OVER (PARTITION BY a) FROM test_str_{partitions} FORMAT Null

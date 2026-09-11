@@ -1,0 +1,1 @@
+SELECT 1 FROM hits_10m_words AS l ANY LEFT JOIN hits_10m_words AS r USING (word) FORMAT Null settings join_algorithm='hash'

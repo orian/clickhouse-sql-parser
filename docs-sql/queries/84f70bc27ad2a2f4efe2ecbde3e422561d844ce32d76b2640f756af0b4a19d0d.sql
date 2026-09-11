@@ -1,0 +1,1 @@
+anyLast(column) [RESPECT NULLS]

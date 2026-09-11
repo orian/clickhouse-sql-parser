@@ -1,0 +1,1 @@
+SELECT sum(r.v) FROM join_dup_probe AS l ANY LEFT JOIN join_dup_build AS r ON l.k = r.k SETTINGS join_any_take_last_row = 1 FORMAT Null

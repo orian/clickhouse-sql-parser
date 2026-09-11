@@ -1,0 +1,1 @@
+SELECT number % 255 FROM numbers(300000000) FORMAT Null

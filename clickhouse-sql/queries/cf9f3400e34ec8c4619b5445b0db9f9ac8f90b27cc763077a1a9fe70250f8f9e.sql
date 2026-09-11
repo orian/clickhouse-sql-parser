@@ -1,0 +1,1 @@
+SELECT hasAll(set, subset) FROM test_table_medium_{array_type} FORMAT Null

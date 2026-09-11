@@ -1,0 +1,1 @@
+INSERT INTO {string_primary_key_table_name} SELECT toString(rand64(0)), toString(rand64(1)), toString(rand64(2)) FROM system.numbers LIMIT 1000000

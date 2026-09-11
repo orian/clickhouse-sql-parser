@@ -1,0 +1,1 @@
+OPTIMIZE TABLE qcc_topk_test FINAL

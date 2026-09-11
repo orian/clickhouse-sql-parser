@@ -1,0 +1,1 @@
+select * from (select * from numbers(1e7) group by number) group by number format Null

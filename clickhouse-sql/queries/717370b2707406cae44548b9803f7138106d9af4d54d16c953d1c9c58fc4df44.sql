@@ -1,0 +1,1 @@
+SELECT count() FROM test_reorder_columns_in_merge FINAL

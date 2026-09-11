@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.manifest_grid SETTINGS use_iceberg_metadata_files_cache = 0, iceberg_manifest_decode_concurrency = 1

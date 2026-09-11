@@ -1,0 +1,1 @@
+SELECT a, sum(b) OVER (PARTITION BY a, b % 10) FROM test_{partitions} FORMAT Null

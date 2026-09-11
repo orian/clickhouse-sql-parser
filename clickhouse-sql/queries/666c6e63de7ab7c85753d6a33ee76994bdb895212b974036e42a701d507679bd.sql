@@ -1,0 +1,1 @@
+INSERT INTO FUNCTION file(test_json_parsing_2.txt, Raw) SELECT toJSONString(arrayMap(x -> tuple('a' || x, [arrayMap(y -> tuple('b' || y, 'Data'), range(20))::Map(String, String)]), range(1000))::Map(String, Dynamic)) FROM numbers(50) SETTINGS use_variant_as_common_type=1, engine_file_truncate_on_insert=1

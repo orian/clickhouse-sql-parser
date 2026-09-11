@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(countMatches(URL, '(\\w+=\\w+)')) SETTINGS max_threads=4

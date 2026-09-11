@@ -1,0 +1,1 @@
+SELECT sum(v1), sum(v2), sum(v3) FROM t_skip_index_pools WHERE category = 9999 SETTINGS use_indexes_refiner_in_read_pools = {pools}

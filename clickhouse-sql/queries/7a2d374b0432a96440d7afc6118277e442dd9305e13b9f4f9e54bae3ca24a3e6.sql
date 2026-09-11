@@ -1,0 +1,1 @@
+SELECT max(((((number) * 10) * -2) * 3) * 2) + min(((((number) * 10) * -2) * 3) * 2) FROM numbers(50000000)

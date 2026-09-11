@@ -1,0 +1,3 @@
+SELECT 
+...
+SETTINGS select_sequential_consistency = 1

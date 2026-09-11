@@ -1,0 +1,1 @@
+INSERT INTO t_skew90 SELECT number % 100000, number FROM numbers_mt(10000000)

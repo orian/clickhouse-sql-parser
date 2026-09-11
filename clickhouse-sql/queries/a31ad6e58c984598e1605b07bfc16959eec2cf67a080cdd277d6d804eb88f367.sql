@@ -1,0 +1,1 @@
+create table tab (a UInt32, b UInt32) engine = MergeTree order by (a, b)

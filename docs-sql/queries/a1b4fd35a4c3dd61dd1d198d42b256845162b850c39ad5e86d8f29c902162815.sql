@@ -1,0 +1,1 @@
+getSettingOrDefault(setting_name, default_value)

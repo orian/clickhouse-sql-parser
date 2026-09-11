@@ -1,0 +1,1 @@
+DROP DICTIONARY IF EXISTS default.dict_ip_trie

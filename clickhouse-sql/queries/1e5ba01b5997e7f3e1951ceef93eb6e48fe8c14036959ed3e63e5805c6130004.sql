@@ -1,0 +1,1 @@
+SELECT ngramDistanceCaseInsensitive(Title, 'wHAt Is lovE') AS distance FROM hits_10m_single FORMAT Null

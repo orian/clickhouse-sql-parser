@@ -1,0 +1,1 @@
+ALTER TABLE customer ADD COLUMN c_custkey_fs16 FixedString(16) MATERIALIZED unhex(leftPad(hex(c_custkey), 32, '0'))

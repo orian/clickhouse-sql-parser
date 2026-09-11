@@ -1,0 +1,1 @@
+CREATE TABLE tab_{type}_wide (id UInt32, vec QBit({type}, 64)) ENGINE = Memory

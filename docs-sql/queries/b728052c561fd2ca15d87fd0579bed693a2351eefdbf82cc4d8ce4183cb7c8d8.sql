@@ -1,0 +1,1 @@
+avgWeighted(x, weight)

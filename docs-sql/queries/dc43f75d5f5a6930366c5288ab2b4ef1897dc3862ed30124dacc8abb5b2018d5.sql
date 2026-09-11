@@ -1,0 +1,1 @@
+EXCHANGE TABLES otel_logs AND otel_logs_23_01_2025

@@ -1,0 +1,1 @@
+SELECT l.key, r.key FROM probe_used_flags l RIGHT JOIN build_used_flags r ON l.key = r.key FORMAT Null

@@ -1,0 +1,1 @@
+select sum(match(URL, 'yandex')), sum(match(URL, 'google')), sum(match(URL, 'yahoo')), sum(match(URL, 'pikabu')) FROM hits_100m_single

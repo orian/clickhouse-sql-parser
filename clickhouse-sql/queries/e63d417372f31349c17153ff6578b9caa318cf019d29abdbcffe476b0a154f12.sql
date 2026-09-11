@@ -1,0 +1,1 @@
+ALTER TABLE lineitem MATERIALIZE COLUMN l_orderkey_fs16

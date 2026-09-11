@@ -1,0 +1,1 @@
+SELECT count(*) FROM hits_100m_single WHERE URL LIKE 'http://bonprix%' OR URL LIKE 'https://produkt%' OR URL LIKE 'http://auto%' OR URL LIKE 'http://time%'

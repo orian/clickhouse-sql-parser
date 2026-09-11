@@ -1,0 +1,1 @@
+INSERT INTO string_wide SELECT number, intDiv(number, 2048) % 2, randomString(1000) FROM numbers(1800000)

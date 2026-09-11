@@ -1,0 +1,1 @@
+SELECT sum(if(col_int8 IS NULL, 1, 0)) FROM table_{format}_with_nullable_columns FORMAT Null

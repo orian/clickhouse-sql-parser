@@ -1,0 +1,1 @@
+randExponential(lambda[, x])

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS merge_perf_t465

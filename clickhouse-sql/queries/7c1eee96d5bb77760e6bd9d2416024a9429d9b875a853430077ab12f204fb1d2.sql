@@ -1,0 +1,1 @@
+SELECT sum(number), avg(number), count(number) FROM numbers(100000000) GROUP BY intHash32(number) % 1000 SETTINGS optimize_syntax_fuse_functions = 0 FORMAT Null

@@ -1,0 +1,1 @@
+SELECT id FROM test_{serialization}_{ratio} ORDER BY str DESC LIMIT 100 FORMAT Null

@@ -1,0 +1,1 @@
+bitSlice(s, offset[, length])

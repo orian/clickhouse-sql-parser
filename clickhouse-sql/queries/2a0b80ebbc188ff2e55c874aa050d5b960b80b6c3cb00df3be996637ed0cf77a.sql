@@ -1,0 +1,1 @@
+ALTER TABLE hits_10m_single DROP INDEX idx_sp_lazy

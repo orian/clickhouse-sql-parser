@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS lck_str_probe

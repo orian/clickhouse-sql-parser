@@ -1,0 +1,1 @@
+INSERT INTO iso_3166_1_alpha_2 SELECT ((rand(number) % 256) - 128) as x, x FROM numbers(10000000)

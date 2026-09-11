@@ -1,0 +1,1 @@
+INSERT INTO fsm_str_sparse_right SELECT leftPad(toString(number * 100), 12, '0') FROM numbers(50000)

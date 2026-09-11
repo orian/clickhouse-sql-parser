@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS array_join_function_cross

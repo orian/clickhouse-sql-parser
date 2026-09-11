@@ -1,0 +1,1 @@
+SELECT * FROM prometheusQueryRange('promql_topk_ts', 'bottomk(5, last_over_time(load[10]))', 100, 3090, 10) FORMAT Null

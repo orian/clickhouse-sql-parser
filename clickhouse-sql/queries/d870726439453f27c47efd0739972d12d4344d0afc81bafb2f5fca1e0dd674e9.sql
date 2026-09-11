@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_table_medium_{array_type}

@@ -1,0 +1,1 @@
+SELECT cbrt(8);

@@ -1,0 +1,1 @@
+INSERT INTO test_multiif_t SELECT * from numbers(300000000)

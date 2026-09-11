@@ -1,0 +1,1 @@
+insert into ttt select zero from zeros(300000000);

@@ -1,0 +1,1 @@
+DROP DICTIONARY IF EXISTS hierarchical_{dictionary_layout}_shards{dictionary_shards}_dictionary;

@@ -1,0 +1,1 @@
+INSERT INTO right SELECT number AS id, toFixedString(toString(intDiv(number, 200)), 16) AS k FROM numbers(2000000)

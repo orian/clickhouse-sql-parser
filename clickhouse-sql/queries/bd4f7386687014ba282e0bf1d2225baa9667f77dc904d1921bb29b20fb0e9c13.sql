@@ -1,0 +1,1 @@
+INSERT INTO replacing_insert_unique SELECT number FROM numbers(20000000) SETTINGS max_threads = 1, max_insert_threads = 1

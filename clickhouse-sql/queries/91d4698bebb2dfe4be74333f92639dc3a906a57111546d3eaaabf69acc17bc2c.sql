@@ -1,0 +1,1 @@
+create table t_mbm(a UInt64) engine=MergeTree order by a

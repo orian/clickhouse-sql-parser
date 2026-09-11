@@ -1,0 +1,1 @@
+SELECT accurateCastOrNull(x, 'Int64'), accurateCastOrNull(x, 'Int128'), accurateCastOrNull(x, 'Int256'), accurateCastOrNull(x, 'String'), accurateCastOrNull(x, 'Decimal64(8)') FROM t FORMAT Null

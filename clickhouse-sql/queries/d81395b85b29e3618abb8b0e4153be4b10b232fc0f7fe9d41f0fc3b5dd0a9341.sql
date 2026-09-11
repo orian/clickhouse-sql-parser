@@ -1,0 +1,1 @@
+drop table test_table_map_2

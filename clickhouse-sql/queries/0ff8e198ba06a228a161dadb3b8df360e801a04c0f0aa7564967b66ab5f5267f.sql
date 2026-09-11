@@ -1,0 +1,1 @@
+SELECT * FROM table_{format} FORMAT Null

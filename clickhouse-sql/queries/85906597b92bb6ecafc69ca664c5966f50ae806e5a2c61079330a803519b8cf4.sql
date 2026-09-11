@@ -1,0 +1,1 @@
+INSERT INTO build SELECT number, toString(number) FROM numbers_mt(5000000)

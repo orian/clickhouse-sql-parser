@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(50000000) WHERE NOT ignore(toInt256(toInt64(cityHash64(number))))

@@ -1,0 +1,1 @@
+   SHOW  wal_level;

@@ -1,0 +1,1 @@
+SELECT quantilesTimingIf(0.5, 0.9)(SendTiming, SendTiming > 0) FROM hits_100m_single SETTINGS max_threads = 1

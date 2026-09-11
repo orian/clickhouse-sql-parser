@@ -1,0 +1,1 @@
+SELECT MAX(test1.a) FROM test INNER JOIN test1 on test.b = test1.b settings join_algorithm='grace_hash', allow_experimental_join_right_table_sorting=true, join_to_sort_maximum_table_rows=100000

@@ -1,0 +1,1 @@
+SELECT radians(180)

@@ -1,0 +1,1 @@
+replaceRegexpAll(haystack, pattern, replacement)

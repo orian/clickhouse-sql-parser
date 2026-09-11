@@ -1,0 +1,1 @@
+optimize table moving_sum_{millions}m final

@@ -1,0 +1,1 @@
+UPDATE test_lwu_merge SET uint_1p = rand() WHERE id % 500 = 200

@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(3000000) WHERE NOT ignore(toDecimal32OrZero(toString(rand() % 10000), 5))

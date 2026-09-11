@@ -1,0 +1,1 @@
+UPDATE test_lwu_merge SET str_10p = randomPrintableASCII(8) WHERE id % 50 = 40

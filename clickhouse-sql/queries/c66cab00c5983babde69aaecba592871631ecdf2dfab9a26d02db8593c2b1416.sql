@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE URL IN (SELECT URL FROM hits_10m_single WHERE SearchEngineID != 0)

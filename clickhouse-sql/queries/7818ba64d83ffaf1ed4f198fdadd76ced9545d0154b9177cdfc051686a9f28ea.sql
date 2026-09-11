@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(1000000) WHERE NOT ignore(geohashEncode((number % 150)*1.1 - 75, (number * 3.14 % 300)*1.1 - 150))

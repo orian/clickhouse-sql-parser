@@ -1,0 +1,1 @@
+INSERT INTO users_nullable SELECT 1 as uid, 'Max' as name, number as age FROM numbers_mt(20000)

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_{format} (x UInt64) ENGINE = File(`{format}`)

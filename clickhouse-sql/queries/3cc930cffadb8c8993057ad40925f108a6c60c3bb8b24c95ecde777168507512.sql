@@ -1,0 +1,1 @@
+INSERT INTO keys64_build SELECT number, number FROM numbers_mt(10000000)

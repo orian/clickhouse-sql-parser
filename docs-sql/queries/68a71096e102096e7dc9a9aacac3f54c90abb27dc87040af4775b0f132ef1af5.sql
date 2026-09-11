@@ -1,0 +1,1 @@
+decodeXMLComponent(s)

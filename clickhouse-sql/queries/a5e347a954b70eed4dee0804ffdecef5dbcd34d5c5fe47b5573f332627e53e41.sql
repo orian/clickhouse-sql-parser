@@ -1,0 +1,1 @@
+SELECT rand32() AS x FROM numbers(1000000) ORDER BY x FORMAT Null

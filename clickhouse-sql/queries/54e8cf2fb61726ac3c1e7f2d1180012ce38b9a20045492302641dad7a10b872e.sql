@@ -1,0 +1,1 @@
+SELECT uint32 from test format Null

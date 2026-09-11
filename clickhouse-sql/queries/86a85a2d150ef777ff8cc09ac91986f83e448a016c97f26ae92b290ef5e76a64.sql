@@ -1,0 +1,1 @@
+SELECT avgWeighted(toNullable(num_f),    toNullable(num_f)) FROM perf_avg FORMAT Null

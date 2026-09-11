@@ -1,0 +1,1 @@
+ATTACH TABLE [IF NOT EXISTS] [db.]name [ON CLUSTER cluster]

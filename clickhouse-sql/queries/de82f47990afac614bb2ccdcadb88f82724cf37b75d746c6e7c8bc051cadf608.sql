@@ -1,0 +1,1 @@
+CREATE TABLE join_dup_build (k UInt64, v UInt64) ENGINE = Memory

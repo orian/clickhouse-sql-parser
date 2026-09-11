@@ -1,0 +1,1 @@
+SELECT hasAny([1], [])

@@ -1,0 +1,1 @@
+create table views_max_insert_threads_null (a UInt64) Engine = Null

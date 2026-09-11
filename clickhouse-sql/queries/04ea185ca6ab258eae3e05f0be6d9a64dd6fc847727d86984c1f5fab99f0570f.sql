@@ -1,0 +1,1 @@
+INSERT INTO t_text_index_merge_multiblock_intersecting_{codec} SELECT number * 6 + 3 AS id, arrayStringConcat(arrayMap(x -> 'v' || toString(x), arrayFilter(x -> (id + x) % 5 != 0, range(8))), ' ') FROM numbers(300000)

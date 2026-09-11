@@ -1,0 +1,1 @@
+readWKTRing(wkt_string)

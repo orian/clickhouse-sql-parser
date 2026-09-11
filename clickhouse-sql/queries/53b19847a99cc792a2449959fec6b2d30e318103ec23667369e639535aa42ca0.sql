@@ -1,0 +1,1 @@
+SELECT toString(cityHash64(number % 1000)) AS s FROM numbers_mt(50000000) ORDER BY s FORMAT Null

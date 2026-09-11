@@ -1,0 +1,1 @@
+SELECT sparseGramsUTF8(repeat('ы', 2000))

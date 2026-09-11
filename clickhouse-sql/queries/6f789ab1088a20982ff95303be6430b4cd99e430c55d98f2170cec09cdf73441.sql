@@ -1,0 +1,1 @@
+SELECT * FROM test.hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 1 FORMAT Null

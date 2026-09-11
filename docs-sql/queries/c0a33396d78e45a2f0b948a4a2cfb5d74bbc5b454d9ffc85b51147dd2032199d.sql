@@ -1,0 +1,1 @@
+hiveHash(arg)

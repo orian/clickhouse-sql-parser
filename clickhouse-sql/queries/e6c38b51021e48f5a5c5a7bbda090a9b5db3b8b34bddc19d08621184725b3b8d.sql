@@ -1,0 +1,1 @@
+SELECT id, timeSeriesDerivToGrid(0, 75000, 60, 300)(timestamp, value) FROM ts_grid_ingest GROUP BY id FORMAT Null

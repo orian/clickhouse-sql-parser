@@ -1,0 +1,1 @@
+SELECT count() FROM empty_strings WHERE NOT ignore(s)

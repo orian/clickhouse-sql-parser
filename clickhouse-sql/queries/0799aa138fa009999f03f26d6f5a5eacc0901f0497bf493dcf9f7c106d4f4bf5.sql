@@ -1,0 +1,1 @@
+with (SELECT uniqExactState(number) FROM numbers_mt(1e7)) as a select uniqExactMerge(a)

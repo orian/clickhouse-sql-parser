@@ -1,0 +1,2 @@
+SELECT number % 3 AS n FROM numbers(15)
+ORDER BY n LIMIT -4 OFFSET -3 WITH TIES

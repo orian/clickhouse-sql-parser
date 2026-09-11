@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS {integer_primary_key_table_name}

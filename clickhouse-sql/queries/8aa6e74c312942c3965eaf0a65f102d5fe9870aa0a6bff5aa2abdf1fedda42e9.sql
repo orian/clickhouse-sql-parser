@@ -1,0 +1,1 @@
+SELECT count() FROM test_logical_functions._2_0_UInt8 WHERE NOT ignore(or(x1,x2))

@@ -1,0 +1,1 @@
+dateTimeToSnowflakeID(value[, epoch])

@@ -1,0 +1,1 @@
+mapPartialReverseSort([func,] limit, map)

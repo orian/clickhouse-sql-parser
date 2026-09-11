@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_low_card_str FINAL

@@ -1,0 +1,1 @@
+CREATE TABLE test_table_1(id UInt64, value String) ENGINE=MergeTree ORDER BY id

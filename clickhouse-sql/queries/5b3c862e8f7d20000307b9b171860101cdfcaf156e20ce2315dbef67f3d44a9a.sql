@@ -1,0 +1,1 @@
+CREATE TABLE prop_perf_lineitem (k UInt64) ENGINE = MergeTree ORDER BY k SETTINGS index_granularity = 8192

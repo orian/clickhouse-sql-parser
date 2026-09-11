@@ -1,0 +1,1 @@
+substringIndex(s, delim, count)

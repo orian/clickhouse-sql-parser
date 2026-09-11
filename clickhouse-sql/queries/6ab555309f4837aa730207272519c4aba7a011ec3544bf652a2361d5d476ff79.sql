@@ -1,0 +1,1 @@
+SELECT CounterID, EventDate, count() FROM hits_100m_single GROUP BY CounterID, EventDate ORDER BY CounterID, EventDate LIMIT 10 FORMAT Null

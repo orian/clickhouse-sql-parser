@@ -1,0 +1,1 @@
+SELECT count(), sum(l_suppkey) FROM {database}.evo_promoted

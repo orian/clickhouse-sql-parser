@@ -1,0 +1,1 @@
+toDecimalString(number, scale)

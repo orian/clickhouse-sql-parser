@@ -1,0 +1,1 @@
+INSERT INTO fsm_u64_mult2 SELECT number * 2 FROM numbers_mt(6000000)

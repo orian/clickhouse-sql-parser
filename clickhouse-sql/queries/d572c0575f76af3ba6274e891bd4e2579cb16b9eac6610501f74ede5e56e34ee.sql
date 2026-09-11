@@ -1,0 +1,1 @@
+SELECT MobilePhoneModel as col FROM hits_100m_single ORDER BY col LIMIT 20000,1

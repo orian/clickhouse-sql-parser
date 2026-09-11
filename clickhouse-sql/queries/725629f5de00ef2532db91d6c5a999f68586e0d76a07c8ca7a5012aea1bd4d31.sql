@@ -1,0 +1,1 @@
+ SELECT count() FROM users2 u1 FULL JOIN (SELECT *, 'bar' as x FROM users1) u2 ON u1.uid = u2.uid WHERE x = 'bar' AND u2.uid < 100 

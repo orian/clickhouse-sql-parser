@@ -1,0 +1,1 @@
+SELECT sum(toDecimal256(d40, 5)) FROM div256

@@ -1,0 +1,1 @@
+SELECT RegionID, uniq(UserID) FROM hits_100m_single GROUP BY RegionID

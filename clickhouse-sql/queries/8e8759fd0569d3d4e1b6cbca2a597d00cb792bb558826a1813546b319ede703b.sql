@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(100000000) WHERE NOT ignore(randomString(10))

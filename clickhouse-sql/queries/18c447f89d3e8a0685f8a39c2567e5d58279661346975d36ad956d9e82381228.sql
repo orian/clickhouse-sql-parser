@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE positionCaseInsensitiveUTF8(URL, 'новости') != 0 SETTINGS max_threads = 1

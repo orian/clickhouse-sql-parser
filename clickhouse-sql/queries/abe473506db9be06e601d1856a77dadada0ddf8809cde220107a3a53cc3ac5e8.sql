@@ -1,0 +1,1 @@
+INSERT INTO fsm_nullable_left SELECT if(number % 10 = 0, NULL, number) FROM numbers_mt(10000000)

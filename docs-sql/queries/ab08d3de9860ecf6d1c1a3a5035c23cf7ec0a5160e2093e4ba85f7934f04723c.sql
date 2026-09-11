@@ -1,0 +1,1 @@
+load_balancing = hostname_longest_common_prefix

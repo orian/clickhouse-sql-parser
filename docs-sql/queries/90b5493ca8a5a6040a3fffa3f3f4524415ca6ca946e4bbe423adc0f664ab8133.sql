@@ -1,0 +1,1 @@
+SELECT sinh(0)

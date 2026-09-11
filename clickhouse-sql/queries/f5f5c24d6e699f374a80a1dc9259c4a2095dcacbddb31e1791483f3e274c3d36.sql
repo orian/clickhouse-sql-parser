@@ -1,0 +1,1 @@
+SELECT count() FROM h3_indexes_perf WHERE NOT ignore(h3Distance(h3, materialize(geoToH3(55.75, 37.62, toUInt8(9)))))

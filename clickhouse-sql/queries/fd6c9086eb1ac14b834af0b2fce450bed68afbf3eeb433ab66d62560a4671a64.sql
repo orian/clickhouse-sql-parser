@@ -1,0 +1,1 @@
+SELECT count() FROM join_set_maps_probe AS l SEMI LEFT JOIN join_set_maps_build AS r ON l.k = r.k SETTINGS join_algorithm = 'parallel_hash' FORMAT Null

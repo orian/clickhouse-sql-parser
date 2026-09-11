@@ -1,0 +1,1 @@
+hasAllTokens(input, needles[, tokenizer])

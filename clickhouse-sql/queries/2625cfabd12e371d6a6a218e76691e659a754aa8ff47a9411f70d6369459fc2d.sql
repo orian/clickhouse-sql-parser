@@ -1,0 +1,1 @@
+SELECT count() FROM {table_large} WHERE rand64() IN (SELECT number FROM system.numbers LIMIT {size_small})

@@ -1,0 +1,1 @@
+SELECT * FROM file(test_line_as_string.tsv, LineAsString) FORMAT Null

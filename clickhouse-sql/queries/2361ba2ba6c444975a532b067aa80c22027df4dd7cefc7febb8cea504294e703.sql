@@ -1,0 +1,1 @@
+SELECT a, count() FROM (SELECT a FROM test_{partitions} LIMIT 5 BY a) GROUP BY a FORMAT Null SETTINGS allow_aggregate_partitions_independently = 1

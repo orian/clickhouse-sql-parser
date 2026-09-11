@@ -1,0 +1,1 @@
+toDayOfWeek(datetime[, mode[, timezone]])

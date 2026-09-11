@@ -1,0 +1,1 @@
+SELECT max(val), count(*) FROM with_lonely FINAL;

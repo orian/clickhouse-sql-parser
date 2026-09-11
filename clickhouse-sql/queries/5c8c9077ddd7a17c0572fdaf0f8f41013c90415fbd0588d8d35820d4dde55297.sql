@@ -1,0 +1,1 @@
+CREATE TABLE {database}.sorted_li (l_orderkey Int32, l_shipdate Date, l_extendedprice Float64) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/sorted_li_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet') ORDER BY (l_shipdate, l_orderkey)

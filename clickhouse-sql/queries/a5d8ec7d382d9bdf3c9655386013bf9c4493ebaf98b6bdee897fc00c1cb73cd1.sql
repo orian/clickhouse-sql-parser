@@ -1,0 +1,1 @@
+INSERT INTO distinct_cardinality_low SELECT number % 1e2, number % 1e4, number % 1e6 FROM numbers_mt(1e8)

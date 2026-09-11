@@ -1,0 +1,1 @@
+SELECT notLike('ClickHouse', '%SQL%');

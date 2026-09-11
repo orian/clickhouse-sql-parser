@@ -1,0 +1,1 @@
+SELECT intHash64(number) AS n FROM numbers_mt(200000000) ORDER BY n LIMIT 10000 FORMAT Null

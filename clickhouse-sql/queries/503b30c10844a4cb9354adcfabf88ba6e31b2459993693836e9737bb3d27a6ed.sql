@@ -1,0 +1,1 @@
+SELECT a, sum(b) OVER (PARTITION BY a ORDER BY b) FROM test_{partitions} FORMAT Null

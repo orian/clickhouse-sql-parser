@@ -1,0 +1,1 @@
+SELECT sumIf(1, 0) FROM numbers(1000000000)

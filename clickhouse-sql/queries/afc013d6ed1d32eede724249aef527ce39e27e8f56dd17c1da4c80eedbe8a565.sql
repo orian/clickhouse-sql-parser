@@ -1,0 +1,1 @@
+ CREATE TABLE probe (k1 UInt64, k2 UInt64) ENGINE = MergeTree ORDER BY tuple()

@@ -1,0 +1,1 @@
+SELECT v FROM qcc_topk_test WHERE payload = 'no_match' ORDER BY v ASC LIMIT 10 SETTINGS use_query_condition_cache = 0 FORMAT Null

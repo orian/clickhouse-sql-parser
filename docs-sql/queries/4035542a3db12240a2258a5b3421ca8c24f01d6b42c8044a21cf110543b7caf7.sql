@@ -1,0 +1,1 @@
+CREATE NAMED COLLECTION foobar AS a = '1', b = '2' OVERRIDABLE;

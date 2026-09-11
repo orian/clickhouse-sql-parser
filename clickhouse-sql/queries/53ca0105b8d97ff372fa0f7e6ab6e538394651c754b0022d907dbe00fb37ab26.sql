@@ -1,0 +1,1 @@
+CREATE TABLE sequential_{integer_type} (key {integer_type}, value {integer_type}) Engine = Memory

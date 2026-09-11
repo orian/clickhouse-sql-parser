@@ -1,0 +1,1 @@
+SELECT 'simdjson-8',  count() FROM zeros(5000000) WHERE NOT ignore(JSONExtractInt(materialize({long_json}), 'nparam'))

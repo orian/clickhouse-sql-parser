@@ -1,0 +1,1 @@
+select * from file('test_orc_tfp.orc', 'ORC', 'map_tuple_column Map(String, Tuple(c Nullable(Int64)))') format Null

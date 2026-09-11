@@ -1,0 +1,1 @@
+INSERT INTO prop_perf_lineitem SELECT number FROM numbers(30000000) SETTINGS max_insert_threads = 8

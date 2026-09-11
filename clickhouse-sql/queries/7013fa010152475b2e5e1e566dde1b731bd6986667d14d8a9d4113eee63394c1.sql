@@ -1,0 +1,1 @@
+SELECT l.k FROM probe AS l INNER JOIN build r ON l.k = r.k WHERE substring(r.s, 1, 1) IN ('1', '2', '3', '4', '5', '6', '7', '8', '9') FORMAT Null

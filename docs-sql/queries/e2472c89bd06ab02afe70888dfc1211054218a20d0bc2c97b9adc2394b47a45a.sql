@@ -1,0 +1,1 @@
+UUIDNumToString(binary[, variant])

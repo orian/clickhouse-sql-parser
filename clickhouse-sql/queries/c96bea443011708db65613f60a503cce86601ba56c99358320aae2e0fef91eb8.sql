@@ -1,0 +1,1 @@
+SELECT UserID, min(URL) FROM hits_100m_single GROUP BY UserID FORMAT Null

@@ -1,0 +1,1 @@
+select sum(URL in (select URL from hits_10m_single where URL != '')) from hits_10m_single

@@ -1,0 +1,1 @@
+SELECT sum(w) FROM narrow_col GROUP BY w % 1000 FORMAT Null

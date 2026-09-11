@@ -1,0 +1,1 @@
+SELECT sum(number), avg(number), count(number) FROM numbers(1000000000) FORMAT Null

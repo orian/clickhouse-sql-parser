@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(20000000) WHERE NOT ignore(toString(intDiv(rand64(), pow(10, rand() % 20)::UInt64 + 1))) SETTINGS max_threads = 1

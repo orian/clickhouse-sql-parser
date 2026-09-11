@@ -1,0 +1,1 @@
+CREATE TABLE merge_tree_insert_3 (value_1 UInt64, value_2 UInt64, value_3 UInt64) ENGINE = MergeTree ORDER BY (value_1, value_2, value_3) SETTINGS auto_statistics_types=''

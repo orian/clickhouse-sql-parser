@@ -1,0 +1,1 @@
+INSERT INTO tab_filter_not_in SELECT * FROM tab_src_35

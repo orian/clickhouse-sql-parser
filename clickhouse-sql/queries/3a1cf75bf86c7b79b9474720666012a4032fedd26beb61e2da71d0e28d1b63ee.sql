@@ -1,0 +1,1 @@
+SELECT sumKahan(toFloat32(number)) FROM numbers(100000000)

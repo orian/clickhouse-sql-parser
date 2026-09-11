@@ -1,0 +1,1 @@
+SELECT sum(number)                             FROM numbers(1000000000) FORMAT Null

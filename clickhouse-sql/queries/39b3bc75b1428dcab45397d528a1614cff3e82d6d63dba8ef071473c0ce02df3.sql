@@ -1,0 +1,1 @@
+with rand32() % 2 as x, 1::Int8 as a, -1::Int8 as b select if(x, a, b) from numbers(100000000) format Null

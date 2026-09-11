@@ -1,0 +1,1 @@
+SELECT 'rapidjson-7', count() FROM zeros(1000000) WHERE NOT ignore(JSONExtractString(materialize({long_json}), 'sparam', 'nested_1'))

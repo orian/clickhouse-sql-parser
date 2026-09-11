@@ -1,0 +1,1 @@
+SET allow_database_iceberg=1

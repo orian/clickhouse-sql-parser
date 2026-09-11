@@ -1,0 +1,1 @@
+colorSRGBToOKLAB(tuple[, gamma])

@@ -1,0 +1,1 @@
+CLEAR COLUMN [IF EXISTS] name IN PARTITION partition_name

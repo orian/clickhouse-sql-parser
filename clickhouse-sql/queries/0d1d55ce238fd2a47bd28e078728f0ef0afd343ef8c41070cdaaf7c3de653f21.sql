@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE CounterID <= 10000 AND NOT ignore(MobilePhoneModel, SearchPhrase, URL, Referer, Title)

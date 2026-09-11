@@ -1,0 +1,1 @@
+SELECT sum(n) FROM (SELECT intHash64(number * 2) AS n FROM numbers_mt(10000000)) AS lhs JOIN (SELECT intHash64(number * 3) AS n FROM numbers_mt(10000000)) AS rhs USING (n) SETTINGS {settings} FORMAT Null

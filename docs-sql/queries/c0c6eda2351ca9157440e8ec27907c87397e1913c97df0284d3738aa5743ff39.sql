@@ -1,0 +1,1 @@
+DROP TEMPORARY VIEW IF EXISTS tview;  -- 임시 뷰는 TEMPORARY TABLE 구문으로 삭제됩니다

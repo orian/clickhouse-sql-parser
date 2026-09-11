@@ -1,0 +1,1 @@
+CREATE TABLE join_set_maps_build_str (s String) ENGINE = Memory

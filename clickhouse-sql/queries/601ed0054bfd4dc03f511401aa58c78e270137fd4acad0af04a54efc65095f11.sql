@@ -1,0 +1,1 @@
+INSERT INTO test_str_right SELECT toString(number) FROM numbers(100)

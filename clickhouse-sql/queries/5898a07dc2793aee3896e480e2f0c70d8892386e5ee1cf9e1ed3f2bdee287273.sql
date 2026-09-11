@@ -1,0 +1,1 @@
+CREATE TABLE test_logical_functions._2_0_UInt8 (x1 UInt8, x2 UInt8) ENGINE = Memory

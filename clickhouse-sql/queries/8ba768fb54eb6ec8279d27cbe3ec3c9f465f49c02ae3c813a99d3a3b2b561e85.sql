@@ -1,0 +1,1 @@
+create table t(a UInt64) engine=MergeTree order by tuple()

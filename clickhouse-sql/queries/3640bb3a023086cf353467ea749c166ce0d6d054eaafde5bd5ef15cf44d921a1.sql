@@ -1,0 +1,1 @@
+SELECT count() FROM {database}.lineitem WHERE NOT ignore(*)

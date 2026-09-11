@@ -1,0 +1,1 @@
+SELECT a, sum(b) OVER (PARTITION BY a ORDER BY b) FROM t_skew90 FORMAT Null

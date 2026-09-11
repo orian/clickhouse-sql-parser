@@ -1,0 +1,1 @@
+kqlBinAt(value, binSize, fixedPoint)

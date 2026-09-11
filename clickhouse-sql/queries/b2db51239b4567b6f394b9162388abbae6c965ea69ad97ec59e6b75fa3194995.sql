@@ -1,0 +1,1 @@
+SELECT count() FROM dt64 where not ignore(x)

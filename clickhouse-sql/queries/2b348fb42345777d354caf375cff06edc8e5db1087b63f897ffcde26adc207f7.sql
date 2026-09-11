@@ -1,0 +1,1 @@
+select json.items[].small from json_advanced_shared_data_nested format Null

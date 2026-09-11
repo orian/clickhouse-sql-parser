@@ -1,0 +1,1 @@
+SELECT id, timeSeriesInstantRateToGrid(1000000, 4000000, 300, 300)(timestamp, value) FROM ts_scalar_add GROUP BY id FORMAT Null

@@ -1,0 +1,3 @@
+SELECT * FROM numbers(10, 10);
+SELECT * FROM numbers() LIMIT 10 OFFSET 10;
+SELECT * FROM system.numbers LIMIT 10 OFFSET 10;

@@ -1,0 +1,1 @@
+INSERT INTO test_lc_insert(k1, k2) SELECT number%1000 AS k1, number%1001 AS k2 FROM numbers(2000000)

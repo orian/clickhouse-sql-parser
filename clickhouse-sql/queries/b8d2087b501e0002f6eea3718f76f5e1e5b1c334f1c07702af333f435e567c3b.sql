@@ -1,0 +1,1 @@
+SELECT count() FROM json_string_value_formatting WHERE NOT ignore(JSONExtractRaw(doc)) SETTINGS max_threads = 1

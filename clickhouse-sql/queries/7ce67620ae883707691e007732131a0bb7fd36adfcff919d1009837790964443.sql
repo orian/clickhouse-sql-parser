@@ -1,0 +1,1 @@
+SELECT max(i128), min(i128), max(d128), min(d128) FROM minmax_wide GROUP BY u128 % 1000 FORMAT Null

@@ -1,0 +1,3 @@
+
+insert into src_variant_squash_performance with 'Variant(Tuple(v1 Array(UInt64)), Tuple(v2 Array(UInt64)), Tuple(v3 Array(UInt64)), Tuple(v4 Array(UInt64)), Tuple(v5 Array(UInt64)))' as variant_type select multiIf(number % 15 < 1, CAST(tuple(range(number % 100))::Tuple(v1 Array(UInt64)), variant_type), number % 15 < 3, CAST(tuple(range(number % 100))::Tuple(v2 Array(UInt64)), variant_type), number % 15 < 6, CAST(tuple(range(number % 100))::Tuple(v3 Array(UInt64)), variant_type), number % 15 < 10, CAST(tuple(range(number % 100))::Tuple(v4 Array(UInt64)), variant_type), CAST(tuple(range(number % 100))::Tuple(v5 Array(UInt64)), variant_type)) from numbers(1000000)
+    

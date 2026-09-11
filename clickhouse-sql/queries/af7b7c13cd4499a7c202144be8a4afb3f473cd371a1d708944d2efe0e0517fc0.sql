@@ -1,0 +1,1 @@
+SELECT count() FROM perf_lc_str WHERE arr[1] = str

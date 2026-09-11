@@ -1,0 +1,1 @@
+SELECT count() FROM ips_v6 WHERE NOT ignore(IPv6StringToNum(materialize(ip)))

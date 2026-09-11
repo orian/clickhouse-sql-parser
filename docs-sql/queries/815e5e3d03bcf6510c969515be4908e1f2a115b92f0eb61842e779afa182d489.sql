@@ -1,0 +1,1 @@
+DROP FUNCTION [IF EXISTS] name [ON CLUSTER cluster]

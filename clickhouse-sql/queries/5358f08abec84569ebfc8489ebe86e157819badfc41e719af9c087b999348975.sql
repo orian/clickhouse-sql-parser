@@ -1,0 +1,1 @@
+SELECT count() FROM t_subcolumns WHERE NOT ignore(length(a))

@@ -1,0 +1,1 @@
+SELECT count(), sum(l_extendedprice) FROM {database}.lineitem WHERE l_shipdate = toDate('1994-06-15') SETTINGS use_iceberg_metadata_files_cache = 0

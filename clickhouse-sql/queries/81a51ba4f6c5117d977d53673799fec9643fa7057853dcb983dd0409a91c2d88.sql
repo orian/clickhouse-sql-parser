@@ -1,0 +1,1 @@
+INSERT INTO index_test SELECT number * 10 FROM numbers_mt(toUInt64(0x100000000 / 40)) SETTINGS max_insert_threads=8

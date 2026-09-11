@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(10000000) WHERE NOT ignore(multiIf(rand() % 2, [toDateTime(rand())], [toDate(rand())]))

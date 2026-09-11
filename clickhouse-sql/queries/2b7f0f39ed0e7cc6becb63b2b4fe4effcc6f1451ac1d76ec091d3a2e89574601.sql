@@ -1,0 +1,1 @@
+SELECT number % 128 FROM numbers(300000000) FORMAT Null

@@ -1,0 +1,1 @@
+INSERT INTO lazy_final_perf SELECT 0, number,            1, if(number < 50000, 1, 0), repeat('x', 200) FROM numbers(1000000)

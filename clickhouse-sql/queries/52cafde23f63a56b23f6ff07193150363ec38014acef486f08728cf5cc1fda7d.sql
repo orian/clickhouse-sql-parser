@@ -1,0 +1,1 @@
+SELECT count() FROM perf_lc_str WHERE has(arr, concat('0', str))

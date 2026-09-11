@@ -1,0 +1,1 @@
+SELECT a, count() FROM (SELECT DISTINCT a, b FROM test_{partitions}) GROUP BY a FORMAT Null SETTINGS allow_aggregate_partitions_independently = 1

@@ -1,0 +1,1 @@
+INSERT INTO codec_rnd_{type}_{codec} (n) SELECT (intHash64(number) - 4294967295)/pi() FROM system.numbers LIMIT {num_rows} SETTINGS max_threads=1

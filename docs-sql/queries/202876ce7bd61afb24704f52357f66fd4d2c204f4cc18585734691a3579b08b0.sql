@@ -1,0 +1,1 @@
+SELECT javaHash('Hello, world!');

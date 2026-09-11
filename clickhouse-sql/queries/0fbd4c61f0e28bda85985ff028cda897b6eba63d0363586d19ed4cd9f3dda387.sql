@@ -1,0 +1,1 @@
+SELECT sum(L2SquaredDistance(a, b)) FROM adss_f32_{dim}

@@ -1,0 +1,1 @@
+CREATE TABLE simple_mergetree (EventDate Date, x UInt64) ENGINE = MergeTree ORDER BY x

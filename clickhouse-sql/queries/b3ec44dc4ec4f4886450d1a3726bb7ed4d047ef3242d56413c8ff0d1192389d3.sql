@@ -1,0 +1,1 @@
+SELECT max(length(UTMSource)) FROM hits_100m_single

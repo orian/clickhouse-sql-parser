@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(10000000)  WHERE NOT ignore(roundDown(rand() % 65536, (SELECT groupArray(number) FROM numbers(65536))))

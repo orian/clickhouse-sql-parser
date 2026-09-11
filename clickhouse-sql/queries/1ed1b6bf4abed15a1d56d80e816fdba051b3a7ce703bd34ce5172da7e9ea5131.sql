@@ -1,0 +1,1 @@
+insert into tbl0 with murmurHash3_32(toUInt32(rand())) as uid select toDate('2022-03-01')+rand()%7 as ds, concat('xx',toString(rand()%10+1)) as x1, 1 as x2, 2 as x3, bitShiftRight(uid, 22) as x4, groupBitmapState(uid)  as bm from numbers(100000000) where x4%40=0 group by ds, x1, x2, x3, x4

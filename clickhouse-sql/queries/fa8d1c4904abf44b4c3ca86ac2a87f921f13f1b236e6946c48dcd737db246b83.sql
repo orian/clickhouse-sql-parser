@@ -1,0 +1,1 @@
+INSERT INTO group_by_prefetch SELECT cityHash64(number) % 131072 FROM numbers_mt(200000000)

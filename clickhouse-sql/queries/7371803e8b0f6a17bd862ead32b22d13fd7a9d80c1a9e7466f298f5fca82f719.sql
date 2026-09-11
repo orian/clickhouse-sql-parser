@@ -1,0 +1,1 @@
+CREATE TABLE array_data(k UInt16, v Array(UInt64)) ENGINE Log

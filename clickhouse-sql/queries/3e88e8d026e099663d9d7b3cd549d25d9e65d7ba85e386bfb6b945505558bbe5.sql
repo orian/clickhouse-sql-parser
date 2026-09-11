@@ -1,0 +1,1 @@
+SELECT count(), max(cityHash64(payload)) FROM lazy_final_perf FINAL WHERE category = 1 SETTINGS query_plan_optimize_lazy_final = 0

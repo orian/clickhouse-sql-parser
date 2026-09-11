@@ -1,0 +1,1 @@
+INSERT INTO sg_src SELECT randomPrintableASCII(200) FROM numbers(150_000)

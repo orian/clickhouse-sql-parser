@@ -1,0 +1,1 @@
+OPTIMIZE TABLE json_to_string_shared_data FINAL

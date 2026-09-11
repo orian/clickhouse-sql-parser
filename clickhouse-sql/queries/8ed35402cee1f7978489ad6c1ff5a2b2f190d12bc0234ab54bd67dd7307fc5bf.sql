@@ -1,0 +1,1 @@
+SELECT sum(l.v) FROM lck_fs_probe AS l ALL INNER JOIN lck_fs_build AS r ON l.k = r.k FORMAT Null

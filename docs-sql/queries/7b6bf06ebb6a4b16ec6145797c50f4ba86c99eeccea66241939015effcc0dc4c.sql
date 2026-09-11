@@ -1,0 +1,1 @@
+ALTER DATABASE [db].name [ON CLUSTER cluster] MODIFY COMMENT 'Comment'

@@ -1,0 +1,1 @@
+SELECT count() from dt64 where not ignore(toString(x))

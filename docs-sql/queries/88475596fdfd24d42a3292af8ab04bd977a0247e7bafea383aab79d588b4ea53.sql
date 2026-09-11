@@ -1,0 +1,1 @@
+SELECT IPv4CIDRToRange(toIPv4('192.168.5.2'), 16);

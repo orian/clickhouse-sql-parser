@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS h3_indexes_perf

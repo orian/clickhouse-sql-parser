@@ -143,6 +143,16 @@ func (l *Lexer) consumeNumber() error {
 		case base == 16 && IsHexDigit(c):
 			i++
 			continue
+		case c == '_' && i > 0 && l.peekOk(i+1):
+			// Separators belong inside a digit block, never at its boundaries.
+			isDigit := IsDigit
+			if base == 16 {
+				isDigit = IsHexDigit
+			}
+			if isDigit(l.peekN(i-1)) && isDigit(l.peekN(i+1)) {
+				i++
+				continue
+			}
 		case c == '.': // float
 			tokenKind = TokenKindFloat
 			i++

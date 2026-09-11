@@ -1,0 +1,1 @@
+INSERT INTO table_dst_{format} SELECT * FROM table_src_{format}

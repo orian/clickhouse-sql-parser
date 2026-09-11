@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS rand_unlimited_10m_32

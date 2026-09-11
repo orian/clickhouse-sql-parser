@@ -1,0 +1,1 @@
+SELECT histogram({bins})(randCanonical()) FROM numbers({N}) FORMAT Null

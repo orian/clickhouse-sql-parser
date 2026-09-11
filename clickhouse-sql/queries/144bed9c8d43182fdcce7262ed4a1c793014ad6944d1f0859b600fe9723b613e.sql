@@ -1,0 +1,1 @@
+select leftPadUTF8(materialize('hello '), 10, ',') from numbers(10000000)

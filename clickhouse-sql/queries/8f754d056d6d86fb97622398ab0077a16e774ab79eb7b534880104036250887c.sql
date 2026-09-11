@@ -1,0 +1,1 @@
+INSERT INTO t_text_index_merge_vocabulary_intersecting_{codec} SELECT number * 6 + 1 AS id, arrayStringConcat(arrayMap(x -> toString(rand(id * 15 + x) % 2048), range(15)), ' ') FROM numbers(100000)

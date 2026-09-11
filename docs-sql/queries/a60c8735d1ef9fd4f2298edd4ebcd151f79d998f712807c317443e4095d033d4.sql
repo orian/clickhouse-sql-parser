@@ -1,0 +1,1 @@
+SELECT sqr(5)

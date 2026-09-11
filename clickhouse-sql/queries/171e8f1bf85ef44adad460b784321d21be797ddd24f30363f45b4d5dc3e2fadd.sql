@@ -1,0 +1,1 @@
+INSERT INTO lazy_mat_final_limit SELECT number, cityHash64(number, 2) % 10000, randomPrintableASCII(2000) FROM numbers_mt(500000)

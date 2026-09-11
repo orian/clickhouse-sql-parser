@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS {decimal_primary_key_table_name}

@@ -1,0 +1,1 @@
+INSERT INTO test_logical_functions._2_1_UInt8 SELECT materialize(1) AS x1, materialize(1) AS x2 FROM zeros(1000000000)

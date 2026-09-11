@@ -1,0 +1,1 @@
+SELECT count() FROM text_index_lazy_wide WHERE hasAllTokens(s, ['dense', 'medium']) SETTINGS text_index_lazy_intersection_density_threshold = 0

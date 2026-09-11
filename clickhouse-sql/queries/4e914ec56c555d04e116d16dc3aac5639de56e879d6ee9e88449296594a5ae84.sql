@@ -1,0 +1,1 @@
+SELECT number FROM numbers_mt(100000000) LIMIT 1 BY number % 1000, sipHash64(number % 1000) FORMAT Null

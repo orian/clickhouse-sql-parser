@@ -1,0 +1,3 @@
+SELECT count() FROM
+        (SELECT materialize(toUInt8(1)) AS x1, materialize(toUInt16(1)) AS x2, materialize(toUInt32(1)) AS x3, materialize(toUInt64(1)) AS x4, materialize(toInt8(1)) AS x5, materialize(toInt16(1)) AS x6, materialize(toInt32(1)) AS x7, materialize(toInt64(1)) AS x8, materialize(toFloat32(1)) AS x9, materialize(toFloat64(1)) AS x10 FROM zeros(20000000))
+    WHERE NOT ignore(and(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10))

@@ -1,0 +1,1 @@
+insert into main_table select number from numbers(10000000)

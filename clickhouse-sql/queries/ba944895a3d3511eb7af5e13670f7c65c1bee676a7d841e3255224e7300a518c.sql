@@ -1,0 +1,1 @@
+SELECT timeSeriesRateToGrid(0, 300000, 300, 300)(timestamp, value) FROM ts_bucketing FORMAT Null

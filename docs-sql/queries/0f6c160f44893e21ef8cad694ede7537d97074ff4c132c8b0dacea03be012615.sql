@@ -1,0 +1,1 @@
+formatQuerySingleLineOrNull(query)

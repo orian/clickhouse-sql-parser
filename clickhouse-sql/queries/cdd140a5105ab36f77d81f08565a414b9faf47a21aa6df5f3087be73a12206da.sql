@@ -1,0 +1,1 @@
+OPTIMIZE TABLE pfsm_left FINAL

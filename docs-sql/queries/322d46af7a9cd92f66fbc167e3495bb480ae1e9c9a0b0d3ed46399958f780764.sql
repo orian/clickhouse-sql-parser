@@ -1,0 +1,1 @@
+DETACH TABLE postgres_database.table_to_remove PERMANENTLY;

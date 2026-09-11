@@ -1,0 +1,1 @@
+ngramSearchCaseInsensitive(haystack, needle)

@@ -1,0 +1,2 @@
+WITH toDate('2018-01-01') AS date
+SELECT addTupleOfIntervals(date, (INTERVAL 1 DAY, INTERVAL 1 MONTH, INTERVAL 1 YEAR))

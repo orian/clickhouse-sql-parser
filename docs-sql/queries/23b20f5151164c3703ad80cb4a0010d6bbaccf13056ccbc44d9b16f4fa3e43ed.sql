@@ -1,0 +1,3 @@
+SELECT *
+FROM example FINAL
+LIMIT 1000 

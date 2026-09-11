@@ -1,0 +1,1 @@
+varSampStable(x)

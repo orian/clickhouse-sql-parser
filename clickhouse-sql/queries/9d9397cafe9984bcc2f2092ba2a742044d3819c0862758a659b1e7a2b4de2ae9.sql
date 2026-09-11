@@ -1,0 +1,1 @@
+insert into t_nullable select ['aa','bb','cc','dd'][number % 10000 + 1], ['aa','bb','cc','dd'][number % 200000 + 1], ['aa','bb','cc','dd'][number % 4 + 1], toInt64(number%10000), toInt64(number%200000), toInt32(number%10000), toInt32(number%200000), toInt16(number%10000), toInt8(number%100), number%6000+1, number%5000+2 from numbers_mt(20000000)

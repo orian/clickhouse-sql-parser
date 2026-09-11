@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_text_index_merge_vocabulary_intersecting_{codec}

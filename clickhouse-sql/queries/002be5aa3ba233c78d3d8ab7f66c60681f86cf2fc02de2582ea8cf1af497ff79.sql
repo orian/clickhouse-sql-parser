@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(countMatches(URL, '(?i)yandex')) SETTINGS max_threads=2
