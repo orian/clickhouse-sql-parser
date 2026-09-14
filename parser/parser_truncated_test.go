@@ -24,3 +24,33 @@ func TestLexer_CommentAtEOF(t *testing.T) {
 		})
 	}
 }
+
+func TestParser_TruncatedTypeAndClauses(t *testing.T) {
+	for _, sql := range []string{
+		"CREATE TABLE A(A A('' ",
+		"CREATE TABLE t (x DateTime('UTC'",
+		"CREATE TABLE t (x Enum8('a'",
+		"CREATE TABLE t (x DateTime('UTC' /* unfinished",
+		"Alter tABle A modifY ",
+		"CREATE USER u DEFAULT",
+	} {
+		t.Run(sql, func(t *testing.T) {
+			_, err := NewParser(sql).ParseStmts()
+			require.Error(t, err)
+		})
+	}
+}
+
+func TestParser_StringTypeParameters(t *testing.T) {
+	for _, sql := range []string{
+		"CREATE TABLE t (x DateTime('UTC'))",
+		"CREATE TABLE t (x Enum8('a' = 1, 'b' = 2))",
+		"CREATE USER u DEFAULT ROLE r",
+		"CREATE USER u DEFAULT DATABASE db",
+	} {
+		t.Run(sql, func(t *testing.T) {
+			_, err := NewParser(sql).ParseStmts()
+			require.NoError(t, err)
+		})
+	}
+}

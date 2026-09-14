@@ -48,7 +48,8 @@ stored in Go's `go test fuzz v1` encoding, not as a rewritten original fixture.
 
 ## Automation
 
-The `Parser fuzzing` GitHub Actions workflow runs for two minutes nightly and can
-also be dispatched manually. On failure it uploads the minimized regression
+The `Parser fuzzing` GitHub Actions workflow is dispatched manually and runs for
+five minutes with seeds from both extracted SQL corpora.
+On failure it uploads the minimized regression
 corpus. Ordinary CI continues to replay saved seeds through `make test`; it does
 not depend on a random mutation campaign passing on every pull request.

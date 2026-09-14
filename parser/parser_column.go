@@ -994,7 +994,11 @@ func (p *Parser) parseColumnTypeArgs(ident *Ident) (ColumnType, error) { // noli
 				return p.parseComplexType(ident, p.Pos())
 			}
 		case p.matchTokenKind(TokenKindString):
-			if peekToken, err := p.lexer.peekToken(); err == nil && peekToken.Kind == TokenKindSingleEQ {
+			peekToken, err := p.lexer.peekToken()
+			if err != nil {
+				return nil, err
+			}
+			if peekToken != nil && peekToken.Kind == TokenKindSingleEQ {
 				// enum values
 				return p.parseEnumType(ident, p.Pos())
 			}

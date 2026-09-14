@@ -787,6 +787,9 @@ func (p *Parser) parseDefaultClause(createUser *CreateUser) (bool, error) {
 	if err != nil {
 		return false, err
 	}
+	if nextToken == nil {
+		return false, fmt.Errorf("expected ROLE or DATABASE after DEFAULT")
+	}
 
 	if nextToken.String == KeywordRole {
 		defaultRole, err := p.parseDefaultRoleClause(p.Pos())
