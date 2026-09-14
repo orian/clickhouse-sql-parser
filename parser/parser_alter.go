@@ -773,7 +773,7 @@ func (p *Parser) parseAlterTableModify(pos Pos) (AlterTableClause, error) {
 		}, nil
 	default:
 		return nil, fmt.Errorf("expected keyword: COLUMN|TTL|QUERY|SETTING, but got %q",
-			p.last().String)
+			p.lastTokenText())
 	}
 
 }

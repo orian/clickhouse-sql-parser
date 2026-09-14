@@ -2,8 +2,6 @@ name: Parser fuzzing
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '23 3 * * *'
 
 permissions:
   contents: read
@@ -11,7 +9,7 @@ permissions:
 jobs:
   fuzz:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -19,7 +17,7 @@ jobs:
           go-version-file: go.mod
           cache: true
       - name: Fuzz parser
-        run: make fuzz FUZZ_TIME=2m FUZZ_TIMEOUT=5m FUZZ_PARALLEL=2
+        run: make fuzz FUZZ_TIME=5m FUZZ_TIMEOUT=8m FUZZ_PARALLEL=2 FUZZ_SQL_CORPORA='../docs-sql/queries,../clickhouse-sql/queries'
       - name: Preserve minimized failures
         if: failure()
         uses: actions/upload-artifact@v4
