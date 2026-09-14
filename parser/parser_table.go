@@ -13,7 +13,7 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 		_ = p.lexer.consumeToken()
 		orReplace := p.tryConsumeKeywords(KeywordOr, KeywordReplace)
 		if orReplace && !p.matchOneOfKeywords(KeywordTemporary, KeywordTable, KeywordView, KeywordFunction, KeywordDictionary) {
-			return nil, fmt.Errorf("expected keyword: TEMPORARY|TABLE|VIEW|FUNCTION|DICTIONARY, but got %q", p.last().String)
+			return nil, fmt.Errorf("expected keyword: TEMPORARY|TABLE|VIEW|FUNCTION|DICTIONARY, but got %q", p.lastTokenText())
 		}
 		switch {
 		case p.matchKeyword(KeywordNamed):
@@ -49,7 +49,7 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 		case p.matchKeyword(KeywordTable):
 			return p.parseAlterTable(pos)
 		default:
-			return nil, fmt.Errorf("expected keyword: TABLE|ROLE, but got %q", p.last().String)
+			return nil, fmt.Errorf("expected keyword: TABLE|ROLE, but got %q", p.lastTokenText())
 		}
 	case p.matchKeyword(KeywordDrop),
 		p.matchKeyword(KeywordDetach):
@@ -66,7 +66,7 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 			p.matchKeyword(KeywordRole):
 			return p.parserDropUserOrRole(pos)
 		default:
-			return nil, fmt.Errorf("expected keyword: DATABASE|TABLE, but got %q", p.last().String)
+			return nil, fmt.Errorf("expected keyword: DATABASE|TABLE, but got %q", p.lastTokenText())
 		}
 	case p.matchKeyword(KeywordTruncate):
 		return p.parseTruncateTable(pos)
@@ -898,7 +898,7 @@ func (p *Parser) tryParseClusterClause(pos Pos) (*ClusterClause, error) {
 	case p.matchTokenKind(TokenKindString):
 		expr, err = p.parseString(p.Pos())
 	default:
-		return nil, fmt.Errorf("unexpected token: %q, expected <IDENT> or <STRING>", p.last().String)
+		return nil, fmt.Errorf("unexpected token: %q, expected <IDENT> or <STRING>", p.lastTokenText())
 	}
 	if err != nil {
 		return nil, err
@@ -1007,7 +1007,11 @@ func (p *Parser) parseOrderExpr(pos Pos) (*OrderExpr, error) {
 	var alias *Ident
 	if p.matchKeyword(KeywordAs) {
 		// It should be a subquery instead of an order by alias if the `AS` is followed by `SELECT` keyword.
-		if nextToken, err := p.lexer.peekToken(); err == nil && nextToken.ToString() == KeywordSelect {
+		nextToken, err := p.lexer.peekToken()
+		if err != nil {
+			return nil, err
+		}
+		if nextToken != nil && nextToken.ToString() == KeywordSelect {
 			return &OrderExpr{
 				OrderPos: pos,
 				Expr:     columnExpr,
@@ -1641,7 +1645,7 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 		if p.last() == nil {
 			return nil, errors.New("unexpected end of input")
 		}
-		return nil, fmt.Errorf("unexpected token: %q", p.last().String)
+		return nil, fmt.Errorf("unexpected token: %q", p.lastTokenText())
 	}
 	if err != nil {
 		return nil, err
@@ -1653,7 +1657,7 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 
 	// Statement can be terminated by ';' or EOF
 	if p.last() != nil && !p.matchTokenKind(";") {
-		return nil, fmt.Errorf("<EOF> or ';' was expected, but got: %q", p.last().String)
+		return nil, fmt.Errorf("<EOF> or ';' was expected, but got: %q", p.lastTokenText())
 	}
 	return expr, nil
 }
@@ -1733,7 +1737,7 @@ func (p *Parser) parseShowStmt(pos Pos) (*ShowStmt, error) {
 		_ = p.lexer.consumeToken()
 
 	default:
-		return nil, fmt.Errorf("expected CREATE, DATABASES, or TABLES after SHOW, got %q", p.last().String)
+		return nil, fmt.Errorf("expected CREATE, DATABASES, or TABLES after SHOW, got %q", p.lastTokenText())
 	}
 
 	stmt := &ShowStmt{
@@ -1812,7 +1816,7 @@ func (p *Parser) parseShowStmt(pos Pos) (*ShowStmt, error) {
 					Literal:    token.String,
 				}
 			} else {
-				return nil, fmt.Errorf("expected format specification after FORMAT, got %q", p.last().String)
+				return nil, fmt.Errorf("expected format specification after FORMAT, got %q", p.lastTokenText())
 			}
 		}
 	}
