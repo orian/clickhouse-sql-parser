@@ -23,6 +23,14 @@ func (p *Parser) lastTokenKind() TokenKind {
 	return p.last().Kind
 }
 
+// lastTokenText is safe to use in diagnostics after a truncated statement.
+func (p *Parser) lastTokenText() string {
+	if token := p.last(); token != nil {
+		return token.String
+	}
+	return string(TokenKindEOF)
+}
+
 func (p *Parser) last() *Token {
 	return p.lexer.lastToken
 }

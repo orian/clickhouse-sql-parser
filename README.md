@@ -228,3 +228,9 @@ The [ClickHouse source corpus](clickhouse-sql/README.md) adds upstream functiona
 integration, benchmark, and performance SQL from `../ClickHouse`. Run
 `make clickhouse-sql-test` for its separate baseline and detailed report, or
 `make clickhouse-sql-extract` to refresh the extracted examples.
+
+### Fuzz testing
+
+Run `make fuzz` for a bounded Go fuzzing session. See
+[parser fuzzing](parser/FUZZING.md) for seed selection, failure reproduction,
+and the nightly/manual workflow.

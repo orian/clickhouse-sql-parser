@@ -50,3 +50,11 @@ clickhouse-sql-update:
 
 clickhouse-sql-strict:
 	go test ./parser -run '^TestClickHouseSQL$$' -clickhouse-sql-strict -count=1 -timeout 3m
+
+FUZZ_TIME ?= 30s
+FUZZ_PARALLEL ?= 4
+FUZZ_TIMEOUT ?= 5m
+FUZZ_SQL_CORPORA ?=
+.PHONY: fuzz
+fuzz:
+	go test ./parser -run '^$$' -fuzz '^FuzzParseStmts$$' -fuzztime $(FUZZ_TIME) -parallel $(FUZZ_PARALLEL) -timeout $(FUZZ_TIMEOUT) -fuzz-sql-corpora '$(FUZZ_SQL_CORPORA)'

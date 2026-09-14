@@ -242,20 +242,24 @@ func (l *Lexer) consumeSingleLineComment() {
 	for l.peekOk(i) && l.peekN(i) != '\r' && l.peekN(i) != '\n' {
 		i++
 	}
-	l.skipN(i + 1)
+	l.skipN(i)
+	if l.peekOk(0) { // Consume a newline only when one is present.
+		l.skipN(1)
+	}
 }
 
-func (l *Lexer) consumeMultiLineComment() {
+func (l *Lexer) consumeMultiLineComment() error {
 	l.skipN(2)
 	i := 0
-	for !l.isEOF() {
+	for l.peekOk(i) {
 		if l.peekOk(i+1) && l.peekN(i) == '*' && l.peekN(i+1) == '/' {
-			i += 2
-			break
+			l.skipN(i + 2)
+			return nil
 		}
 		i++
 	}
 	l.skipN(i)
+	return errors.New("unclosed multi-line comment")
 }
 
 func (l *Lexer) consumeString() error {
@@ -295,11 +299,11 @@ func (l *Lexer) consumeString() error {
 	return nil
 }
 
-func (l *Lexer) skipComments() {
+func (l *Lexer) skipComments() error {
 	for !l.isEOF() {
 		l.skipSpace()
 		if !l.peekOk(0) {
-			return
+			return nil
 		}
 		switch l.peekN(0) {
 		case '-':
@@ -307,20 +311,23 @@ func (l *Lexer) skipComments() {
 				l.consumeSingleLineComment()
 				continue
 			}
-			return
+			return nil
 		case '/': // multi-line comment
 			if l.peekOk(1) && l.peekN(1) == '*' {
-				l.consumeMultiLineComment()
+				if err := l.consumeMultiLineComment(); err != nil {
+					return err
+				}
 				continue
 			}
-			return
+			return nil
 		case '\r', '\n':
 			// skip \r\n or \n\r
 			l.skipN(1)
 		default:
-			return
+			return nil
 		}
 	}
+	return nil
 }
 
 func (l *Lexer) peekToken() (*Token, error) {
@@ -346,7 +353,9 @@ func (l *Lexer) consumeToken() error {
 	// clear last token
 	lastToken := l.lastToken
 	l.lastToken = nil
-	l.skipComments()
+	if err := l.skipComments(); err != nil {
+		return err
+	}
 	l.skipSpace()
 	if l.isEOF() {
 		return nil

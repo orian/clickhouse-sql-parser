@@ -448,6 +448,9 @@ func (p *Parser) parseRoleSetting(_ Pos) (*RoleSetting, error) {
 		}
 
 	}
+	if len(pairs) == 0 {
+		return nil, fmt.Errorf("expected role setting")
+	}
 	return &RoleSetting{
 		SettingPairs: pairs,
 	}, nil

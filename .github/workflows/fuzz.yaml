@@ -1,0 +1,29 @@
+name: Parser fuzzing
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 3 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Fuzz parser
+        run: make fuzz FUZZ_TIME=2m FUZZ_TIMEOUT=5m FUZZ_PARALLEL=2
+      - name: Preserve minimized failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parser-fuzz-failures
+          path: parser/testdata/fuzz/FuzzParseStmts/
+          if-no-files-found: ignore
