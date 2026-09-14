@@ -1,0 +1,1 @@
+aiEmbed(text, model[, params])

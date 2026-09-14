@@ -1,0 +1,1 @@
+arrayMap(func, arr)

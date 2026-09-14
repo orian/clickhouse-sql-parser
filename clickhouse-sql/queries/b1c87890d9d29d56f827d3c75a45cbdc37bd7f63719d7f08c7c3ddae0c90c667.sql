@@ -1,0 +1,1 @@
+SELECT uniqExact({col}) FROM hits_100m_single FORMAT Null

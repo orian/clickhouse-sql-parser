@@ -1,0 +1,1 @@
+SELECT hiveHash('Hello, world!');

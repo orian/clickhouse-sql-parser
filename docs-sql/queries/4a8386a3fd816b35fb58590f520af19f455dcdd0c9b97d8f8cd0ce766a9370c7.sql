@@ -1,0 +1,1 @@
+extract(haystack, pattern)

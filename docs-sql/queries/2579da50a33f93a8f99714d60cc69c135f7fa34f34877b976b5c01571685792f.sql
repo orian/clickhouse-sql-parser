@@ -1,0 +1,1 @@
+toRelativeMinuteNum(date)

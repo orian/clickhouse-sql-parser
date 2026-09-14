@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.del_read SETTINGS use_roaring_bitmap_iceberg_positional_deletes = 1

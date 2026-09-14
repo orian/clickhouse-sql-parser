@@ -1,0 +1,1 @@
+SELECT CAST('1900-01-01', 'Date32') AS d

@@ -1,0 +1,1 @@
+SELECT SearchPhrase FROM {table} WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10

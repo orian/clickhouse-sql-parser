@@ -1,0 +1,1 @@
+WITH materialize(randomString(100000)) AS s SELECT sum(arrayExists(x -> substring(s, x, 1) = 'a', range(100))) FROM numbers(100) SETTINGS enable_lazy_columns_replication = {lazy_replication} FORMAT Null

@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(100000) WHERE NOT ignore(geoToH3(55.75 + rand(1) / 0x100000000, 37.62 + rand(2) / 0x100000000, toUInt8(9)))

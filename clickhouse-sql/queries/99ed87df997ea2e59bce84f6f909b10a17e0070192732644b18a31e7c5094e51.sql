@@ -1,0 +1,1 @@
+SELECT covarSampIf(number, number + 1, rand32() % 2 = 0) FROM numbers(100000000)

@@ -1,0 +1,1 @@
+DROP HANDLER [IF EXISTS] name

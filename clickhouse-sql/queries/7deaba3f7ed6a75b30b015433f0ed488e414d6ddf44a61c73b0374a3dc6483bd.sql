@@ -1,0 +1,1 @@
+CREATE TABLE nullint64 (x Nullable(UInt64)) ENGINE = Memory

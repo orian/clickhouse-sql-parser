@@ -1,0 +1,1 @@
+SELECT k FROM group_by_prefetch GROUP BY k FORMAT Null

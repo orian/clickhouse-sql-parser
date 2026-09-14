@@ -1,0 +1,1 @@
+WITH arrayMap(i -> toBFloat16(i + 1), range(32)) AS a SELECT sum(cosineDistance(a, w_bf16_32)) FROM array_distance_const_exact_chunks

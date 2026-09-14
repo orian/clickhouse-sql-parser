@@ -1,0 +1,1 @@
+colorSRGBToOKLCH(tuple[, gamma])

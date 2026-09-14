@@ -1,0 +1,1 @@
+CREATE TABLE large_str (a Int32, b Int32, c Int32, s1 String, s2 String, s3 String, s4 String, s5 String) ENGINE = MergeTree ORDER BY tuple()

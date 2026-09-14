@@ -1,0 +1,1 @@
+INSERT INTO test_bf_indexOf SELECT number AS id, [CAST(id, 'String'), CAST(id + 1, 'String'), CAST(id + 2, 'String')] FROM numbers(1000000)

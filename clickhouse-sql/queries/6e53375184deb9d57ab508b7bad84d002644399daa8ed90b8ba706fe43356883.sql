@@ -1,0 +1,1 @@
+SELECT DISTINCT a FROM test_{partitions} SETTINGS optimize_distinct_in_order = 1 FORMAT Null

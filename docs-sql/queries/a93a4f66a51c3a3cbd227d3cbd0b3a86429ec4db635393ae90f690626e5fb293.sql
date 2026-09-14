@@ -1,0 +1,1 @@
+argAndMin(arg, val)

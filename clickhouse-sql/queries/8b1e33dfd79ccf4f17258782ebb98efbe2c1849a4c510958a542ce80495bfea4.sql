@@ -1,0 +1,1 @@
+SELECT sum(length(base58Encode(URL))) FROM file(reading_from_file.parquet) FORMAT Null

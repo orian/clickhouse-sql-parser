@@ -1,0 +1,1 @@
+bitHammingDistance(x, y)

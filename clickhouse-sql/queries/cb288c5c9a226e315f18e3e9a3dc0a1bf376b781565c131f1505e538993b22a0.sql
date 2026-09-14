@@ -1,0 +1,1 @@
+INSERT INTO t_all_unique SELECT number FROM numbers_mt(30000000)

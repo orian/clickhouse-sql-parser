@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE NOT ignore(toString(ResponseEndTiming)) SETTINGS max_threads = 1

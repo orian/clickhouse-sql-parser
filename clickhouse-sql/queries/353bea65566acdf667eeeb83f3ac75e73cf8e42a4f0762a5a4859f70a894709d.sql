@@ -1,0 +1,1 @@
+SELECT arraySlice(arrayFill(x -> (((x.1) % 2) >= 2), arrayMap(x -> (x, toString(x)), range(10000000))), 1, 10) FORMAT Null

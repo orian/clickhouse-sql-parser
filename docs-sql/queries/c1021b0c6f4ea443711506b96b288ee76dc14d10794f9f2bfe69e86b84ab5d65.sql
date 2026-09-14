@@ -1,0 +1,1 @@
+ALTER NAMED COLLECTION collection2 DELETE key2

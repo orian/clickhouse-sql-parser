@@ -1,0 +1,1 @@
+CREATE TABLE join_dup_probe (k UInt64) ENGINE = Memory

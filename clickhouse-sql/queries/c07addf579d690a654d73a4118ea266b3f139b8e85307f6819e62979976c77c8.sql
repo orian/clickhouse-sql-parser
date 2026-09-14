@@ -1,0 +1,1 @@
+select count(sipHash64(zero)) from remote('127.0.0.{{2,3}}', zeros_mt(100000000))

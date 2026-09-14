@@ -1,0 +1,1 @@
+INSERT INTO fact_1000p_cached SELECT number % 1000, number FROM numbers(1000000)

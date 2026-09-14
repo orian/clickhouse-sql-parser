@@ -1,0 +1,1 @@
+SELECT min(if(isNull(col_float32), 0, col_float32)), max(if(isNull(col_float32), 0, col_float32)) FROM table_{format}_with_nullable_columns FORMAT Null

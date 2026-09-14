@@ -1,0 +1,1 @@
+INSERT INTO build_50k SELECT number FROM numbers(50000) ORDER BY rand()

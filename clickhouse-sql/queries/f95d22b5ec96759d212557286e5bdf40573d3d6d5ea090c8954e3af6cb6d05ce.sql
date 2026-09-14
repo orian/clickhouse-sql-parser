@@ -1,0 +1,1 @@
+INSERT INTO {database}.many_manifests SELECT l_orderkey, l_quantity FROM tpch10.lineitem LIMIT 80000, 10000 SETTINGS max_threads = 1, max_insert_threads = 1

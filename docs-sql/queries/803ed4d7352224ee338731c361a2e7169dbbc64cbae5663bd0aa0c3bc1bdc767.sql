@@ -1,0 +1,1 @@
+SELECT colorSRGBToOKLCH((128, 64, 32), 2.2) AS lch;

@@ -1,0 +1,1 @@
+SELECT sum(l_extendedprice * (1 - l_discount)) FROM {database}.lineitem WHERE l_shipdate >= toDate('1994-01-01') AND l_shipdate < toDate('1995-01-01') SETTINGS max_threads = 16

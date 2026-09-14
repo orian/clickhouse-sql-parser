@@ -1,0 +1,1 @@
+SELECT SearchPhrase FROM hits_100m_single WHERE SearchPhrase != '' ORDER BY EventTime LIMIT 10 FORMAT Null

@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_in_skip_idx FINAL

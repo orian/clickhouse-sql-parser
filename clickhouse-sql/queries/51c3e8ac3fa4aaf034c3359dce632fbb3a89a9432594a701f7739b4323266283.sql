@@ -1,0 +1,1 @@
+CREATE TABLE probe_used_flags (key Int64) ENGINE = Memory

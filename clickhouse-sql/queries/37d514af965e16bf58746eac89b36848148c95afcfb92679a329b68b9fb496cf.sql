@@ -1,0 +1,1 @@
+INSERT INTO keys32_build SELECT bitAnd(number, 65535), bitShiftRight(number, 16) FROM numbers_mt(10000000)

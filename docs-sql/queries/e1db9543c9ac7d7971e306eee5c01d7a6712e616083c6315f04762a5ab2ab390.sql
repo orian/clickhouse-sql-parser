@@ -1,0 +1,1 @@
+SELECT negate(10)

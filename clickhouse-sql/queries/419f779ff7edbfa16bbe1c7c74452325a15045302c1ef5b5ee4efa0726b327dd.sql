@@ -1,0 +1,1 @@
+SELECT dt FROM test_datetime ORDER BY dt LIMIT -1 BY dt FORMAT Null

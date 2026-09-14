@@ -1,0 +1,1 @@
+SELECT substringIndexUTF8(concat(repeat('a', 63), toString(number % 10), '.tail'), '.', number % 2 + 1) FROM numbers(10000000) FORMAT Null

@@ -1,0 +1,1 @@
+INSERT INTO join_dup_build SELECT number % 1024, number FROM numbers_mt(64000000)

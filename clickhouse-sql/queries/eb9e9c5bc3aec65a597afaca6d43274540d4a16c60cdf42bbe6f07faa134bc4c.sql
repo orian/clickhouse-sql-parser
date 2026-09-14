@@ -1,0 +1,1 @@
+SELECT count() FROM ips_v4 WHERE NOT ignore(IPv4ToIPv6(IPv4StringToNum(materialize(ip)))) SETTINGS max_threads=1

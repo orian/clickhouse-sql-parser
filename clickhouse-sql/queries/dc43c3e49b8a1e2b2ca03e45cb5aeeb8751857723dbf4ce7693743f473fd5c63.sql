@@ -1,0 +1,1 @@
+SELECT intDivOrZero(i1, i2), intDivOrZero(u1, u2) FROM tab

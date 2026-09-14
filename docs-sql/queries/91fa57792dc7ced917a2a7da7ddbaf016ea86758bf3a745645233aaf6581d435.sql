@@ -1,0 +1,1 @@
+SELECT colorOKLCHToSRGB((0.6, 0.12, 40)) AS rgb;

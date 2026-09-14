@@ -1,0 +1,1 @@
+SELECT 'string_json' FROM zeros(500000) WHERE NOT ignore(JSONExtract(materialize({string_json}), {low_cardinality_tuple_string})) FORMAT Null 

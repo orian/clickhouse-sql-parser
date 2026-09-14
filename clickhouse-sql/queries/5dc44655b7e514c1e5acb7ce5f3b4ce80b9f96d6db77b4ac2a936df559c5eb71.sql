@@ -1,0 +1,1 @@
+INSERT INTO read_in_reverse_order_final SELECT number * 2, number FROM numbers_mt(10000000)

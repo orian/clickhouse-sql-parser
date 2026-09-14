@@ -1,0 +1,1 @@
+insert into tmp SELECT * FROM generateRandom(1, 1, 1) LIMIT 200000;

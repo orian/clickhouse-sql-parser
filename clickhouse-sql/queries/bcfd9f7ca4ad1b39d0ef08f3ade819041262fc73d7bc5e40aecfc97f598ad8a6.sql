@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS join_dictionary_source_table;

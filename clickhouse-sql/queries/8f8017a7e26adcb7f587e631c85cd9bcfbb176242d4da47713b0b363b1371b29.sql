@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_dst_{format} AS test.hits

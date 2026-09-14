@@ -1,0 +1,1 @@
+SELECT count() FROM delta_decode_{pattern}_{type} WHERE NOT ignore(n) SETTINGS max_threads=1

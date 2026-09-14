@@ -1,0 +1,1 @@
+SELECT count() FROM table_{format_fast} group by _file, _path FORMAT Null

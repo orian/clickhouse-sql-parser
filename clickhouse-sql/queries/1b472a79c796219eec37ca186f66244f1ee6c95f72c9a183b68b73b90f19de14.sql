@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS promql_tags_transform

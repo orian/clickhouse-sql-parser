@@ -1,0 +1,1 @@
+SELECT count() FROM test_u64_left_10000000 AS a JOIN fsm_u64_sparse_right AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'full_sorting_merge'

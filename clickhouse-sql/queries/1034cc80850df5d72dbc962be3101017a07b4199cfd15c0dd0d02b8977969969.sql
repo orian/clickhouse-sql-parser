@@ -1,0 +1,1 @@
+INSERT INTO users2 SELECT number as uid, 'Alice2' as name, 30 as age FROM numbers(10000000)

@@ -1,0 +1,1 @@
+CREATE TABLE hits_10m_words (word String, UserID UInt64) ENGINE Memory

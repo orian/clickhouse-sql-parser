@@ -1,0 +1,1 @@
+toIntervalSecond(n)

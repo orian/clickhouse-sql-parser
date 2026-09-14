@@ -1,0 +1,1 @@
+SELECT uniqHLL12({col}) FROM hits_100m_single FORMAT Null

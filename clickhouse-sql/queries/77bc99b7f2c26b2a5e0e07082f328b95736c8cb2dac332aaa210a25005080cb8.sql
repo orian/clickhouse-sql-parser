@@ -1,0 +1,1 @@
+SELECT hasToken(c, 'A') FROM enum16_wide_sparse FORMAT Null SETTINGS max_threads = 1, max_block_size = 200000

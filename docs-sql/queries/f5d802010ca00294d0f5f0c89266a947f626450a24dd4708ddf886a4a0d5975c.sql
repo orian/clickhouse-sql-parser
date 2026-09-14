@@ -1,0 +1,1 @@
+stringBytesEntropy(s)

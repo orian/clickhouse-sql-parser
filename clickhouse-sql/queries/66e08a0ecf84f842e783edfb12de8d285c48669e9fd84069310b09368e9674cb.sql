@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE multiMatchAny(URL, ['about/address', 'for_woman', '^https?://lm-company.ruy/$', 'ultimateguitar.com'])

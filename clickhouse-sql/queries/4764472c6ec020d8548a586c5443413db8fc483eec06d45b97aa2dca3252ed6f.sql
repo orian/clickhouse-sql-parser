@@ -1,0 +1,1 @@
+INSERT INTO delta_decode_gap_{type} (n) SELECT to{type}(number * intExp2(4 * byteSize(to{type}(0))) + intHash64(number) % intExp2(4 * byteSize(to{type}(0)))) FROM system.numbers LIMIT 50000000 SETTINGS max_threads=1

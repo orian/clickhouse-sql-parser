@@ -1,0 +1,1 @@
+SELECT sum(mortonDecode((1, 2), number).1) FROM numbers(120000000)

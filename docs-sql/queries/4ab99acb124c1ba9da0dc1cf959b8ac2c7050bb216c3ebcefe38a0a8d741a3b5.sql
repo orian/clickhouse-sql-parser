@@ -1,0 +1,2 @@
+    CREATE DATABASE IF NOT EXISTS uk 
+    ON CLUSTER cluster_1S_2R;

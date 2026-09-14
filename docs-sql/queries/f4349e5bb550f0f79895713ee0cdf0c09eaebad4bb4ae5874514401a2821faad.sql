@@ -1,0 +1,2 @@
+USE glue;
+SHOW TABLES;

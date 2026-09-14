@@ -1,0 +1,1 @@
+insert into a select '2000-01-01', ['aa','bb','cc','dd'][number % 4 + 1], number from numbers_mt(10000000)

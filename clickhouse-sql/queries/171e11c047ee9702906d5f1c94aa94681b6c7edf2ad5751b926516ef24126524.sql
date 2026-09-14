@@ -1,0 +1,1 @@
+SELECT sum(length(toString(payload))) FROM json_to_string_shared_data

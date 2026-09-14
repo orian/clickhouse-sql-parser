@@ -1,0 +1,1 @@
+uniqTheta(x[, ...])

@@ -1,0 +1,1 @@
+SELECT count() FROM small_strings WHERE NOT ignore(s)

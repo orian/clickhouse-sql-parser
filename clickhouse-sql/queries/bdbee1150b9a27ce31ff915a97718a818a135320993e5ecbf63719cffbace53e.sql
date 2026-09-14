@@ -1,0 +1,1 @@
+SELECT sum(n) FROM test_prl PREWHERE n % 5 WHERE n % 3

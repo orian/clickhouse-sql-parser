@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT materialize(1) AS x1, materialize(1) AS x2, materialize(1) AS x3 FROM zeros(100000000)) WHERE NOT ignore(or(x1,x2,x3))

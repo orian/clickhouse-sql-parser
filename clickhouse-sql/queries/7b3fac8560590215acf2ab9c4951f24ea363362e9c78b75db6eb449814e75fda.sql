@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(10000000) WHERE NOT ignore({func}({arg}))

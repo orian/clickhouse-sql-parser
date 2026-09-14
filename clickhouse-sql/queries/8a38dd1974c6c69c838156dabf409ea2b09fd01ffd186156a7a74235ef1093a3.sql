@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS t_opt_orderby (a UInt64, b Nullable(UInt64)) ENGINE = Memory()

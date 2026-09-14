@@ -1,0 +1,1 @@
+select a % 10, length(b) % 10, count(1) from test_orc_fpd where a in (9000000, 1000) group by a % 10, length(b) % 10 

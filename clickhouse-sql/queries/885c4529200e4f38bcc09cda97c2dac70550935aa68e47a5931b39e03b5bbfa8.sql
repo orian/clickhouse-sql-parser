@@ -1,0 +1,1 @@
+SELECT sum(ignore(*)) FROM bad_partitions

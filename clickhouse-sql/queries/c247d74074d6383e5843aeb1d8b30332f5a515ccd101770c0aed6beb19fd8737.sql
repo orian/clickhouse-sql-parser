@@ -1,0 +1,1 @@
+INSERT INTO small2_dup SELECT number FROM numbers(10000) ORDER BY rand()

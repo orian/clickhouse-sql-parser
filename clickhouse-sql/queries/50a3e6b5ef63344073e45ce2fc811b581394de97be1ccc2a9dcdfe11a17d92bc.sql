@@ -1,0 +1,1 @@
+create table t_lz4_uncomp(a UInt32) engine=MergeTree order by a

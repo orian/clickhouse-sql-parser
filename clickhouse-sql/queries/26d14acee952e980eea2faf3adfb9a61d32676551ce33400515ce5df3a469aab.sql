@@ -1,0 +1,1 @@
+SELECT count() FROM generate_series(0, 2999999999, 3) FORMAT Null

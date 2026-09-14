@@ -1,0 +1,1 @@
+SELECT sum(length(a.s)) + sum(length(b.s)) FROM pfsm_payload_left AS a JOIN pfsm_payload_right AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'full_sorting_merge'

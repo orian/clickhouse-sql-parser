@@ -1,0 +1,1 @@
+base58Encode(plaintext)

@@ -1,0 +1,1 @@
+isProbablePrime(n[, rounds])

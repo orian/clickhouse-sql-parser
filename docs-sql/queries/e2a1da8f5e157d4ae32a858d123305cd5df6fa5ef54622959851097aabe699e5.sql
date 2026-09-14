@@ -1,0 +1,1 @@
+SYSTEM REFRESH VIEW [db.]name

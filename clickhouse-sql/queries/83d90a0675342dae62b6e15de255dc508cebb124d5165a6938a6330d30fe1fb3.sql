@@ -1,0 +1,1 @@
+SELECT uniqExact(UserID) FROM hits_100m_single

@@ -1,0 +1,1 @@
+SYSTEM PAUSE VIEW [db.]name

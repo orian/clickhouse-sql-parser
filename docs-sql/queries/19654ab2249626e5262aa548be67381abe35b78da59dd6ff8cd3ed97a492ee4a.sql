@@ -1,0 +1,1 @@
+randPoisson(n[, x])

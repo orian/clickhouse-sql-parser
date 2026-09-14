@@ -1,0 +1,1 @@
+SELECT * FROM sort_wide_64 ORDER BY k1, k2 FORMAT Null SETTINGS max_threads = {threads}

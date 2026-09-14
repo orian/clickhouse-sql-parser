@@ -1,0 +1,1 @@
+DROP TABLE t_all_unique_str

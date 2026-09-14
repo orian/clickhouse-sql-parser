@@ -1,0 +1,1 @@
+naiveBayesClassifierWithProb(dictionary_name, input_text)

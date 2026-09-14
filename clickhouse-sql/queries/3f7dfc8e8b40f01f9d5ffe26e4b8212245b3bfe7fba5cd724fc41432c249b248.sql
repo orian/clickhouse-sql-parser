@@ -1,0 +1,1 @@
+DROP TABLE array_distance_f32_{array_size}

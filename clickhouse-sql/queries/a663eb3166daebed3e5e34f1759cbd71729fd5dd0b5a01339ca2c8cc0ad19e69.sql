@@ -1,0 +1,1 @@
+CREATE TABLE join_table(A Int64, S0 String, S1 String, S2 String, S3 String) ENGINE = MergeTree ORDER BY A

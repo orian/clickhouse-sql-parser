@@ -1,0 +1,1 @@
+select any(OpenstatCampaignID) from hits_100m_single where OpenstatCampaignID != '' group by intHash32(UserID) % {group_scale} FORMAT Null

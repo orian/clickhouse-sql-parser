@@ -1,0 +1,1 @@
+SELECT toUInt64(intDiv(number, 1000000)) AS n, count(), uniq(number) FROM numbers(10000000) GROUP BY n FORMAT Null

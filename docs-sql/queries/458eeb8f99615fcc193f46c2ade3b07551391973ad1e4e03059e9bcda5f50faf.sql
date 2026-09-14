@@ -1,0 +1,1 @@
+ALTER DATABASE db MODIFY SETTING max_tables = 200;

@@ -1,0 +1,1 @@
+INSERT INTO fsm_nullable_right SELECT if(number % 10 = 0, NULL, number * 100 + 1) FROM numbers(100000)

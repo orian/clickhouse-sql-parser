@@ -1,0 +1,1 @@
+DROP TABLE t_half_dup

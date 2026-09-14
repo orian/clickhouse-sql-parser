@@ -1,0 +1,1 @@
+INSERT INTO dynamic_squash_performance_1 SELECT number::Dynamic FROM numbers(10000000)

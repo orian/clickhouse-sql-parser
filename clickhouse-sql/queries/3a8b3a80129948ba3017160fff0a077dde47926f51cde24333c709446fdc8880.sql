@@ -1,0 +1,1 @@
+INSERT INTO {database}.nested_t SELECT number, [toString(number), 'x'], map('k', number), (number, toString(number)) FROM numbers(200000) SETTINGS max_threads = 1, max_insert_threads = 1

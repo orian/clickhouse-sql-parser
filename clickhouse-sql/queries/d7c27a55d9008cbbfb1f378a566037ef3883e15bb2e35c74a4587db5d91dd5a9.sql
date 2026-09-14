@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(10000000) WHERE NOT ignore(toString((rand() / 1000000)::Decimal64(6)))

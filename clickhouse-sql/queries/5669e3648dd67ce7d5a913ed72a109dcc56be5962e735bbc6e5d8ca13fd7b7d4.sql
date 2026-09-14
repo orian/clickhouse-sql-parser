@@ -1,0 +1,1 @@
+INSERT INTO t_json_1 SELECT toJSONString(map(number % 10, repeat('a', number % 100))) FROM numbers(10000000)

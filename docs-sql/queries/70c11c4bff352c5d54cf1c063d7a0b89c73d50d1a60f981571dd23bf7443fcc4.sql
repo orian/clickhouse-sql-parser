@@ -1,0 +1,1 @@
+SELECT HEX(SHA512_256('abc'));

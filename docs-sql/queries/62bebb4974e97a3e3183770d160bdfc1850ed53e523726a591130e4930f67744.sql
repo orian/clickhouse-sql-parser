@@ -1,0 +1,1 @@
+caseFoldUTF8(str)

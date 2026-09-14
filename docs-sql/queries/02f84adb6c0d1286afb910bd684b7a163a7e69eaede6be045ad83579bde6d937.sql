@@ -1,0 +1,1 @@
+SELECT sin(1.23)

@@ -1,0 +1,1 @@
+SELECT COUNT() FROM ints l LEFT JOIN ints r ON l.i64 = r.i64 WHERE i32 = 20042

@@ -1,0 +1,1 @@
+getMacro(name)

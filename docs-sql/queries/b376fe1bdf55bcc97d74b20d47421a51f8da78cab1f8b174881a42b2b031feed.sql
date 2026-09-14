@@ -1,0 +1,1 @@
+ngramSearch(haystack, needle)

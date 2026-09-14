@@ -1,0 +1,1 @@
+INSERT INTO na_arrow_out SELECT * FROM na_src SETTINGS output_format_arrow_compression_method = 'none'

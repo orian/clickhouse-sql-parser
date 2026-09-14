@@ -1,0 +1,1 @@
+SET deduplicate_blocks_in_dependent_materialized_views=1;

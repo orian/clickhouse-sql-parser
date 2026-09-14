@@ -1,0 +1,1 @@
+SELECT count() FROM {table} WHERE NOT ignore(base64Encode({string}))

@@ -1,0 +1,1 @@
+SELECT isValidASCII(medium_utf8) FROM tab FORMAT Null

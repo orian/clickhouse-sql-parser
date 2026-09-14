@@ -1,0 +1,1 @@
+SELECT count(), sum(l_extendedprice) FROM {database}.lineitem

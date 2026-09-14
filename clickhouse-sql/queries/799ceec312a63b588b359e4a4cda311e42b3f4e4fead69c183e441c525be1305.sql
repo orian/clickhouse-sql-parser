@@ -1,0 +1,1 @@
+SELECT WatchID FROM {table_name} GROUP BY WatchID FORMAT Null

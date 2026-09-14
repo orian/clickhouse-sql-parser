@@ -1,0 +1,1 @@
+SELECT k, payload FROM lazy_final_limit FINAL WHERE v = 7 LIMIT 100 FORMAT Null

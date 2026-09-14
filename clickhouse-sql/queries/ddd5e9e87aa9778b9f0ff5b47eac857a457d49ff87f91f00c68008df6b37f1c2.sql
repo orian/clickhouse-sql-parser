@@ -1,0 +1,1 @@
+SELECT count() FROM tab WHERE endsWith(name, 'service-4-prod')

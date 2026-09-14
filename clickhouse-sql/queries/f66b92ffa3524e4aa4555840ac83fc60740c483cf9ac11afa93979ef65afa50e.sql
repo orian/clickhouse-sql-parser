@@ -1,0 +1,1 @@
+SELECT * FROM (SELECT CounterID, EventDate FROM hits_10m_single) ORDER BY toFloat32(toFloat64(toFloat32(toFloat64(CounterID)))) FORMAT Null

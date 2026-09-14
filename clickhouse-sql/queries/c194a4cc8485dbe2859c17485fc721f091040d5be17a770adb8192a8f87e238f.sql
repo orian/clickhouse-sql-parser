@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS dynamic_compact_read

@@ -1,0 +1,1 @@
+SELECT logTrace('logTrace message');

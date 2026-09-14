@@ -1,0 +1,1 @@
+numericIndexedVectorBuild(map)

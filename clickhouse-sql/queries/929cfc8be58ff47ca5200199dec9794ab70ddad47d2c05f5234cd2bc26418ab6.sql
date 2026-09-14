@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(10000000) WHERE NOT ignore(multiIf( rand(1) % 2 = 0, materialize(1::Decimal256(3)), rand(2) % 2 = 0, materialize(2::Decimal256(3)), rand(3) % 2 = 0, materialize(3::Decimal256(3)), rand(4) % 2 = 0, materialize(4::Decimal256(3)), rand(5) % 2 = 0, materialize(5::Decimal256(3)), materialize(6::Decimal256(3))))

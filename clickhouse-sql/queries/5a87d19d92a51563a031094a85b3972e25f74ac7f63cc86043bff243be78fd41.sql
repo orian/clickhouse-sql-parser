@@ -1,0 +1,1 @@
+SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM remote('127.0.0.{{1,2}}', default, hits_100m_single) WHERE UserID < 2e18 GROUP BY RegionID ORDER BY u DESC LIMIT 10

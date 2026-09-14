@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(2000000) WHERE NOT ignore(visitParamExtractRaw(materialize({param}), 'myparam'))

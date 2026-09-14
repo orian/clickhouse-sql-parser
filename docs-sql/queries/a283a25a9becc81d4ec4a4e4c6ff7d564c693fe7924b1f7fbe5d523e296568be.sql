@@ -1,0 +1,1 @@
+toStartOfSecond(datetime[, timezone])

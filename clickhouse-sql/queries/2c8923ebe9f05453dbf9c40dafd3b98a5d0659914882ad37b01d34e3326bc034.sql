@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_{size}_{partitions} FINAL

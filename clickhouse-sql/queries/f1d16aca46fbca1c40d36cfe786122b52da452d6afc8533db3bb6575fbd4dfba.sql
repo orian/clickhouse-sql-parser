@@ -1,0 +1,1 @@
+OPTIMIZE TABLE map_buckets_compact FINAL

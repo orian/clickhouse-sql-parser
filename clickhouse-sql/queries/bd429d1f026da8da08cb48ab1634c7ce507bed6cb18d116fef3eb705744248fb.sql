@@ -1,0 +1,1 @@
+SELECT number AS k, avg(fromUnixTimestamp64Nano(1700000000000000000 + number, 'UTC')) FROM numbers_mt(20000000) GROUP BY k FORMAT Null

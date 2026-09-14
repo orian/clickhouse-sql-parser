@@ -1,0 +1,1 @@
+DROP TEMPORARY VIEW IF EXISTS tview;  -- 一時ビューは TEMPORARY TABLE 構文でドロップします

@@ -1,0 +1,1 @@
+SELECT DISTINCT a FROM (SELECT a FROM test_{partitions} LIMIT 5 BY a) FORMAT Null

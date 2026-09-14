@@ -1,0 +1,1 @@
+SELECT avg(length(URL)) as x from {table} GROUP BY CounterID, EventDate FORMAT Null

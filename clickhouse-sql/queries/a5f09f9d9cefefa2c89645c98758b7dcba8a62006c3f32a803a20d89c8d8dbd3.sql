@@ -1,0 +1,1 @@
+SELECT MobilePhoneModel as col FROM hits_100m_single WHERE notEmpty(col) ORDER BY col LIMIT 500000,1

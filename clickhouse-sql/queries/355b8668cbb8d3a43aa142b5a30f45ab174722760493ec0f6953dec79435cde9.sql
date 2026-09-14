@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS pmj_u64_mult3

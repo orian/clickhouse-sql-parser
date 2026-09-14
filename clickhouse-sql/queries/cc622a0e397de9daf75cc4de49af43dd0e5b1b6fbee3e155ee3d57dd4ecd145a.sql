@@ -1,0 +1,1 @@
+ALTER TABLE {database}.del_pos DELETE WHERE l_orderkey % 7 = 0

@@ -1,0 +1,1 @@
+SELECT sum(number)                             FROM numbers(100000000) GROUP BY intHash32(number) % 1000 FORMAT Null

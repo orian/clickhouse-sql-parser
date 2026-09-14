@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS constant_sort_key_one

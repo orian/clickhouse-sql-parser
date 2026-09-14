@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_dup_head_uniq_tail FINAL

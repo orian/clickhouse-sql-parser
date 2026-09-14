@@ -1,0 +1,2 @@
+INSERT INTO hits_URL_UserID
+SELECT * FROM hits_UserID_URL;

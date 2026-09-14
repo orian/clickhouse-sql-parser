@@ -1,0 +1,1 @@
+SELECT stochasticLinearRegressionState(0.0001, 0, 15)(Age, Income, ParamPrice, Robotness, RefererHash) FROM test.hits FORMAT Null

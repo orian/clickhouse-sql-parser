@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(50000000) WHERE NOT ignore(toDateTime64('2017-01-01 00:00:00', 3, 'UTC') + number % 100000000 + rand() % 100000 AS t, addDays(t, 1, 'Asia/Istanbul'))

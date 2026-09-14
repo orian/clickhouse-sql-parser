@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_projection_index_pools FINAL

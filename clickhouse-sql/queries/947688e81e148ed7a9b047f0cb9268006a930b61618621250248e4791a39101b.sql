@@ -1,0 +1,1 @@
+INSERT INTO table_{format}      SELECT number FROM numbers(10000000) SETTINGS engine_file_truncate_on_insert = 1

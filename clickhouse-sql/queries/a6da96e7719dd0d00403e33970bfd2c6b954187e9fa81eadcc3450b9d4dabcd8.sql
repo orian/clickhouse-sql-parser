@@ -1,0 +1,1 @@
+SELECT any(number * round(toInt64(number), -2))         FROM numbers(200000000)

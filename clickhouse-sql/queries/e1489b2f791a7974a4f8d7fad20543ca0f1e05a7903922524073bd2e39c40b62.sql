@@ -1,0 +1,1 @@
+SELECT key, value FROM sequential_{integer_type} ORDER BY {sort_expression} FORMAT Null

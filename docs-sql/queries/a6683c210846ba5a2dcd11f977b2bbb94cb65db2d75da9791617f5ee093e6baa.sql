@@ -1,0 +1,1 @@
+SELECT YYYYMMDDhhmmssToDateTime64(20230911131415, 3, 'Asia/Istanbul');

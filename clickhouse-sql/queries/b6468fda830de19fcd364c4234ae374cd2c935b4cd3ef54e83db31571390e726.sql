@@ -1,0 +1,1 @@
+SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits_100m_single WHERE URL LIKE '%google%' AND SearchPhrase != '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10 FORMAT Null

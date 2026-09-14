@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.evo_drop

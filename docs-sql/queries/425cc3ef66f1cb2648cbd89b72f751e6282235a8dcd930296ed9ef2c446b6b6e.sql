@@ -1,0 +1,1 @@
+SELECT h3IsPentagon(644721767722457330) AS pentagon;

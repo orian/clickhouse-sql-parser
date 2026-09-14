@@ -1,0 +1,1 @@
+select materialize(array(map('hello', 1, 'world', 2)))[1] from numbers(10000000) format Null

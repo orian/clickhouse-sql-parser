@@ -1,0 +1,1 @@
+CREATE TABLE fsm_str_sparse_right (k String) ENGINE = MergeTree ORDER BY k

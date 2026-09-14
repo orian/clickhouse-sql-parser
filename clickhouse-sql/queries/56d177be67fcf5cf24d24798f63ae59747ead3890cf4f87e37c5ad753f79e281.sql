@@ -1,0 +1,1 @@
+SELECT sum(NOT ignore(*)) FROM (SELECT * FROM generateRandom('i Tuple(Int32, Int64)', 0, 10, 10) LIMIT 1000000000);

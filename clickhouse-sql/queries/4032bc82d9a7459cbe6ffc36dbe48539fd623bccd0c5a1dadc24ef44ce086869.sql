@@ -1,0 +1,1 @@
+SELECT avg(2 * num)              FROM perf_avg FORMAT Null

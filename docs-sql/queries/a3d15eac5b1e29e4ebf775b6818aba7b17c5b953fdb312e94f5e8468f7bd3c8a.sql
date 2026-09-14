@@ -1,0 +1,1 @@
+getMaxTableNameLengthForDatabase(database_name)

@@ -1,0 +1,1 @@
+INSERT INTO test_lc_long SELECT toLowCardinality(leftPad(toString(number % 200000), 48, '0')) FROM numbers_mt(10000000)

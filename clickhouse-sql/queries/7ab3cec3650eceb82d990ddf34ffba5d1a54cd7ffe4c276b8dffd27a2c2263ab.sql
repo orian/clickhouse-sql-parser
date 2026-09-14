@@ -1,0 +1,1 @@
+CREATE TABLE test_nullable (nk Nullable(UInt64)) ENGINE = MergeTree ORDER BY nk SETTINGS allow_nullable_key = 1

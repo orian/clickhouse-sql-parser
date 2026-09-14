@@ -1,0 +1,21 @@
+INSERT INTO geojson
+SELECT
+    type AS type,
+    name AS name,
+    crs.type AS crsType,
+    crs.properties.name AS crsName,
+    features.type AS featureType,
+    features.properties.FID AS id,
+    features.properties.INSPIREID AS inspiredId,
+    features.properties.NATCODE AS natCode,
+    features.properties.NAMEUNIT AS nameUnit,
+    features.properties.CODNUT1 AS codNut1,
+    features.properties.CODNUT2 AS codNut2,
+    features.properties.CODNUT3 AS codNut3,
+    features.properties.CODIGOINE AS codigoIne,
+    features.properties.SHAPE_Length AS shapeLength,
+    features.properties.SHAPE_Area AS shapeArea,
+    features.geometry.type AS geometryType,
+    features.geometry.coordinates as geometry
+FROM file('municipios_ign.geojson', 'JSON')
+ARRAY JOIN features

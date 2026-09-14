@@ -1,0 +1,1 @@
+INSERT INTO test_lc SELECT number, number % 10 ? NULL : toString(number % 10000) FROM numbers(1e7)

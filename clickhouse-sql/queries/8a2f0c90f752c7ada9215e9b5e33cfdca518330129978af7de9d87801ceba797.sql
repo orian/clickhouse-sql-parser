@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_json_subcolumns_conversions FINAL

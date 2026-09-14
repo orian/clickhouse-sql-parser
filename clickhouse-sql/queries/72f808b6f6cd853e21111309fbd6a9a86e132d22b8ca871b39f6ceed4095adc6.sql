@@ -1,0 +1,1 @@
+SELECT count() FROM column_map_test WHERE NOT ignore(arrayMap(x -> map[CONCAT(toString(x), {key_suffix})], range(0, 100, 10)))

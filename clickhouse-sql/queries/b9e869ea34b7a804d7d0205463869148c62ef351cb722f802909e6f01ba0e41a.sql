@@ -1,0 +1,1 @@
+OPTIMIZE TABLE delta_decode_{pattern}_{type} FINAL SETTINGS optimize_throw_if_noop = 1

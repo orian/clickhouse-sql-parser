@@ -1,0 +1,1 @@
+SELECT count() FROM t_chain_derived WHERE hex(sipHash64(repeat(x, 200))) < b AND b < 'z'

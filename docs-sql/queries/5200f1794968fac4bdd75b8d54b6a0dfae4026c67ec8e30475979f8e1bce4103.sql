@@ -1,0 +1,1 @@
+SELECT atan(1);

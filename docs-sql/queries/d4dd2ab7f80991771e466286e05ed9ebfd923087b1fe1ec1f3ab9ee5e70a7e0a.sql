@@ -1,0 +1,3 @@
+ALTER TABLE tab
+    MODIFY COLUMN
+    c String TTL d + INTERVAL 1 MONTH;

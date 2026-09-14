@@ -1,0 +1,1 @@
+INSERT INTO left SELECT number, repeat('aaa', 100) FROM numbers(100)

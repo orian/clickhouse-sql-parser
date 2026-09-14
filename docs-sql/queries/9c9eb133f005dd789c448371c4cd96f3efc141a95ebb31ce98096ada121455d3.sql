@@ -1,0 +1,1 @@
+VersionedCollapsingMergeTree(sign, version)

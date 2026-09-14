@@ -1,0 +1,1 @@
+OPTIMIZE TABLE map_basic_wide FINAL

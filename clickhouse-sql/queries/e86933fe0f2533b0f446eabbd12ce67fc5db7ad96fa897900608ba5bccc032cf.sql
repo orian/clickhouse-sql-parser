@@ -1,0 +1,1 @@
+DROP TABLE adss_mixed_{dim}

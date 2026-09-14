@@ -1,0 +1,1 @@
+SELECT * FROM replacing_expensive_key FINAL FORMAT Null SETTINGS split_parts_ranges_into_intersecting_and_non_intersecting_final = 0, split_intersecting_parts_ranges_into_layers_final = 0, enable_vertical_final = 0

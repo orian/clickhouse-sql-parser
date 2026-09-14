@@ -1,0 +1,1 @@
+SELECT p.id5, b.id2 FROM probe p INNER JOIN build_50k b ON p.id5 = b.id2 FORMAT Null SETTINGS join_algorithm = 'hash', enable_join_fixed_hash_table_conversion = 0

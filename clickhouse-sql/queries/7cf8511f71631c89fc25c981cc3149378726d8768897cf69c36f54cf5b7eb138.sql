@@ -1,0 +1,1 @@
+ALTER TABLE hits_10m_single ADD INDEX idx_sp_lazy(SearchPhrase) TYPE text(tokenizer = 'splitByNonAlpha', posting_list_codec = 'bitpacking')

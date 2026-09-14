@@ -1,0 +1,1 @@
+INSERT INTO test_nullable SELECT if(number % 17 = 0, NULL, number % 100) FROM numbers_mt(10000000)

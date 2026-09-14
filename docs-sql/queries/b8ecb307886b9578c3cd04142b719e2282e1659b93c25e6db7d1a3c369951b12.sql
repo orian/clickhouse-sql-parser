@@ -1,0 +1,1 @@
+SELECT MACStringToOUI('00:50:56:12:34:56') AS oui;

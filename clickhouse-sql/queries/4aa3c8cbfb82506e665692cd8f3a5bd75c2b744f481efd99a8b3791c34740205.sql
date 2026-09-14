@@ -1,0 +1,1 @@
+SELECT sum(toUInt8(number)) FROM numbers(100000000)

@@ -1,0 +1,1 @@
+readWKBPoint(wkb_string)

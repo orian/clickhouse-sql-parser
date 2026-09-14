@@ -1,0 +1,1 @@
+SELECT 1 FROM hits_10m_words WHERE word IN (SELECT short FROM strings) FORMAT Null

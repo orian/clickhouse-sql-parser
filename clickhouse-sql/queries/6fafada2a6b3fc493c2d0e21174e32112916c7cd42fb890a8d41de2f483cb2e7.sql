@@ -1,0 +1,1 @@
+OPTIMIZE TABLE text_index_lazy_wide FINAL

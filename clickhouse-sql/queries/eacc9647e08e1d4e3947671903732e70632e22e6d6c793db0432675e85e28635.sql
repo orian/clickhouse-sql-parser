@@ -1,0 +1,1 @@
+SELECT uniqExactOrNull(number) FROM numbers_mt(1e7)

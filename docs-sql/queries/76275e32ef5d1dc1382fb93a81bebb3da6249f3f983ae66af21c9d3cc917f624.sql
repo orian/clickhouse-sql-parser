@@ -1,0 +1,1 @@
+SELECT x+100 FROM t_null WHERE y IS NULL

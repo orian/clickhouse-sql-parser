@@ -1,0 +1,1 @@
+SELECT count() FROM perf_lc_num WHERE has(arr, (num * 1000 + 20) % 137)

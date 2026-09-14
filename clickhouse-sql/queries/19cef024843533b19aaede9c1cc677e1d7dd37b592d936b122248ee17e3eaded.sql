@@ -1,0 +1,4 @@
+
+        SELECT number, avg(DISTINCT number) OVER (ORDER BY number ROWS BETWEEN UNBOUNDED PRECEDING AND 20 FOLLOWING)
+        FROM numbers(0, 100_000) FORMAT Null;
+    

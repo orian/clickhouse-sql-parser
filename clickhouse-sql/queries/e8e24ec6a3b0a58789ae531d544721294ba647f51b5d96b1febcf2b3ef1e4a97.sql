@@ -1,0 +1,1 @@
+CREATE TABLE t (x UInt64) ENGINE = MergeTree() ORDER BY tuple()

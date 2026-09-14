@@ -1,0 +1,1 @@
+SELECT erf(u64) FROM test_{serialization}_{ratio} FORMAT Null

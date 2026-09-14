@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_{format}_with_nullable_columns ENGINE = File({format}) AS SELECT * FROM source_table

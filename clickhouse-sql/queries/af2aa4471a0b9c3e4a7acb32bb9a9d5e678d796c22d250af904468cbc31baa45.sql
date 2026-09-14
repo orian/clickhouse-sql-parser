@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS lot_of_arrays

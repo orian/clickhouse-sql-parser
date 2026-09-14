@@ -1,0 +1,1 @@
+SELECT any(-1 * (((-2 * (number * -3)) * -4) * -5))     FROM numbers(200000000)

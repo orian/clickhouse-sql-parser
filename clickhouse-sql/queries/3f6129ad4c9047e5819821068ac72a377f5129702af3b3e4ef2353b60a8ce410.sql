@@ -1,0 +1,1 @@
+SELECT arrayReverse(materialize(arrayMap(x -> (x, x), range(32)))) FROM numbers(2000000) FORMAT Null

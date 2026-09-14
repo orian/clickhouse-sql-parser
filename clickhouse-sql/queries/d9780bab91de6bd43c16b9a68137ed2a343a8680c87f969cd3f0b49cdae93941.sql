@@ -1,0 +1,1 @@
+INSERT INTO test_lwu_join_2 SELECT number, rand(), rand(), randomPrintableASCII(8), randomPrintableASCII(8), FROM numbers_mt(2000000) SETTINGS max_insert_threads=8

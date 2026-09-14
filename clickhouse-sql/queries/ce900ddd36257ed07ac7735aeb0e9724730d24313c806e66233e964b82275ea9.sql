@@ -1,0 +1,1 @@
+create table test_distinct_json_paths_wide_dynamic_paths (json JSON(max_dynamic_paths=1000)) engine=MergeTree order by tuple() settings min_bytes_for_wide_part=1, min_rows_for_wide_part=1, dynamic_serialization_version='v3', object_serialization_version='v3'

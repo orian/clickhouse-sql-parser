@@ -1,0 +1,1 @@
+SELECT toStartOfHour(t) AS h, avgMerge(v1) FROM agg_deserialize GROUP BY h FORMAT Null

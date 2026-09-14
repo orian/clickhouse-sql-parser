@@ -1,0 +1,1 @@
+select min(i1), min(i2) from t_nullable group by {key_type} format Null

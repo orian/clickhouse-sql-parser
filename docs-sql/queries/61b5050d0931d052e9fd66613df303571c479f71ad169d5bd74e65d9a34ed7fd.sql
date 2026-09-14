@@ -1,0 +1,1 @@
+countEqual(arr, x)

@@ -1,0 +1,1 @@
+SELECT sum(length(arrayMap(x -> substring(s, x, 1), range(10)))) FROM (SELECT 42 AS k FROM numbers(2000)) AS l INNER JOIN (SELECT 42 AS k, randomString(100000) AS s) AS r ON l.k = r.k SETTINGS enable_lazy_columns_replication = {lazy_replication} FORMAT Null

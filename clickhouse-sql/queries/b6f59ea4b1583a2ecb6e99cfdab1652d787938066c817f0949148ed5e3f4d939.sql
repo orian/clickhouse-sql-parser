@@ -1,0 +1,1 @@
+OPTIMIZE TABLE pfsm_payload_left FINAL

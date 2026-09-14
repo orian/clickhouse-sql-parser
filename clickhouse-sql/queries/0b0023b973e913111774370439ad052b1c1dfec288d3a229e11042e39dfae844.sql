@@ -1,0 +1,1 @@
+select count(if(rand() % 2 = 0, 1, null)) from numbers(100000000) settings optimize_rewrite_aggregate_function_with_if = true

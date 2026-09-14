@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_lc_right FINAL

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS group_by_low_cardinality_array_join

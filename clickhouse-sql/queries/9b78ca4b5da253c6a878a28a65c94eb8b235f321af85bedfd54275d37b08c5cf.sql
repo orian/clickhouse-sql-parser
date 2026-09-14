@@ -1,0 +1,1 @@
+SELECT RegionID, max(CounterID) AS m FROM hits_100m_single GROUP BY RegionID ORDER BY m DESC LIMIT 10 FORMAT Null

@@ -1,0 +1,1 @@
+SELECT str, COUNT(DISTINCT id) as i FROM test_{serialization}_{ratio} WHERE notEmpty(str) GROUP BY str ORDER BY i DESC LIMIT 10

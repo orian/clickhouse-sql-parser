@@ -1,0 +1,1 @@
+CREATE TABLE test_u64_{card} (k UInt64) ENGINE = MergeTree ORDER BY k

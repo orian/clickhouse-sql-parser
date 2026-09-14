@@ -1,0 +1,1 @@
+SELECT uniqExact(a) FROM t_{uniq_keys}

@@ -1,0 +1,1 @@
+INSERT INTO github_queue SELECT * FROM github LIMIT 100 FORMAT JSONEachRow

@@ -1,0 +1,1 @@
+INSERT INTO left SELECT number % 2222222 AS id, rand() % 10000 FROM numbers(3000000)

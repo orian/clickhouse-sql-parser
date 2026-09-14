@@ -1,0 +1,1 @@
+SELECT tokens(URL, 'ngrams', 3) FROM hits_10m_single FORMAT Null

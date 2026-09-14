@@ -1,0 +1,1 @@
+SELECT count() FROM join_set_maps_probe AS l ANTI LEFT JOIN join_set_maps_build AS r ON l.k = r.k SETTINGS join_algorithm = 'hash', max_bytes_before_external_join = 10000000000 FORMAT Null

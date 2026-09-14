@@ -1,0 +1,1 @@
+SELECT sum(toDateTime(toString(x)) != x) FROM dt

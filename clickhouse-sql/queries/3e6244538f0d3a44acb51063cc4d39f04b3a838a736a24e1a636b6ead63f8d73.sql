@@ -1,0 +1,1 @@
+SELECT avg(number::Float64) FROM numbers(1000000000)

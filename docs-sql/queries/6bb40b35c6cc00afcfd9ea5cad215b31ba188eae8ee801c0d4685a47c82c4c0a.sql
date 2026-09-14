@@ -1,0 +1,1 @@
+exponentialTimeDecayedAvg(x)(v, t)

@@ -1,0 +1,1 @@
+WITH repeat('a', 100000) || toString(number) AS pattern, mapFromArrays(arrayMap(i -> 'key' || toString(i), range(20)), range(20)) AS m SELECT sum(mapContainsKeyLike(m, pattern)) FROM numbers(500) SETTINGS enable_lazy_columns_replication = {lazy_replication} FORMAT Null

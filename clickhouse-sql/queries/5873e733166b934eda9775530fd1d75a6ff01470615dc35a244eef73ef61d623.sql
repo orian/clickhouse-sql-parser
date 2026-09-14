@@ -1,0 +1,1 @@
+SELECT v, v.String, v.UInt64 FROM variant_wide WHERE skip = 0 FORMAT Null SETTINGS max_threads = 1, preferred_block_size_bytes = 1000000000000

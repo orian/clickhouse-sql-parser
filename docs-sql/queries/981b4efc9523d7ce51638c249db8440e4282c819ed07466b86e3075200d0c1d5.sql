@@ -1,0 +1,19 @@
+CREATE DATABASE IF NOT EXISTS nyc_taxi;
+USE nyc_taxi;
+
+CREATE TABLE nyc_taxi.trips_small_inferred
+ORDER BY () EMPTY
+AS SELECT *
+FROM s3(
+    'https://datasets-documentation.s3.eu-west-3.amazonaws.com/nyc-taxi/clickhouse-academy/nyc_taxi_2009-2010.parquet',
+    NOSIGN,
+    Parquet
+);
+
+INSERT INTO nyc_taxi.trips_small_inferred
+SELECT *
+FROM s3(
+    'https://datasets-documentation.s3.eu-west-3.amazonaws.com/nyc-taxi/clickhouse-academy/nyc_taxi_2009-2010.parquet',
+    NOSIGN,
+    Parquet
+);

@@ -1,0 +1,1 @@
+INSERT INTO small_strings SELECT number % 10 = 0 ? 'ab' : 'c' FROM numbers_mt(1e9)

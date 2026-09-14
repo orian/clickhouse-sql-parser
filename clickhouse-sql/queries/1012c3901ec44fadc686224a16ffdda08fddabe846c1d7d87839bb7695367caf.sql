@@ -1,0 +1,1 @@
+SELECT number % 10 AS k, count(), sum(number), avg(number) FROM numbers(100000000) GROUP BY k FORMAT Null

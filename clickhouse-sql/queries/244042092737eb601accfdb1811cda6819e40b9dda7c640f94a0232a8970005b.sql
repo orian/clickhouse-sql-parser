@@ -1,0 +1,1 @@
+CREATE TABLE test_json_order_by_shared_data (json JSON(max_dynamic_paths=0)) ENGINE=MergeTree ORDER BY tuple()

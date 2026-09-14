@@ -1,0 +1,1 @@
+aiRedact(text, categories[, params])

@@ -1,0 +1,1 @@
+drop table if exists json_advanced_shared_data_top

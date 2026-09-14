@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(1000000) WHERE NOT ignore(geohashEncode(1.0/rand(), 2.0/rand()))

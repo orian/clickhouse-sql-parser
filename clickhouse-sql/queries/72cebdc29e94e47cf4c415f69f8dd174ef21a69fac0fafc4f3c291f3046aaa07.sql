@@ -1,0 +1,1 @@
+SELECT * FROM file(test_json_parsing_2.txt, JSONAsObject, 'json JSON(max_dynamic_paths=0)') FORMAT Null

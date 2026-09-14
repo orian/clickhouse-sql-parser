@@ -1,0 +1,1 @@
+SELECT sum(modulo(u, 1000000000000000000)) FROM div256

@@ -1,0 +1,1 @@
+CREATE TABLE group_by_prefetch (k UInt64) ENGINE = Memory

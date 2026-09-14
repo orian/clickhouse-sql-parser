@@ -1,0 +1,1 @@
+SELECT addDate(toDate('2018-01-01'), INTERVAL 3 YEAR)

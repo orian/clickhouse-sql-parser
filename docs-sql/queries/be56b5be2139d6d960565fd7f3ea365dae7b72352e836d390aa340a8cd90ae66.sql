@@ -1,0 +1,1 @@
+MACStringToNum(s)

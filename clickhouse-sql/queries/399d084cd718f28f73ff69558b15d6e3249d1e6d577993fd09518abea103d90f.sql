@@ -1,0 +1,1 @@
+select any(UTMMedium) from hits_100m_single where UTMMedium != '' group by intHash32(UserID) % {group_scale} FORMAT Null

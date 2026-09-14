@@ -1,0 +1,1 @@
+select * from test where t.a = 42 format Null

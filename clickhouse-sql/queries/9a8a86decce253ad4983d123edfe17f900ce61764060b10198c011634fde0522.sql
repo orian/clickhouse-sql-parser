@@ -1,0 +1,1 @@
+select positionUTF8(materialize('xẞyyaa1ẞ1yzẞXẞẞ1ẞẞ1bctest'), '', 10) from numbers(100000000) format Null

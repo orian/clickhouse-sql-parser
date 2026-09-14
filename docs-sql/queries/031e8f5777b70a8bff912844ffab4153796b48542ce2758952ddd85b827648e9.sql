@@ -1,0 +1,1 @@
+obfuscateQuery(query[, tag])

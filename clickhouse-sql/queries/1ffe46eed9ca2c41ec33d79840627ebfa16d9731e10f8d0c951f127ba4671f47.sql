@@ -1,0 +1,1 @@
+SELECT json.p0, json.p1, json.p2, json.p3, json.p4 FROM json_wide WHERE skip = 0 FORMAT Null SETTINGS max_threads = 1, preferred_block_size_bytes = 1000000000000

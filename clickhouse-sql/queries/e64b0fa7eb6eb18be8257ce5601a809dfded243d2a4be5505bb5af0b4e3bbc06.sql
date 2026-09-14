@@ -1,0 +1,1 @@
+SELECT sumOrDefault(toNullable(number)) FROM numbers(100000000)

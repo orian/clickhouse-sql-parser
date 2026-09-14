@@ -1,0 +1,1 @@
+SELECT arrayElementOrNull(arr, -1) FROM (SELECT [1, 2, 3] AS arr)

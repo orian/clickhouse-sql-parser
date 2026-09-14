@@ -1,0 +1,1 @@
+SELECT cos(cos(cos(cos(cos(cos(cos(cos(cos(cos(number)))))))))) FROM numbers(3000000) FORMAT Null

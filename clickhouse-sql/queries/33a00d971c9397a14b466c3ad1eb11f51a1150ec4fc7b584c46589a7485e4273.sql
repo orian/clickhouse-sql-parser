@@ -1,0 +1,1 @@
+CREATE TABLE data(k UInt64, v UInt64) ENGINE = MergeTree ORDER BY k

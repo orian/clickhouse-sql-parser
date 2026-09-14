@@ -1,0 +1,1 @@
+SELECT sum(length(mapExtractKeyLike(map_key_lc, 'k1%'))) FROM perf_nested_lc_functions

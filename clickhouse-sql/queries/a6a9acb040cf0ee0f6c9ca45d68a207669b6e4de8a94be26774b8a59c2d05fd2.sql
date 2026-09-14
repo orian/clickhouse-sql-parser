@@ -1,0 +1,1 @@
+INSERT INTO final_inorder_limit SELECT number, cityHash64(number, 1) % 1000, toString(cityHash64(number, 101)) FROM numbers_mt(24000000)

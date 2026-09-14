@@ -1,0 +1,1 @@
+select any(UTMContent) from hits_100m_single where UTMContent != '' group by intHash32(UserID) % {group_scale} FORMAT Null

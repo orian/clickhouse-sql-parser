@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(200000000) AS l ALL LEFT JOIN (SELECT number * 2 AS a, number * 3 AS b FROM numbers(1000)) AS r ON l.number = r.a OR l.number = r.b FORMAT Null

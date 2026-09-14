@@ -1,0 +1,1 @@
+DESCRIBE file('hobbies.jsonl')

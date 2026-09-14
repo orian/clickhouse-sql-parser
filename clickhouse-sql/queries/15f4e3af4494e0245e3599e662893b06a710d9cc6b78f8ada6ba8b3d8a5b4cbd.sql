@@ -1,0 +1,1 @@
+SELECT varPop(d64), varSamp(d64), stddevPop(d64) FROM    (SELECT * FROM t LIMIT 10000000)

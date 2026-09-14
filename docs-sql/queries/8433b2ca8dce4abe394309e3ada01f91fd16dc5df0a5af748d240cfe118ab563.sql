@@ -1,0 +1,1 @@
+SELECT * FROM eval(SELECT 'SELECT 3 AS z');

@@ -1,0 +1,1 @@
+SELECT sum(NOT ignore(*)) FROM (SELECT * FROM generateRandom('i Nullable(String)', 0, 10, 10) LIMIT 100000000);

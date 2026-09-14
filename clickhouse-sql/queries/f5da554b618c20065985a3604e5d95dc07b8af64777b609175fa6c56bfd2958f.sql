@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_shared_data_wide FINAL SETTINGS mutations_sync=1

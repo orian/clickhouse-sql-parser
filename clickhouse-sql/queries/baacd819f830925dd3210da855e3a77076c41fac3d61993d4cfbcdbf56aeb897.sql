@@ -1,0 +1,1 @@
+SELECT count() FROM iceberg_manifest_entries WHERE c0 < 0

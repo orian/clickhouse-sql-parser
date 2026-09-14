@@ -1,0 +1,1 @@
+SELECT count() FROM test_in_skip_idx WHERE s IN (SELECT toString(number + 10000000) FROM numbers(100000)) SETTINGS use_skip_indexes = 0

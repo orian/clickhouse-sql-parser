@@ -1,0 +1,1 @@
+structureToProtobufSchema(structure, message_name)

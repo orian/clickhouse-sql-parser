@@ -1,0 +1,1 @@
+CREATE TABLE t_json_subcolumns_conversions (json JSON) ENGINE = MergeTree ORDER BY tuple()

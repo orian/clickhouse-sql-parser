@@ -1,0 +1,1 @@
+SELECT varSampIf(x, rand32() % 2 = 0) FROM nullfloat64_stats

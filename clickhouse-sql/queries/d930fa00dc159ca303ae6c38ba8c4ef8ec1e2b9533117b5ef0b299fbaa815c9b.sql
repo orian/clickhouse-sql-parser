@@ -1,0 +1,1 @@
+SELECT count(), sum(record_count), sum(file_size_in_bytes) FROM system.iceberg_files WHERE database = '{database}' AND table = 'lineitem' AND content = 0 SETTINGS use_iceberg_metadata_files_cache = 0

@@ -1,0 +1,1 @@
+SYSTEM SYNC FILE CACHE [ON CLUSTER cluster_name]

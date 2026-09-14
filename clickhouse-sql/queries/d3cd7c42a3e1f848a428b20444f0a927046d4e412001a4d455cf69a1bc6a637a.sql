@@ -1,0 +1,1 @@
+ALTER TABLE {database}.upd_files UPDATE l_quantity = l_quantity + 1 WHERE l_partkey % 10 = 0

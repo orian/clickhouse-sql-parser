@@ -1,0 +1,7 @@
+
+        INSERT INTO polygons
+        WITH number + 1 AS radius
+        SELECT [arrayMap(x -> (cos(x / 90. * pi()) * radius, sin(x / 90. * pi()) * radius), range(180))]
+        FROM numbers_mt(5000000)
+        SETTINGS max_insert_threads = 2, max_memory_usage = 30000000000
+    

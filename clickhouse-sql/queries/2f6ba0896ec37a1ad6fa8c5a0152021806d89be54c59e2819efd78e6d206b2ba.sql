@@ -1,0 +1,1 @@
+select key_int64_1,key_int64_2,key_int64_3,key_int64_4,key_int64_5, min(m1) from t_nullable group by key_int64_1,key_int64_2,key_int64_3,key_int64_4,key_int64_5

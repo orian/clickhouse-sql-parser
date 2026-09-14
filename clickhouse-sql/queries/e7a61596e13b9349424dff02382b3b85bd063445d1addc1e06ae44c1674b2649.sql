@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS read_in_reverse_order_final

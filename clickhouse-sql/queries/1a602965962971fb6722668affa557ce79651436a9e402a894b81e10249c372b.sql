@@ -1,0 +1,1 @@
+with cast([1,2,3,4] as Array(Int256)) as elem select arrayWithConstant(rand() % 10 + 5, materialize(elem)) from numbers(1000000) format Null

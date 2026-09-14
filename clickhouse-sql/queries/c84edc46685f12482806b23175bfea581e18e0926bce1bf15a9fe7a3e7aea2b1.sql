@@ -1,0 +1,1 @@
+OPTIMIZE TABLE replacing_final_non_intersecting FINAL

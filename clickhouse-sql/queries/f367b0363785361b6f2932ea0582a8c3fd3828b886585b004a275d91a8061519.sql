@@ -1,0 +1,1 @@
+SELECT max(length(MobilePhoneModel)) FROM hits_100m_single

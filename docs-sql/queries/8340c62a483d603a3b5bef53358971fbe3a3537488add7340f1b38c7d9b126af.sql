@@ -1,0 +1,1 @@
+SELECT toTypeName(INTERVAL 4 DAY)

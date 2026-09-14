@@ -1,0 +1,1 @@
+arrayNormalizedGini(predicted, label)

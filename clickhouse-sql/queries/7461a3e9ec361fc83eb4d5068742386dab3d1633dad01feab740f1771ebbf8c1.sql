@@ -1,0 +1,1 @@
+select materialize(array(array(1,2,3,4)))[1] from numbers(10000000) format Null

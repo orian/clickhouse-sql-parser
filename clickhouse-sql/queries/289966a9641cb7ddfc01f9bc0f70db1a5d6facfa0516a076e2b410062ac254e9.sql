@@ -1,0 +1,1 @@
+OPTIMIZE TABLE fsm_u64_dup_left FINAL

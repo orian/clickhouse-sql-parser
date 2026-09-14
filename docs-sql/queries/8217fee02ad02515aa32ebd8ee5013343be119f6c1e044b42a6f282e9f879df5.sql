@@ -1,0 +1,1 @@
+mapAll([func,] map)

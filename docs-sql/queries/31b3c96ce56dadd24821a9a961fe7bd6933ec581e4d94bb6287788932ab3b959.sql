@@ -1,0 +1,1 @@
+aiFilter(text, condition[, params])

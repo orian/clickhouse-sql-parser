@@ -1,0 +1,1 @@
+readWKBMultiLineString(wkb_string)

@@ -1,0 +1,1 @@
+SELECT number % 256 AS k FROM numbers(100000000) GROUP BY k FORMAT Null

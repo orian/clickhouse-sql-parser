@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_{format_fast} ENGINE = File({format_fast}, '/dev/null') AS test.hits

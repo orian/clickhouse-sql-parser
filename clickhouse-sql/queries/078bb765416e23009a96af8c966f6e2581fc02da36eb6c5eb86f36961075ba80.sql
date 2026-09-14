@@ -1,0 +1,1 @@
+select * from (select * from numbers_mt(1e7) group by number) order by number format Null

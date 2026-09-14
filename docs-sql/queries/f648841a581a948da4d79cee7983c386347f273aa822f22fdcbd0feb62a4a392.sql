@@ -1,0 +1,1 @@
+naiveBayesClassifierWithAllProbs(dictionary_name, input_text)

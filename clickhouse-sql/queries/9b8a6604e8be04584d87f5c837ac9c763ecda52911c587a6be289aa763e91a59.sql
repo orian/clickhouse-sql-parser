@@ -1,0 +1,1 @@
+DROP DICTIONARY simple_key_{layout_suffix}_dictionary_l0_{load_factor}

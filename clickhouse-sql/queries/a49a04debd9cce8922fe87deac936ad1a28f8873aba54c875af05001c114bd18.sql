@@ -1,0 +1,1 @@
+SELECT k, payload FROM final_inorder_limit FINAL ORDER BY k LIMIT 100 FORMAT Null

@@ -1,0 +1,1 @@
+SELECT UserID FROM merge(default, '^(hits_100m_single|merge_table_streams_\\d)$') WHERE UserID = 12345678901234567890

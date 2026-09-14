@@ -1,0 +1,1 @@
+INSERT INTO lck_fs_build SELECT toFixedString(leftPad(toString(number), 16, '0'), 16), number FROM numbers_mt(1000)

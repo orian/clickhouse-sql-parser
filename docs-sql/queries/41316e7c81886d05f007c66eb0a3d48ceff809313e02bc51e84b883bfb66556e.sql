@@ -1,0 +1,1 @@
+exponentialTimeDecayedCount(x)(t)

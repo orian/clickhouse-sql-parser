@@ -1,0 +1,1 @@
+SELECT sum(NOT ignore(*)) FROM (SELECT * FROM generateRandom('d Date, dt DateTime, dtm DateTime(\'Asia/Istanbul\')', 0, 10, 10) LIMIT 1000000000);

@@ -1,0 +1,1 @@
+numericIndexedVectorGetValue(v, i)

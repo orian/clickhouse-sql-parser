@@ -1,0 +1,1 @@
+INSERT INTO table_tsv SELECT number % 2 ? 'Some text' : NULL FROM numbers(1000000) FORMAT TSV

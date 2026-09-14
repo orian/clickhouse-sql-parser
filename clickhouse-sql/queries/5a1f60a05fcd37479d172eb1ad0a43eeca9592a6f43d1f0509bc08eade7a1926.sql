@@ -1,0 +1,1 @@
+DROP ROW POLICY IF EXISTS test_prl_policy ON test_prl

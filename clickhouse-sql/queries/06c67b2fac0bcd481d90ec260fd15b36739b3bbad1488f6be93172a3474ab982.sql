@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(200000000) WHERE NOT ignore(intDiv(number, 1000000000))

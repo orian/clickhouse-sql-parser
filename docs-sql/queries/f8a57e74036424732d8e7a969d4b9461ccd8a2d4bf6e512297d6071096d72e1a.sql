@@ -1,0 +1,2 @@
+CREATE USER MAPPING FOR CURRENT_USER SERVER taxi_srv
+       OPTIONS (user 'default');

@@ -1,0 +1,1 @@
+SELECT uniq({col}) FROM hits_100m_single FORMAT Null

@@ -1,0 +1,1 @@
+CREATE TABLE test_shared_data_compact (json JSON(max_dynamic_paths=0)) ENGINE=MergeTree ORDER BY tuple() SETTINGS min_bytes_for_wide_part='200G', write_marks_for_substreams_in_compact_parts=1

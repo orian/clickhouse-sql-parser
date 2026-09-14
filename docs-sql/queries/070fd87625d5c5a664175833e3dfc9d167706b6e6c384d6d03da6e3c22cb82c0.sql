@@ -1,0 +1,1 @@
+SHOW PROCESSLIST [INTO OUTFILE filename] [FORMAT format]

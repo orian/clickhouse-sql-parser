@@ -1,0 +1,1 @@
+CREATE TABLE build_nullable (k UInt64, a Nullable(UInt64), b Nullable(UInt64), c Nullable(UInt64), d Nullable(UInt64), e Nullable(UInt64), f Nullable(UInt64), g Nullable(UInt64)) ENGINE = MergeTree ORDER BY tuple()

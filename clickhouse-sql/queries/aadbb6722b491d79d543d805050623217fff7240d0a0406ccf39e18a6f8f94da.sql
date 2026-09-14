@@ -1,0 +1,1 @@
+select max(ndt), min(ndt) from t_opt_max_min

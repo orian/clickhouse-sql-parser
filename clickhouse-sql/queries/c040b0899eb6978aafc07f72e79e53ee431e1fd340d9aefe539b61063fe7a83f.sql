@@ -1,0 +1,1 @@
+SELECT {func}(key, val) FROM sum_map_{scale} FORMAT Null

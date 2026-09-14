@@ -1,0 +1,1 @@
+TRUNCATE TABLE redis_table SYNC;

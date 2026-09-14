@@ -1,0 +1,1 @@
+bitmapSubsetInRange(bitmap, start, end)

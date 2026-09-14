@@ -1,0 +1,1 @@
+INSERT INTO test_lc_query SELECT number, toString(number % 100) FROM numbers(1e7)

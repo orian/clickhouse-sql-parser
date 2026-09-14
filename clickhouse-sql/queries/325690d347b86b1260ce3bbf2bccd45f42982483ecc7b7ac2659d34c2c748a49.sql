@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT randUniform(0, 1) FROM zeros(100000000)) 

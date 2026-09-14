@@ -1,0 +1,1 @@
+INSERT INTO ints SELECT 40000 + number % 1 AS i64, i64 AS i32, i64 AS i16, i64 AS i8 FROM numbers(10000)

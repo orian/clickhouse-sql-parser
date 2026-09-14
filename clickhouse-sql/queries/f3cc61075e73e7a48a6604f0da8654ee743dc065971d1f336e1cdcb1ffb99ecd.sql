@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.lineitem WHERE l_receiptdate = toDate('1994-06-15') SETTINGS use_iceberg_partition_pruning = 0

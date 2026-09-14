@@ -1,0 +1,1 @@
+SELECT count() FROM {database}.lineitem AS l INNER JOIN tpch10.orders AS o ON l.l_orderkey = o.o_orderkey WHERE o.o_orderdate < toDate('1992-06-01')

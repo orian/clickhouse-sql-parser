@@ -1,0 +1,1 @@
+SELECT groupBitXor(x) FROM nullint64

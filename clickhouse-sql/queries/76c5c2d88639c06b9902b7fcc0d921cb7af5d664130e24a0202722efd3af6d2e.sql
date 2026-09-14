@@ -1,0 +1,1 @@
+SELECT maxIf(n_i128, cond) FROM minmax_wide

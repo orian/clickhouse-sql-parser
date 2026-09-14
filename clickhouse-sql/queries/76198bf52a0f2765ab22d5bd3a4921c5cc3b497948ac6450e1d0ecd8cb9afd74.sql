@@ -1,0 +1,1 @@
+select any(MobilePhoneModel) from hits_100m_single where MobilePhoneModel != '' group by intHash32(UserID) % {group_scale} FORMAT Null

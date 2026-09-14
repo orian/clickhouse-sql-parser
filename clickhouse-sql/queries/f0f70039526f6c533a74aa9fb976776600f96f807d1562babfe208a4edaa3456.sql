@@ -1,0 +1,1 @@
+WITH toUInt8(number) AS k, toUInt16(k) AS k1, toUInt32(k) AS k2, k AS k3 SELECT k1, k2, k3, count() FROM numbers(100000000) GROUP BY k1, k2, k3

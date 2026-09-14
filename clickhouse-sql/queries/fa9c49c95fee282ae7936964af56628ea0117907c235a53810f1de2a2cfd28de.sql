@@ -1,0 +1,1 @@
+SELECT DISTINCT col1 FROM test_strings_{cardinality} FORMAT Null

@@ -1,0 +1,1 @@
+SELECT {func_slow} FROM whitespaces LIMIT 10000000 FORMAT Null

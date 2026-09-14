@@ -1,0 +1,1 @@
+INSERT INTO simple_mergetree SELECT number, today() + intDiv(number, 10000000) FROM numbers_mt(100000000)

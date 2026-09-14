@@ -1,0 +1,1 @@
+SELECT count() FROM test_in WHERE -toInt64(a) IN (SELECT toInt64(rand(1)) FROM numbers(200000)) settings max_rows_to_read=200001, read_overflow_mode='break'

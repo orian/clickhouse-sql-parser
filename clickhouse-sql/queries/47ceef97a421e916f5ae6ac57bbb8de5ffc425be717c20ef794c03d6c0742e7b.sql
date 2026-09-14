@@ -1,0 +1,1 @@
+SELECT ngramDistanceCaseInsensitive(Title, 'BABY DonT hUrT me') AS distance FROM hits_10m_single FORMAT Null

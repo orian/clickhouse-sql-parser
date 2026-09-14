@@ -1,0 +1,1 @@
+CREATE TABLE merge_tree_insert_7 (value_1 Decimal64(8), value_2  Decimal64(8), value_3  Decimal64(8)) ENGINE = MergeTree ORDER BY (value_1) SETTINGS auto_statistics_types=''

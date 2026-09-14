@@ -1,0 +1,2 @@
+eval(expression)
+eval(SELECT ...)

@@ -1,0 +1,1 @@
+mergeTreeCodecBlockCounts(database, table)

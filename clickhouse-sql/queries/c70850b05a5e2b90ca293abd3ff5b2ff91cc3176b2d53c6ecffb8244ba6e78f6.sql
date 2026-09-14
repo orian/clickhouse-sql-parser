@@ -1,0 +1,1 @@
+SELECT count() FROM mt_comp_parts WHERE NOT ignore(c2, s1, arr1, s2)

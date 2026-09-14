@@ -1,0 +1,1 @@
+regexpExtract(haystack, pattern[, index])

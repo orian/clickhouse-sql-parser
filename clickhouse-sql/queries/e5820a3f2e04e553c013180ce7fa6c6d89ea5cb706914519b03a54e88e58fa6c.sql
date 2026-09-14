@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS insert_small_block_performance

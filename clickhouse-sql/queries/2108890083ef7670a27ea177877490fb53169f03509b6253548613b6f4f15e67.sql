@@ -1,0 +1,1 @@
+SELECT count() FROM zeros  (100000000) WHERE NOT ignore(roundDown(rand() % 100, [0, 1, 18, 25, 35, 45, 55]))

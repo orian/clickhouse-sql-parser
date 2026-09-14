@@ -1,0 +1,1 @@
+SELECT and(number % 100 == 0, isValidUTF8(repeat(toString(number + 10), 100))) FROM numbers(10000000) FORMAT Null

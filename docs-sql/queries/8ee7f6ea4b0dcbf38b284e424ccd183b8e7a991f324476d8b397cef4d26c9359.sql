@@ -1,0 +1,1 @@
+SYSTEM UNLOAD DICTIONARY dictionary_name

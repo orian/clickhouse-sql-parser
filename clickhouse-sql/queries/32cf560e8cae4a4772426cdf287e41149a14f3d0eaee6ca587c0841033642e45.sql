@@ -1,0 +1,1 @@
+CREATE TABLE test_join_used_flags (i64 Int64, i32 Int32) ENGINE = Memory

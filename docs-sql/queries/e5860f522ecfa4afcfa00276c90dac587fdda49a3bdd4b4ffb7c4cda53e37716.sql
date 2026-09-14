@@ -1,0 +1,1 @@
+obfuscateQueryWithSeed(query, seed)

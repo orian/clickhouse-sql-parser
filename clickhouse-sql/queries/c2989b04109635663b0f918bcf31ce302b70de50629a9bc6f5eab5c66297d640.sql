@@ -1,0 +1,1 @@
+INSERT INTO t_uniq_v2_float64 SELECT * FROM t_uniq_v2_float64_src

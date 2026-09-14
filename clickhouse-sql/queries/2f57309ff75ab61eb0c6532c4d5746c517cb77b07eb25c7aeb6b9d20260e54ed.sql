@@ -1,0 +1,1 @@
+SELECT count() FROM test_bf_indexOf WHERE indexOf(ary, '1') > 0

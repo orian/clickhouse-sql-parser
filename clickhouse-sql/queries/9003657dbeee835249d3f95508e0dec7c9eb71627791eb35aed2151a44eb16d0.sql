@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS perf_lc_fixed_str_groupby

@@ -1,0 +1,1 @@
+INSERT INTO index_test_cast SELECT number * 5 FROM numbers_mt(toUInt64(0x100000000 / 5)) SETTINGS max_insert_threads=8

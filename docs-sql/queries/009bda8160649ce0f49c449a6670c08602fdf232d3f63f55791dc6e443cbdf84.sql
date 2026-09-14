@@ -1,0 +1,1 @@
+<user_files_path>/var/lib/clickhouse/user_files/</user_files_path>

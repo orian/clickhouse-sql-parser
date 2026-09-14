@@ -1,0 +1,1 @@
+SELECT count() from {table_slow} where not ignore({hash_func}({value_slow}))

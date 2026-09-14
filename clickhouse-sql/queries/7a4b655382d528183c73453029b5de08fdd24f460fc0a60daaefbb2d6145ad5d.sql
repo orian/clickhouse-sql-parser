@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT toNullable(materialize(1)) AS x1, toNullable(materialize(1)) AS x2 FROM zeros(30000000)) WHERE NOT ignore(or(x1,x2))

@@ -1,0 +1,1 @@
+SELECT quantilesExactLow(0.5)(d32) FROM   (SELECT * FROM t LIMIT 10000000)

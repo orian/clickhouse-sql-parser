@@ -1,0 +1,1 @@
+SELECT count(n) FROM codec_{seq_type}_{type}_{codec} WHERE ignore(n) == 0 LIMIT {num_rows} SETTINGS max_threads=1

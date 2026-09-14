@@ -1,0 +1,1 @@
+SELECT largestTriangleThreeBuckets(10)(EventTime, ResolutionWidth) FROM test.hits GROUP BY CounterID ORDER BY count() DESC LIMIT 10

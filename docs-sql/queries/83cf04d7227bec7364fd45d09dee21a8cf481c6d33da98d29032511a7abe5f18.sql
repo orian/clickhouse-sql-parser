@@ -1,0 +1,1 @@
+hasTokenOrNull(haystack, token)

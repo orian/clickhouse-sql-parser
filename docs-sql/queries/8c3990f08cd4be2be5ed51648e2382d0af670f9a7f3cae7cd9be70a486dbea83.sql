@@ -1,0 +1,1 @@
+ SELECT h3HexRing(590080540275638271, toUInt16(1)) AS hexRing;

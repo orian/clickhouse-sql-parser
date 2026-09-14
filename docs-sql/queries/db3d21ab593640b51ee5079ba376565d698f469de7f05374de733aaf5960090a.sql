@@ -1,0 +1,1 @@
+mapExtractValueLike(map, pattern)

@@ -1,0 +1,1 @@
+alter table alter_select_{engine} drop column col_0 settings alter_sync = 0

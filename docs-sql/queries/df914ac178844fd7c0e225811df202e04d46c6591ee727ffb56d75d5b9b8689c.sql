@@ -1,0 +1,1 @@
+L2Normalize(vector)

@@ -1,0 +1,1 @@
+SELECT sum(l.v) FROM lck_str_probe AS l ALL INNER JOIN lck_str_build AS r ON l.k = r.k FORMAT Null

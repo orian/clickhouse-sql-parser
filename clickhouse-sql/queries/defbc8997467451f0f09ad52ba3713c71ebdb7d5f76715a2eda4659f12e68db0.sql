@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ips_v6(ip String) ENGINE = MergeTree() PARTITION BY tuple() ORDER BY tuple()

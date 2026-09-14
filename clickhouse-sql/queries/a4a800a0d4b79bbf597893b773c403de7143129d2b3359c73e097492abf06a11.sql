@@ -1,0 +1,1 @@
+OPTIMIZE TABLE adaptive_codec_merge_sizes FINAL

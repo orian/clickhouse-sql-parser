@@ -1,0 +1,1 @@
+SELECT UserID, SearchPhrase, COUNT(*) FROM {table} GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10

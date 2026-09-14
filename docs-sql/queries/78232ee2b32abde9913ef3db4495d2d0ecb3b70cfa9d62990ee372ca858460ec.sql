@@ -1,0 +1,1 @@
+SELECT h3ToString(617420388352917503) AS h3_string;

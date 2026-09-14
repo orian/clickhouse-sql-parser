@@ -1,0 +1,1 @@
+select any(SearchPhrase) from hits_100m_single where SearchPhrase != '' group by intHash32(UserID) % {group_scale} FORMAT Null

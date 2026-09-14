@@ -1,0 +1,2 @@
+CREATE NAMED COLLECTION foobar AS a = '1', b = '2';
+DROP NAMED COLLECTION foobar;

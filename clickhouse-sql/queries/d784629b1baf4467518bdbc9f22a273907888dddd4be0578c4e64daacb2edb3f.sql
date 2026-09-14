@@ -1,0 +1,1 @@
+optimize table column_map_test final

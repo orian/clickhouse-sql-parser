@@ -1,0 +1,1 @@
+INSERT INTO codec_seq_{type}_{codec} (n) SELECT number/pi() FROM system.numbers LIMIT {num_rows} SETTINGS max_threads=1

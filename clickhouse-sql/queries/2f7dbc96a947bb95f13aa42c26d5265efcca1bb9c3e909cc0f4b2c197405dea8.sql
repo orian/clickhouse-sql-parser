@@ -1,0 +1,1 @@
+SELECT 'rapidjson-14', count() FROM zeros(200000) WHERE NOT ignore(JSONExtractInt(materialize(concat(repeat('{{"a":', 100), '1', repeat('}}', 100))), 'a'))

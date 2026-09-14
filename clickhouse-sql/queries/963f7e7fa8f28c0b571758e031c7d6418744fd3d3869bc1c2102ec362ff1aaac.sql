@@ -1,0 +1,1 @@
+SELECT sumOrNull(number) FROM numbers(10000000) GROUP BY number % 1024

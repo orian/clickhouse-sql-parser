@@ -1,0 +1,1 @@
+SELECT sum(cosineDistance(u8, f64)) FROM adss_mixed_{dim}

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(50000000) AS l ALL RIGHT JOIN (SELECT number AS a, number + 1000000000 AS b FROM numbers(100000)) AS r ON l.number = r.a OR l.number = r.b FORMAT Null

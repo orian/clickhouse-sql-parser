@@ -1,0 +1,1 @@
+DROP NAMED COLLECTION [IF EXISTS] name [on CLUSTER cluster]

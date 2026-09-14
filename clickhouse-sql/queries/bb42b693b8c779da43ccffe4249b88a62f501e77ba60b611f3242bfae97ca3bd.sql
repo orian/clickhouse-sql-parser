@@ -1,0 +1,1 @@
+SELECT max(d256) FROM minmax_wide

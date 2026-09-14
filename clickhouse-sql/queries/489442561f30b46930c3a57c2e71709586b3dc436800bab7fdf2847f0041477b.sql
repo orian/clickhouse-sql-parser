@@ -1,0 +1,1 @@
+SELECT sum(r.p) FROM join_set_maps_probe AS l ANTI LEFT JOIN join_set_maps_build AS r ON l.k = r.k SETTINGS join_algorithm = 'hash' FORMAT Null

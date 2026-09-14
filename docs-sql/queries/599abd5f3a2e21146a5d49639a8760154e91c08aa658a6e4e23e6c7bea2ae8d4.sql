@@ -1,0 +1,1 @@
+SELECT showCertificate() FORMAT LineAsString;

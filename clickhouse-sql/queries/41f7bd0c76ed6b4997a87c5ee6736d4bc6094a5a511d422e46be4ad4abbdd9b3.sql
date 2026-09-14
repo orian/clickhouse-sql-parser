@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS tab_src_{drop_pct}

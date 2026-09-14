@@ -1,0 +1,1 @@
+CREATE TABLE {database}.many_manifests (l_orderkey Int32, l_quantity Float64) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/many_manifests_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet')

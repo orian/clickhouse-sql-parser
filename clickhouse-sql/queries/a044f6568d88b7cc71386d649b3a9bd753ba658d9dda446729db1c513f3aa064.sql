@@ -1,0 +1,1 @@
+SELECT number % toUInt32(0.5e8) AS k, count() FROM numbers_mt(toUInt32(0.5e8)) GROUP BY k FORMAT Null

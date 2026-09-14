@@ -1,0 +1,11 @@
+tokens(value) -- 'splitByNonAlpha' tokenizer
+tokens(value, 'splitByNonAlpha')
+tokens(value, 'splitByString'[, separators])
+tokens(value, 'splitByRegexp', regexp)
+tokens(value, 'asciiCJK')
+tokens(value, 'chinese'[, granularity])
+tokens(value, 'icu', locale)
+tokens(value, 'japanese')
+tokens(value, 'ngrams'[, n])
+tokens(value, 'sparseGrams'[, min_length, max_length[, min_cutoff_length]])
+tokens(value, 'array')

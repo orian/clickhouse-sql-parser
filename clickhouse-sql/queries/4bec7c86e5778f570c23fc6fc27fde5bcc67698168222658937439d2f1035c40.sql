@@ -1,0 +1,1 @@
+select distinctJSONPaths(json) from test_distinct_json_paths_compact_dynamic_paths format Null

@@ -1,0 +1,1 @@
+INSERT INTO pmj_u64_mult2 SELECT number * 2 FROM numbers_mt(8000000)

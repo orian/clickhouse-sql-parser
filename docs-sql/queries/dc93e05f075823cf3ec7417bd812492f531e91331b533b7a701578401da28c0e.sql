@@ -1,0 +1,1 @@
+toInt16OrZero(x)

@@ -1,0 +1,1 @@
+WITH 'Many years later as he faced the firing squad, Colonel Aureliano Buendia was to remember that distant afternoon when his father took him to discover ice.' AS s SELECT replaceRegexpOne(materialize(s), '\s+', '\\0\n') AS w FROM numbers_mt(500000) FORMAT Null

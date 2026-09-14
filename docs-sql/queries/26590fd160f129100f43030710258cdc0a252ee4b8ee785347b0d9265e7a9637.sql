@@ -1,0 +1,2 @@
+SHOW CREATE TABLE events
+FORMAT LineAsString

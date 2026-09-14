@@ -1,0 +1,1 @@
+SELECT splitByWhitespace(SearchPhrase) FROM hits_100m_single FORMAT Null

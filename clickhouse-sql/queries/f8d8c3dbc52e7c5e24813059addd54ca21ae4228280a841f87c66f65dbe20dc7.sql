@@ -1,0 +1,1 @@
+SELECT count() FROM rmt_final_j AS f FINAL INNER JOIN dim_j AS d ON f.id = d.id WHERE f.status = 'target' SETTINGS query_plan_optimize_lazy_final = 1, max_rows_for_lazy_final = 10000000, use_statistics_cache = 0

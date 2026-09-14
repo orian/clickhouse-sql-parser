@@ -1,0 +1,1 @@
+SELECT arrayReverse(materialize(range(8)::Array({type}))) FROM numbers(10000000) FORMAT Null

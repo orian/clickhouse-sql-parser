@@ -1,0 +1,1 @@
+INSERT INTO action SELECT arrayJoin(groupArray(number)), 'a', now() from numbers(1000000)

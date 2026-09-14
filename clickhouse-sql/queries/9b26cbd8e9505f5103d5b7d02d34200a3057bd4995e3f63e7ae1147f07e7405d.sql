@@ -1,0 +1,1 @@
+INSERT INTO agg_in_order_if_null_map SELECT intDiv(number, 8), if(number % 17 = 0, NULL, toFloat64(number % 1000)), number % 3 != 0, toFloat64(number % 1000), if(number % 23 = 0, NULL, toUInt8(number % 3 != 0)), if(number % 13 = 0, NULL, toFloat64(number % 97)) FROM numbers_mt(5000000)

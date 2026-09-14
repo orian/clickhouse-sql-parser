@@ -1,0 +1,1 @@
+SELECT json.key0, json.key1, json.key2, json.key3, json.key4 FROM test_shared_data_compact FORMAT Null

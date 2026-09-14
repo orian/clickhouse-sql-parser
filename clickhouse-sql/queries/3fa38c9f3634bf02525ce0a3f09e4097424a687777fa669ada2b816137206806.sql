@@ -1,0 +1,1 @@
+SELECT data.a0 FROM t_json_2 FORMAT Null

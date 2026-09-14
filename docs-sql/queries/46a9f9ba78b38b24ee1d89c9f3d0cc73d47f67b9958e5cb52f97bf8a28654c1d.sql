@@ -1,0 +1,1 @@
+parseQueryToJSON(sql)

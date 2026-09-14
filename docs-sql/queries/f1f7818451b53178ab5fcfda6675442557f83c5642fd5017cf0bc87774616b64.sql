@@ -1,0 +1,1 @@
+mapPartialSort([func,] limit, map)

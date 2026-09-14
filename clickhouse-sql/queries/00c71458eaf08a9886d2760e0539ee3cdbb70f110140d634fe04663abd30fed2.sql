@@ -1,0 +1,1 @@
+insert into t_{uniq_keys} select number, number % {uniq_keys} from numbers_mt(5e7)

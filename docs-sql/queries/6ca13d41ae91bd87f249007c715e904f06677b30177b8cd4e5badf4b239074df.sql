@@ -1,0 +1,1 @@
+runningDifferenceStartingWithFirstValue(x)

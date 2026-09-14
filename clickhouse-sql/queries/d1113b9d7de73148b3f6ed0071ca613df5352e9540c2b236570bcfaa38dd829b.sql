@@ -1,0 +1,1 @@
+SELECT avgWeighted(num_f, num)   FROM perf_avg FORMAT Null

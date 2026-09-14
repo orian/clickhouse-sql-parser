@@ -1,0 +1,1 @@
+CREATE TABLE large_int (a Int32, b Int32, c Int32, d Int32, e Int32, f Int32, g Int32, h Int32) ENGINE = MergeTree ORDER BY tuple()

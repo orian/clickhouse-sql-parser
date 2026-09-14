@@ -1,0 +1,1 @@
+readWKTLineString(wkt_string)

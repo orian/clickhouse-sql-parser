@@ -1,0 +1,1 @@
+INSERT INTO t_distinct_abandon_lc SELECT if(number % 16 = 0, NULL, concat('k', toString(number))) FROM numbers_mt(10000000)

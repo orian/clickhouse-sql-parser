@@ -1,0 +1,1 @@
+SELECT count(), sum(length(tags)), sum(props['k']), sum(rec.1) FROM {database}.nested_t

@@ -1,0 +1,1 @@
+INSERT INTO build_used_flags SELECT number FROM numbers(1000)

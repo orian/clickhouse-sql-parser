@@ -1,0 +1,1 @@
+SELECT sum(r.v) FROM join_dup_probe AS l SEMI LEFT JOIN join_dup_build AS r ON l.k = r.k FORMAT Null

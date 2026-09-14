@@ -1,0 +1,1 @@
+filesystemCapacity([disk_name])

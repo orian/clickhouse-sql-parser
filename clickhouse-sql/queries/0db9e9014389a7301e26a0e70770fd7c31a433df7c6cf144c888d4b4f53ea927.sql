@@ -1,0 +1,1 @@
+SELECT count() FROM text_index_partially_materialized WHERE hasToken(text, '285614')

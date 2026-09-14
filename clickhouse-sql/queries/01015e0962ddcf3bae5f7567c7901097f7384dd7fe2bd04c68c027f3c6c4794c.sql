@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_mild_dup FINAL

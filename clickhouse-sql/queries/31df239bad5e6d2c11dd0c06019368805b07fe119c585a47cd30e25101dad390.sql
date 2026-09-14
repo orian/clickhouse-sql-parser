@@ -1,0 +1,1 @@
+INSERT INTO uin_value_details (ds, uin, value) SELECT '2023-12-21', number, number from numbers(1000)

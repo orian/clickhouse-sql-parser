@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(1000000) WHERE NOT ignore(geohashDecode(toString(number % 1000000)))

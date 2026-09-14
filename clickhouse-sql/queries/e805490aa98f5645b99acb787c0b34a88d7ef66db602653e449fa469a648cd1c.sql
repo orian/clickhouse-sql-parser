@@ -1,0 +1,1 @@
+INSERT INTO hits_10m_words SELECT DISTINCT arrayJoin(splitByString(' ', SearchPhrase)) AS word, UserID FROM hits_10m_single WHERE length(word) > 0

@@ -1,0 +1,1 @@
+mergeTreePartInfo(part_name)

@@ -1,0 +1,1 @@
+SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM file('test_clickbench_hits.parquet', Parquet) FORMAT Null

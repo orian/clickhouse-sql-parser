@@ -1,0 +1,1 @@
+idnaEncode(s)

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(1000000) AS l RIGHT JOIN (SELECT if(number % 20 = 0, NULL, number) AS key FROM numbers_mt(20000000)) AS r ON l.number = r.key

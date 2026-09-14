@@ -1,0 +1,1 @@
+SELECT toInt256(number) - number FROM numbers_mt(100000000) FORMAT Null

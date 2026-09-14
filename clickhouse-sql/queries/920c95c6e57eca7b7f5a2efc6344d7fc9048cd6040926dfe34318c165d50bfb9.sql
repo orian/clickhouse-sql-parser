@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS pfsm_payload_right

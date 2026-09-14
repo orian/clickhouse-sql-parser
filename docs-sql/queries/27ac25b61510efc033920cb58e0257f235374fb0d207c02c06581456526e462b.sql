@@ -1,0 +1,1 @@
+hasAll(set, subset)

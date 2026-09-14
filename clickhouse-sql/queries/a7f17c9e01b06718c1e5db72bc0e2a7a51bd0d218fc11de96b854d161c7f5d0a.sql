@@ -1,0 +1,1 @@
+SELECT data.k0, data.k1, data.k2, data.k3, data.k4, data.k5, data.k6, data.k7, data.k8, data.k9 FROM t_json_1 FORMAT Null

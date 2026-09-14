@@ -1,0 +1,1 @@
+INSERT INTO test_nullable_order_by SELECT number, number FROM numbers(30000000)

@@ -1,0 +1,1 @@
+SELECT l.a FROM keys32_probe AS l INNER JOIN keys32_build AS r ON l.a = r.a AND l.b = r.b SETTINGS join_algorithm = 'parallel_hash' FORMAT Null

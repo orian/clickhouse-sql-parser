@@ -1,0 +1,1 @@
+DROP COLUMN [IF EXISTS] name

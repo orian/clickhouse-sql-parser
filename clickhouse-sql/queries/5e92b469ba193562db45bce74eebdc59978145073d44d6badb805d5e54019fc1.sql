@@ -1,0 +1,1 @@
+SELECT {func}({key}) FROM hits_100m_single FORMAT Null

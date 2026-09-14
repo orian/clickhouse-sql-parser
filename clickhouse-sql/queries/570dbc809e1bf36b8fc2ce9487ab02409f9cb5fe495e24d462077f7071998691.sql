@@ -1,0 +1,1 @@
+drop table if exists moving_sum_{millions}m

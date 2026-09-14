@@ -1,0 +1,1 @@
+insert into test select number, number = 0 ? NULL : number, repeat('a', 1000), tuple(number, randomString(1000)), toJSONString(map('a', number::Int32, 'b', repeat('a', 1000))) from numbers(1000000)

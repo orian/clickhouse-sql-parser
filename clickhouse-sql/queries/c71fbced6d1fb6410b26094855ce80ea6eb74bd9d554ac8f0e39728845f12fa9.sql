@@ -1,0 +1,1 @@
+SELECT {func}({expr}) FROM numbers(100000000) FORMAT Null

@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE NOT ignore(toString(IsParameter)) SETTINGS max_threads = 1

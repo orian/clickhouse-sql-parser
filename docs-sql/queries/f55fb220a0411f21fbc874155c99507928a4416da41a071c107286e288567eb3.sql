@@ -1,0 +1,1 @@
+SELECT byteSize('string')

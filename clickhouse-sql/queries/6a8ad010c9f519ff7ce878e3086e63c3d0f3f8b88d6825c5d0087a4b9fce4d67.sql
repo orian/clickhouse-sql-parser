@@ -1,0 +1,1 @@
+OPTIMIZE TABLE agg_in_order_if_null_map FINAL

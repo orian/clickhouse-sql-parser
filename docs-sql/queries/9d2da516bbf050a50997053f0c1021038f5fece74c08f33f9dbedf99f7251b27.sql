@@ -1,0 +1,1 @@
+SELECT * FROM tab64 WHERE time = toTime64(52225.123, 3);

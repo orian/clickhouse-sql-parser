@@ -1,0 +1,1 @@
+CREATE TABLE agg_in_order_if_null_map (k UInt32, x Nullable(Float64), cond UInt8, y Float64, cn Nullable(UInt8), w Nullable(Float64)) ENGINE = MergeTree ORDER BY k

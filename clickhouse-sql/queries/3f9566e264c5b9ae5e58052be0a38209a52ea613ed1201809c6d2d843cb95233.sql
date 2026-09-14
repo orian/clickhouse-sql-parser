@@ -1,0 +1,1 @@
+SELECT toBFloat16(number) {op} toBFloat16(42.0) FROM numbers(1000000000) FORMAT Null

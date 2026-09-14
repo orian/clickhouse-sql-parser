@@ -1,0 +1,1 @@
+SELECT number FROM numbers_mt({numbers_threshold_value}) GROUP BY number FORMAT Null

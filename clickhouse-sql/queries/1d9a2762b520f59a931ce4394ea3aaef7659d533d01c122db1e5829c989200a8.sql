@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT materialize(toNullable(toUInt16(0))) AS x1, materialize(toNullable(toUInt32(0))) AS x2, materialize(toNullable(toUInt64(0))) AS x3 FROM zeros(20000000)) WHERE NOT ignore(or(x1,x2,x3))

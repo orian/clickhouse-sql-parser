@@ -1,0 +1,1 @@
+SELECT cast(x, 'Int64'), cast(x, 'Int128'), cast(x, 'Int256'), cast(x, 'String'), cast(x, 'Decimal64(8)') FROM t FORMAT Null

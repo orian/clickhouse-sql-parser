@@ -1,0 +1,1 @@
+SELECT uint_1p FROM test_lwu_join WHERE id = 5000000

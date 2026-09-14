@@ -1,0 +1,1 @@
+CREATE TABLE output (key Int) Engine=Null

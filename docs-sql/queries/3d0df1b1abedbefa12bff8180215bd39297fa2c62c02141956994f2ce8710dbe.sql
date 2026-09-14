@@ -1,0 +1,1 @@
+SYSTEM START VIEW [db.]name

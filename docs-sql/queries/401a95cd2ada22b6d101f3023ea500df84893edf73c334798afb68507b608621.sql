@@ -1,0 +1,1 @@
+SET output_format_sql_insert_include_column_names = 0

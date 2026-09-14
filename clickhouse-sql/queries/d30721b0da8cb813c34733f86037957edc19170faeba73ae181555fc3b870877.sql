@@ -1,0 +1,1 @@
+WITH (SELECT state FROM test_model) AS model SELECT evalMLMethod(model, Income, ParamPrice, Robotness, RefererHash) FROM hits_100m_single FORMAT Null

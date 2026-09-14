@@ -1,0 +1,1 @@
+wordShingleMinHashArg(string[, shinglesize, hashnum])

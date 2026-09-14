@@ -1,0 +1,1 @@
+SELECT lengthUTF8(fs) FROM (SELECT fs, key FROM volume_reducing_functions ORDER BY key) FORMAT Null

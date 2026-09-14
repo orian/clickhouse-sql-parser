@@ -1,0 +1,1 @@
+CREATE TABLE test_logical_functions._4_1_Nullable_UInt8 (x1 Nullable(UInt8), x2 Nullable(UInt8), x3 Nullable(UInt8), x4 Nullable(UInt8)) ENGINE = Memory

@@ -1,0 +1,1 @@
+INSERT INTO simple_key_dictionary_source_table SELECT number, number FROM numbers(3_000_000)

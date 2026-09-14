@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS perf_iceberg_data_manifests

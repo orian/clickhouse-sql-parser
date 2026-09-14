@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE hasAnyTokens(SearchPhrase, ['the', 'video', 'world', 'market']) SETTINGS text_index_posting_list_apply_mode = 'materialize'

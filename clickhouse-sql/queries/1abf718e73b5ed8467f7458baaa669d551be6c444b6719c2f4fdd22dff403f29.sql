@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE SearchPhrase IN (SELECT SearchPhrase FROM hits_10m_single)

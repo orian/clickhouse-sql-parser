@@ -1,0 +1,1 @@
+INSERT INTO test_string_bytes SELECT reinterpretAsString(arrayJoin(range(0, 256))) FROM numbers(1000000)

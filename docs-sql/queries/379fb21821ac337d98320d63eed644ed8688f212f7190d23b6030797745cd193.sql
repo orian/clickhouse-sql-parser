@@ -1,0 +1,1 @@
+L2Norm(vector)

@@ -1,0 +1,1 @@
+geohashDecode(hash_str)

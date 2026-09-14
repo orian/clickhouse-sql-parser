@@ -1,0 +1,1 @@
+SELECT count(*) FROM hits_100m_single WHERE URL LIKE '%bonprix%' OR URL LIKE '%produkt%' OR URL LIKE '%auto%' OR URL LIKE '%video%' OR URL LIKE '%news%' OR URL LIKE '%forum%'

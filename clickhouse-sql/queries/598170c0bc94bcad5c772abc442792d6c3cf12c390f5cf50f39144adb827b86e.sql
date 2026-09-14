@@ -1,0 +1,1 @@
+CREATE TABLE empty_strings (s String) ENGINE = Log;

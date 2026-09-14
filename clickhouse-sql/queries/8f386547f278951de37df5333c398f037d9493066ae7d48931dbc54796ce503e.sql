@@ -1,0 +1,1 @@
+SELECT toUInt64(intDiv(number, 10)) AS n, count(), sum(number) FROM numbers(10000000) GROUP BY n FORMAT Null

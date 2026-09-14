@@ -1,0 +1,1 @@
+insert into test_left SELECT toString(number % 20), toString(number) from system.numbers limit 10000;

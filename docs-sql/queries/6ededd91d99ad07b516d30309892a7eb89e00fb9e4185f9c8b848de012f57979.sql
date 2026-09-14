@@ -1,0 +1,1 @@
+getServerSetting(setting_name')

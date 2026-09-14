@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(10000000) WHERE NOT ignore(round(toDecimal128(number, 0), -2))

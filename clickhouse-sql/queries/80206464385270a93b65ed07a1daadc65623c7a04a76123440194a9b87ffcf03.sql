@@ -1,0 +1,1 @@
+SELECT {key}, count() FROM t_low_card_str GROUP BY {key} FORMAT Null

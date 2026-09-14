@@ -1,0 +1,1 @@
+cutQueryStringAndFragment(url)

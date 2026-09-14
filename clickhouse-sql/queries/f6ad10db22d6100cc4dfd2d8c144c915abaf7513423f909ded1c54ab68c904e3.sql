@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_distinct_abandon_int FINAL

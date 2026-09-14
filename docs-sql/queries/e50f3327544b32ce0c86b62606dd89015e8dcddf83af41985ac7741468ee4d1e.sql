@@ -1,0 +1,1 @@
+toStartOfMicrosecond(datetime[, timezone])

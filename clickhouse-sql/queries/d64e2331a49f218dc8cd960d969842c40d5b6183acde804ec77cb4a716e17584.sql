@@ -1,0 +1,1 @@
+SELECT max(val), count(*) FROM with_lonely FINAL WHERE dt != '2022-11-01';

@@ -1,0 +1,1 @@
+SELECT count() FROM test_set_index_check_in_range WHERE (a, b) IN (SELECT number * 3739 % 3750000, number % 8 FROM numbers(10000)) SETTINGS max_threads = 1

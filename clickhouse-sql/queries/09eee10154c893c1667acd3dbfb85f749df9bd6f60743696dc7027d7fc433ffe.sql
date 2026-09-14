@@ -1,0 +1,1 @@
+SELECT sum(toDateTime64(toString(x), 3) != x) FROM dt64

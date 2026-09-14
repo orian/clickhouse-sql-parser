@@ -1,0 +1,1 @@
+SELECT groupBitOr(x) FROM nullint64

@@ -1,0 +1,1 @@
+SELECT if(number % 2 = 0, (number % 100000)::Dynamic, toString(number % 100000)::Dynamic) AS d FROM numbers_mt(5000000) GROUP BY d FORMAT Null

@@ -1,0 +1,1 @@
+SELECT id, length(value) FROM lwd_test ORDER BY id LIMIT 1

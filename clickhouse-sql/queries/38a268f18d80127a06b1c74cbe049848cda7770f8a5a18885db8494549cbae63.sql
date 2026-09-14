@@ -1,0 +1,1 @@
+SELECT a, d FROM str_sort_long ORDER BY c, d, e, f FORMAT Null

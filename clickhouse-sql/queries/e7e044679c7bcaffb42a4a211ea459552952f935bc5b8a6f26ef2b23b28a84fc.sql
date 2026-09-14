@@ -1,0 +1,1 @@
+select k, groupArrayMovingSum({window})(v) from moving_sum_{millions}m group by k format Null

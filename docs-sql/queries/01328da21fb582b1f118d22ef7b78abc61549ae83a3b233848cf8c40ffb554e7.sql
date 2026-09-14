@@ -1,0 +1,1 @@
+JSONArrayLength(json)

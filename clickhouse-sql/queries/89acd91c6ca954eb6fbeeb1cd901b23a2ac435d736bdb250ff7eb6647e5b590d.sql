@@ -1,0 +1,1 @@
+CREATE TABLE h3_indexes_perf (h3 UInt64) ENGINE = Memory

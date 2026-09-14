@@ -1,0 +1,1 @@
+SELECT count() FROM zeros  (100000000) WHERE NOT ignore(roundDown(rand() % 65536, [0, 1, 10, 30, 60, 120, 180, 240, 300, 600, 1200, 1800, 3600, 7200, 18000, 36000]))

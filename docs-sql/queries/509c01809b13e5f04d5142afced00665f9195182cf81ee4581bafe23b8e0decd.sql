@@ -1,0 +1,1 @@
+randomPrintableASCII(length[, x])

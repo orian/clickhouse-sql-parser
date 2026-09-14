@@ -1,0 +1,1 @@
+INSERT INTO codec_mon_{type}_{codec} (n) SELECT number*512+(intHash64(number)%512) FROM system.numbers LIMIT {num_rows} SETTINGS max_threads=1

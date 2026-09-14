@@ -1,0 +1,1 @@
+SELECT categoricalInformationValue(Age < 15, Age >= 15 and Age < 30, Age >= 30 and Age < 45, Age >= 45 and Age < 60, Age >= 60, IsMobile) from hits_100m_single

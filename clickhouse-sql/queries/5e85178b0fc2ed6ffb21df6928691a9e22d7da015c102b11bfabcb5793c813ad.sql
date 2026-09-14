@@ -1,0 +1,1 @@
+SELECT count() FROM perf_lc_num WHERE arr[1] = 42

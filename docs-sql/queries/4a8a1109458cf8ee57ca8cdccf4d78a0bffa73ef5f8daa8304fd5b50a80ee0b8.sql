@@ -1,0 +1,1 @@
+normalizeUTF8NFD(str)

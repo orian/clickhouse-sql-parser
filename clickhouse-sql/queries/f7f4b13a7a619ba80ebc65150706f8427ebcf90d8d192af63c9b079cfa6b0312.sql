@@ -1,0 +1,1 @@
+CREATE TABLE merge_perf_t443 (date Date, category String, value Int64, customer_id String) ENGINE = MergeTree ORDER BY (date, category)

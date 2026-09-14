@@ -1,0 +1,1 @@
+DROP TABLE tab_{type}_wide

@@ -1,0 +1,1 @@
+SELECT * FROM na_arrow FORMAT Null

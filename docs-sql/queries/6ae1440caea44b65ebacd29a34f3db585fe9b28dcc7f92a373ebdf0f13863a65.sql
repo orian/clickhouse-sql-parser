@@ -1,0 +1,1 @@
+DROP SERVER taxi_srv CASCADE;

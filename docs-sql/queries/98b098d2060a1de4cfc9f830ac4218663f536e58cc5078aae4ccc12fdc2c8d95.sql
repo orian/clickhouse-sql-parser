@@ -1,0 +1,1 @@
+variantType(variant)

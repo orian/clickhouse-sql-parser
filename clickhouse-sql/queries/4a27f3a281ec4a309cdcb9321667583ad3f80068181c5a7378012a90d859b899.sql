@@ -1,0 +1,1 @@
+SELECT AVG(UserID) FROM file('test_clickbench_hits.parquet', Parquet) FORMAT Null

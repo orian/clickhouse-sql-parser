@@ -1,0 +1,1 @@
+SELECT toValidUTF8('\\x61\\xF0\\x80\\x80\\x80b')

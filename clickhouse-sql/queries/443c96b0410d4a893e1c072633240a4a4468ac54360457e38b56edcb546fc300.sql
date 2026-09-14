@@ -1,0 +1,1 @@
+SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(Refresh), AVG(ResolutionWidth) FROM {table} WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10

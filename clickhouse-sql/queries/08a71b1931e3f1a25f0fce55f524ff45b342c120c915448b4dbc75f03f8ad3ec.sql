@@ -1,0 +1,1 @@
+INSERT INTO t_basic_stats SELECT * FROM t_basic_stats_src

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS sort_wide_16

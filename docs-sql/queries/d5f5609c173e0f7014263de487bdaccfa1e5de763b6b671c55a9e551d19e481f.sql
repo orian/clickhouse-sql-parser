@@ -1,0 +1,1 @@
+    LOAD 'chdb_hook';

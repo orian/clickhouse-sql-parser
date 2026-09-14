@@ -1,0 +1,1 @@
+with rand32() % 2 as x, 1.234::Decimal64(3) as a, 2.456::Decimal64(3) as b select if(x, materialize(a), materialize(b)) from numbers(100000000) format Null

@@ -1,0 +1,1 @@
+SELECT ngramDistance(Title, SearchPhrase) AS distance FROM {small_table} FORMAT Null

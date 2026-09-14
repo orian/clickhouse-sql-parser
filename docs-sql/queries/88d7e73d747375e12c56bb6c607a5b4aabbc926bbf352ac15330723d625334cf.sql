@@ -1,0 +1,1 @@
+h3GetDestinationIndexFromUnidirectionalEdge(edge)

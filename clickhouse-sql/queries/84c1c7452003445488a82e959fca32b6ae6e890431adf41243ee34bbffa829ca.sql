@@ -1,0 +1,1 @@
+select distinctJSONPaths(json) from test_distinct_json_paths_compact_advanced_shared_data format Null

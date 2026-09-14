@@ -1,0 +1,1 @@
+INSERT INTO distinct_final_prefix SELECT intDiv(number, 1000), number % 1000 FROM numbers_mt(5e7)

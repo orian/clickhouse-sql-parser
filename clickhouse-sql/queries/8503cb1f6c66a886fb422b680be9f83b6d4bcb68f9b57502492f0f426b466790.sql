@@ -1,0 +1,1 @@
+UPDATE test_lwu_join_2 SET uint_1p = rand() WHERE id % 100 = 0

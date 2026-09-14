@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_text_index_analysis FINAL

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS adaptive_codec_merge

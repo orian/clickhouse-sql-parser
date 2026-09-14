@@ -1,0 +1,1 @@
+SELECT quantile(d128), quantileExact(d128), quantileExactWeighted(d128, 2) FROM (SELECT * FROM t LIMIT 1000000)

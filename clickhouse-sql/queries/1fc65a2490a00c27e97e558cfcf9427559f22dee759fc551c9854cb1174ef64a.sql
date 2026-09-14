@@ -1,0 +1,1 @@
+CREATE TABLE {database}.evo_add (l_orderkey Int32, l_quantity Float64) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/evo_add_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet')

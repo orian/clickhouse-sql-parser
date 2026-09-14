@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS src_dynamic_squash_performance_2

@@ -1,0 +1,1 @@
+select any(SocialSourcePage) from hits_100m_single where SocialSourcePage != '' group by intHash32(UserID) % {group_scale} FORMAT Null

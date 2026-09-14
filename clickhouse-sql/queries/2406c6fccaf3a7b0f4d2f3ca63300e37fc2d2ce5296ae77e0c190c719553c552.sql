@@ -1,0 +1,1 @@
+CREATE TABLE input (key Int) Engine=Null

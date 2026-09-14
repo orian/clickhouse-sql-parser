@@ -1,0 +1,1 @@
+select argMax(arg, ndt), argMin(arg, ndt) from t_opt_max_min

@@ -1,0 +1,6 @@
+remote(addresses_expr, [db, table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remote(addresses_expr, [db.table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remote(named_collection[, option=value [,..]][, SETTINGS name = value, ...])
+remoteSecure(addresses_expr, [db, table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remoteSecure(addresses_expr, [db.table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remoteSecure(named_collection[, option=value [,..]][, SETTINGS name = value, ...])

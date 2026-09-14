@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_u64_right_{card} FINAL

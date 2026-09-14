@@ -1,0 +1,1 @@
+SELECT {str1}, {str2} FROM hits_100m_single ORDER BY {str1}, {str2} LIMIT 10 FORMAT Null

@@ -1,0 +1,1 @@
+SELECT lowerUTF8(SearchPhrase) FROM hits_100m_single FORMAT Null

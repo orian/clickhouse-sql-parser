@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS src_variant_squash_performance

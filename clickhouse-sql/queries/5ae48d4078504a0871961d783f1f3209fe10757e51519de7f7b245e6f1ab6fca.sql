@@ -1,0 +1,1 @@
+select count() from {table}({size}) group by number format Null

@@ -1,0 +1,1 @@
+select * from numbers_mt(100) t1 inner join numbers_mt(1e8) t2 using (number) format Null

@@ -1,0 +1,1 @@
+DROP TABLE lwd_test

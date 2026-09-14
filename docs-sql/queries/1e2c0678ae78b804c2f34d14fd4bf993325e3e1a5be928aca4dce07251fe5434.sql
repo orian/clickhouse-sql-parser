@@ -1,0 +1,1 @@
+CHECK DATABASE my_lake;

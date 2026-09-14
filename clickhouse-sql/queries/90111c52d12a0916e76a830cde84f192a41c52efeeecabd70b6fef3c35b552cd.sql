@@ -1,0 +1,1 @@
+SELECT UserID, count() FROM hits_100m_single GROUP BY UserID LIMIT 10 FORMAT Null

@@ -1,0 +1,1 @@
+isIPv4String(string)

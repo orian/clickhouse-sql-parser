@@ -1,0 +1,1 @@
+CREATE TABLE test1 (a Int64, b String, c LowCardinality(String)) ENGINE = MergeTree() ORDER BY a

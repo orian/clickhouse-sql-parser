@@ -1,0 +1,1 @@
+SELECT str, COUNT(DISTINCT u64) as u FROM test_{serialization}_{ratio} WHERE notEmpty(str) GROUP BY str ORDER BY u DESC LIMIT 10

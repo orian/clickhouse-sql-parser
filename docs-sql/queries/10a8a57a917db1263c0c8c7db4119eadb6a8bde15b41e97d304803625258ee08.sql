@@ -1,0 +1,1 @@
+SYSTEM RELOAD USERS [ON CLUSTER cluster_name]

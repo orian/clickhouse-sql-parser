@@ -1,0 +1,1 @@
+ALTER TABLE pypi_v2 MOVE PARTITION () TO pypi

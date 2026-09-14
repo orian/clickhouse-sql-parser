@@ -1,0 +1,1 @@
+SELECT avg(number) FROM numbers(1000000000)

@@ -1,0 +1,1 @@
+create table alter_select_rmt (part_id String, col_0 String) engine=ReplicatedMergeTree('/tables/{{database}}', '{{table}}') partition by part_id order by tuple() settings max_parts_to_merge_at_once=1

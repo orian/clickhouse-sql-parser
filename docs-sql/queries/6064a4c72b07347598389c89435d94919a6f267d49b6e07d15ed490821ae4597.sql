@@ -1,0 +1,1 @@
+EXPLAIN WHATIF empirical = 0 SELECT * FROM t WHERE b < 10;

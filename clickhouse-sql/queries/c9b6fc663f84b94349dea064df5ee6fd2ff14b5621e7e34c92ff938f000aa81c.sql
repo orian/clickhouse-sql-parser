@@ -1,0 +1,1 @@
+CREATE TABLE sg_src (s String) ENGINE = Memory

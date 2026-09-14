@@ -1,0 +1,1 @@
+SELECT sum(toNullable(toUInt16(number))) FROM numbers(100000000)

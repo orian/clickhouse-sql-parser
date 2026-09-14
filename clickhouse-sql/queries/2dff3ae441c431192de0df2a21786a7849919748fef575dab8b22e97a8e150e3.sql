@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(50000000) WHERE NOT ignore(toString(1700000000 + rand() % 100000000)) SETTINGS max_threads = 1

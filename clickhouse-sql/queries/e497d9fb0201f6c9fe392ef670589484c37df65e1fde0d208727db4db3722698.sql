@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS iso_3166_1_alpha_2

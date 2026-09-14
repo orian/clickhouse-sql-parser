@@ -1,0 +1,1 @@
+DROP TABLE date_preimage_perf

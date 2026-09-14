@@ -1,0 +1,1 @@
+select * from test where json.a = 42 format Null

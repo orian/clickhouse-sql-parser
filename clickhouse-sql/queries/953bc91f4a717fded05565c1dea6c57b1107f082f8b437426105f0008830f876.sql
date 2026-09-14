@@ -1,0 +1,1 @@
+INSERT INTO text_index_partially_materialized SELECT arrayStringConcat(arrayMap(x -> toString(rand(number * 30 + x) % 500000), range(42)), ' ') FROM numbers(1000)

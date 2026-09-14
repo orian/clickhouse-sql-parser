@@ -1,0 +1,1 @@
+SELECT count(k) FROM (SELECT k FROM data, numbers(20) _a)

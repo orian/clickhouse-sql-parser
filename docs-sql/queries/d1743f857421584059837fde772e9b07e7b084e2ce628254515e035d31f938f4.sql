@@ -1,0 +1,3 @@
+CREATE USER exporter
+IDENTIFIED WITH SHA256_PASSWORD BY 'password-here'
+SETTINGS readonly = 1;

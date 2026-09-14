@@ -1,0 +1,1 @@
+    CREATE PUBLICATION clickpipes FOR TABLES IN SCHEMA "public";

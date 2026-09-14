@@ -1,0 +1,1 @@
+SELECT sum(dp) FROM (SELECT dotProduct(v, v) AS dp FROM vecs_{element_type})

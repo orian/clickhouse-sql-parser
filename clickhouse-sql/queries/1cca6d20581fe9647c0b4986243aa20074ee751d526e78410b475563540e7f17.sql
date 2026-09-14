@@ -1,0 +1,1 @@
+SELECT * FROM rs_probe_100m l JOIN rs_right_10m r ON (l.k % toUInt64(10000000 / {match_rate})) = r.k FORMAT Null

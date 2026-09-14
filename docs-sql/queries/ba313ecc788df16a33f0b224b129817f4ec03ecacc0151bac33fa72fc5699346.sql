@@ -1,0 +1,1 @@
+bitShiftLeft(a, N)

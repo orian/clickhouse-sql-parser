@@ -1,0 +1,1 @@
+INSERT INTO sg_text_3_8 SELECT s FROM sg_src LIMIT 30_000 SETTINGS max_threads = 1

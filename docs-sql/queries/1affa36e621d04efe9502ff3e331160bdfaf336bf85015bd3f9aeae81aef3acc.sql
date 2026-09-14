@@ -1,0 +1,1 @@
+cutWWW(url)

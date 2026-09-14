@@ -1,0 +1,1 @@
+INSERT INTO squash_performance SELECT * FROM generateRandom(42) LIMIT 500000

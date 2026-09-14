@@ -1,0 +1,1 @@
+INSERT INTO join_dup_probe SELECT number % 1024 FROM numbers_mt(1000000)

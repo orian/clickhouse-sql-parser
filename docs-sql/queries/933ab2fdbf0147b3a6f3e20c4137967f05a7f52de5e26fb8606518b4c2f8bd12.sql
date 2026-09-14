@@ -1,0 +1,1 @@
+ALTER TABLE visits CLEAR COLUMN browser IN PARTITION tuple()

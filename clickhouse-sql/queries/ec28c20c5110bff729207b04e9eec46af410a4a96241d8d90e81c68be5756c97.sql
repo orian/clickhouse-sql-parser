@@ -1,0 +1,1 @@
+select min(OpenstatSourceID) from hits_100m_single where OpenstatSourceID != '' group by intHash32(UserID) % {group_scale} FORMAT Null

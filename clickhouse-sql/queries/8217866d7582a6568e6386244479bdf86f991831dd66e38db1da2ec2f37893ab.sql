@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS hits_sparse(AdvEngineID Int16) ENGINE = MergeTree() ORDER BY tuple()

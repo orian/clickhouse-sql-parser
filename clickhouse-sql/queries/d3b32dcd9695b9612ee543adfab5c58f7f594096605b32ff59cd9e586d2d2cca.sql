@@ -1,0 +1,1 @@
+INSERT INTO table_csv SELECT number % 2 ? 'Some text' : NULL FROM numbers(1000000) FORMAT CSV

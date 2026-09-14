@@ -1,0 +1,1 @@
+SHOW MERGES LIKE 'your_t%' LIMIT 1;

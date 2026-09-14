@@ -1,0 +1,1 @@
+CREATE TABLE distinct_cardinality_high (high UInt64, medium UInt64, low UInt64) ENGINE MergeTree() ORDER BY (high, medium)

@@ -1,0 +1,2 @@
+DETACH TABLE test;
+SELECT * FROM test;

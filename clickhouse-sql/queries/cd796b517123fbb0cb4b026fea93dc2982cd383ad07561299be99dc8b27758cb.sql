@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS json_string_value_formatting

@@ -1,0 +1,1 @@
+SELECT number % 100000 AS k, count() FROM numbers(    10000000) GROUP BY k FORMAT Null

@@ -1,0 +1,1 @@
+SYSTEM RELOAD DICTIONARY complex_key_{layout_suffix}_dictionary_s{shards}

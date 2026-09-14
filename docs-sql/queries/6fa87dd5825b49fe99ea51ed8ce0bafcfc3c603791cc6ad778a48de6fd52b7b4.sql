@@ -1,0 +1,3 @@
+BEGIN TRANSACTION;
+SELECT transactionID();
+ROLLBACK;

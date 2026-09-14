@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS simple_key_flat_dictionary_source_table

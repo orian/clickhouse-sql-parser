@@ -1,0 +1,1 @@
+INSERT INTO perf_iceberg_data_manifests SELECT number + {n} * 500, toString(number) FROM numbers(500) SETTINGS allow_insert_into_iceberg = 1

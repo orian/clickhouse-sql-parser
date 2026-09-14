@@ -1,0 +1,1 @@
+EXPLAIN SELECT count() FROM fact_1000p_cached AS f INNER JOIN dim_j AS d ON f.id = d.id WHERE f.p < 950 SETTINGS use_statistics_cache = 1 FORMAT Null

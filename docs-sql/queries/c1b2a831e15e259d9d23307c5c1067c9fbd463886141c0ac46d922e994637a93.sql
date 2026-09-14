@@ -1,0 +1,1 @@
+SET use_page_cache_for_disks_without_file_cache=1;

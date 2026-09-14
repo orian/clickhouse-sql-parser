@@ -1,0 +1,1 @@
+SELECT count() FROM test_lwu_join_2 WHERE NOT ignore(str_1p)

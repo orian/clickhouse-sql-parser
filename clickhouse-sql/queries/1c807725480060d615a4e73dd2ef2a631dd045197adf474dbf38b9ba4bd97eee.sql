@@ -1,0 +1,1 @@
+SELECT toInt32(number)          AS n FROM numbers(10000000) ORDER BY n DESC FORMAT Null

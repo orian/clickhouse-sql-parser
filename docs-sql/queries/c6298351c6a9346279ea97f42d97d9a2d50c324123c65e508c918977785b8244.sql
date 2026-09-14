@@ -1,0 +1,1 @@
+geoToMGRS(longitude, latitude[, precision])

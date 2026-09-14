@@ -1,0 +1,15 @@
+  SELECT
+      town,
+      district,
+      count() AS c,
+      round(avg(price)) AS price,
+      bar(price, 0, 5000000, 100)
+  FROM uk.uk_price_paid_with_projections_v2
+  WHERE toYear(date) >= 2020
+  GROUP BY
+      town,
+      district
+  HAVING c >= 100
+  ORDER BY price DESC
+  LIMIT 100
+  SETTINGS optimize_use_projections=0

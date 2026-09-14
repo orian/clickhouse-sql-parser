@@ -1,0 +1,1 @@
+wordShingleSimHashCaseInsensitive(string[, shinglesize])

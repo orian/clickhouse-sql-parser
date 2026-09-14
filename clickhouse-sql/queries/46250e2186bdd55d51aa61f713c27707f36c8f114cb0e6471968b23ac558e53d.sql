@@ -1,0 +1,1 @@
+INSERT INTO t_distinct_abandon_int SELECT number FROM numbers_mt(30000000)

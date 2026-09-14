@@ -1,0 +1,1 @@
+INSERT INTO test_u64_left_{card} SELECT number % {card} FROM numbers_mt(10000000)

@@ -1,0 +1,1 @@
+SELECT COUNT() FROM ints l INNER JOIN ints r USING i64,i32,i16,i8 WHERE i32 = 20042 settings query_plan_filter_push_down = 0 settings join_algorithm='hash'

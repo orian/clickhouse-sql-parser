@@ -1,0 +1,1 @@
+INSERT INTO t_json_typed_paths_no_hints SELECT {json_map} FROM numbers(1000)

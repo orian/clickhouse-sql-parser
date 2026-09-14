@@ -1,0 +1,1 @@
+SELECT nested.arr0 FROM lot_of_arrays WHERE id > 10 FORMAT Null

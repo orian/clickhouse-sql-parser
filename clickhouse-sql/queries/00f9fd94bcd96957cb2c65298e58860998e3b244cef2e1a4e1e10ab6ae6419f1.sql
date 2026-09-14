@@ -1,0 +1,1 @@
+OPTIMIZE TABLE array_wide FINAL

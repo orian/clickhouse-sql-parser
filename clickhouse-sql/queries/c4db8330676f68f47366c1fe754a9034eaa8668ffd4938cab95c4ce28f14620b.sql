@@ -1,0 +1,1 @@
+select count() from (select sipHash64(zero) from zeros_mt(100000000) union all select sipHash64(zero) from zeros_mt(100000000))

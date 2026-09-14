@@ -1,0 +1,1 @@
+SELECT Title as col FROM hits_100m_single ORDER BY col LIMIT 1000,1

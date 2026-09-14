@@ -1,0 +1,1 @@
+OPTIMIZE TABLE variant_wide FINAL

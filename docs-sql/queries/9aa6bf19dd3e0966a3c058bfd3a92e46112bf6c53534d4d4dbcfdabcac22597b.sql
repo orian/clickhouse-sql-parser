@@ -1,0 +1,2 @@
+groupArrayMovingAvg(numbers_for_summing)
+groupArrayMovingAvg(window_size)(numbers_for_summing)

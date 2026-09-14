@@ -1,0 +1,1 @@
+INSERT INTO lazy_final_perf SELECT 5, number + 5000000,  1, 0, repeat('x', 200) FROM numbers(1000000)

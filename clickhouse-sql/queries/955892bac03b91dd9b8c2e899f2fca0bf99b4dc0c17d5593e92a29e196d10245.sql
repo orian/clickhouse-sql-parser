@@ -1,0 +1,1 @@
+SELECT varSamp(x) FROM nullfloat64_stats

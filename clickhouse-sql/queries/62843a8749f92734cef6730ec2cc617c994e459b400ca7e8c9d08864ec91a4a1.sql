@@ -1,0 +1,1 @@
+INSERT INTO t_uniq_v2_float64_src SELECT toFloat64(number) / 10 FROM numbers(1000000)

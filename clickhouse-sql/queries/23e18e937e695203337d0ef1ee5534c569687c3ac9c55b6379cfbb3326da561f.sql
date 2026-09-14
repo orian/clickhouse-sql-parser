@@ -1,0 +1,1 @@
+INSERT INTO rs_probe_100m SELECT rand64() FROM numbers(100000000)

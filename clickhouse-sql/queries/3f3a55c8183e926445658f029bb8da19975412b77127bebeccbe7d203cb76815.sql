@@ -1,0 +1,1 @@
+INSERT INTO keys SELECT rand() FROM numbers(10000000);

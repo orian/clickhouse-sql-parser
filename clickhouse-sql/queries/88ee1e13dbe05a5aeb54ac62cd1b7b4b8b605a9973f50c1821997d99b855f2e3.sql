@@ -1,0 +1,1 @@
+SELECT sum(intDiv(small_u, 997)) FROM div256

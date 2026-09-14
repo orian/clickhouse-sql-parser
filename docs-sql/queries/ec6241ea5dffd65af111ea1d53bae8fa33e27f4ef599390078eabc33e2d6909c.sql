@@ -1,0 +1,1 @@
+DROP DATABASE [IF EXISTS] db [ON CLUSTER cluster] [SYNC]

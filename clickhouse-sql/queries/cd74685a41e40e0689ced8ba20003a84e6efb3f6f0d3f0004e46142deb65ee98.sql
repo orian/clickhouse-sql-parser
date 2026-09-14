@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS table_csv (s Nullable(String)) ENGINE = File('CSV')

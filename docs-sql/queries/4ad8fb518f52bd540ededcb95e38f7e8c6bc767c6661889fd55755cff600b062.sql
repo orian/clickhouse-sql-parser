@@ -1,0 +1,1 @@
+CREATE USER john ROLE role1, role2 DEFAULT ROLE ALL EXCEPT role2;

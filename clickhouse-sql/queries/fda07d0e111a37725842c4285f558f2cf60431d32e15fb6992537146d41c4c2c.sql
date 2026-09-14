@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_json_order_by_shared_data_prefix

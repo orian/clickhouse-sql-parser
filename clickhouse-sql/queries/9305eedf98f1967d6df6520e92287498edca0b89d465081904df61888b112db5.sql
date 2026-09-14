@@ -1,0 +1,1 @@
+SELECT uniqCombined(17)(UserID) FROM hits_10m_single SETTINGS max_threads = 1

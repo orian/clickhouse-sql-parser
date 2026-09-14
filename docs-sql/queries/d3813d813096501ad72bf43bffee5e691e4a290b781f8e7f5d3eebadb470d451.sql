@@ -1,0 +1,1 @@
+flameGraph(traces[, size[, ptr]])

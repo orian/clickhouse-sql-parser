@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS wide_table_nested_select

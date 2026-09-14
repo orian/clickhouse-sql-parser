@@ -1,0 +1,1 @@
+INSERT INTO narrow_col SELECT number % 50000 FROM numbers(20000000)

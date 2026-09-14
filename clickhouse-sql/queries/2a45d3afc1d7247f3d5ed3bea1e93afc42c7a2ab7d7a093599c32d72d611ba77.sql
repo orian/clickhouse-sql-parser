@@ -1,0 +1,1 @@
+INSERT INTO test_lwu_steps SELECT number, number, number, number FROM numbers_mt(50000000) SETTINGS max_insert_threads=8

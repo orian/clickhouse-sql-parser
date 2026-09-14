@@ -1,0 +1,1 @@
+SELECT s FROM group_by_sentinel GROUP BY s FORMAT Null

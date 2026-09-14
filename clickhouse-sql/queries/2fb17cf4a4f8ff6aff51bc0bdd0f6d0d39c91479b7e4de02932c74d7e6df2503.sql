@@ -1,0 +1,1 @@
+SELECT transform(number, [2, 4, 6], ['google', 'yandex', 'yahoo'], 'other') as x FROM numbers(100000000) GROUP BY x SETTINGS enable_packed_string_keys_in_aggregation = 0 FORMAT Null

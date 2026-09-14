@@ -1,0 +1,1 @@
+INSERT INTO hits_sparse SELECT AdvEngineID FROM hits_100m_single

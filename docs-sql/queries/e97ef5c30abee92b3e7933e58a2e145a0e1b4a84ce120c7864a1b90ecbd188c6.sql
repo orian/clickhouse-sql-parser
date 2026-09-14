@@ -1,0 +1,17 @@
+CREATE USER scrapping_user IDENTIFIED BY 'secure_password';
+GRANT REMOTE ON *.* TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_dictionary_custom_metrics_tables TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_dictionary_database_replicated_recovery_time TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_dictionary_failed_mutations TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_dictionary_group TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_dictionary_shared_catalog_recovery_time TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_dictionary_table_read_only_duration_seconds TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_view_error_metrics TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_view_histograms TO scrapping_user;
+GRANT SELECT ON system._custom_metrics_view_metrics_and_events TO scrapping_user;
+GRANT SELECT(description, metric, value) ON system.asynchronous_metrics TO scrapping_user;
+GRANT SELECT ON system.custom_metrics TO scrapping_user;
+GRANT SELECT(name, value) ON system.errors TO scrapping_user;
+GRANT SELECT(description, event, value) ON system.events TO scrapping_user;
+GRANT SELECT(description, labels, metric, value) ON system.histogram_metrics TO scrapping_user;
+GRANT SELECT(description, metric, value) ON system.metrics TO scrapping_user;

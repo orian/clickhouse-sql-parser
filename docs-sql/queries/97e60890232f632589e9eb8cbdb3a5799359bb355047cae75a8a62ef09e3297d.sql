@@ -1,0 +1,1 @@
+SELECT hostname, event_date, event_time_microseconds, id, name, status, error, start_time, end_time, num_files, total_size, num_entries, uncompressed_size, compressed_size, files_read, bytes_read FROM system.backup_log WHERE id = 'cdf1f731-52ef-42da-bc65-2e1bfcd4ce90' ORDER BY event_date, event_time_microseconds \G

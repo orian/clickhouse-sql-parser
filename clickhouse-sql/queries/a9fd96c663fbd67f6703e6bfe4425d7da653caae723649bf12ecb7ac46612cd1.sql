@@ -1,0 +1,1 @@
+CREATE TABLE test_bf_lc_low (`id` int, `ary` Array(LowCardinality(String)), INDEX idx_ary ary TYPE bloom_filter(0.01) GRANULARITY 1) ENGINE = MergeTree() ORDER BY id

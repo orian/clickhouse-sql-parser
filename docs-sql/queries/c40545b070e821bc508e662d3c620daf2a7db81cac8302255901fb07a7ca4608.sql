@@ -1,0 +1,1 @@
+bitmapCardinality(bitmap)

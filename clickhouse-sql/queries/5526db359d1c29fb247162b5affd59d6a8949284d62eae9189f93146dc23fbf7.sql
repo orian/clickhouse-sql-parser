@@ -1,0 +1,1 @@
+CREATE TABLE build_used_flags (key Int64) ENGINE = Memory

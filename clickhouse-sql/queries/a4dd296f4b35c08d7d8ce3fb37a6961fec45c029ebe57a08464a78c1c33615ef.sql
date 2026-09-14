@@ -1,0 +1,1 @@
+SELECT min(MobilePhoneModel) FROM {table_name} WHERE MobilePhoneModel != '' GROUP BY intHash32(UserID) % 1000000 FORMAT Null

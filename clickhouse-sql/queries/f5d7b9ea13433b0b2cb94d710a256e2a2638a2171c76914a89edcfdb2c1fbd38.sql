@@ -1,0 +1,1 @@
+SELECT accurateCast(x, 'Int64'), accurateCast(x, 'Int128'), accurateCast(x, 'Int256'), accurateCast(x, 'String'), accurateCast(x, 'Decimal64(8)') FROM t FORMAT Null

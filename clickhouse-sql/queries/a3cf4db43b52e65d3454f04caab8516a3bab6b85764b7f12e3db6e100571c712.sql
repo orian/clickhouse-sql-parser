@@ -1,0 +1,1 @@
+SELECT count(), sum(l_extendedprice) FROM {database}.part_identity WHERE l_returnflag = 'R'

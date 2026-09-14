@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS sparse_column_index_runs_{run_length}

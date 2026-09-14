@@ -1,0 +1,1 @@
+SELECT count() FROM json_key_formatting WHERE NOT ignore(formatRow('JSONEachRow', a_column_name_longer_than_the_small_string_limit)) SETTINGS max_threads = 1

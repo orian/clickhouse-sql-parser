@@ -1,0 +1,1 @@
+SELECT Title FROM hits_10m_single PREWHERE WatchID % 2 = 1 WHERE UserID = 10000 FORMAT Null

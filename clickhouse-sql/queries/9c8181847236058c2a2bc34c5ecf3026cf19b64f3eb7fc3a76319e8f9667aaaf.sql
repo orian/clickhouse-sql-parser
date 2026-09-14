@@ -1,0 +1,1 @@
+SELECT toInt128(number) * number FROM numbers_mt(1000000000) FORMAT Null

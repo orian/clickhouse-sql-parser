@@ -1,0 +1,1 @@
+SELECT WatchID, count() FROM hits_100m_single GROUP BY WatchID ORDER BY WatchID ASC LIMIT 10 FORMAT Null

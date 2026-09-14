@@ -1,0 +1,1 @@
+SELECT sum(toHour(t, 'Asia/Kolkata')) FROM (SELECT toDateTime(1600000000 + number % 50000000, 'UTC') AS t FROM numbers(50000000))

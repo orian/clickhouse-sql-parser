@@ -1,0 +1,1 @@
+INSERT INTO {database}.part_identity SELECT l_orderkey, l_returnflag, l_extendedprice FROM tpch10.lineitem LIMIT 200000 SETTINGS max_threads = 1, max_insert_threads = 1

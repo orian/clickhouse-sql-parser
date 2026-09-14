@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT materialize(toUInt16(1)) AS x1, materialize(toUInt32(1)) AS x2 FROM zeros(200000000)) WHERE NOT ignore(and(x1,x2))

@@ -1,0 +1,1 @@
+SELECT splitByNonAlpha(SearchPhrase) FROM hits_100m_single FORMAT Null

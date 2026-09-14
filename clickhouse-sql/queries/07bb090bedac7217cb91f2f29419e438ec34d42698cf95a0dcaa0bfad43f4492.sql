@@ -1,0 +1,1 @@
+SELECT sum(key) / count(key)                   FROM ( SELECT materialize(toNullable(number)) AS key FROM numbers(100000000) ) FORMAT Null

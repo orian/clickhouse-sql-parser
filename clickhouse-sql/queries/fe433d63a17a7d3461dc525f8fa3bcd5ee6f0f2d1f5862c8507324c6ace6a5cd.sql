@@ -1,0 +1,1 @@
+SELECT count() FROM huge_pk WHERE c700 > 10

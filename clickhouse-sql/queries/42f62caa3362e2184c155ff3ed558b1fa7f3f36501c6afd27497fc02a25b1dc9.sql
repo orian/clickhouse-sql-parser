@@ -1,0 +1,1 @@
+INSERT INTO probe SELECT number + 1800000, number + 200000 FROM numbers(2000000) ORDER BY rand()

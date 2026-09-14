@@ -1,0 +1,1 @@
+INSERT INTO fsm_u64_mult3 SELECT number * 3 FROM numbers_mt(4000000)

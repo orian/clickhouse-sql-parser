@@ -1,0 +1,1 @@
+SELECT a FROM t_{size}_{partitions} LIMIT 100000000 BY a FORMAT Null

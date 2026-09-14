@@ -1,0 +1,1 @@
+select any(PageCharset) from hits_100m_single where PageCharset != '' group by intHash32(UserID) % {group_scale} FORMAT Null

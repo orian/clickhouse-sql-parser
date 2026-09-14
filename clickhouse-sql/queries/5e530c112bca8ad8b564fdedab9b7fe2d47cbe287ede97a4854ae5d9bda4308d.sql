@@ -1,0 +1,1 @@
+INSERT INTO delta_decode_rnd_{type} (n) SELECT to{type}(intHash64(number)) FROM system.numbers LIMIT 50000000 SETTINGS max_threads=1

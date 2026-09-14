@@ -1,0 +1,1 @@
+timeSeriesMetricTypeToSuffixes(type)

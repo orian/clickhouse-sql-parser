@@ -1,0 +1,1 @@
+mapReverseSort([func,] map)

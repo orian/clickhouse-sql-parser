@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS permute_cache_src

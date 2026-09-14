@@ -1,0 +1,1 @@
+SELECT r.k AS g, avg(l.v) FROM left AS l JOIN right AS r ON l.id = r.id GROUP BY g FORMAT Null SETTINGS max_threads = 32

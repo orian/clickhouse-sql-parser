@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(match(URL, '^https?://[^/]+/[^?]*\\?'))

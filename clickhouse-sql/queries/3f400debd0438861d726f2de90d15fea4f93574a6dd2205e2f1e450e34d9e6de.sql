@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(10000000) WHERE NOT ignore(toString(toUInt128(number))) SETTINGS max_threads = 1

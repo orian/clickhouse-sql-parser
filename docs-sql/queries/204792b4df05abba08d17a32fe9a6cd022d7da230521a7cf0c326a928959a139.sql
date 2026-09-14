@@ -1,0 +1,2 @@
+ALTER TABLE wikistat
+MODIFY COLUMN `time` CODEC(Delta, ZSTD);

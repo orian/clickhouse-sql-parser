@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(10000000) WHERE NOT ignore(rand() % 2 ? [1, 2, 3] : materialize([4, 5]))

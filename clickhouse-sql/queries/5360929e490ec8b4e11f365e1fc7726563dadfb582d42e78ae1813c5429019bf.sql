@@ -1,0 +1,1 @@
+SELECT count() FROM   zeros_mt(1600000000) WHERE NOT ignore(rand())

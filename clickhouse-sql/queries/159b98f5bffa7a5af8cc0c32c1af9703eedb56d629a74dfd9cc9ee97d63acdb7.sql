@@ -1,0 +1,1 @@
+INSERT INTO adaptive_codec_merge SELECT cityHash64(number % 1024) FROM numbers_mt(150000000)

@@ -1,0 +1,1 @@
+CREATE TABLE t_t64_perf (x UInt32) ENGINE = MergeTree ORDER BY tuple() SETTINGS min_bytes_for_wide_part = 0, max_compress_block_size = 65536

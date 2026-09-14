@@ -1,0 +1,1 @@
+SYSTEM ... ON CLUSTER default;

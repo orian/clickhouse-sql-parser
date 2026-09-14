@@ -1,0 +1,1 @@
+INSERT INTO test_table_2 SELECT (rand64() % 5000000) AS key, toString(key) FROM numbers(5000000)

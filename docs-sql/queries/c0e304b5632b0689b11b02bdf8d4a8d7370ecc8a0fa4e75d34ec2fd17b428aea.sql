@@ -1,0 +1,1 @@
+SELECT hex(sipHash128ReferenceKeyed((506097522914230528, 1084818905618843912), 'foo', '\x01', 3)) AS res;

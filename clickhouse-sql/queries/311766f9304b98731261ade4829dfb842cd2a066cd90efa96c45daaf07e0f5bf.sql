@@ -1,0 +1,1 @@
+SELECT sumArray(v) FROM array_data FORMAT Null

@@ -1,0 +1,1 @@
+h3NumHexagons(resolution)

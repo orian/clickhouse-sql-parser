@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(100000) WHERE concat('k', toString(number)) IN (SELECT a FROM t_lc_nullable) FORMAT Null

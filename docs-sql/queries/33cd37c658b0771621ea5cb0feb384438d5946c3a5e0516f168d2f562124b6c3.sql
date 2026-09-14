@@ -1,0 +1,1 @@
+startsWith(comment, 'clickhouse supports ')`

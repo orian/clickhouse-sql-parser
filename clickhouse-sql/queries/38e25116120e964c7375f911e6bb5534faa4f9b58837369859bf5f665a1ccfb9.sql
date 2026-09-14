@@ -1,0 +1,1 @@
+CREATE TABLE {database}.part_identity (l_orderkey Int32, l_returnflag String, l_extendedprice Float64) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/part_identity_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet') PARTITION BY (l_returnflag)

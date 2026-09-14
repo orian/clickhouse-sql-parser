@@ -1,0 +1,1 @@
+replaceRegexpOne(haystack, pattern, replacement)

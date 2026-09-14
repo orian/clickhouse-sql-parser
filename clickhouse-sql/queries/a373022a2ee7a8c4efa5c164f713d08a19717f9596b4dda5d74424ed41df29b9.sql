@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_half_dup FINAL

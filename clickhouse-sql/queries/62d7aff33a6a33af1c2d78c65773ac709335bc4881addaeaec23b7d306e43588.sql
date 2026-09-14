@@ -1,0 +1,1 @@
+INSERT INTO right16 SELECT number % 65536, number * 2, toString(number), number / 3 FROM numbers_mt(10000000)

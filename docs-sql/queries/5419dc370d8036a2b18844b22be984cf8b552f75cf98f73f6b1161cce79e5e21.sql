@@ -1,0 +1,1 @@
+randNegativeBinomial(experiments, probability[, x])

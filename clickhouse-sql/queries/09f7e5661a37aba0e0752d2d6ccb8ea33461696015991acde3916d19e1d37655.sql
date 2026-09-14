@@ -1,0 +1,1 @@
+SELECT count() FROM cmp128 WHERE small_u1 < small_u2

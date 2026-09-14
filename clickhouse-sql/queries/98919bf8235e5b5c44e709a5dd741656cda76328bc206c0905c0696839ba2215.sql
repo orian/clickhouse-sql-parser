@@ -1,0 +1,1 @@
+INSERT INTO rs_right_mixed_10m WITH concat('s', toString(number)) AS s SELECT number, number, number, number, number, s, s, s FROM numbers(10000000) ORDER BY rand()

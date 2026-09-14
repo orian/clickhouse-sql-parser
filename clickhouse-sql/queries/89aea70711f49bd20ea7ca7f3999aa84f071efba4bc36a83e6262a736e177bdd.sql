@@ -1,0 +1,1 @@
+drop table group_by_fk

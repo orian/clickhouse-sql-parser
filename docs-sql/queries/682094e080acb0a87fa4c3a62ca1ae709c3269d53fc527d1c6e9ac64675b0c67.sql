@@ -1,0 +1,1 @@
+hasSubsequenceCaseInsensitiveUTF8(haystack, needle)

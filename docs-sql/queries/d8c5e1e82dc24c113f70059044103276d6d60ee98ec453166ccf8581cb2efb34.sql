@@ -1,0 +1,3 @@
+USE unity;
+
+SHOW TABLES;

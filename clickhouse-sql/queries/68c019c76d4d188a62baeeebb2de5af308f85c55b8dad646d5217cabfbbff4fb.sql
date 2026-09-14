@@ -1,0 +1,1 @@
+create table moving_sum_{millions}m engine MergeTree order by k as select number % 100 k, rand() v from numbers_mt(1000000 * {millions})

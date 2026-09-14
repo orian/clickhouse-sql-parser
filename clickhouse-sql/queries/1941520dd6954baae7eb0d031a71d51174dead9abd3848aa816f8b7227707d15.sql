@@ -1,0 +1,1 @@
+SELECT * FROM sort_string_full ORDER BY str_col FORMAT Null SETTINGS max_threads = {threads}

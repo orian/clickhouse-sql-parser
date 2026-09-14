@@ -1,0 +1,1 @@
+INSERT INTO test_table_small_{array_type} SELECT groupArraySample(5000)(rand64()) AS set, groupArraySample(500)(rand64()) AS subset FROM numbers(10000000) GROUP BY number % 5000;

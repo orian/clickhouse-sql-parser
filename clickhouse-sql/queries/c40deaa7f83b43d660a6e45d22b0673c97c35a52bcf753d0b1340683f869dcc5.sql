@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT concat('key_', toString(number)) AS k FROM numbers_mt(20000000)) AS l ALL LEFT JOIN (SELECT concat('key_', toString(number * 2)) AS a, concat('key_', toString(number * 3)) AS b FROM numbers(1000)) AS r ON l.k = r.a OR l.k = r.b FORMAT Null

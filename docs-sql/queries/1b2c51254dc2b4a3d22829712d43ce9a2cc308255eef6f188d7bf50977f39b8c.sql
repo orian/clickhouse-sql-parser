@@ -1,0 +1,1 @@
+SELECT base32Decode('IVXGG33EMVSA====');

@@ -1,0 +1,1 @@
+CREATE TABLE test_reorder_columns_in_merge (id_0 LowCardinality(String), id_1 LowCardinality(String), id_2 LowCardinality(String), id_3 LowCardinality(String), id UInt32) ENGINE = ReplacingMergeTree ORDER BY (id_0, id_1, id_2, id_3, id)

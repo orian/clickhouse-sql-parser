@@ -1,0 +1,1 @@
+select sum(MobilePhoneModel in (select MobilePhoneModel from hits_100m_single where MobilePhoneModel != '')) from hits_100m_single

@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_lc_nullable FINAL

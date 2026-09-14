@@ -1,0 +1,2 @@
+CREATE TABLE my_table ENGINE=TimeSeries
+TAGS INNER COLUMNS (id UInt64 DEFAULT sipHash64(tags))

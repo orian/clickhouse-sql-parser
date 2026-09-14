@@ -1,0 +1,1 @@
+SELECT sum(NOT ignore(*)) FROM (SELECT * FROM generateRandom('i Enum8(\'hello\' = 1, \'world\' = 5)', 0, 10, 10) LIMIT 1000000000);

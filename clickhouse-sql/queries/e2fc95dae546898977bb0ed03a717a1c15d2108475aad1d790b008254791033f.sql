@@ -1,0 +1,1 @@
+SELECT minIf(d128, cond) FROM minmax_wide

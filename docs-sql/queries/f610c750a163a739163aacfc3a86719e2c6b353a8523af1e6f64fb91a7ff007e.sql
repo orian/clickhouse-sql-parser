@@ -1,0 +1,1 @@
+SELECT ngramSearch('ClickHouse', 'Click')

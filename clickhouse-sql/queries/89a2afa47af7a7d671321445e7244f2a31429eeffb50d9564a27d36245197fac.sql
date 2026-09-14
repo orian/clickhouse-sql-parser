@@ -1,0 +1,1 @@
+INSERT INTO optimized_select_final SELECT toDate('2022-01-01'), number FROM numbers(5000000)

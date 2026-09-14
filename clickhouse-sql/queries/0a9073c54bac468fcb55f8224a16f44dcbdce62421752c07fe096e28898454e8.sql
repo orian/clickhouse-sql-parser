@@ -1,0 +1,1 @@
+DROP TABLE array_distance_const_exact_chunks

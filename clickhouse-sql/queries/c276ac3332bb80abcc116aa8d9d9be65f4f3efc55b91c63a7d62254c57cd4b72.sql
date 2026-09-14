@@ -1,0 +1,1 @@
+SELECT sum(toUInt32({func}(t, 7))) FROM (SELECT toDateTime64(1600000000.123 + number % 50000000, 3, 'UTC') AS t FROM numbers(50000000))

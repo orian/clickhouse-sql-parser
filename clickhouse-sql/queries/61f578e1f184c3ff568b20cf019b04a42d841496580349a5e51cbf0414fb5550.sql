@@ -1,0 +1,1 @@
+SELECT count() FROM tab WHERE endsWith(message, 'system')

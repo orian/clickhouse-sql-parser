@@ -1,0 +1,1 @@
+GRANT CURRENT GRANTS(SELECT ON *.*) TO another_user;

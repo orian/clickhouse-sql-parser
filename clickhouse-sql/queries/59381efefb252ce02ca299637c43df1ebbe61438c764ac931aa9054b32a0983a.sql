@@ -1,0 +1,1 @@
+SELECT and(isValidUTF8(repeat(toString(number), 100)), isValidUTF8(repeat(toString(number), 10)), isValidUTF8(repeat(toString(number), 100))) from numbers(1000000) FORMAT Null

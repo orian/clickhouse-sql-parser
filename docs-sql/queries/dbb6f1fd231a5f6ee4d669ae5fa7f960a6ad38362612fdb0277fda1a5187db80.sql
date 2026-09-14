@@ -1,0 +1,1 @@
+formatQuery(query)

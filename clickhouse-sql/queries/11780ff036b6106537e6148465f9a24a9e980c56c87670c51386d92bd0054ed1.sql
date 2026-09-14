@@ -1,0 +1,1 @@
+INSERT INTO FUNCTION file(test_json_parsing_1.txt) SELECT * FROM numbers(0) SETTINGS engine_file_truncate_on_insert=1

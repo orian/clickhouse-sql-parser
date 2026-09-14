@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(50000) WHERE NOT ignore(toString(reinterpret(reinterpretAsUInt256(randomString(32)), 'Decimal256(40)'))) SETTINGS max_threads = 1

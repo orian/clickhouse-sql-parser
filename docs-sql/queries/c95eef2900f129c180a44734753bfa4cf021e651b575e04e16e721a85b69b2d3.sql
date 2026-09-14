@@ -1,0 +1,1 @@
+SELECT arrayJoin(h3kRing(644325529233966508, 1)) AS h3index;

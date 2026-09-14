@@ -1,0 +1,1 @@
+SELECT * FROM replacing_final_non_intersecting FINAL FORMAT Null SETTINGS enable_vertical_final = 1

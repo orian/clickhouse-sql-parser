@@ -1,0 +1,1 @@
+INSERT INTO right SELECT number, number * 2, toString(number), number / 3 FROM numbers_mt(10000000)

@@ -1,0 +1,6 @@
+REPLACE TABLE myOldTable
+ENGINE = MergeTree()
+ORDER BY CounterID
+AS
+SELECT * FROM myOldTable
+WHERE CounterID <12345;

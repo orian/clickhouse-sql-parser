@@ -1,0 +1,1 @@
+select any(OpenstatServiceName) from hits_100m_single where OpenstatServiceName != '' group by intHash32(UserID) % {group_scale} FORMAT Null

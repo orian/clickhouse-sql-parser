@@ -1,0 +1,1 @@
+INSERT INTO test_lc_{card} SELECT toLowCardinality(toString(number % {card})) FROM numbers_mt(10000000)

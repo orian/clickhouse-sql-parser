@@ -1,0 +1,1 @@
+INSERT INTO test_json_order_by_shared_data_prefix SELECT toJSONString(mapFromArrays(arrayMap(i -> 'p' || toString(i), range(8)), arrayMap(i -> if(i < 7, 'shared_prefix', toString(number)), range(8)))) FROM numbers(2000)

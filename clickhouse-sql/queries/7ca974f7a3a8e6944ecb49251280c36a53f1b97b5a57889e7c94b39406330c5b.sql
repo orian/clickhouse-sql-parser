@@ -1,0 +1,1 @@
+ALTER TABLE hits_10m_single MATERIALIZE INDEX idx_sp_blocked SETTINGS mutations_sync = 1

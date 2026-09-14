@@ -1,0 +1,1 @@
+SELECT count() FROM text_index_lazy_wide WHERE hasToken(s, 'half')

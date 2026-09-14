@@ -1,0 +1,1 @@
+SELECT max(asc_i128) FROM minmax_wide

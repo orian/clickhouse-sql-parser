@@ -1,0 +1,1 @@
+SELECT entropy(SearchEngineID) FROM hits_100m_single settings max_threads = 1

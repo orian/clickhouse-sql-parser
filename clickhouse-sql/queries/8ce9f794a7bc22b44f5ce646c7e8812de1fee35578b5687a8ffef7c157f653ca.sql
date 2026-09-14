@@ -1,0 +1,1 @@
+SELECT j.a, j.b, j.c, j.d, j.e, j.f, j.g FROM t_json_group_by GROUP BY 1, 2, 3, 4, 5, 6, 7 FORMAT Null

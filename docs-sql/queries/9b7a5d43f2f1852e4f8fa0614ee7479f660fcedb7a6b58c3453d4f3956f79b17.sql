@@ -1,0 +1,1 @@
+LinfNorm(vector)

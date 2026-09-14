@@ -1,0 +1,1 @@
+SHOW CLUSTERS LIKE 'test%' LIMIT 1;

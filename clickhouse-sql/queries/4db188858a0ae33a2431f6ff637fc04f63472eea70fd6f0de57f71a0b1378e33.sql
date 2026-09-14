@@ -1,0 +1,1 @@
+SELECT count() FROM join_set_maps_probe AS l ANTI LEFT JOIN join_set_maps_build AS r ON l.k = r.k OR l.k2 = r.k2 SETTINGS join_algorithm = 'hash' FORMAT Null

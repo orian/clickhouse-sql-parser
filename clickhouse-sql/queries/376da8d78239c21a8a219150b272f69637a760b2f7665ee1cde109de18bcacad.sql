@@ -1,0 +1,1 @@
+CREATE TABLE str_sort_long (a String, b UInt64, c FixedString(128), d String, e UInt32, f UInt32) ENGINE = Memory

@@ -1,0 +1,1 @@
+SELECT count() FROM hits_100m_single WHERE UserID IN (SELECT UserID FROM hits_100m_single WHERE AdvEngineID != 0) SETTINGS max_threads = 1

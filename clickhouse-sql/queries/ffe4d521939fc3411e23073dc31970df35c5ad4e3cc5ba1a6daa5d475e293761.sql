@@ -1,0 +1,1 @@
+SELECT count(), countIf(l_note IS NULL) FROM {database}.evo_add

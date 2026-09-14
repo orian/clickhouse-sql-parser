@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(10000000) WHERE NOT ignore(multiIf(rand() % 2, [toDateTime('2019-02-04 01:24:31')], [toDate('2019-02-04')]))

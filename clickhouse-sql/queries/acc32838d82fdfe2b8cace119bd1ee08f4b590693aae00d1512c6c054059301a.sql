@@ -1,0 +1,1 @@
+INSERT INTO text_index_build SELECT * FROM text_index_build_src_5000

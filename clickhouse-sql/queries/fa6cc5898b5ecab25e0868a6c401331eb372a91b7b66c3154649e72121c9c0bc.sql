@@ -1,0 +1,1 @@
+INSERT INTO array_data SELECT number % 1024, arrayWithConstant(16, number) from numbers(10000000)

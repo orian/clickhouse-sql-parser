@@ -1,0 +1,1 @@
+ALTER TABLE orders MATERIALIZE COLUMN o_orderkey_fs16

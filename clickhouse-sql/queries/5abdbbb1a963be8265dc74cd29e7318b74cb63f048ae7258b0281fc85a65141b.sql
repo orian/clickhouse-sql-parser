@@ -1,0 +1,10 @@
+
+        CREATE TABLE json_wide
+        (
+            id UInt64, skip UInt8, json JSON(max_dynamic_paths = 0),
+            INDEX idx_skip skip TYPE minmax GRANULARITY 1
+        )
+        ENGINE = MergeTree ORDER BY id
+        SETTINGS min_bytes_for_wide_part = 0, index_granularity = 2048, index_granularity_bytes = 0,
+                 object_shared_data_serialization_version = 'map', object_shared_data_serialization_version_for_zero_level_parts = 'map'
+    

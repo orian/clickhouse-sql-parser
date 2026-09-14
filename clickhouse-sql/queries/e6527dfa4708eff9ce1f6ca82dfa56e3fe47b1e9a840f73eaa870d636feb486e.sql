@@ -1,0 +1,1 @@
+insert into t_lz4_uncomp select number from numbers_mt(5e7)

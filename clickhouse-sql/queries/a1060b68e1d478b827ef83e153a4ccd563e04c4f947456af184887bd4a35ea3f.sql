@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS t_insert_uniq_v2_f64_off

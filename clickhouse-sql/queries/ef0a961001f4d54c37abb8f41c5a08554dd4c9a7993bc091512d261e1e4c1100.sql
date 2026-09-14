@@ -1,0 +1,1 @@
+ALTER TABLE {database}.evo_drop DROP COLUMN l_comment

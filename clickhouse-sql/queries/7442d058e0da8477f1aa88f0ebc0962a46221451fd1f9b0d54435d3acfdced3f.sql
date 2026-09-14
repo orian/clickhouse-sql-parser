@@ -1,0 +1,1 @@
+insert into uin_value_details (ds, uin, value) select '2023-12-28', number * 3, number * 3 * number * 3 from numbers(1000)

@@ -1,0 +1,1 @@
+CREATE TABLE hits_none (Title String CODEC(NONE)) ENGINE = MergeTree ORDER BY tuple()

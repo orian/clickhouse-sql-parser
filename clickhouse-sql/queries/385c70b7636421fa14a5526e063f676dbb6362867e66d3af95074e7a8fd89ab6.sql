@@ -1,0 +1,1 @@
+INSERT INTO codec_rtn_{type}_{codec} (n) SELECT round(number/20+sin(number), 3) FROM system.numbers LIMIT {num_rows} SETTINGS max_threads=1

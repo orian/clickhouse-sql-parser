@@ -1,0 +1,1 @@
+OPTIMIZE TABLE iso_3166_1_alpha_2 FINAL

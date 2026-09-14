@@ -1,0 +1,1 @@
+SELECT toInt128(x)  y, toDecimal32(y, 1), toDecimal64(y, 5), toDecimal128(y, 6) FROM t FORMAT Null

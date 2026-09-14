@@ -1,0 +1,1 @@
+OPTIMIZE TABLE distinct_cardinality_high FINAL

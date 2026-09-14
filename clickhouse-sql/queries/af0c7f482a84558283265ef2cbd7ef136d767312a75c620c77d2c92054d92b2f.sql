@@ -1,0 +1,1 @@
+select number from (select number from numbers_mt(1500000000) order by -number) limit 10

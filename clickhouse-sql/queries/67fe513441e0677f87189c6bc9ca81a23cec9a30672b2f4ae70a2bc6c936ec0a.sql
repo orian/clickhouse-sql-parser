@@ -1,0 +1,1 @@
+SELECT level, count() from (select windowFunnel(86400)(time, event='a', event='b', event='c', event='d') level from action group by uid) group by level FORMAT Null

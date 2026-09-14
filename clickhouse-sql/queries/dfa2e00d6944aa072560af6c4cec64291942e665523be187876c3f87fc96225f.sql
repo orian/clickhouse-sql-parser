@@ -1,0 +1,1 @@
+SELECT max(length(URL)) FROM hits_10m_single

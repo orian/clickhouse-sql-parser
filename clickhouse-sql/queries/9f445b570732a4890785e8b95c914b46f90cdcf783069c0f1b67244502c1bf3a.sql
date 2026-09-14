@@ -1,0 +1,1 @@
+SELECT {key} AS k, {func}(UserID) FROM hits_100m_single GROUP BY k FORMAT Null

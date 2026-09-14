@@ -1,0 +1,1 @@
+INSERT INTO t_text_index_merge_vocabulary_{codec} SELECT * FROM t_text_index_merge_vocabulary_intersecting_{codec} WHERE id >= 200000 AND id < 300000

@@ -1,0 +1,1 @@
+INSERT INTO test_lc_right SELECT toLowCardinality(toString(number)) FROM numbers(100)

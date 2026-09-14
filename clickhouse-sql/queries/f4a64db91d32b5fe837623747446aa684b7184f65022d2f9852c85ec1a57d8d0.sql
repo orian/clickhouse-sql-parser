@@ -1,0 +1,1 @@
+SELECT count() FROM cmp128 WHERE u1 > u2

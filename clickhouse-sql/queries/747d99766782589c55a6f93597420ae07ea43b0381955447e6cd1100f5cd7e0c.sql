@@ -1,0 +1,1 @@
+SELECT number FROM numbers_mt(100000000) LIMIT 1 BY toString(number % 1000) FORMAT Null

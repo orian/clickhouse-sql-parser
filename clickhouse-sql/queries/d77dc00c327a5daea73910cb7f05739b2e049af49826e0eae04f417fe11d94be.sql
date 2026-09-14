@@ -1,0 +1,1 @@
+INSERT INTO customer SELECT number, 5 FROM numbers(1)

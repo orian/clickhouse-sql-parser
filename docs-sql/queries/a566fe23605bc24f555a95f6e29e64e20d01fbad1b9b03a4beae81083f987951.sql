@@ -1,0 +1,1 @@
+SHOW CREATE TABLE my_s3_table;

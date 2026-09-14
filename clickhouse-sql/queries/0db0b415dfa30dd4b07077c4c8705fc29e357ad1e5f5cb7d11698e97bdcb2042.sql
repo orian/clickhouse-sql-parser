@@ -1,0 +1,1 @@
+SELECT toYear(if(isNull(col_datetime), toDateTime('2000-01-01'), col_datetime)) FROM table_{format}_with_nullable_columns FORMAT Null

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS rs_probe_100m

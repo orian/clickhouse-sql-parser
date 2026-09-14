@@ -1,0 +1,1 @@
+CREATE TABLE t_skew_{size}_{partitions} (a UInt64, b UInt64) ENGINE = MergeTree ORDER BY tuple() PARTITION BY a

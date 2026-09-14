@@ -1,0 +1,1 @@
+select uniqMerge(b_count) as b_count from matview_10000 FORMAT Null SETTINGS max_threads=1;

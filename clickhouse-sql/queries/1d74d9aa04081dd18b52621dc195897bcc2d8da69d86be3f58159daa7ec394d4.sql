@@ -1,0 +1,1 @@
+UPDATE test_lwu_merge SET str_1p = randomPrintableASCII(8) WHERE id % 500 = 300

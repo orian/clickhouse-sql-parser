@@ -1,0 +1,1 @@
+SELECT length(URL) > 1000 ? 'LONG' : 'SHORT' as x FROM hits_100m_single GROUP BY x FORMAT Null

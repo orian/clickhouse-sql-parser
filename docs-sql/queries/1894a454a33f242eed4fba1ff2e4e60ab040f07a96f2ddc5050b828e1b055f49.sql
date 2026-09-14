@@ -1,0 +1,1 @@
+SELECT emptyArrayInt64()

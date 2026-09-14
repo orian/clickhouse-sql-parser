@@ -1,0 +1,1 @@
+OPTIMIZE TABLE fsm_nullable_right FINAL

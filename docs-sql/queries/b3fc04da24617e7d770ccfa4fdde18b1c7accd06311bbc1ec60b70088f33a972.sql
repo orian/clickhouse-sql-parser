@@ -1,0 +1,1 @@
+SELECT h3ToGeoBoundary(644325524701193974) AS coordinates;

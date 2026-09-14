@@ -1,0 +1,1 @@
+create table if not exists t (key UInt64, value String) engine = File(Parquet) settings output_format_parquet_row_group_size=100000

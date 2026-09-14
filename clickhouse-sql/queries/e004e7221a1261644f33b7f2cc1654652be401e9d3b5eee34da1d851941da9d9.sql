@@ -1,0 +1,1 @@
+INSERT INTO test_bf_lc_low SELECT number AS id, [CAST(id % 200, 'String'), CAST((id + 1) % 200, 'String'), CAST((id + 2) % 200, 'String')] FROM numbers(2000000)

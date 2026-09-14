@@ -1,0 +1,1 @@
+extractTextFromHTML(html)

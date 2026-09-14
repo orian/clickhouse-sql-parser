@@ -1,0 +1,1 @@
+SELECT * FROM sort_nearly_sorted ORDER BY key FORMAT Null SETTINGS max_threads = {threads}

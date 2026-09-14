@@ -1,0 +1,1 @@
+SELECT ngramDistanceCaseInsensitive('ClickHouse','clickhouse')

@@ -1,0 +1,1 @@
+UPDATE test_lwu_steps SET a = 'foo' || randomPrintableASCII(3) WHERE id % 100 = 0

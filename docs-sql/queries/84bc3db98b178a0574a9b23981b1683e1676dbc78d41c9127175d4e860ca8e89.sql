@@ -1,0 +1,1 @@
+javaHashUTF16LE(arg)

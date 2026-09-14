@@ -1,0 +1,1 @@
+CREATE TABLE keys32_probe (a UInt16, b UInt16) ENGINE = Memory

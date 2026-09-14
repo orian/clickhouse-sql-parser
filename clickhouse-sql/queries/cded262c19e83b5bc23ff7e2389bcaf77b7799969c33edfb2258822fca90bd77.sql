@@ -1,0 +1,1 @@
+SELECT count() from {table} where not ignore({gp_hash_func}({string}))

@@ -1,0 +1,1 @@
+SELECT trim(LEADING '"' FROM '"GET')

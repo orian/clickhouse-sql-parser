@@ -1,0 +1,1 @@
+SELECT sum(intDiv(small_u, 1000000000000000000)) FROM div128

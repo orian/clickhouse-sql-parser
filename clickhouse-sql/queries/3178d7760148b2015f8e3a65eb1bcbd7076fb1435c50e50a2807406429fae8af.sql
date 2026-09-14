@@ -1,0 +1,1 @@
+SELECT {hash_func}(number, {buckets}) FROM numbers(10000000) FORMAT Null

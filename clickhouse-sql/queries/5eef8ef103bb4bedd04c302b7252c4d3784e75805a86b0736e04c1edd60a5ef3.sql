@@ -1,0 +1,1 @@
+SELECT number % 2 AS k1, number % 4 AS k2, number % 8 AS k3, cityHash64(number) AS k4 FROM numbers_mt(20000000) ORDER BY k1, k2, k3, k4 FORMAT Null

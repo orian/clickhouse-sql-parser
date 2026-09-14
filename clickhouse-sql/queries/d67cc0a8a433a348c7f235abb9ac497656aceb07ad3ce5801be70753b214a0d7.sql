@@ -1,0 +1,1 @@
+select * from numbers(300000000) order by (1 - number , number + 1 , number) limit 10;

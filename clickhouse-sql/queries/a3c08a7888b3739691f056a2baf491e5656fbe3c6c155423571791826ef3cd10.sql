@@ -1,0 +1,1 @@
+INSERT INTO t_skew30_dup SELECT number % 100000 FROM numbers_mt(10000000)

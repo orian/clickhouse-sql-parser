@@ -1,0 +1,1 @@
+CHECK GRANT SELECT(col1) ON table_1;

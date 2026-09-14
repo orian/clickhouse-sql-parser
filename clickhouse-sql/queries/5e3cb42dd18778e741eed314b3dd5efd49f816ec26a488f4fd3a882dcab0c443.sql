@@ -1,0 +1,1 @@
+SELECT * FROM numbers_mt(10000000) AS l FULL JOIN numbers_mt(10000000) AS r USING (number)

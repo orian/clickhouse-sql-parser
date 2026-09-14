@@ -1,0 +1,1 @@
+SELECT count() FROM pfsm_left AS a JOIN pfsm_right AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'full_sorting_merge'

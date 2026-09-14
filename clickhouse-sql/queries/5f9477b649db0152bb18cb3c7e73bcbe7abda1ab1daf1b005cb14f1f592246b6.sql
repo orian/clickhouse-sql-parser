@@ -1,0 +1,1 @@
+CREATE TABLE index_test (z UInt32, INDEX i_x (mortonDecode(2, z).1) TYPE minmax, INDEX i_y (mortonDecode(2, z).2) TYPE minmax) ENGINE = MergeTree ORDER BY z

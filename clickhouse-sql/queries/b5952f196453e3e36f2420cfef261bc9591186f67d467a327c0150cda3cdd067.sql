@@ -1,0 +1,1 @@
+select toFloat64(key_int64_1),toFloat64(key_int64_2),toFloat64(key_int64_3),toFloat64(key_int64_4),toFloat64(key_int64_5), min(m1) from t_nullable group by toFloat64(key_int64_1),toFloat64(key_int64_2),toFloat64(key_int64_3),toFloat64(key_int64_4),toFloat64(key_int64_5) limit 10

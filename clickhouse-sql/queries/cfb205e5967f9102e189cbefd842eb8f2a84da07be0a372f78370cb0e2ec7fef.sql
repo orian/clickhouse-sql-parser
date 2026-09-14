@@ -1,0 +1,1 @@
+SELECT token, cardinality FROM mergeTreeTextIndex(currentDatabase(), hits_10m_single, idx_sp) FORMAT Null

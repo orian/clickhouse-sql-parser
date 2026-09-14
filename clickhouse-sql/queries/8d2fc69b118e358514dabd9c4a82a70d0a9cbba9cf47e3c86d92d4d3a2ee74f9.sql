@@ -1,0 +1,1 @@
+ALTER TABLE orders ADD COLUMN o_custkey_fs16 FixedString(16) MATERIALIZED unhex(leftPad(hex(o_custkey), 32, '0'))

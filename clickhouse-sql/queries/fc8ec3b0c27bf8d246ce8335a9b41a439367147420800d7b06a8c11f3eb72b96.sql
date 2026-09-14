@@ -1,0 +1,1 @@
+CREATE TABLE pfsm_payload_left (k UInt64, s String) ENGINE = MergeTree ORDER BY tuple()

@@ -1,0 +1,1 @@
+UPDATE test_lwu_merge SET uint_10p = rand() WHERE id % 50 = 30

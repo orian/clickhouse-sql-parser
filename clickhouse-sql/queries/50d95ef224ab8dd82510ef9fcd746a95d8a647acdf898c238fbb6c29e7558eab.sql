@@ -1,0 +1,1 @@
+DROP TABLE vecs_{element_type}

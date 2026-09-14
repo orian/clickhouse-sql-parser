@@ -1,0 +1,1 @@
+exponentialMovingAverage(x)(value, timeunit)

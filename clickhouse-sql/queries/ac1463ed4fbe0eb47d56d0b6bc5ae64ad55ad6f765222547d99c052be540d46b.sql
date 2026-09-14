@@ -1,0 +1,1 @@
+SELECT p.id0, b.id0 FROM probe p LEFT JOIN build_5k b ON p.id0 = b.id0 FORMAT Null SETTINGS join_algorithm = 'grace_hash', enable_join_fixed_hash_table_conversion = 0

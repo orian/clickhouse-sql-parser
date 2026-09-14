@@ -1,0 +1,1 @@
+INSERT INTO {database}.deep_history SELECT l_orderkey, l_quantity FROM tpch10.lineitem LIMIT 90000, 5000 SETTINGS max_threads = 1, max_insert_threads = 1

@@ -1,0 +1,1 @@
+SELECT any(WatchID), anyLast(WatchID) FROM hits_10m_single GROUP BY WatchID FORMAT Null

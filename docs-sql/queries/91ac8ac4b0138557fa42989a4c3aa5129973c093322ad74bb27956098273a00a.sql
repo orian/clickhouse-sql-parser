@@ -1,0 +1,1 @@
+cutToFirstSignificantSubdomain(url)

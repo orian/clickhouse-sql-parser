@@ -1,0 +1,1 @@
+select number from {table}({size}) group by number format Null

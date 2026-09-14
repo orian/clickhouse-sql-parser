@@ -1,0 +1,1 @@
+INSERT INTO nonconstant_sort_key_four SELECT number FROM numbers({rows})

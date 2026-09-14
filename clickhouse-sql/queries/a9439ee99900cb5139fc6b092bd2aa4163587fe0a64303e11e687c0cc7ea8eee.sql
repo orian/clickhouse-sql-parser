@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(10000000) WHERE NOT ignore(multiIf(rand() % 2 = 0, rand()+2, rand() % 3 = 0, rand()+3, rand() % 4 = 0, rand()+4, rand() % 5 = 0, rand() + 5, rand() % 6 = 0, rand() + 6, rand()))

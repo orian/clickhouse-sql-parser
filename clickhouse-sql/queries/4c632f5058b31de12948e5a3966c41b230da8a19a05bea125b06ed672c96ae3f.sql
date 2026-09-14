@@ -1,0 +1,1 @@
+SELECT * FROM (SELECT CounterID, EventDate FROM hits_10m_single ORDER BY CounterID, EventDate) ORDER BY CounterID SETTINGS optimize_duplicate_order_by_and_distinct=1 FORMAT Null

@@ -1,0 +1,1 @@
+SELECT stochasticLinearRegressionState(0.0001, 0, 15, 'Nesterov')(Age, Income, ParamPrice, Robotness, RefererHash) FROM hits_100m_single FORMAT Null

@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_unsorted_{partitions} FINAL

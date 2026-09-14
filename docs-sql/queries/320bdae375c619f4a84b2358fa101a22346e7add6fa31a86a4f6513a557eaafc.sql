@@ -1,0 +1,1 @@
+SELECT UTMToGeo(448251.6, 5411935.13, 31, 1) AS coord;

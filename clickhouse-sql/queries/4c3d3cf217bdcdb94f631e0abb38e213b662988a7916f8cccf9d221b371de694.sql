@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE URL LIKE 'http://smeshariki.ru/'

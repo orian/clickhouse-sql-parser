@@ -1,0 +1,1 @@
+select countIf(match(URL, 'yandex|google')) FROM hits_10m_single

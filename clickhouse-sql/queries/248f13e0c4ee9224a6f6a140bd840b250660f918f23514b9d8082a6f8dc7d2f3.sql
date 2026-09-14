@@ -1,0 +1,1 @@
+SELECT CounterID, EventTime FROM hits_10m_single ORDER BY CounterID, EventTime SETTINGS optimize_read_in_order=0 format Null

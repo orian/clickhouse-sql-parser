@@ -1,0 +1,1 @@
+ALTER TABLE projection_materialize CLEAR PROJECTION agg_proj, MATERIALIZE PROJECTION agg_proj

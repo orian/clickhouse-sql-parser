@@ -1,0 +1,1 @@
+INSERT INTO empty_strings SELECT '' FROM zeros_mt(1000000000);

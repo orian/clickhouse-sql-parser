@@ -1,0 +1,1 @@
+SELECT editDistance('clickhouse', 'mouse')

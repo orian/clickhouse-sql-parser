@@ -1,0 +1,1 @@
+notHas(haystack, needle)

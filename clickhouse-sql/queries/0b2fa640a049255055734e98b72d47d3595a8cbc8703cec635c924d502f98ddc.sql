@@ -1,0 +1,1 @@
+CREATE TABLE {database}.manifest_grid (l_orderkey Int32, l_quantity Float64, l_month Int32) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/manifest_grid_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet') PARTITION BY (l_month)

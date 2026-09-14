@@ -1,0 +1,1 @@
+SELECT sum(l_extendedprice * (1 - l_discount)) FROM {database}.lineitem

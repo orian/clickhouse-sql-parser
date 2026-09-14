@@ -1,0 +1,1 @@
+SELECT arr FROM (SELECT cast(range(number % 10) as Array(Decimal128(0))) AS arr FROM (SELECT * FROM system.numbers LIMIT 10000000) WHERE length(arr) <= 5) format Null

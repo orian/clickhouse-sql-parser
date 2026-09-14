@@ -1,0 +1,1 @@
+SELECT toColumnTypeName(isValidUTF8(repeat(toString(number), 100))) FROM numbers(1000000) FORMAT Null

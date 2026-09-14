@@ -1,0 +1,1 @@
+isDecimalOverflow(value[, precision])

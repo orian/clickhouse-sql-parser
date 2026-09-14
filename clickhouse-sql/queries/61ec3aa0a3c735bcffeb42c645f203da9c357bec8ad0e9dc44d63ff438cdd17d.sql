@@ -1,0 +1,1 @@
+SELECT WatchID, argMin(Title, EventTime) FROM hits_100m_single GROUP BY WatchID FORMAT Null

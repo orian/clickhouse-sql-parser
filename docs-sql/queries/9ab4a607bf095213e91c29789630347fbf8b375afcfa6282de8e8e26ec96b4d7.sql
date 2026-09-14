@@ -1,0 +1,1 @@
+kqlMultiply(x, y)

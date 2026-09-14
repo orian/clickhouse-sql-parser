@@ -1,0 +1,1 @@
+SELECT uniqCombined(17)(UserID) FROM hits_100m_single

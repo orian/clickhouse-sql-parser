@@ -1,0 +1,1 @@
+quantilePrometheusHistogram(level)(bucket_upper_bound, cumulative_bucket_value)

@@ -1,0 +1,1 @@
+CREATE TABLE pfsm_left (k UInt64) ENGINE = MergeTree ORDER BY tuple()

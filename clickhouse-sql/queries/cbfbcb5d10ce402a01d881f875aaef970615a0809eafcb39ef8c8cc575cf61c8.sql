@@ -1,0 +1,1 @@
+CREATE TABLE rs_right_1m_x10 (k UInt64, a Int32, b Int64, c UInt8, d Float64, e UInt32, f Int16, g FixedString(16), h Int8) ENGINE = MergeTree ORDER BY tuple()

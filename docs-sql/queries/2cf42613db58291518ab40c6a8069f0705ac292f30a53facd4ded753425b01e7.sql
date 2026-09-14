@@ -1,0 +1,1 @@
+bitmapContains(bitmap, value)

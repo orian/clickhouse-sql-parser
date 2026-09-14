@@ -1,0 +1,1 @@
+SELECT sumKahan(toNullable(toFloat64(number))) FROM numbers(100000000)

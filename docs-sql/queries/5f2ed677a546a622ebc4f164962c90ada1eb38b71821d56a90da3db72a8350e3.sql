@@ -1,0 +1,1 @@
+toYearNumSinceEpoch(date)

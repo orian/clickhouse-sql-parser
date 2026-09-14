@@ -1,0 +1,1 @@
+CREATE TABLE t_json_2 (data JSON) ENGINE = MergeTree ORDER BY tuple() SETTINGS min_rows_for_wide_part=1000000000, min_bytes_for_wide_part=100000000000, write_marks_for_substreams_in_compact_parts=1

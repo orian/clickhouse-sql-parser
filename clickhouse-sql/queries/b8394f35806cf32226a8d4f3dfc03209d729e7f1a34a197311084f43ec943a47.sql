@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(firstSignificantSubdomain(URL)) SETTINGS max_threads=1

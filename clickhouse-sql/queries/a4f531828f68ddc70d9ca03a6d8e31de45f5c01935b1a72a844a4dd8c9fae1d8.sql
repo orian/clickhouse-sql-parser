@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS ttl_group_by_src

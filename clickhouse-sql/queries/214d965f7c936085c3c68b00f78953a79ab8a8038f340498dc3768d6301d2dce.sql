@@ -1,0 +1,1 @@
+OPTIMIZE TABLE {table} FINAL

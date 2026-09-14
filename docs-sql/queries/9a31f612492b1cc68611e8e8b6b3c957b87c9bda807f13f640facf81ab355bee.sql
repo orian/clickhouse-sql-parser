@@ -1,0 +1,1 @@
+DROP TEMPORARY VIEW IF EXISTS tview;  -- 临时视图使用 TEMPORARY TABLE 语法进行删除

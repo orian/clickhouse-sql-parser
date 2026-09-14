@@ -1,0 +1,1 @@
+INSERT INTO right SELECT number % 100, repeat('bbb', 10) FROM numbers(100_000)

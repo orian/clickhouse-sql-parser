@@ -1,0 +1,1 @@
+SELECT avg(number::Nullable(Float64)) FROM numbers(100000000)

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS test_nullable_order_by (x UInt32, y UInt32) ENGINE=MergeTree ORDER BY x

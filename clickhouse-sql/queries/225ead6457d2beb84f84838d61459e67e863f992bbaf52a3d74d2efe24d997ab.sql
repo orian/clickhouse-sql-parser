@@ -1,0 +1,1 @@
+INSERT INTO t_uniq_v2_uint64_src SELECT number FROM numbers(1000000)

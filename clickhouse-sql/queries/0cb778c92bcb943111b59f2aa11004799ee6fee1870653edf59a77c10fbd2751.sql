@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS phj_right_nullable

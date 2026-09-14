@@ -1,0 +1,1 @@
+SELECT p.id3, b.id0 FROM probe p INNER JOIN build_5k b ON p.id3 = b.id0 FORMAT Null SETTINGS join_algorithm = 'hash', enable_join_runtime_filters = 1, enable_join_fixed_hash_table_conversion = 1, join_runtime_filter_from_fixed_hash_table = 0, join_runtime_filter_exact_values_limit = 10000, join_runtime_filter_pass_ratio_threshold_for_disabling = 1

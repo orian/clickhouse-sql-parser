@@ -1,0 +1,1 @@
+SELECT count() FROM numbers_mt(1000000) AS l RIGHT JOIN numbers_mt(20000000) AS r ON l.number = r.number AND r.number % 100 != 0

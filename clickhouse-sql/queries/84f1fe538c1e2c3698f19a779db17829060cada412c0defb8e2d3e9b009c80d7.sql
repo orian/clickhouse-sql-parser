@@ -1,0 +1,1 @@
+DROP TABLE simple_key_dictionary_source_table

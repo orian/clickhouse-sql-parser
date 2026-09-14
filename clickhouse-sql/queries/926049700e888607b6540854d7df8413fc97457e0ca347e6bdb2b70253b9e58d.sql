@@ -1,0 +1,1 @@
+SELECT {key} AS k, uniqTheta(UserID) FROM hits_10m_single GROUP BY k FORMAT Null

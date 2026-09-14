@@ -1,0 +1,1 @@
+SELECT COUNT() FROM join_table AS left LEFT JOIN (SELECT A FROM join_table) AS right ON left.A = right.A

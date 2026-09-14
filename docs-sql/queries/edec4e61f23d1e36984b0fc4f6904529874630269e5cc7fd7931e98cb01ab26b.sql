@@ -1,0 +1,10 @@
+SELECT ARRAY
+  (SELECT 1 UNION  ALL
+   SELECT 2 UNION ALL
+   SELECT 3) AS new_array;
+
+/*-----------*
+ | new_array |
+ +-----------+
+ | [1, 2, 3] |
+ *-----------*/

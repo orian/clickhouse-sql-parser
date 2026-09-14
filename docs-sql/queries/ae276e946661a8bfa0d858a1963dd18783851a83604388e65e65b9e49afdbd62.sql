@@ -1,0 +1,1 @@
+SELECT h3ToCenterChild(577023702256844799,1) AS centerToChild;

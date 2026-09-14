@@ -1,0 +1,1 @@
+CREATE TABLE join_set_maps_build (k UInt64, k2 UInt64, p UInt64) ENGINE = Memory

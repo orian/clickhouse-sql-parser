@@ -1,0 +1,4 @@
+# Preserve source SQL bytes: corpus filenames and manifests use SHA-256 hashes.
+/docs-sql/queries/*.sql -text
+/clickhouse-sql/queries/*.sql -text
+/parser/testdata/regressions/**/*.sql -text

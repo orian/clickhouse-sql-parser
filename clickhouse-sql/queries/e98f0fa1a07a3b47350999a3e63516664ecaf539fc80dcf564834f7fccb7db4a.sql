@@ -1,0 +1,1 @@
+SELECT sum(toUInt64(mapContainsKeyLike(map_key_lc, 'k1%'))) FROM perf_nested_lc_functions

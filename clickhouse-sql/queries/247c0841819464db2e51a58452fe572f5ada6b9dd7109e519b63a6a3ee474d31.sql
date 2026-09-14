@@ -1,0 +1,1 @@
+insert into json_advanced_shared_data_top select map('small', toString(number % 100), 'big', hex(randomString(500))) from numbers(1000000)

@@ -1,0 +1,1 @@
+OPTIMIZE TABLE fsm_u64_sparse_right FINAL

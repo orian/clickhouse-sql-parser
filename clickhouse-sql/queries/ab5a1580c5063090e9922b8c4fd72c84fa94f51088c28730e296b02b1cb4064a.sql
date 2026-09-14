@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS distinct_cardinality_low

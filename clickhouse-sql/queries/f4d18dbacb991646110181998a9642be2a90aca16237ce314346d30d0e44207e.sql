@@ -1,0 +1,1 @@
+select upperUTF8(materialize('hello 世界')) from numbers(10000000)

@@ -1,0 +1,1 @@
+SELECT countIf(number % 2) FROM numbers(100000000)

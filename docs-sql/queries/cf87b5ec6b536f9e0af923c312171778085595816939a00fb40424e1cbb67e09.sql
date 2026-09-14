@@ -1,0 +1,1 @@
+ENGINE = HDFS(URI, format)

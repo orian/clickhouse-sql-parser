@@ -1,0 +1,1 @@
+SELECT corr(number, number + 1) FROM numbers(100000000)

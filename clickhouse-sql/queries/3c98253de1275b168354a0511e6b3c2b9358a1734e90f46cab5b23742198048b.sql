@@ -1,0 +1,1 @@
+SELECT json FROM test_json_order_by_shared_data ORDER BY json FORMAT Null

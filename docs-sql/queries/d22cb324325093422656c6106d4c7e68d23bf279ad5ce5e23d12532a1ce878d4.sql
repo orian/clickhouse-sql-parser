@@ -1,0 +1,1 @@
+SET allow_delta_lake_writes=1

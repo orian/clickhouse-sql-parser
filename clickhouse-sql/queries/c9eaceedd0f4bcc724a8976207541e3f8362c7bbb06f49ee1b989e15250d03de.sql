@@ -1,0 +1,1 @@
+INSERT INTO constant_sort_key_four SELECT number FROM numbers({rows})

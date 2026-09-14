@@ -1,0 +1,1 @@
+SELECT uniqExactIf(number, 1) FROM numbers_mt(1e7)

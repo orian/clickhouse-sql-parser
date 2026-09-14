@@ -1,0 +1,1 @@
+SELECT lc from test format Null

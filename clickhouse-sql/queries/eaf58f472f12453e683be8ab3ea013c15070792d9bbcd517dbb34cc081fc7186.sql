@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS replacing_cheap_key

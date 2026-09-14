@@ -1,0 +1,1 @@
+SELECT isNotNull(lc) FROM test_lc FORMAT Null

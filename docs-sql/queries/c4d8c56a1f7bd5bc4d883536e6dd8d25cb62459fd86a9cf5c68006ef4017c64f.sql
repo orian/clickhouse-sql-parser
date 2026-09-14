@@ -1,0 +1,2 @@
+CREATE SCHEMA env;
+CREATE EXTENSION pg_clickhouse SCHEMA env;

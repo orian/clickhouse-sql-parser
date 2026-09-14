@@ -1,0 +1,1 @@
+LpNorm(vector, p)

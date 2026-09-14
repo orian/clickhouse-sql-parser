@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE match(URL, '^https?://(?:www\\.)?([^/]+)/.*$') SETTINGS max_threads = 1

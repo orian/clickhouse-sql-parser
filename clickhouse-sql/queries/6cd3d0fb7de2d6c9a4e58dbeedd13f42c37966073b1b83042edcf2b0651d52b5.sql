@@ -1,0 +1,1 @@
+INSERT INTO left16 SELECT number, number / 2 FROM numbers(6553)

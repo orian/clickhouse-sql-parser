@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS optimized_select_final

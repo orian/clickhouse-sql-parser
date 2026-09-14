@@ -1,0 +1,1 @@
+SYSTEM START MERGES test_lwu_join

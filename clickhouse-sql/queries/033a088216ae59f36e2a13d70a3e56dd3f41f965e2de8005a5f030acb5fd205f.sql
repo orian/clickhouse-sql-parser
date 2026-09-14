@@ -1,0 +1,1 @@
+SELECT sum(value) FROM t_streaming_read_round STREAM BOUNDED

@@ -1,0 +1,1 @@
+SELECT multiIf(number >= 500000, isValidUTF8(repeat(toString(number), 100)), less(number, 50000), number * 2, isValidUTF8(repeat(toString(number + 10), 100))) FROM numbers(1000000) FORMAT Null

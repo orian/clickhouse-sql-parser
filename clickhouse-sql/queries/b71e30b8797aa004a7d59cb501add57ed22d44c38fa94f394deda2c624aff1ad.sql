@@ -1,0 +1,1 @@
+select * from alter_select_{engine} format Null settings max_threads=1

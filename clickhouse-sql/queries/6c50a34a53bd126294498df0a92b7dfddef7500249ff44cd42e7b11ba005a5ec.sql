@@ -1,0 +1,1 @@
+select arrayIntersect(range((1 + number % 100)), range(1, (1 + number % 100) + 1)) from numbers(1000000) format Null

@@ -1,0 +1,1 @@
+select number from (select number from numbers(500000000) order by -number) limit 10

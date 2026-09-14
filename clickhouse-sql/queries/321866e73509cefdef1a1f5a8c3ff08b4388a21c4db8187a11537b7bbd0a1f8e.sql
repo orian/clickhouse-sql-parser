@@ -1,0 +1,1 @@
+SELECT sum(length(mapExtractValueLike(map_value_lc, 'v1%'))) FROM perf_nested_lc_functions

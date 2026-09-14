@@ -1,0 +1,1 @@
+SELECT sum(val2) FROM mt_{parts}_parts_{uniqs}_uniqs GROUP BY val1 FORMAT Null

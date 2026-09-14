@@ -1,0 +1,1 @@
+INSERT INTO t_mild_dup SELECT if(number % 8 = 0, number - 1, number) FROM numbers_mt(30000000)

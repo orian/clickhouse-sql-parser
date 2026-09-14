@@ -1,0 +1,1 @@
+SELECT count() FROM test_{serialization}_{ratio} WHERE notEmpty(str)

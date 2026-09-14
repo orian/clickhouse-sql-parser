@@ -1,0 +1,1 @@
+SELECT DISTINCT a, b FROM test_{partitions} LIMIT 1 BY a FORMAT Null

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS lc_many_marks_point_lookups

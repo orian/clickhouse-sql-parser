@@ -1,0 +1,1 @@
+DROP DICTIONARY IF EXISTS hierarchical_flat_dictionary;

@@ -1,0 +1,1 @@
+CREATE MATERIALIZED VIEW dependent REFRESH DEPENDS ON dependency [...]

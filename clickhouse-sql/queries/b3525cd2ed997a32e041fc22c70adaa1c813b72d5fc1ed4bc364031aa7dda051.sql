@@ -1,0 +1,1 @@
+create table replacing_final_1024p_rnd (key1 UInt32, ver Int8, s UInt64) engine = ReplacingMergeTree(ver) order by (key1) partition by key1 % 1024 

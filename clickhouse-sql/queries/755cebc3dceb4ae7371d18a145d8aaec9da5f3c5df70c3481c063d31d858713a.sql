@@ -1,0 +1,1 @@
+INSERT INTO rs_right_10m_nullable WITH if(number % 7 = 0, NULL, number) AS n, if(number % 7 = 0, NULL, reinterpret(number, 'FixedString(16)')) AS fs SELECT number, n, n, n, n, n, n, fs, n FROM numbers(10000000) ORDER BY rand()

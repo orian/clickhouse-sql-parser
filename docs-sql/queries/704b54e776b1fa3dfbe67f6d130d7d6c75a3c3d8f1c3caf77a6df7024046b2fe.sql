@@ -1,0 +1,1 @@
+SELECT h3GetResolution(617420388352917503) AS res;

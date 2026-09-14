@@ -1,0 +1,1 @@
+SELECT count() FROM (SELECT toString(number) AS s FROM numbers(2000000) EXCEPT ALL SELECT toString(number) AS s FROM numbers(1000000))

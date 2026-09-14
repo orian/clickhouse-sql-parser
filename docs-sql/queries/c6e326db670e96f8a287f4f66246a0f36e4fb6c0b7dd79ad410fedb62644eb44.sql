@@ -1,0 +1,2 @@
+CREATE DATABASE db_test_ddl_single_query_setting
+SETTINGS distributed_ddl_task_timeout=0

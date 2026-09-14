@@ -1,0 +1,1 @@
+SELECT sum(n) FROM test_prl WHERE n % 3 AND n % 5

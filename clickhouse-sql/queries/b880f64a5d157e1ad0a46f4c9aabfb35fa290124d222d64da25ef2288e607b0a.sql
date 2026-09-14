@@ -1,0 +1,1 @@
+drop table alter_select_{engine}

@@ -1,0 +1,1 @@
+ngramMinHashCaseInsensitive(string[, ngramsize, hashnum])

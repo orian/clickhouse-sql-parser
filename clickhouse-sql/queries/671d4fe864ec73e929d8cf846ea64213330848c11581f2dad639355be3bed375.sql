@@ -1,0 +1,1 @@
+SELECT avg(col_int32) FROM table_{format}_with_nullable_columns FORMAT Null

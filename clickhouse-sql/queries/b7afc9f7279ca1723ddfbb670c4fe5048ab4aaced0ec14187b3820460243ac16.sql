@@ -1,0 +1,1 @@
+SELECT groupUniqArray(number % 262144) FROM numbers(30000000) FORMAT Null

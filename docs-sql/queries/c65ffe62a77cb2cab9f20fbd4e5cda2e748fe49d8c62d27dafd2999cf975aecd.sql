@@ -1,0 +1,1 @@
+deltaSumTimestamp(value, timestamp)

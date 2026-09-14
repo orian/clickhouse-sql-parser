@@ -1,0 +1,1 @@
+insert into replacing_final_1p_ord select number, number + 1, 1, number from numbers_mt(5e7)

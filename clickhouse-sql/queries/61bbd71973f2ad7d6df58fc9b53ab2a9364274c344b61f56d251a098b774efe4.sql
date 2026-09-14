@@ -1,0 +1,1 @@
+SELECT * FROM {large_table} l JOIN small1 s ON l.a = s.a ORDER BY l.a LIMIT 10 SETTINGS query_plan_min_columns_for_join_lazy_indexing = {lazy_indexing}, join_algorithm = 'hash'

@@ -1,0 +1,1 @@
+SELECT * FROM numbers_mt(1e9) lhs LEFT JOIN numbers_mt(1e3) rhs USING (number) FORMAT Null settings max_threads=8

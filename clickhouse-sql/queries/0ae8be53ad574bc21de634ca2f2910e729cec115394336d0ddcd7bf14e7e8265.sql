@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS promql_set_operator_presence_mask_ts

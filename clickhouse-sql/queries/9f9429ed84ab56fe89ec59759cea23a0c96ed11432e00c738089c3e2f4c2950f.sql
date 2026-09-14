@@ -1,0 +1,1 @@
+INSERT INTO adaptive_codec_merge_sizes SELECT repeat('a', cityHash64(number) % 8) FROM numbers_mt(50000000)

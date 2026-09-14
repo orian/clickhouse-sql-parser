@@ -1,0 +1,1 @@
+ALTER TABLE t1 MODIFY STATISTICS c, d TYPE tdigest, uniq_v2;

@@ -1,0 +1,1 @@
+assumeNotNull(x)

@@ -1,0 +1,29 @@
+  -- Crear la tabla user_events (sintaxis de ClickHouse)
+  CREATE TABLE user_events (
+      event_id UInt32,
+      user_id UInt64,
+      event_name String,
+      event_date Date,
+      event_timestamp DateTime
+  ) ENGINE = MergeTree()
+  ORDER BY (user_id, event_date);
+
+  -- Insertar datos de ejemplo para varios usuarios y eventos
+  INSERT INTO user_events (event_id, user_id, event_name, event_date, event_timestamp) VALUES
+  (1, 12345, 'page_view', '2024-01-05', '2024-01-05 10:30:00'),
+  (2, 12345, 'page_view', '2024-01-05', '2024-01-05 10:35:00'),
+  (3, 12345, 'add_to_cart', '2024-01-05', '2024-01-05 10:40:00'),
+  (4, 12345, 'page_view', '2024-01-10', '2024-01-10 14:20:00'),
+  (5, 12345, 'add_to_cart', '2024-01-10', '2024-01-10 14:25:00'),
+  (6, 12345, 'purchase', '2024-01-10', '2024-01-10 14:30:00'),
+  (7, 12345, 'page_view', '2024-01-15', '2024-01-15 09:15:00'),
+  (8, 12345, 'page_view', '2024-01-15', '2024-01-15 09:20:00'),
+  (9, 12345, 'page_view', '2024-01-20', '2024-01-20 16:45:00'),
+  (10, 12345, 'add_to_cart', '2024-01-20', '2024-01-20 16:50:00'),
+  (11, 12345, 'purchase', '2024-01-25', '2024-01-25 11:10:00'),
+  (12, 12345, 'page_view', '2024-01-28', '2024-01-28 13:30:00'),
+  (13, 67890, 'page_view', '2024-01-05', '2024-01-05 11:00:00'),
+  (14, 67890, 'add_to_cart', '2024-01-05', '2024-01-05 11:05:00'),
+  (15, 67890, 'purchase', '2024-01-05', '2024-01-05 11:10:00'),
+  (16, 12345, 'page_view', '2024-02-01', '2024-02-01 10:00:00'),
+  (17, 12345, 'add_to_cart', '2024-02-01', '2024-02-01 10:05:00');

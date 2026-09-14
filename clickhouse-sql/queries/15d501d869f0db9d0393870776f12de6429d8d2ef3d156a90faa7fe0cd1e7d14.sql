@@ -1,0 +1,1 @@
+INSERT INTO rmt_final_j SELECT number % 100, number, 2, if(number % 100 = 0, 'target', 'other') FROM numbers(500000)

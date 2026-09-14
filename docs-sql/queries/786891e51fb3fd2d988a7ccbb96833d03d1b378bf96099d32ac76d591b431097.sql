@@ -1,0 +1,1 @@
+SELECT tanh(0)

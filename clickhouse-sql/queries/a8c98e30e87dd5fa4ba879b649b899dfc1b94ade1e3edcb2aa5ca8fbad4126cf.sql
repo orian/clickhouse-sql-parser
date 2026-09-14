@@ -1,0 +1,1 @@
+SELECT * FROM optimized_select_final FINAL WHERE key % 10 = 0 FORMAT Null

@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(1000000) WHERE NOT ignore(geohashDecode(toString(rand() % 1000000)))

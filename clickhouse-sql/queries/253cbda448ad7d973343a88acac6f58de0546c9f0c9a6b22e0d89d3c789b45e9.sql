@@ -1,0 +1,1 @@
+select arraySort(array(if(number % 2 = 0, rand(), null), rand(), rand(), rand(), rand())) from numbers(50000000) format Null

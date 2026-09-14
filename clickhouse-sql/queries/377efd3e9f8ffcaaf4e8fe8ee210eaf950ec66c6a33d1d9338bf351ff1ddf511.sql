@@ -1,0 +1,1 @@
+CREATE TABLE test_logical_functions._4_1_Nullable_Mixed (x1 Nullable(UInt16), x2 Nullable(UInt32), x3 Nullable(UInt64), x4 Nullable(Float64)) ENGINE = Memory

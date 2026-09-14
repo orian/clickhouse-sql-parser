@@ -1,0 +1,1 @@
+SELECT MIN(EventDate), MAX(EventDate) FROM file('test_clickbench_hits.parquet', Parquet) FORMAT Null

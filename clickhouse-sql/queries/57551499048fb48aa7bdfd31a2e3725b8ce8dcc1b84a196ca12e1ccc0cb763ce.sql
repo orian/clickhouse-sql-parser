@@ -1,0 +1,1 @@
+DROP TABLE complex_key_dictionary_source_table

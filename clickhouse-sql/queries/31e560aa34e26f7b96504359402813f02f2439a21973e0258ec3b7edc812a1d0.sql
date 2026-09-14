@@ -1,0 +1,1 @@
+SELECT val2 FROM mt_{parts}_parts_10000_uniqs ORDER BY val1 LIMIT 10000000 FORMAT Null

@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(1000000) WHERE NOT ignore(fuzzBits(randomString(10), 0.1))

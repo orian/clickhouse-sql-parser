@@ -1,0 +1,1 @@
+INSERT INTO function file(reading_from_file.parquet) SELECT URL FROM test.hits ORDER BY URL LIMIT 100000 SETTINGS engine_file_truncate_on_insert=1

@@ -1,0 +1,1 @@
+CREATE TABLE group_by_sentinel (s String, lc LowCardinality(String)) ENGINE = Memory

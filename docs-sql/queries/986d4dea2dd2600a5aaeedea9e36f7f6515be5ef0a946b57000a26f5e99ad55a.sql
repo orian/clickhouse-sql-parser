@@ -1,0 +1,1 @@
+SELECT parseISO8601Duration('PT1H30M')

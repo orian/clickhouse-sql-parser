@@ -1,0 +1,1 @@
+SELECT sum(length(toDecimalString(d40, 40))) FROM (SELECT d40 FROM div256 LIMIT 200000)

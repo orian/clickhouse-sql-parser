@@ -1,0 +1,1 @@
+INSERT INTO hits_buffer(UserID)  SELECT rand() FROM numbers(50)

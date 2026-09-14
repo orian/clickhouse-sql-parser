@@ -1,0 +1,1 @@
+SELECT CounterID, EventDate FROM hits_100m_single ORDER BY CounterID, exp(CounterID), sqrt(CounterID) FORMAT Null

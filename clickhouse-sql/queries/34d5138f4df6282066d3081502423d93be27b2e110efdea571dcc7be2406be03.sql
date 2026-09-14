@@ -1,0 +1,1 @@
+SELECT count() FROM zeros_mt(100000000) WHERE NOT ignore(MACNumToString(rand64()))

@@ -1,0 +1,1 @@
+create table t_str_key_{size}(a String, b FixedString(25)) engine=MergeTree order by tuple()

@@ -1,0 +1,14 @@
+
+        SELECT
+            i.InstanceType,
+            i.VCpuInfo.DefaultVCpus AS cpu,
+            i.InstanceStorageInfo
+        FROM (
+            SELECT arrayJoin(InstanceTypes) AS i
+            FROM file('instances.json')
+        )
+        WHERE i.InstanceStorageSupported
+        ORDER BY cpu DESC
+        LIMIT 10
+        FORMAT Null
+    

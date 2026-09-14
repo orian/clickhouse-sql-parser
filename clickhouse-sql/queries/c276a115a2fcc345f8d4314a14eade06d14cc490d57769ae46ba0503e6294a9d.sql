@@ -1,0 +1,1 @@
+INSERT INTO test_avg_insert with initializeAggregation('avgState', 1) as s select number, s AS value FROM numbers(200000000)

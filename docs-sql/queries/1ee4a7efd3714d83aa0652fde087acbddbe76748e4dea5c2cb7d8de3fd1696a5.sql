@@ -1,0 +1,1 @@
+HMAC(mode, message, key)

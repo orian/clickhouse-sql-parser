@@ -1,0 +1,1 @@
+SELECT count() FROM dt where not ignore(x)

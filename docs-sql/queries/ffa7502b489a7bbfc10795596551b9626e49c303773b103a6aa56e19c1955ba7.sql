@@ -1,0 +1,1 @@
+OPTIMIZE TABLE hackernews_views_vcmt

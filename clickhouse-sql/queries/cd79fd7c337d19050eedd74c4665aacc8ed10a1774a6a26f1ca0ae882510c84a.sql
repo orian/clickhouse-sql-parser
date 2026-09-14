@@ -1,0 +1,1 @@
+CREATE TABLE distinct_final_prefix (a UInt64, b UInt64) ENGINE = MergeTree ORDER BY a

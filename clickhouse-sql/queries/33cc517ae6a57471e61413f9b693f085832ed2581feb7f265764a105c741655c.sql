@@ -1,0 +1,1 @@
+CREATE TABLE nullfloat32 (x Nullable(Float32)) ENGINE = Memory

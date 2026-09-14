@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(10000000) WHERE NOT ignore(formatRow('TSV', reinterpret(rand64(), 'Decimal64(9)'))) SETTINGS max_threads = 1

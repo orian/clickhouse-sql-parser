@@ -1,0 +1,1 @@
+intHash32(arg)

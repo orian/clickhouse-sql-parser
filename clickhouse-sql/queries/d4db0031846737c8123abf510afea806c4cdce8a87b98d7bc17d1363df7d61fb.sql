@@ -1,0 +1,1 @@
+SELECT count() FROM t_in_clustered WHERE (k, u) IN (SELECT (k, u) FROM t_in_clustered)

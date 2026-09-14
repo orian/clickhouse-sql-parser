@@ -1,0 +1,1 @@
+SELECT count() FROM tab WHERE startsWith(name, 'alpha-service-4')

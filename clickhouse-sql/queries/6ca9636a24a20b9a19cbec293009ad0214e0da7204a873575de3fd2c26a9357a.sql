@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS table_ip_from_dict

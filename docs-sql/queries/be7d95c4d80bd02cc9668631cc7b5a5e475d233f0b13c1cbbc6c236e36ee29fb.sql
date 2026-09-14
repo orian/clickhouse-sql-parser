@@ -1,0 +1,1 @@
+SELECT bin(14)

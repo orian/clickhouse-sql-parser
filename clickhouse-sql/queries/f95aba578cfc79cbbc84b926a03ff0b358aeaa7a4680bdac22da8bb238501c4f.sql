@@ -1,0 +1,1 @@
+SELECT avg(length(URL)) as x from hits_100m_single GROUP BY CounterID FORMAT Null

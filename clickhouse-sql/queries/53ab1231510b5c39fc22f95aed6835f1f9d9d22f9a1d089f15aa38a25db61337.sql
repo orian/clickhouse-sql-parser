@@ -1,0 +1,1 @@
+SELECT max(length(PageCharset)) FROM hits_100m_single

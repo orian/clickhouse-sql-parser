@@ -1,0 +1,1 @@
+SELECT id, timeSeriesPredictLinearToGrid(0, 100000, 10, {window}, 60)(timestamp, value) FROM ts_grid GROUP BY id FORMAT Null

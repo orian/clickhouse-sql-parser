@@ -1,0 +1,1 @@
+DROP TABLE interpret_table_06

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS table_{format}_with_nullable_columns

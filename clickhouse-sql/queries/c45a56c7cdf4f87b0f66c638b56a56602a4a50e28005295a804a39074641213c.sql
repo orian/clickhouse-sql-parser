@@ -1,0 +1,1 @@
+select argMax(WatchID, Age::Nullable(UInt8)) from hits_100m_single FORMAT Null

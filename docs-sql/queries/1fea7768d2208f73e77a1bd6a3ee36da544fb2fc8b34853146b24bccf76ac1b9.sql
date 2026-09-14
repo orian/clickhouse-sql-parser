@@ -1,0 +1,2 @@
+SYSTEM RELOAD FUNCTIONS [ON CLUSTER cluster_name]
+SYSTEM RELOAD FUNCTION [ON CLUSTER cluster_name] function_name

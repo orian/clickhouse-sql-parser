@@ -1,0 +1,1 @@
+SELECT s2GetNeighbors(5074766849661468672) AS s2Neighbors;

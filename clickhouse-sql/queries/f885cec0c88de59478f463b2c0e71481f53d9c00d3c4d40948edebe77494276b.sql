@@ -1,0 +1,1 @@
+SELECT sum(prime) FROM system.primes WHERE prime < 300_000_000

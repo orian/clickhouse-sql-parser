@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS delta_decode_{pattern}_{type}

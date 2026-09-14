@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_shared_data_wide

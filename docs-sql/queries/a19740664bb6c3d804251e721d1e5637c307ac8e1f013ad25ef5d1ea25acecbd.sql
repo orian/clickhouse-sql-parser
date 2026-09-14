@@ -1,0 +1,1 @@
+DROP HYPOTHETICAL PROJECTION [IF EXISTS] name ON [db.]table_name

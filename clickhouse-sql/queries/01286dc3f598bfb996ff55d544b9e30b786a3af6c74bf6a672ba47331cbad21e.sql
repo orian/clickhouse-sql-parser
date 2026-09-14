@@ -1,0 +1,1 @@
+SELECT 'rapidjson-8', count() FROM zeros(1000000) WHERE NOT ignore(JSONExtractInt(materialize({long_json}), 'nparam'))

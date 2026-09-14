@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.manifest_grid WHERE l_month = 199406 SETTINGS use_iceberg_metadata_files_cache = 0

@@ -1,0 +1,1 @@
+SELECT groupBitOrIf(toUInt32(number), rand32() % 2 = 0) FROM numbers(100000000)

@@ -1,0 +1,1 @@
+select arrayDistinct(range(1 + (number % 100) * 10)) from numbers(100000) format Null

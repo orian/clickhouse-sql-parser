@@ -1,0 +1,1 @@
+SELECT sum(s) FROM {replacing} final group by key1 % 8192 limit 10

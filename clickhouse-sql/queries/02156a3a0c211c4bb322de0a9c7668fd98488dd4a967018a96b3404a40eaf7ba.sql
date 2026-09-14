@@ -1,0 +1,1 @@
+UPDATE test_lwu_join SET str_10p = randomPrintableASCII(8) WHERE id % 10 = 0 SETTINGS max_threads=1, max_insert_block_size=3000000, min_insert_block_size_rows=3000000

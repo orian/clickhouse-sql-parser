@@ -1,0 +1,1 @@
+SELECT count(), min(l_shipdate) FROM {database}.lineitem WHERE l_shipdate >= toDate('1990-01-01')

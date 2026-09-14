@@ -1,0 +1,3 @@
+ALTER SETTINGS PROFILE my_profile
+    DROP SETTINGS readonly
+    ADD SETTINGS max_threads = 8 MIN 4 MAX 16 WRITABLE;

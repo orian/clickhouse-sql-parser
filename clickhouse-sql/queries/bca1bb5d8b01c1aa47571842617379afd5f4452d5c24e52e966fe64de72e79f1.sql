@@ -1,0 +1,1 @@
+CREATE TABLE t_json_typed_paths_no_hints(data JSON) ENGINE = MergeTree ORDER BY tuple()

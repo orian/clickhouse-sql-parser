@@ -1,0 +1,1 @@
+naiveBayesClassifier(dictionary_name, input_text)

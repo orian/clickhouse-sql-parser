@@ -1,0 +1,1 @@
+getMergeTreeSetting(setting_name)

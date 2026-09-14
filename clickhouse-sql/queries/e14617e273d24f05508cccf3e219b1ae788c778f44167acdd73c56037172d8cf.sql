@@ -1,0 +1,1 @@
+INSERT INTO cdp_tags(tag_id, mid_seqs) SELECT 'tag6', groupBitmapState(toUInt32(number)) FROM numbers(10000000) WHERE number%4=0

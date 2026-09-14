@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(50000000) WHERE NOT ignore(toStartOfInterval(toDateTime64(1600000000 + number % 100000000, 3, 'UTC'), INTERVAL {interval}))

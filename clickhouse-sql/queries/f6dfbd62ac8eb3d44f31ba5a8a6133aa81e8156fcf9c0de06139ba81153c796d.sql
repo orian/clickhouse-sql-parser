@@ -1,0 +1,1 @@
+SELECT avg(num)                  FROM perf_avg FORMAT Null

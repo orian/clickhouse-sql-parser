@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS sg_text_3_8

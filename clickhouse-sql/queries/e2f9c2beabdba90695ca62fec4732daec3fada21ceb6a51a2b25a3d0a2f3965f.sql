@@ -1,0 +1,1 @@
+SELECT avgWeightedIf(num_f,                num_f,             num % 10) FROM perf_avg FORMAT Null

@@ -1,0 +1,1 @@
+SHOW GRANTS [FOR user1 [, user2 ...]] [WITH IMPLICIT] [FINAL]

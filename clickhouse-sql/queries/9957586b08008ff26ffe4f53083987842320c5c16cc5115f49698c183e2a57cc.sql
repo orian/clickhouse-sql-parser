@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(20000000) WHERE NOT ignore(toString(reinterpret(rand(), 'Decimal32(9)'))) SETTINGS max_threads = 1

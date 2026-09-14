@@ -1,0 +1,1 @@
+OPTIMIZE TABLE ttl_group_by_src FINAL

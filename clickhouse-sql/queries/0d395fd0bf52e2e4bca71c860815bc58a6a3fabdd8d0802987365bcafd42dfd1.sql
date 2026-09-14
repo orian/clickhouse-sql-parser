@@ -1,0 +1,1 @@
+SELECT sum(mortonEncode(number, number * 2)) FROM numbers(200000000)

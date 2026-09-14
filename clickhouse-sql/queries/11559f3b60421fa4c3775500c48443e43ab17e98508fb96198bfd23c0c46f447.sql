@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS pmj_u64_sparse_right

@@ -1,0 +1,1 @@
+CREATE TABLE left ( id Int64, v Nullable(Decimal(7, 2)) ) ENGINE = MergeTree ORDER BY id

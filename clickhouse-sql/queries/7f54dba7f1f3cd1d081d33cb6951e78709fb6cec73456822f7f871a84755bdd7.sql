@@ -1,0 +1,1 @@
+ALTER TABLE customer MATERIALIZE COLUMN c_custkey_fs16

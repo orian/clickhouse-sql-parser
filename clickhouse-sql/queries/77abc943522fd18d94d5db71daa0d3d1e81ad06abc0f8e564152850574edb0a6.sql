@@ -1,0 +1,1 @@
+CREATE TABLE replacing_expensive_key (k1 UInt64, k2 UInt64, v UInt64) ENGINE = ReplacingMergeTree ORDER BY (k1, k2)

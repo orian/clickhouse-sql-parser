@@ -1,0 +1,1 @@
+INSERT INTO orders SELECT number, number/10000, number%1000 FROM numbers(100000000)

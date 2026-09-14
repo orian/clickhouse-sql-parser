@@ -1,0 +1,1 @@
+SELECT id, timeSeriesResampleToGridWithStaleness(0, 300000, 300, 300)(timestamp, value) FROM ts_bucketing GROUP BY id FORMAT Null

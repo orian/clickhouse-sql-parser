@@ -1,0 +1,1 @@
+SELECT json, json.p0, json.p1 FROM json_compact FORMAT Null SETTINGS max_threads = 1, preferred_block_size_bytes = 1000000000000

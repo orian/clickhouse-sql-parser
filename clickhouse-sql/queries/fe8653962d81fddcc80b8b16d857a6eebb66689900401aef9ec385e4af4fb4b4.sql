@@ -1,0 +1,1 @@
+INSERT INTO t_text_index_merge_multiblock_{codec} SELECT number AS id, arrayStringConcat(arrayMap(x -> 'v' || toString(x), arrayFilter(x -> (id + x) % 5 != 0, range(8))), ' ') FROM numbers(1500000, 300000)

@@ -1,0 +1,1 @@
+SELECT tokens(URL, 'asciiCJK') FROM hits_10m_single FORMAT Null

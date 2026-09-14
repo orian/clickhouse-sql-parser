@@ -1,0 +1,1 @@
+SELECT DISTINCT number FROM numbers_mt(40000000) FORMAT Null

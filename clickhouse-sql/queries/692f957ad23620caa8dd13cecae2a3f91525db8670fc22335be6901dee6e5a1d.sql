@@ -1,0 +1,1 @@
+INSERT INTO rs_right_10m SELECT number, number, number, number, number, number, number, reinterpret(number, 'FixedString(16)'), number FROM numbers(10000000) ORDER BY rand()

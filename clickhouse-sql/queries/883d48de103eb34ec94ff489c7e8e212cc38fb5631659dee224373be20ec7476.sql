@@ -1,0 +1,1 @@
+select position(materialize('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'), '') from numbers(100000000) format Null

@@ -1,0 +1,1 @@
+SELECT y FROM test_nullable_order_by ORDER BY x::UInt64 LIMIT 100000 FORMAT Null

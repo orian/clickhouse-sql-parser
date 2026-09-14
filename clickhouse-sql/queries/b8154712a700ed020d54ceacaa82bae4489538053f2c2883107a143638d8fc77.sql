@@ -1,0 +1,1 @@
+CREATE TABLE users_nullable (uid Int16, name String, age Nullable(Int16)) ENGINE=MergeTree() ORDER BY tuple()

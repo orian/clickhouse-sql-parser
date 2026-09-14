@@ -1,0 +1,1 @@
+ALTER TABLE text_index_partially_materialized ADD INDEX idx(text) TYPE text(tokenizer = splitByNonAlpha)

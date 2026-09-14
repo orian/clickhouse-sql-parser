@@ -1,0 +1,1 @@
+select countIf(multiMatchAny(URL, ['yandex', 'google'])) FROM hits_100m_single

@@ -1,0 +1,1 @@
+SELECT ngramDistance(Title, 'what is love') AS distance FROM hits_10m_single FORMAT Null

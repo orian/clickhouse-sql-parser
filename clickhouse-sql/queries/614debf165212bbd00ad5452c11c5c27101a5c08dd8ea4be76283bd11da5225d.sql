@@ -1,0 +1,1 @@
+INSERT INTO join_set_maps_build_str SELECT toString(number) FROM numbers_mt(5000000)

@@ -1,0 +1,1 @@
+SELECT count() FROM fsm_str_sparse_left AS a JOIN fsm_str_sparse_right AS b ON a.k = b.k FORMAT Null SETTINGS join_algorithm = 'full_sorting_merge'

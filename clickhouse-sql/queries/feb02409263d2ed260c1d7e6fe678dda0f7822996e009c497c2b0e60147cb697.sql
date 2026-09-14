@@ -1,0 +1,1 @@
+OPTIMIZE TABLE pfsm_sorted_right FINAL

@@ -1,0 +1,1 @@
+toYYYYMMDD(datetime[, timezone])

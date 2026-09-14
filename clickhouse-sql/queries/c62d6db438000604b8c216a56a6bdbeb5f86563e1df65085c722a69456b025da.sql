@@ -1,0 +1,1 @@
+SELECT sum(multiFuzzyMatchAny(Title, 3, ['hello$', 'world$', '^hello'])) FROM (SELECT * FROM hits_100m_single LIMIT 50000000) FORMAT Null

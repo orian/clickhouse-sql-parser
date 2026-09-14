@@ -1,0 +1,1 @@
+insert into test_parallel_index select number, number, number from numbers(1048576);

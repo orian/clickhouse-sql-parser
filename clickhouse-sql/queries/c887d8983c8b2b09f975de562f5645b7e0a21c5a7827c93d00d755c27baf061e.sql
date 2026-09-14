@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS hierarchical_dictionary_source_table;

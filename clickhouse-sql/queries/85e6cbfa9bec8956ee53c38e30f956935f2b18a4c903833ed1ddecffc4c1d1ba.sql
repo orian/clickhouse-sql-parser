@@ -1,0 +1,1 @@
+sparseGramsHashes(randomStringUTF8(20)) FROM numbers(10000000)

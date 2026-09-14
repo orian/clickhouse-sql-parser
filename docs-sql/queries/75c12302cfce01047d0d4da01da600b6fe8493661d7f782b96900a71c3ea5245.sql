@@ -1,0 +1,1 @@
+countMatches(haystack, pattern)

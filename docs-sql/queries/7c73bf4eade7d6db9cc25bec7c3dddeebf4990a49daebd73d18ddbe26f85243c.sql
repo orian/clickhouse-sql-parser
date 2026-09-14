@@ -1,0 +1,1 @@
+SELECT ngramDistance('ClickHouse', 'ClickHouses')

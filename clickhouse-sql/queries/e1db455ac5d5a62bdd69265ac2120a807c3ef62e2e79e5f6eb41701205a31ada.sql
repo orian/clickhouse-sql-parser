@@ -1,0 +1,1 @@
+SELECT s, s.size FROM string_compact FORMAT Null SETTINGS max_threads = 1, preferred_block_size_bytes = 1000000000000

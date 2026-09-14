@@ -1,0 +1,1 @@
+select entropy(number / 10) from numbers(1000 * 1000) group by number / 1000 format Null

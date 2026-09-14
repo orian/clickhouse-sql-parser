@@ -1,0 +1,1 @@
+ SELECT h3GetOriginIndexFromUnidirectionalEdge(1248204388774707199) AS origin;

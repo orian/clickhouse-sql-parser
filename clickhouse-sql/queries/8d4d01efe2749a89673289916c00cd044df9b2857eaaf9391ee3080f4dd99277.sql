@@ -1,0 +1,1 @@
+create table test_distinct_json_paths_compact_advanced_shared_data (json JSON(max_dynamic_paths=0)) engine=MergeTree order by tuple() settings min_bytes_for_wide_part='100G', dynamic_serialization_version='v3', object_serialization_version='v3', object_shared_data_serialization_version='advanced', object_shared_data_serialization_version_for_zero_level_parts='advanced'

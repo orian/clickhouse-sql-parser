@@ -1,0 +1,1 @@
+CREATE TABLE small3 (c Int32) ENGINE = MergeTree ORDER BY tuple()

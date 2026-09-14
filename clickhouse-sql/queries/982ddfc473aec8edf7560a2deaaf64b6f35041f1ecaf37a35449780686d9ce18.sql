@@ -1,0 +1,1 @@
+ WITH number AS x SELECT any(x < 1 ? '1' : (x < 5 ? '2' : (x < 10 ? '3' : (x % 2 ? '4' : '5')))) FROM numbers(10000000) 

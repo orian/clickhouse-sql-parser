@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single WHERE NOT ignore(farmHash64(SearchPhrase)) SETTINGS max_threads = 1

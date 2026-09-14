@@ -1,0 +1,1 @@
+INSERT INTO probe SELECT randUniform(4500, 9500), randUniform(9000, 19000), randUniform(45000, 95000), randUniform(500, 5500), randUniform(1000, 11000), randUniform(5000, 55000) FROM numbers(50000000)

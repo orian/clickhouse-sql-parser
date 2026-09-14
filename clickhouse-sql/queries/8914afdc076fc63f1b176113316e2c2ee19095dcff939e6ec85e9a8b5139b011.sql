@@ -1,0 +1,1 @@
+INSERT INTO fsm_str_sparse_left SELECT leftPad(toString(number), 12, '0') FROM numbers_mt(5000000)

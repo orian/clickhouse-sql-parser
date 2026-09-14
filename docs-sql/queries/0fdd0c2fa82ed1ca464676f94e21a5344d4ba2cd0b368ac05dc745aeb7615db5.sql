@@ -1,0 +1,6 @@
+WITH '2019-08-01 15:23:00' AS ts_upper_bound
+SELECT *
+FROM hits
+WHERE
+    EventDate = toDate(ts_upper_bound) AND
+    EventTime <= ts_upper_bound;

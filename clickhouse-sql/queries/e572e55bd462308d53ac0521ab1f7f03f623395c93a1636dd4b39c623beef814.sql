@@ -1,0 +1,1 @@
+SELECT count() FROM t_chain_derived_join AS l INNER JOIN t_chain_derived AS r ON l.k = r.k WHERE l.v < r.k AND 9900000 < l.v

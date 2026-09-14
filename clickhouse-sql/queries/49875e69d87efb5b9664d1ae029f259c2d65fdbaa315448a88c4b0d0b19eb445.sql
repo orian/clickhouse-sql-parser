@@ -1,0 +1,1 @@
+INSERT INTO rand_1k_10m_16 SELECT rand()%1000 AS x FROM zeros(10000000)

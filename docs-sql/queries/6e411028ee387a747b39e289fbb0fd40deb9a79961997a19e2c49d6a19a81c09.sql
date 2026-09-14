@@ -1,0 +1,1 @@
+SYSTEM SYNC FILESYSTEM CACHE ['<cache_name>']

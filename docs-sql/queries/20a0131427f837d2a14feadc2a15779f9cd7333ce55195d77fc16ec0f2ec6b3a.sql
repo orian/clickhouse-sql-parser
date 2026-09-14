@@ -1,0 +1,1 @@
+CREATE USER john DEFAULT DATABASE database1

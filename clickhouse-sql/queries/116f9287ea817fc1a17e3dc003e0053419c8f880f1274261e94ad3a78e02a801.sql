@@ -1,0 +1,1 @@
+SELECT 'simdjson-2',  count() FROM zeros(5000000) WHERE NOT ignore(JSONExtractString(materialize({json}), 'sparam', 'nested_1'))

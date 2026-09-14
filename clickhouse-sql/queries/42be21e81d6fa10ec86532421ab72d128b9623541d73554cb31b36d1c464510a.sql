@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS perf_nested_lc_functions

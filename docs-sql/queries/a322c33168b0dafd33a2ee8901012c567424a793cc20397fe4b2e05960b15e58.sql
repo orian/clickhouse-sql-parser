@@ -1,0 +1,1 @@
+toInt8OrNull(x)

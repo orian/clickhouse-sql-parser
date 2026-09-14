@@ -1,0 +1,1 @@
+select uniq(number) from (select number from numbers(1000000) group by number) SETTINGS enable_analyzer=1

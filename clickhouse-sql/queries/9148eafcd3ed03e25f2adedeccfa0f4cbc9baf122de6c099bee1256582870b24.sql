@@ -1,0 +1,1 @@
+SELECT sum(dist) FROM (SELECT {norm}Norm(v) AS dist FROM vecs_{element_type})

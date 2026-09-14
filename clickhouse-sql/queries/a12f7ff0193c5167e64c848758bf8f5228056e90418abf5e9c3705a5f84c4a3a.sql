@@ -1,0 +1,1 @@
+INSERT INTO t_minmax_stats_float64_src SELECT toFloat64(number), toFloat64(number + 1) / 10, toFloat64(number + 2) / 10, toFloat64(number + 3) / 10, toFloat64(number + 4) / 10, toFloat64(number + 5) / 10, toFloat64(number + 6) / 10, toFloat64(number + 7) / 10, toFloat64(number + 8) / 10, toFloat64(number + 9) / 10 FROM numbers(1000000)

@@ -1,0 +1,2 @@
+ALTER TABLE laion MATERIALIZE INDEX image_index;
+ALTER TABLE laion MATERIALIZE INDEX text_index;

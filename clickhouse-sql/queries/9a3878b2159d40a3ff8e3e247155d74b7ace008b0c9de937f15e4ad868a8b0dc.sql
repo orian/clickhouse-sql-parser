@@ -1,0 +1,1 @@
+create table replacing_final_16p_rnd (key1 UInt32, key2 String, ver Int8, s UInt64) engine = ReplacingMergeTree(ver) order by (key1, key2) partition by key1 % 16 

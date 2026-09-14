@@ -1,0 +1,1 @@
+create table mt_3 (n UInt64, s String) engine = MergeTree order by tuple()

@@ -1,0 +1,1 @@
+SELECT groupBitXorIf(number::UInt256, rand32() % 2 = 0) FROM numbers(50000000)

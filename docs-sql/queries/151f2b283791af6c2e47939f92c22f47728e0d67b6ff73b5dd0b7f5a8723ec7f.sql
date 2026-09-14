@@ -1,0 +1,1 @@
+SET DEFAULT ROLE ALL EXCEPT role1, role2 TO user

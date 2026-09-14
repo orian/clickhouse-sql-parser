@@ -1,0 +1,1 @@
+CREATE TABLE small2 (b Int32) ENGINE = MergeTree ORDER BY tuple()

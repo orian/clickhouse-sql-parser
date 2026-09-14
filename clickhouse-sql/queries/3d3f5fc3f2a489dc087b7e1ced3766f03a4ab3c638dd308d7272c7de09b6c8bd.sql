@@ -1,0 +1,1 @@
+INSERT INTO json_to_string_dynamic SELECT * FROM json_to_string

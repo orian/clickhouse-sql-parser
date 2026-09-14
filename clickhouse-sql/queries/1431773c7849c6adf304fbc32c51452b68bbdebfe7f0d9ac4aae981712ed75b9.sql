@@ -1,0 +1,1 @@
+insert into test select number, number, toString(number % 10000) from numbers(10000000)

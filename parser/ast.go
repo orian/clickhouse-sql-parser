@@ -2068,7 +2068,10 @@ func (s *SettingPair) Pos() Pos {
 }
 
 func (s *SettingPair) End() Pos {
-	return s.Value.End()
+	if s.Value != nil {
+		return s.Value.End()
+	}
+	return s.Name.End()
 }
 
 func (s *SettingPair) String() string {
@@ -2885,6 +2888,7 @@ type PartitionClause struct {
 	Expr         Expr
 	ID           *StringLiteral
 	All          bool
+	AllEnd       Pos `json:",omitempty"`
 }
 
 func (p *PartitionClause) Pos() Pos {
@@ -2892,6 +2896,9 @@ func (p *PartitionClause) Pos() Pos {
 }
 
 func (p *PartitionClause) End() Pos {
+	if p.All {
+		return p.AllEnd
+	}
 	if p.ID != nil {
 		return p.ID.LiteralEnd
 	}

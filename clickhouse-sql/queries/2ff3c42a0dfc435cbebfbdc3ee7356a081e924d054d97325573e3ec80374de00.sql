@@ -1,0 +1,1 @@
+OPTIMIZE TABLE matview_1 FINAL

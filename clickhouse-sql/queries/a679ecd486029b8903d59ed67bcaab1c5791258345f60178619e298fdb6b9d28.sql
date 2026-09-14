@@ -1,0 +1,1 @@
+CREATE TABLE probe (id0 Int64, id1 Int64, id2 Int64, id3 Int64, id4 Int64, id5 Int64) ENGINE = MergeTree ORDER BY tuple()

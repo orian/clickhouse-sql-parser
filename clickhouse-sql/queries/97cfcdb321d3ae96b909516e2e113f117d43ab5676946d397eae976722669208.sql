@@ -1,0 +1,1 @@
+ALTER TABLE lineitem DROP COLUMN IF EXISTS l_orderkey_fs16

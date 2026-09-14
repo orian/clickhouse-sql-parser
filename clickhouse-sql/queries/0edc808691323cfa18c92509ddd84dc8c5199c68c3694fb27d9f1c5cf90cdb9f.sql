@@ -1,0 +1,1 @@
+SELECT count() from {table} where not ignore({hash_func}({value}))

@@ -1,0 +1,1 @@
+select * from test where n.null format Null

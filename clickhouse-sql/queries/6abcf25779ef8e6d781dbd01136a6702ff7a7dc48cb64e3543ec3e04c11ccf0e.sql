@@ -1,0 +1,1 @@
+DROP TABLE array_distance_mixed_{array_size}

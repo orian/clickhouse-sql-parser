@@ -1,0 +1,1 @@
+SELECT count() FROM test.hits WHERE NOT ignore(IPv6CIDRToRange(ClientIP6, rand() % 33))

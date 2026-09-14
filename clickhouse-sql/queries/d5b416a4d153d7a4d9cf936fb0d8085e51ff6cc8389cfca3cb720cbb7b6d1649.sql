@@ -1,0 +1,1 @@
+ DROP TABLE IF EXISTS mingroupby_orderbylimit1_{aggregationscale_all}_tuple 

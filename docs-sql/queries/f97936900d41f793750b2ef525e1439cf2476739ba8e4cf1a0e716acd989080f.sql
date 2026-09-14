@@ -1,0 +1,1 @@
+SELECT HEX(SHA384('abc'));

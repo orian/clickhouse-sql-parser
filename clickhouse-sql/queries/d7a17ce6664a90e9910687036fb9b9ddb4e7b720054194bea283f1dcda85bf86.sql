@@ -1,0 +1,1 @@
+SELECT RegionID, uniq(UserID) FROM hits_10m_single GROUP BY RegionID SETTINGS max_threads = 1

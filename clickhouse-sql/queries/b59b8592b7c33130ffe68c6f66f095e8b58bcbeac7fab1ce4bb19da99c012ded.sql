@@ -1,0 +1,1 @@
+DROP TABLE adss_f32_{dim}

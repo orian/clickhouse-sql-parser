@@ -1,0 +1,1 @@
+INSERT INTO function file(data.{format}) SELECT WatchID, Title, EventTime, RefererCategories, RefererRegions FROM test.hits LIMIT 25000 SETTINGS engine_file_truncate_on_insert=1

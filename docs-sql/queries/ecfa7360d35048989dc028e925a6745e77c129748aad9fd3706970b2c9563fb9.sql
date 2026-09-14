@@ -1,0 +1,1 @@
+bitmaskToList(num)

@@ -1,0 +1,1 @@
+CREATE TABLE test_string_bytes(s String) ENGINE Memory

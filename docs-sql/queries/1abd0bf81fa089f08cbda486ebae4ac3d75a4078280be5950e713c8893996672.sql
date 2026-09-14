@@ -1,0 +1,1 @@
+SELECT format('{} {}', 'Hello', 'World')

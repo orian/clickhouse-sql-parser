@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(9007199254740992, 10000000) WHERE NOT ignore(toString(toFloat64(number)))

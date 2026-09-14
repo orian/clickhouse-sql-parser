@@ -1,0 +1,1 @@
+SELECT number AS k, avg(toDate(number % 60000)) FROM numbers_mt(20000000) GROUP BY k FORMAT Null

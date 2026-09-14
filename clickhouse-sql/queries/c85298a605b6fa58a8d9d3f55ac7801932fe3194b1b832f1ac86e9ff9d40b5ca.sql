@@ -1,0 +1,1 @@
+INSERT INTO lck_fs_probe SELECT toFixedString(leftPad(toString(number % 1000), 16, '0'), 16), number FROM numbers_mt(50000000)

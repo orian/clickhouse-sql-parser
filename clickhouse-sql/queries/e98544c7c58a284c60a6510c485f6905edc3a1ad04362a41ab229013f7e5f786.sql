@@ -1,0 +1,1 @@
+SELECT number AS k, avg(toDateTime(1700000000 + number % 100000000, 'UTC')) FROM numbers_mt(20000000) GROUP BY k FORMAT Null

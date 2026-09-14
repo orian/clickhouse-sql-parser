@@ -1,0 +1,1 @@
+SELECT acosh(1)

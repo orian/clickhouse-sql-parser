@@ -1,0 +1,1 @@
+INSERT INTO t_text_index_merge_intersecting_{codec} SELECT number * 6 + 5 AS id, concat('common ', 'medium' || intDiv(id, 1000), ' rare' || id) FROM numbers(100000)

@@ -1,0 +1,1 @@
+ALTER TABLE customer DROP COLUMN IF EXISTS c_custkey_fs16

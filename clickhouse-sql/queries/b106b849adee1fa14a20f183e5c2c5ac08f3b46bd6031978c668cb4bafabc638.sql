@@ -1,0 +1,1 @@
+SELECT count(), max(cityHash64(payload)) FROM lazy_final_limit FINAL WHERE c = 1 FORMAT Null

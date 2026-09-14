@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS window_transform_wide_lc

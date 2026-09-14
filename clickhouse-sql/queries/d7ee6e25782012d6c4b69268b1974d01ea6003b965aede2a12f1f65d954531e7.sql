@@ -1,0 +1,1 @@
+CREATE TABLE lck_fs_probe (k LowCardinality(FixedString(16)), v UInt64) ENGINE = Memory

@@ -1,0 +1,1 @@
+SELECT any(number * 2) as n, n * 3                      FROM numbers(200000000)

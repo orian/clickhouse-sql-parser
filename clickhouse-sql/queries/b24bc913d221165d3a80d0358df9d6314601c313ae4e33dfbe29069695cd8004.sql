@@ -1,0 +1,1 @@
+INSERT INTO merge_perf_t0 SELECT toDate('2021-10-04') + number % 70, ['auto', 'appliances', 'garden', 'children', 'home', 'hobbies', 'electronics', 'books'][number % 8 + 1], number, toString(number % 1000) FROM numbers(1000)

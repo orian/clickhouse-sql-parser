@@ -1,0 +1,1 @@
+CREATE TABLE test_str_left (k String) ENGINE = MergeTree ORDER BY k

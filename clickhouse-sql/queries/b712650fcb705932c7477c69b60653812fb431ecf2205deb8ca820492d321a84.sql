@@ -1,0 +1,1 @@
+SELECT t.inner, t.inner.a, t.inner.b, t.inner.c, t.inner.d, t.inner.e FROM tuple_compact FORMAT Null SETTINGS max_threads = 1, preferred_block_size_bytes = 1000000000000

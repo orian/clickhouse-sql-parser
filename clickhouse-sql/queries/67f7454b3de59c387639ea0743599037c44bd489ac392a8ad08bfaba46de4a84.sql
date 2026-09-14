@@ -1,0 +1,1 @@
+CREATE TABLE {database}.deep_history (l_orderkey Int32, l_quantity Float64) ENGINE = IcebergLocal((SELECT value FROM system.server_settings WHERE name = 'user_files_path') || '/deep_history_' || toString(toUnixTimestamp64Micro(now64(6))) || '/', 'Parquet')

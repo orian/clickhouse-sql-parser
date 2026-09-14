@@ -1,0 +1,1 @@
+mapApply(func, map)

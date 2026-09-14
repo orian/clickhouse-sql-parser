@@ -1,0 +1,11 @@
+CREATE TABLE tab
+(
+    d DateTime,
+    a Int
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(d)
+ORDER BY d
+TTL d + INTERVAL 1 MONTH DELETE,
+    d + INTERVAL 1 WEEK TO VOLUME 'aaa',
+    d + INTERVAL 2 WEEK TO DISK 'bbb';

@@ -1,0 +1,1 @@
+SELECT sum(L2SquaredDistance(a, b)) FROM array_distance_f32_{array_size}

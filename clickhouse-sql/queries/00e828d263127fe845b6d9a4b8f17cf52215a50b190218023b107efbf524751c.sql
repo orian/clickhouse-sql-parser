@@ -1,0 +1,1 @@
+OPTIMIZE TABLE enum16_wide_sparse FINAL

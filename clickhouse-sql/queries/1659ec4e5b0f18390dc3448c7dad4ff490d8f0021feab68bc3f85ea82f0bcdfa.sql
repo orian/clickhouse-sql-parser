@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(100000) WHERE NOT ignore(randomStringUTF8(rand() % 1000))

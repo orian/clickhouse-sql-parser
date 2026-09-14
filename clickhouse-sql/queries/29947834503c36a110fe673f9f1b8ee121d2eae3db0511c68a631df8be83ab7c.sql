@@ -1,0 +1,1 @@
+SELECT 'simdjson-15', count() FROM zeros(5000000) WHERE NOT ignore(JSON_QUERY(materialize({long_json}), '$.nparam'))

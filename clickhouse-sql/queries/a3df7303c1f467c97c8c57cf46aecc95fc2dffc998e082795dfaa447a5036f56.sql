@@ -1,0 +1,1 @@
+SELECT if(number % 5 == 0, toInt8OrZero(toString(number)), Null) FROM numbers(100000000) FORMAT Null

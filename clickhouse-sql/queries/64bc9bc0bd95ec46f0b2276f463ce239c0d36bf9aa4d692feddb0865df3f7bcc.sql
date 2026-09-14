@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS qcc_topk_test

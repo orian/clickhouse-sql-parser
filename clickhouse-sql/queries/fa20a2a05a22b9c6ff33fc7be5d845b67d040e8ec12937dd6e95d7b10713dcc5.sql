@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(1000000) WHERE NOT ignore(materialize('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') AS s, concat(s,s,s,s,s,s,s,s,s,s) AS t, concat(t,t,t,t,t,t,t,t,t,t) AS u) SETTINGS max_block_size = 1000

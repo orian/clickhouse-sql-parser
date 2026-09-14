@@ -1,0 +1,1 @@
+SELECT count() FROM test_lwu_steps PREWHERE b > 1111111111 WHERE startsWith(a, 'foo')

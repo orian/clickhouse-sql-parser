@@ -1,0 +1,1 @@
+SELECT sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(number))))))))))))))))))) FROM numbers(3000000) FORMAT Null

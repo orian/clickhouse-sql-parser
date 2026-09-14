@@ -1,0 +1,1 @@
+substring(s, offset[, length])

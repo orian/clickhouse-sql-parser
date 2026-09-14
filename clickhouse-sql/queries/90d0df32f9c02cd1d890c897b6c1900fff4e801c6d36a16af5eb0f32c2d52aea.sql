@@ -1,0 +1,1 @@
+INSERT INTO join_table SELECT number AS A, toString(arrayMap(x->x, range(100))) S0, S0 AS S1, S0 AS S2, S0 AS S3 from numbers_mt(5000000)

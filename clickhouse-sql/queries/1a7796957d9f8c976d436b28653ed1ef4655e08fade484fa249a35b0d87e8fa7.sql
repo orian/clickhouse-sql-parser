@@ -1,0 +1,1 @@
+INSERT INTO table_{format} SELECT SearchPhrase, ClientIP6, URL, Referer, URLDomain FROM test.hits LIMIT 100000

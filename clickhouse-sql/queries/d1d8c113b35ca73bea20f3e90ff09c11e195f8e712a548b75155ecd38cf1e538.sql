@@ -1,0 +1,1 @@
+SELECT k, minIf(x, cond) FROM agg_in_order_if_null_map GROUP BY k SETTINGS optimize_aggregation_in_order = 1 FORMAT Null

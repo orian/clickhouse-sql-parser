@@ -1,0 +1,1 @@
+SELECT count() FROM hits_10m_single AS t1 FULL JOIN hits_10m_single AS t2 ON t1.URL = t2.Referer AND t1.UserID = t2.UserID AND t1.URL != '' AND t2.Referer != ''

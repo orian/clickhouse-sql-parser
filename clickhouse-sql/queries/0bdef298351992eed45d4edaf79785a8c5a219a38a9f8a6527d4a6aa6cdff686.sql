@@ -1,0 +1,1 @@
+SELECT ignore({hash_slow}({string_large})) FROM {numbers_small} FORMAT Null

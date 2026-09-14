@@ -1,0 +1,6 @@
+BACKUP DATABASE nyc_taxi
+TO S3(
+  'BUCKET_URL',
+  'KEY_ID',
+  'SECRET_KEY'
+)

@@ -1,0 +1,1 @@
+optimize table sorted_{millions}m final

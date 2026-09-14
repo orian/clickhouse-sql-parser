@@ -1,0 +1,1 @@
+select count(1) from test_multiif_t where multiIf(d > 2, d-2, d > 1, d-1, d >0, d, 0) > 1 SETTINGS max_threads=1

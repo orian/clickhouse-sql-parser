@@ -1,0 +1,1 @@
+SELECT toInt32(d32),   toInt64(d32),   toInt128(d32)   FROM t FORMAT Null

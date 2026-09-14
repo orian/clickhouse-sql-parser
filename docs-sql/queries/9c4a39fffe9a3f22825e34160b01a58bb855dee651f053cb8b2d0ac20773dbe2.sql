@@ -1,0 +1,1 @@
+kqlRangeCount(from, to, step)

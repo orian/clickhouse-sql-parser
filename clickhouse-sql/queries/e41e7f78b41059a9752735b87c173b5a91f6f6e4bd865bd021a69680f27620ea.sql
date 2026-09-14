@@ -1,0 +1,1 @@
+INSERT INTO t SELECT number, number % 12345 FROM numbers_mt(1e7)

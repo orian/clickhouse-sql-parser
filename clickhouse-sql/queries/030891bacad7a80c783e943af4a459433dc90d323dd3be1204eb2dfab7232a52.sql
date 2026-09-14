@@ -1,0 +1,1 @@
+select rightPadUTF8(materialize('hello '), 10, '世界') from numbers(10000000)

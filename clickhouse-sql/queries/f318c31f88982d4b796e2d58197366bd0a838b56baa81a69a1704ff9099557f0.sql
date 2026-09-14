@@ -1,0 +1,1 @@
+SELECT arraySort(arrayMap(x -> to{type}(cityHash64(number, x)), range(32))) FROM numbers(2000000) FORMAT Null

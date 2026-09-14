@@ -1,0 +1,1 @@
+CREATE TABLE pfsm_sorted_right (k UInt64) ENGINE = MergeTree ORDER BY k

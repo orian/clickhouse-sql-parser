@@ -1,0 +1,1 @@
+ALTER TABLE test DELETE WHERE key LIKE 'some%' AND v1 > 1;

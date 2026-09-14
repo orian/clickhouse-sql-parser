@@ -1,0 +1,1 @@
+ALTER TABLE lineitem ADD COLUMN l_orderkey_fs16 FixedString(16) MATERIALIZED unhex(leftPad(hex(l_orderkey), 32, '0'))

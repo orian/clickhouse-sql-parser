@@ -1,0 +1,1 @@
+SELECT 'rapidjson-15', count() FROM zeros(200000) WHERE NOT ignore(JSONExtractString(materialize(concat('{{', arrayStringConcat(arrayMap(i -> concat('"key_', toString(i), '":"value_', toString(i), '"'), range(200)), ','), '}}')), 'key_7'))

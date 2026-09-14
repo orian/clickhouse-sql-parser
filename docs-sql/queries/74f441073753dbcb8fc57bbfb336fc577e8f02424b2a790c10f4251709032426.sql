@@ -1,0 +1,1 @@
+DROP HYPOTHETICAL INDEX [IF EXISTS] name ON [db.]table_name

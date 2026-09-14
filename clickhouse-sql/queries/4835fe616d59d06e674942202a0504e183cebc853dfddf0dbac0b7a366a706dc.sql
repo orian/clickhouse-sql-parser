@@ -1,0 +1,1 @@
+INSERT INTO t_basic_stats_float64 SELECT * FROM t_minmax_stats_float64_src

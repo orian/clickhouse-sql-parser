@@ -1,0 +1,1 @@
+INSERT INTO t_json_subcolumns_conversions SELECT toJSONString(map('key' || toString(number % 400), number)) FROM numbers(1000000)

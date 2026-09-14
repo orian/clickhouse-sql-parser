@@ -1,0 +1,1 @@
+randUniform(min, max[, x])

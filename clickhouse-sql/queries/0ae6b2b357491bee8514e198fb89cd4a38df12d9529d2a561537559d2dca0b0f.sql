@@ -1,0 +1,1 @@
+with 'clickhouse' as str select arrayJoin(range(number % 10)),  materialize(str) from numbers(10000000)

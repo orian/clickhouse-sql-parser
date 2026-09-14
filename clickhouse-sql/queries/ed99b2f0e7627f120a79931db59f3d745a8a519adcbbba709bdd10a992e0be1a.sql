@@ -1,0 +1,1 @@
+CREATE TABLE t_json_2(data JSON) ENGINE = MergeTree ORDER BY tuple()

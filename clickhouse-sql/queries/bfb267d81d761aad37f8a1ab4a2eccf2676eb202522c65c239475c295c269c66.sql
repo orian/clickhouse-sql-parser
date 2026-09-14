@@ -1,0 +1,1 @@
+SELECT UserID FROM file('test_clickbench_hits.parquet', Parquet) WHERE UserID = 435090932899640449 FORMAT Null

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_reorder_columns_in_merge

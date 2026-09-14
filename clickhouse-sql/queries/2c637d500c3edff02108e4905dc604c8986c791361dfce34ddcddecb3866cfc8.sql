@@ -1,0 +1,1 @@
+INSERT INTO array_wide SELECT number, intDiv(number, 2048) % 2, arrayMap(i -> cityHash64(number, i), range(200)) FROM numbers(1000000)

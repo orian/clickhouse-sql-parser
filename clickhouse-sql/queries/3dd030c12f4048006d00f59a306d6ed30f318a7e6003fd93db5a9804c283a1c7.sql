@@ -1,0 +1,1 @@
+SELECT lc FROM test_lc ORDER BY lc LIMIT -1 BY lc FORMAT Null

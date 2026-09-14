@@ -1,0 +1,1 @@
+SELECT avg(levenshteinDistanceUTF8(randomStringUTF8(300), randomStringUTF8(300))) FROM numbers(10000)

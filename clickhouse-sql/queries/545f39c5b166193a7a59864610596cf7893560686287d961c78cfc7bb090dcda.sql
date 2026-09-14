@@ -1,0 +1,1 @@
+INSERT INTO test_memory SELECT 1 FROM numbers(1000000000)

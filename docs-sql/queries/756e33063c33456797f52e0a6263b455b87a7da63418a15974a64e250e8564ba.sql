@@ -1,0 +1,1 @@
+ngramSearchCaseInsensitiveUTF8(haystack, needle)

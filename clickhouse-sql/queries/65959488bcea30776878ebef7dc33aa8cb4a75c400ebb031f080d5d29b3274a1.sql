@@ -1,0 +1,1 @@
+SELECT number % 800000 AS k, avg(number), sum(number), max(number) FROM numbers_mt(10000000) GROUP BY k FORMAT Null

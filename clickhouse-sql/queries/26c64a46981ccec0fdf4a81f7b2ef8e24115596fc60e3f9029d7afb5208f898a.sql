@@ -1,0 +1,1 @@
+SELECT toDecimal64(number, 8)   AS n FROM numbers(10000000) ORDER BY n DESC FORMAT Null

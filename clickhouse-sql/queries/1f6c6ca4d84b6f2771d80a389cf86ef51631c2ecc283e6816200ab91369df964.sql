@@ -1,0 +1,1 @@
+SELECT COUNT() FROM ints l CROSS JOIN (SELECT number as i64 FROM numbers(4)) r WHERE i32 = 42

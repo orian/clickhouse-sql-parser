@@ -1,0 +1,1 @@
+INSERT INTO tab SELECT * FROM generateRandom('i1 Int256, i2 Int256, u1 UInt256, u2 UInt256') LIMIT 1000000

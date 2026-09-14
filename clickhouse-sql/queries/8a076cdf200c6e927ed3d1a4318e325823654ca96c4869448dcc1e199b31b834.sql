@@ -1,0 +1,1 @@
+INSERT INTO pfsm_left SELECT number FROM numbers_mt(20000000)

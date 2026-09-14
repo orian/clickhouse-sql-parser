@@ -1,0 +1,1 @@
+simpleLinearRegression(x, y)

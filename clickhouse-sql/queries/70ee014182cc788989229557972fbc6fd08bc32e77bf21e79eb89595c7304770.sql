@@ -1,0 +1,1 @@
+INSERT INTO t_skew_{size}_{partitions} SELECT if(number % 10 < 9, number % 3, 3 + (number % 27)) AS a, number AS b FROM numbers_mt({size})

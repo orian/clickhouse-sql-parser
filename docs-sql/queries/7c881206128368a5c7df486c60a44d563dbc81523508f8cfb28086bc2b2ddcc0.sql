@@ -1,0 +1,1 @@
+jumpConsistentHash(key, buckets)

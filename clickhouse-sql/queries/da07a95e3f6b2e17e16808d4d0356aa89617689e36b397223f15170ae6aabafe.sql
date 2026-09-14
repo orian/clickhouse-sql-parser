@@ -1,0 +1,1 @@
+SELECT count() FROM cmp128 WHERE mixed_u1 <= mixed_u2

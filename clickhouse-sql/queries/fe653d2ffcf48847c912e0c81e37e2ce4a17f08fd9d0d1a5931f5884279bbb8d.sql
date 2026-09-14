@@ -1,0 +1,1 @@
+SELECT uniq(d64), uniqCombined(d64), uniqExact(d64), uniqHLL12(d64) FROM     (SELECT * FROM t LIMIT 10000000)

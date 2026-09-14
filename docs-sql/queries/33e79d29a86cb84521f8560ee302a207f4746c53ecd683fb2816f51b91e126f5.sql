@@ -1,0 +1,1 @@
+isNotNull(x)

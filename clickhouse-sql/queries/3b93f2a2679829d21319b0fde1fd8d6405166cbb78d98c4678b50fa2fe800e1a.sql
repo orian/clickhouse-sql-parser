@@ -1,0 +1,1 @@
+INSERT INTO t_json_2 SELECT {json2} FROM numbers(100000)

@@ -1,0 +1,1 @@
+SELECT boundingRatio(number, number) FROM numbers(30000000)

@@ -1,0 +1,1 @@
+SELECT RegionID, CounterID, count() FROM hits_100m_single GROUP BY RegionID, CounterID ORDER BY RegionID, CounterID ASC LIMIT 10 FORMAT Null

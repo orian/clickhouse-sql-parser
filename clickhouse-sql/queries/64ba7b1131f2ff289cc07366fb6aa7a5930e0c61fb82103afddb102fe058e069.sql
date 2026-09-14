@@ -1,0 +1,1 @@
+CREATE TABLE perf_iceberg_data_manifests (id Int64, data String) ENGINE = IcebergLocal(concat(getServerSetting('user_files_path'), '/perf_iceberg_data_manifests/'))

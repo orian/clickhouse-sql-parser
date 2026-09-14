@@ -1,0 +1,1 @@
+toIntervalMicrosecond(n)

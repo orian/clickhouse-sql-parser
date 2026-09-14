@@ -1,0 +1,1 @@
+INSERT INTO test_{partitions} SELECT number, number FROM numbers_mt(10000000)

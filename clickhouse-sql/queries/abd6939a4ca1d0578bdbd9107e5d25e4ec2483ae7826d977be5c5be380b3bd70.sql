@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM file('test_clickbench_hits.parquet', Parquet) WHERE AdvEngineID <> 0 FORMAT Null

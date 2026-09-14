@@ -1,0 +1,1 @@
+SELECT DISTINCT lc FROM test_lc_long FORMAT Null

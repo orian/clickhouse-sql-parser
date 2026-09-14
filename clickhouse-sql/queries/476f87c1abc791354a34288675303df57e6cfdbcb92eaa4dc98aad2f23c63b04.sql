@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS {database}.nested_t

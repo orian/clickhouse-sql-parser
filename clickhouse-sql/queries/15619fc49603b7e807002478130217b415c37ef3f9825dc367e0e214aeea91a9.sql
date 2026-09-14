@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS array_join_filter_fusion

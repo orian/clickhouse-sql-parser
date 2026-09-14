@@ -1,0 +1,1 @@
+select max(dt), min(dt) from t_opt_max_min

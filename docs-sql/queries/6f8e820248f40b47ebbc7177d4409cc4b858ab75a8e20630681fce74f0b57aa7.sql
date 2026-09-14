@@ -1,0 +1,1 @@
+SELECT kqlToTimespan(2)

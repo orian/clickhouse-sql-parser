@@ -1,0 +1,1 @@
+SELECT ignore({func_slow}URL)) FROM hits_10m_single FORMAT Null

@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(    100000000) WHERE NOT ignore(intHash32(number))

@@ -1,0 +1,1 @@
+SELECT sum(arrayMax(a)) FROM (SELECT arrayMap(i -> toInt64((number * 3 + i) % 9973), range(1, 41)) AS a FROM numbers(5000000)) FORMAT Null

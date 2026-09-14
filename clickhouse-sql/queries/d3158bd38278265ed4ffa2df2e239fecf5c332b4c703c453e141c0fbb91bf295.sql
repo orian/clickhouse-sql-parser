@@ -1,0 +1,1 @@
+CREATE TABLE nullfloat64_stats (x Nullable(Float64)) ENGINE = Memory

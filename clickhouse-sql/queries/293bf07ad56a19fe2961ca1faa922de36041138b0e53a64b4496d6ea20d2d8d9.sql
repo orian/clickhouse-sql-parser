@@ -1,0 +1,1 @@
+OPTIMIZE TABLE distinct_final_prefix FINAL

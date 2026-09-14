@@ -1,0 +1,1 @@
+SELECT count(s) FROM t_subcolumns

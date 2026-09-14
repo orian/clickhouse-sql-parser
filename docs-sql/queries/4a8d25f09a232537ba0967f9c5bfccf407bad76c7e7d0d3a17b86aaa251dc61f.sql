@@ -1,0 +1,1 @@
+CREATE DATABASE db ENGINE = Atomic SETTINGS max_tables = 100;

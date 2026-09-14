@@ -1,0 +1,1 @@
+INSERT INTO array_compact SELECT number, arrayMap(i -> cityHash64(number, i), range(200)) FROM numbers(500000)

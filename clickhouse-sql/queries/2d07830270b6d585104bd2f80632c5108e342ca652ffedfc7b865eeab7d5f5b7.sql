@@ -1,0 +1,1 @@
+CREATE TABLE test_shared_data_wide (json JSON(max_dynamic_paths=0)) ENGINE=MergeTree ORDER BY tuple() SETTINGS min_bytes_for_wide_part=1, min_rows_for_wide_part=1

@@ -1,0 +1,1 @@
+INSERT INTO tab_filter_{drop_pct} SELECT * FROM tab_src_{drop_pct}

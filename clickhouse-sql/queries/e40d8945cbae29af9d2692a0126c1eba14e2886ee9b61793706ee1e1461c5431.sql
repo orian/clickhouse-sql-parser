@@ -1,0 +1,1 @@
+SELECT count(), sum(l_quantity) FROM {database}.lineitem WHERE l_orderkey BETWEEN 10000000 AND 10100000 SETTINGS input_format_parquet_filter_push_down = 0, input_format_parquet_page_filter_push_down = 0

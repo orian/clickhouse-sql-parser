@@ -1,0 +1,1 @@
+SELECT * FROM sometable FORMAT JSONEachRow

@@ -1,0 +1,1 @@
+SELECT concat('u', toString(number)) AS a, concat('v', toString(number + 1)) AS b, count() AS c FROM numbers_mt(10000000) GROUP BY a, b ORDER BY c DESC LIMIT 10 SETTINGS query_plan_enable_optimizations = 1, query_plan_aggregation_bucket_top_k = 1, group_by_two_level_threshold = 100000, group_by_two_level_threshold_bytes = 50000000, automatic_parallel_replicas_mode = 0 FORMAT Null

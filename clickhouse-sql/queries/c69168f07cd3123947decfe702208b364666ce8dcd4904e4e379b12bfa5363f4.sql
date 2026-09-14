@@ -1,0 +1,1 @@
+INSERT INTO build_nullable WITH if(number % 10 = 0, NULL, number) AS n SELECT number, n, n, n, n, n, n, n FROM numbers(2000000)

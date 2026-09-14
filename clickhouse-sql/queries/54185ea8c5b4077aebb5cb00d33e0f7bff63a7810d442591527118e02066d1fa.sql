@@ -1,0 +1,1 @@
+SELECT sum(key) FROM (SELECT * FROM rand_unlimited_10m_16 ORDER BY key)

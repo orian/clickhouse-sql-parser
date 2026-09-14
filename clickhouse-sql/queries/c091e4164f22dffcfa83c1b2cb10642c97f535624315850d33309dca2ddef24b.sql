@@ -1,0 +1,1 @@
+SELECT DISTINCT low, medium FROM distinct_cardinality_low FORMAT Null

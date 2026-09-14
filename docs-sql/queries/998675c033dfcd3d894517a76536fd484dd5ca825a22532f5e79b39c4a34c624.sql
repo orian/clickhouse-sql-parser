@@ -1,0 +1,1 @@
+INSERT INTO t_enum VALUES('a')

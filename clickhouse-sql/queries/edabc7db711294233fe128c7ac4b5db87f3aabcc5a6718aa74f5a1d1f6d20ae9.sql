@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS mt_comp_parts

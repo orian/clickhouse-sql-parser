@@ -1,0 +1,1 @@
+SELECT uniqExact(val2) FROM mt_30_parts_{uniqs}_uniqs GROUP BY val1 FORMAT Null

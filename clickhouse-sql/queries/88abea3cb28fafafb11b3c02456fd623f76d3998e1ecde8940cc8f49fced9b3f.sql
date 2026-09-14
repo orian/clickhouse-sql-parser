@@ -1,0 +1,1 @@
+select sum(multiMatchAny(URL, ['yandex', 'google', 'http'])) from hits_100m_single

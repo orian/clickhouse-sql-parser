@@ -1,0 +1,1 @@
+SELECT count() FROM cmp128 WHERE i1 < i2

@@ -1,0 +1,1 @@
+SELECT count() FROM t_chain_derived WHERE s1 < s2 AND s2 < s3 AND s3 < s4 AND s4 < repeat('p', 100) || 'z'

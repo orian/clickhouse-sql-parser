@@ -1,0 +1,1 @@
+select a, b from tab where (1, 1) = (select min(toUInt32(number + 1)) as x, min(toUInt32(sleep(0.1) + 1)) from numbers_mt(16)) settings max_threads = 2, max_block_size = 4

@@ -1,0 +1,1 @@
+SELECT DISTINCT leftPad(toString(number), 500, 'x') as col FROM numbers_mt(4000000) ORDER BY col FORMAT Null

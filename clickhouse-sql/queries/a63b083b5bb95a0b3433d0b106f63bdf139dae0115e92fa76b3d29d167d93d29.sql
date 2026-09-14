@@ -1,0 +1,1 @@
+select a['xyz'] from test_table_map_2 Format Null settings max_threads=1

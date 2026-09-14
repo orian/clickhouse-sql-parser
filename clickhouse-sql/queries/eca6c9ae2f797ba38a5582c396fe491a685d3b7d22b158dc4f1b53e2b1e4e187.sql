@@ -1,0 +1,1 @@
+insert into t_{size}_{partitions} select * from numbers_mt({size})

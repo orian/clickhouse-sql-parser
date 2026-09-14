@@ -1,0 +1,1 @@
+SELECT sum(length(arr_lc[7])) FROM perf_nested_lc_functions

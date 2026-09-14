@@ -1,0 +1,1 @@
+select sum(UserID + 1 in (select UserID from hits_10m_single)) from hits_10m_single

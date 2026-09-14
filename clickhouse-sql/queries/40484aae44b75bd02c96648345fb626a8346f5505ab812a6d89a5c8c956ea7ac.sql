@@ -1,0 +1,1 @@
+SELECT sum(length(arraySlice(big, x, 2))) FROM (SELECT materialize(range(10000)) AS big, range(100) AS r FROM numbers(100)) ARRAY JOIN r AS x SETTINGS enable_lazy_columns_replication = {lazy_replication} FORMAT Null

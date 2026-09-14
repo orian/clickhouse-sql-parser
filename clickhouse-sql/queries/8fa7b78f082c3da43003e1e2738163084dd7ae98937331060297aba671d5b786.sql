@@ -1,0 +1,1 @@
+SELECT countMerge(v) FROM (SELECT number % 1024 k, countState() v FROM numbers(10000000) GROUP BY k) FORMAT Null

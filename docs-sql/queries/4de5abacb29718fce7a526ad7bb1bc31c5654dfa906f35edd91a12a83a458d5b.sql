@@ -1,0 +1,1 @@
+SELECT MACNumToString(149809441867716) AS mac_address;

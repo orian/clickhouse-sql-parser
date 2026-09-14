@@ -1,0 +1,18 @@
+CREATE TABLE people
+(
+    `id` Int64,
+    `name` String,
+    `username` String,
+    `email` String,
+    `address` Array(Tuple(city String, geo Tuple(lat Float32, lng Float32), street String, suite String, zipcode String)),
+    `phone_numbers` Array(String),
+    `website` String,
+    `company` Tuple(catchPhrase String, name String),
+    `dob` Date,
+    `tags` String
+)
+ENGINE = MergeTree
+ORDER BY username
+
+INSERT INTO people FORMAT JSONEachRow
+{"id":1,"name":"Clicky McCliickHouse","username":"Clicky","email":"clicky@clickhouse.com","address":[{"street":"Victor Plains","suite":"Suite 879","city":"Wisokyburgh","zipcode":"90566-7771","geo":{"lat":-43.9509,"lng":-34.4618}}],"phone_numbers":["010-692-6593","020-192-3333"],"website":"clickhouse.com","company":{"name":"ClickHouse","catchPhrase":"The real-time data warehouse for analytics","labels":{"type":"database systems","founded":"2021"}},"dob":"2007-03-31","tags":{"hobby":"Databases","holidays":[{"year":2024,"location":"Azores, Portugal"}],"car":{"model":"Tesla","year":2023}}}

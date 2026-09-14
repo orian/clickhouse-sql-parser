@@ -1,0 +1,1 @@
+hasToken(haystack, token)

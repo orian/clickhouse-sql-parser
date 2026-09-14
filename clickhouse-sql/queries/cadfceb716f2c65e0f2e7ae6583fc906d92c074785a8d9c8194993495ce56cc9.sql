@@ -1,0 +1,1 @@
+SELECT * FROM optimized_select_final FINAL FORMAT Null SETTINGS max_threads = 8

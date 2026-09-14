@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS tmp_acc_hit

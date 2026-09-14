@@ -1,0 +1,1 @@
+SELECT WatchID, sum(length(URL)) FROM hits_100m_single GROUP BY WatchID FORMAT Null

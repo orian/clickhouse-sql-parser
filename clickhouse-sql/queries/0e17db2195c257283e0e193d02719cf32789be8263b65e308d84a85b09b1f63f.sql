@@ -1,0 +1,1 @@
+OPTIMIZE TABLE test_group_by_strings FINAL

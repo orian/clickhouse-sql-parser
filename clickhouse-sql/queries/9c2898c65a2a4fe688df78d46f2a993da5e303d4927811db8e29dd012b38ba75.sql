@@ -1,0 +1,1 @@
+CREATE TABLE right (id Int64, k  FixedString(16)) ENGINE = MergeTree ORDER BY id

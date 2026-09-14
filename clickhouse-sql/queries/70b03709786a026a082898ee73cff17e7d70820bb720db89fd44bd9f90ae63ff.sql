@@ -1,0 +1,1 @@
+insert into json_advanced_shared_data_nested select '{{"items":[' || arrayStringConcat(arrayMap(i -> '{{"big":"' || hex(randomString(200)) || '","small":"' || toString(i) || '"}}', range(4)), ',') || ']}}' from numbers(1000000)

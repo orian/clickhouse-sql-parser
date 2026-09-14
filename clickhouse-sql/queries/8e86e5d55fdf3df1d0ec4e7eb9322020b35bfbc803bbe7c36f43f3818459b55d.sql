@@ -1,0 +1,1 @@
+INSERT INTO replacing_final_non_intersecting SELECT toDateTime('2020-10-10 00:00:00') - number, number, toString(number), toString(number % 1000) FROM numbers(0, 5000000)

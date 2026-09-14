@@ -1,0 +1,1 @@
+INSERT INTO {database}.wr_planned SELECT * FROM tpch10.lineitem LIMIT 900000, 100000 SETTINGS max_threads = 1, max_insert_threads = 1, min_insert_block_size_rows = 100000, min_insert_block_size_bytes = 0

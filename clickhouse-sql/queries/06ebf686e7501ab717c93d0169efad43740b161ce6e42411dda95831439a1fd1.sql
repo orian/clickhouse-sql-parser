@@ -1,0 +1,1 @@
+INSERT INTO fsm_u64_dup_left SELECT intDiv(number, 10) FROM numbers_mt(10000000)

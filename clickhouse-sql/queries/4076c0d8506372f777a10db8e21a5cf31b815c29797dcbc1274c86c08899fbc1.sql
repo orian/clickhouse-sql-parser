@@ -1,0 +1,1 @@
+CREATE TABLE replacing_insert_duplicates (k UInt64) ENGINE = ReplacingMergeTree ORDER BY k

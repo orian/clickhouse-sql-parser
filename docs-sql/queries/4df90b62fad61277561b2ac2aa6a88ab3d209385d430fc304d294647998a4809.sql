@@ -1,0 +1,1 @@
+bitRotateLeft(a, N)

@@ -1,0 +1,1 @@
+INSERT INTO iso_3166_1_alpha_2 SELECT if(r >= 122, r - 122, r - 128) FROM (SELECT toInt16(rand(number) % 250) AS r FROM numbers(200000000))

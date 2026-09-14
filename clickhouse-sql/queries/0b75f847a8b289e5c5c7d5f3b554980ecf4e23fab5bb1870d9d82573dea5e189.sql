@@ -1,0 +1,1 @@
+OPTIMIZE TABLE {database}.wr_planned SETTINGS allow_experimental_iceberg_compaction = 1

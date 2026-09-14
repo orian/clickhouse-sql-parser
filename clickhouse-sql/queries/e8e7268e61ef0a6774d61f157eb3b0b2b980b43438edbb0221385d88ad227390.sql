@@ -1,0 +1,1 @@
+INSERT INTO table_{format_fast} SELECT number FROM numbers(20000000)

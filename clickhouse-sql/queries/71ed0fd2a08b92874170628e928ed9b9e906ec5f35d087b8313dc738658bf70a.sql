@@ -1,0 +1,1 @@
+select sumIf(number::Int128, rand32() % 2 = 0) from numbers(100000000)

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS text_index_trivial_count

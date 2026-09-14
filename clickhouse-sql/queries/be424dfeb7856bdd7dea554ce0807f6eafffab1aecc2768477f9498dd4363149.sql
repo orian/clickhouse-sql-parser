@@ -1,0 +1,1 @@
+ALTER TABLE {database}.evo_promote MODIFY COLUMN l_suppkey Int64

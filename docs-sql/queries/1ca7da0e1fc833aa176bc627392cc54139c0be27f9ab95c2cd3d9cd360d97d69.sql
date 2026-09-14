@@ -1,0 +1,1 @@
+hasSubsequenceCaseInsensitive(haystack, needle)

@@ -1,0 +1,1 @@
+select sum(ignore(multiSearchAllPositions(URL, ['yandex', 'google']))) FROM hits_100m_single

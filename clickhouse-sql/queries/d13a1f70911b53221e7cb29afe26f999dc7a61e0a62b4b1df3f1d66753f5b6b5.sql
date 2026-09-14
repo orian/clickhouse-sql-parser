@@ -1,0 +1,1 @@
+SELECT count() FROM zeros(100000000) WHERE NOT ignore(rand() % 2 ? toFixedString('hello', 5) : toFixedString('world', 5))

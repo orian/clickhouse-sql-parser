@@ -1,0 +1,1 @@
+numericIndexedVectorCardinality(v)

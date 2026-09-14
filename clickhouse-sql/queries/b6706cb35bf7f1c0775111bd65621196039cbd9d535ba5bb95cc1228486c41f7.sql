@@ -1,0 +1,1 @@
+drop table t_apart_default_{size}_{partitions}

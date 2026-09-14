@@ -1,0 +1,1 @@
+INSERT INTO large_int SELECT number % 10000, number % 12500, number % 11000, number * 2, number * 3, number * 4, number * 5, number * 6 FROM numbers(100000000) ORDER BY rand()

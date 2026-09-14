@@ -1,0 +1,1 @@
+SELECT toLowCardinality('1')

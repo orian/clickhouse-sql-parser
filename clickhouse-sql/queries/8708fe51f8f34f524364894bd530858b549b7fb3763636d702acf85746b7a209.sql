@@ -1,0 +1,1 @@
+INSERT INTO tab SELECT * FROM generateRandom(11, 10, 10) LIMIT 3000

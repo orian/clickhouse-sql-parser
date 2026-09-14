@@ -1,0 +1,1 @@
+insert into test_table_map_1 select CAST((['xyz', 'abc', '123'], [cast(number % 10 as String), 'dsdfsd', '123']), 'Map(String, String)') from numbers(10000000)

@@ -1,0 +1,1 @@
+CREATE TABLE rs_right_100k_nullable (k UInt64, a Nullable(Int32), b Nullable(Int64), c Nullable(UInt8), d Nullable(Float64), e Nullable(UInt32), f Nullable(Int16), g Nullable(FixedString(16)), h Nullable(Int8)) ENGINE = MergeTree ORDER BY tuple()

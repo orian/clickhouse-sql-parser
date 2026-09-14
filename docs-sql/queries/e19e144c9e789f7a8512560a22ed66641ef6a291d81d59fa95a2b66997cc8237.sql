@@ -1,0 +1,1 @@
+SELECT fromUnixTimestamp64Nano(1640995200123456789)

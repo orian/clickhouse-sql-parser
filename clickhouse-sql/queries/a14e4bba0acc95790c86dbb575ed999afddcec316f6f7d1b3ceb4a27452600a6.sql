@@ -1,0 +1,1 @@
+optimize table lot_of_string_arrays_src FINAL

@@ -1,0 +1,1 @@
+optimize table codec_{seq_type}_{type}_{codec} FINAL settings optimize_throw_if_noop = 1

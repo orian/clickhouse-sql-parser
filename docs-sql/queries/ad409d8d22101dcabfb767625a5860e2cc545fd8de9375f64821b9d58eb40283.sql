@@ -1,0 +1,1 @@
+icebergTruncate(N, value)

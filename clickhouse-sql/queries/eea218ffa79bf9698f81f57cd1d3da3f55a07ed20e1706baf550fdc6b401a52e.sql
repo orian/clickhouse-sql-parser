@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_skew_{size}_{partitions} FINAL

@@ -1,0 +1,3 @@
+SELECT * FROM images LIMIT 1
+INTO OUTFILE 'out.jpg'
+FORMAT RawBLOB

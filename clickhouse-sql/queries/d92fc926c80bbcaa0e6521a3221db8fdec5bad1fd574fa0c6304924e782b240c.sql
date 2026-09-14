@@ -1,0 +1,1 @@
+ALTER TABLE {database}.upd_part UPDATE l_returnflag = 'X' WHERE l_orderkey % 5 = 0

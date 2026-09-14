@@ -1,0 +1,1 @@
+OPTIMIZE TABLE map_10000_keys FINAL SETTINGS mutations_sync=1

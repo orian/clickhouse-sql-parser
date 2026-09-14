@@ -1,0 +1,1 @@
+SELECT sum(intDiv(u, i + 1)) FROM div128

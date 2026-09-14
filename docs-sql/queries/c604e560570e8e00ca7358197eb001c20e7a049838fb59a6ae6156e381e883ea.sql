@@ -1,0 +1,1 @@
+SELECT snowflakeIDToDateTime(7204436857747984384) AS res

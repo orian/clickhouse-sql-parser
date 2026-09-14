@@ -1,0 +1,1 @@
+with rand32() % 2 as x select if(x, materialize(1.234), materialize(2.456)) from numbers(100000000) format Null

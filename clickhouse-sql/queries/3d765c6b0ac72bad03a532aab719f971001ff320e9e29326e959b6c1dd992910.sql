@@ -1,0 +1,1 @@
+SELECT count() FROM json_string_value_formatting WHERE NOT ignore(formatRow('TSV', clean, escaped, separator, escape_heavy, doc)) SETTINGS max_threads = 1

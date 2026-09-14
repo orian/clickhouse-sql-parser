@@ -1,0 +1,1 @@
+SELECT count() FROM numbers(0, 3000000000, 3) FORMAT Null

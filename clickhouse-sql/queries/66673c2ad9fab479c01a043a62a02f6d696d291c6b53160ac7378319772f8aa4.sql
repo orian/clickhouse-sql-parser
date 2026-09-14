@@ -1,0 +1,1 @@
+SELECT state FROM aov_states FORMAT Null

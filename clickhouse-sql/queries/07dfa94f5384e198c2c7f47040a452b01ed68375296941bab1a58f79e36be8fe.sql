@@ -1,0 +1,1 @@
+SELECT sum(L1Distance(u8, f64))     FROM array_distance_mixed_{array_size}

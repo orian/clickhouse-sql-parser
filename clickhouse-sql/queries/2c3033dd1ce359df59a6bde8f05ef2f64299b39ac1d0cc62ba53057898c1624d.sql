@@ -1,0 +1,1 @@
+SELECT a, row_number() OVER (PARTITION BY a ORDER BY b DESC) FROM test_{partitions} FORMAT Null

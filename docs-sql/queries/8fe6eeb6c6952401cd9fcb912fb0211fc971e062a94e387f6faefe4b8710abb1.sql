@@ -1,0 +1,1 @@
+readWKTPoint(wkt_string)

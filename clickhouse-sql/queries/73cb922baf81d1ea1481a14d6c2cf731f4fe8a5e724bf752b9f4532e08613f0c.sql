@@ -1,0 +1,1 @@
+create table replacing_final_16p_str_keys_ord (key1 UInt32, key2 String, key3 String, key4 String, key5 String, key6 String, key7 String, key8 String, ver Int8, s UInt64) engine = ReplacingMergeTree(ver) order by (key1, key2, key3, key4, key5, key6, key7, key8) partition by intDiv(key1, 8192 * 64) 

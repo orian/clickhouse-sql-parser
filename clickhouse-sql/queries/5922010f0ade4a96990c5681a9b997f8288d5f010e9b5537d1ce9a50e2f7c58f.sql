@@ -1,0 +1,1 @@
+select sum(b) from(select number as a, number as b, count(*) from numbers_mt(1e7) group by grouping sets((a),(b))) group by a format Null

@@ -1,0 +1,1 @@
+INSERT INTO mt_{parts}_parts_{uniqs}_uniqs SELECT number, rand() % {uniqs}, rand() FROM numbers_mt(100000000) SETTINGS max_block_size=10000000

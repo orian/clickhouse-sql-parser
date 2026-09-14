@@ -1,0 +1,1 @@
+CHECK DATABASE database_name

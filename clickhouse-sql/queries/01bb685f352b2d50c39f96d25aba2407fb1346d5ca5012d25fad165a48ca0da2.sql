@@ -1,0 +1,1 @@
+insert into t_lz4_norm select number from numbers_mt(5e7) order by rand()

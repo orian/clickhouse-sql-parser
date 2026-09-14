@@ -1,0 +1,1 @@
+SELECT varSamp(number) FROM numbers(100000000)

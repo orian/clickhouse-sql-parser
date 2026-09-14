@@ -1,0 +1,1 @@
+SELECT count() from {table_slow} where not ignore({gp_hash_func}({string_slow}))

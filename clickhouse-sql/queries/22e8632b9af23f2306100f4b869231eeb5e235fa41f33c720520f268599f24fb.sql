@@ -1,0 +1,1 @@
+OPTIMIZE TABLE json_compact FINAL

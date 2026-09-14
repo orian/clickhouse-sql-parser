@@ -1,0 +1,1 @@
+SELECT arraySort(['hello', 'world', '!']);

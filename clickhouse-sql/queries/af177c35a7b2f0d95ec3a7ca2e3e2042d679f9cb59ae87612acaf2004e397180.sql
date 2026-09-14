@@ -1,0 +1,1 @@
+select k % 10 kk, groupArrayMovingSum({window})(v) from moving_sum_{millions}m group by kk format Null

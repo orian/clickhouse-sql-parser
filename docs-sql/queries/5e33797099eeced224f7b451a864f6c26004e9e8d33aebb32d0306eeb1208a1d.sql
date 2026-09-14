@@ -1,0 +1,2 @@
+ALTER TABLE otel_v2.otel_traces
+MATERIALIZE COLUMN PodName

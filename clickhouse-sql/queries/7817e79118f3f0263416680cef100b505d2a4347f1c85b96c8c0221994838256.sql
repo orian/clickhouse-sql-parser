@@ -1,0 +1,1 @@
+INSERT INTO test_str_left SELECT toString(number % 100) FROM numbers_mt(10000000)

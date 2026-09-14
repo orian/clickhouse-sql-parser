@@ -1,0 +1,1 @@
+SELECT 'simdjson-12', count() FROM zeros(5000000) WHERE NOT ignore(JSONExtractFloat(materialize({long_json}), 'fparam', 'nested_2', -2))

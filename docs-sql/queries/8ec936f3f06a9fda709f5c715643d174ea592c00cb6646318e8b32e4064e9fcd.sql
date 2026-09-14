@@ -1,0 +1,1 @@
+LinfNormalize(vector)

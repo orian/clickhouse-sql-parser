@@ -1,0 +1,1 @@
+stem(word, language)

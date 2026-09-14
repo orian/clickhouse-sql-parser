@@ -1,0 +1,1 @@
+SELECT * FROM t_streaming_read_round STREAM BOUNDED FORMAT Null
