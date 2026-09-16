@@ -18,6 +18,7 @@ func (p *Parser) parseWithClause(pos Pos) (*WithClause, error) {
 	if err := p.expectKeyword(KeywordWith); err != nil {
 		return nil, err
 	}
+	hasRecursive := p.tryConsumeKeywords(KeywordRecursive)
 
 	cteExpr, err := p.parseCTEStmt(p.Pos())
 	if err != nil {
@@ -25,6 +26,11 @@ func (p *Parser) parseWithClause(pos Pos) (*WithClause, error) {
 	}
 	ctes := []*CTEStmt{cteExpr}
 	for p.tryConsumeTokenKind(TokenKindComma) != nil {
+		// ClickHouse allows a trailing comma immediately before the SELECT
+		// governed by this WITH clause.
+		if p.matchKeyword(KeywordSelect) {
+			break
+		}
 		cteExpr, err := p.parseCTEStmt(p.Pos())
 		if err != nil {
 			return nil, err
@@ -33,9 +39,10 @@ func (p *Parser) parseWithClause(pos Pos) (*WithClause, error) {
 	}
 
 	return &WithClause{
-		WithPos: pos,
-		CTEs:    ctes,
-		EndPos:  ctes[len(ctes)-1].End(),
+		WithPos:      pos,
+		CTEs:         ctes,
+		EndPos:       ctes[len(ctes)-1].End(),
+		HasRecursive: hasRecursive,
 	}, nil
 }
 

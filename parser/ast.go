@@ -4825,9 +4825,10 @@ func (c *CastExpr) Accept(visitor ASTVisitor) error {
 }
 
 type WithClause struct {
-	WithPos Pos
-	EndPos  Pos
-	CTEs    []*CTEStmt
+	WithPos      Pos
+	EndPos       Pos
+	CTEs         []*CTEStmt
+	HasRecursive bool `json:",omitempty"`
 }
 
 func (w *WithClause) Pos() Pos {
@@ -4841,6 +4842,9 @@ func (w *WithClause) End() Pos {
 func (w *WithClause) String() string {
 	var builder strings.Builder
 	builder.WriteString("WITH ")
+	if w.HasRecursive {
+		builder.WriteString("RECURSIVE ")
+	}
 	for i, cte := range w.CTEs {
 		if i > 0 {
 			builder.WriteString(", ")
@@ -6390,6 +6394,9 @@ func (s *SelectQuery) String() string { // nolint: funlen
 	var builder strings.Builder
 	if s.With != nil {
 		builder.WriteString("WITH")
+		if s.With.HasRecursive {
+			builder.WriteString(" RECURSIVE")
+		}
 		for i, cte := range s.With.CTEs {
 			builder.WriteString(" ")
 			builder.WriteString(cte.String())

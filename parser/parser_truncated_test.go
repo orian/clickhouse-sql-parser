@@ -7,7 +7,13 @@ import (
 )
 
 func TestParser_TruncatedSQL(t *testing.T) {
-	for _, sql := range []string{"ALTER ", "DROP ", "SHOW ", "CREATE OR REPLACE ", "CREATE--", "/*", "/* unfinished", "SELECT 1 /* unfinished", "CREATE USER A SETTINGS", "CREATE ROLE r SETTINGS", "CREATE USER u SETTINGS x = 1,", "SELECT 1 ORDER BY 1 AS"} {
+	for _, sql := range []string{
+		"ALTER ", "DROP ", "SHOW ", "CREATE OR REPLACE ", "CREATE--", "/*", "/* unfinished",
+		"SELECT 1 /* unfinished", "CREATE USER A SETTINGS", "CREATE ROLE r SETTINGS",
+		"CREATE USER u SETTINGS x = 1,", "SELECT 1 ORDER BY 1 AS",
+		"WITH RECURSIVE", "WITH RECURSIVE t", "WITH RECURSIVE t AS", "WITH RECURSIVE t AS (",
+		"WITH RECURSIVE t AS (SELECT", "WITH RECURSIVE t AS (SELECT 1", "WITH RECURSIVE t AS (SELECT 1),",
+	} {
 		t.Run(sql, func(t *testing.T) {
 			_, err := NewParser(sql).ParseStmts()
 			require.Error(t, err)
