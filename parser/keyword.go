@@ -181,6 +181,7 @@ const (
 	KeywordRange        = "RANGE"
 	KeywordRealm        = "REALM"
 	KeywordRecompress   = "RECOMPRESS"
+	KeywordRecursive    = "RECURSIVE"
 	KeywordRefresh      = "REFRESH"
 	KeywordRegexp       = "REGEXP"
 	KeywordReload       = "RELOAD"
@@ -443,6 +444,7 @@ var keywords = NewSet(
 	KeywordRange,
 	KeywordRealm,
 	KeywordRecompress,
+	KeywordRecursive,
 	KeywordRefresh,
 	KeywordRegexp,
 	KeywordReload,

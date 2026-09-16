@@ -1784,6 +1784,9 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 	builder := p.builder
 	if s.With != nil {
 		builder.WriteString("WITH")
+		if s.With.HasRecursive {
+			builder.WriteString(" RECURSIVE")
+		}
 		for i, cte := range s.With.CTEs {
 			builder.WriteString(" ")
 			builder.WriteString(cte.String())
@@ -2311,6 +2314,9 @@ func (p *PrintVisitor) VisitWindowFunctionExpr(w *WindowFunctionExpr) error {
 func (p *PrintVisitor) VisitWithExpr(w *WithClause) error {
 	builder := p.builder
 	builder.WriteString("WITH ")
+	if w.HasRecursive {
+		builder.WriteString("RECURSIVE ")
+	}
 	for i, cte := range w.CTEs {
 		if i > 0 {
 			builder.WriteString(", ")

@@ -9,8 +9,8 @@ in 25,035 Markdown, MDX, and SQL source files (all translations included).
 
 | Parser outcome | Unique examples |
 | --- | ---: |
-| Accepted | 6,909 |
-| Rejected | 5,480 |
+| Accepted | 6,918 |
+| Rejected | 5,471 |
 | Panic | 0 |
 | Empty / no statements | 1 |
 

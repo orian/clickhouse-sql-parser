@@ -9,8 +9,8 @@ files**, collecting **18,214 occurrences / 17,780 byte-distinct examples**.
 
 | Parser outcome | Examples |
 | --- | ---: |
-| Accepted | 11,283 |
-| Rejected | 6,495 |
+| Accepted | 11,299 |
+| Rejected | 6,479 |
 | Panic | 0 |
 | Empty / no statements | 2 |
 

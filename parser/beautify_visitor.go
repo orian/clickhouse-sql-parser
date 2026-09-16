@@ -434,6 +434,9 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 
 	if s.With != nil {
 		b.writeString("WITH")
+		if s.With.HasRecursive {
+			b.writeString(" RECURSIVE")
+		}
 		b.indentIn()
 		for i, cte := range s.With.CTEs {
 			if i == 0 {

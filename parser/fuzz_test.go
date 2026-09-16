@@ -25,6 +25,8 @@ func FuzzParseStmts(f *testing.F) {
 		"CREATE USER u NOT IDENTIFIED", "CREATE USER u SETTINGS PROFILE p",
 		"SELECT CAST(a = b, 'Bool') FROM t", "SELECT {value:UInt64}",
 		"WITH x AS (SELECT 1) SELECT * FROM x", "SYSTEM STOP MERGES t",
+		"WITH RECURSIVE t AS (SELECT 1 AS n UNION ALL SELECT n + 1 FROM t WHERE n < 10) SELECT sum(n) FROM t",
+		"WITH RECURSIVE t AS (SELECT 1 UNION ALL SELECT * FROM t",
 	} {
 		f.Add(sql)
 	}
