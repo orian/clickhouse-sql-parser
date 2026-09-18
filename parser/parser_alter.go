@@ -645,7 +645,7 @@ func (p *Parser) parseAlterTableClearClause(pos Pos) (AlterTableClause, error) {
 
 	var partition *PartitionClause
 	if p.tryConsumeKeywords(KeywordIn) {
-		partition, err = p.tryParsePartitionClause(p.Pos())
+		partition, err = p.parsePartitionClause(p.Pos())
 		if err != nil {
 			return nil, err
 		}
@@ -884,7 +884,7 @@ func (p *Parser) parseAlterTableMaterialize(pos Pos) (AlterTableClause, error) {
 	statementEnd := name.End()
 	var partition *PartitionClause
 	if p.tryConsumeKeywords(KeywordIn) {
-		partition, err = p.tryParsePartitionClause(p.Pos())
+		partition, err = p.parsePartitionClause(p.Pos())
 		if err != nil {
 			return nil, err
 		}
