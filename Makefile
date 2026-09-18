@@ -54,7 +54,8 @@ clickhouse-sql-strict:
 FUZZ_TIME ?= 30s
 FUZZ_PARALLEL ?= 4
 FUZZ_TIMEOUT ?= 5m
+FUZZ_TARGET ?= FuzzParseStmts
 FUZZ_SQL_CORPORA ?=
 .PHONY: fuzz
 fuzz:
-	go test ./parser -run '^$$' -fuzz '^FuzzParseStmts$$' -fuzztime $(FUZZ_TIME) -parallel $(FUZZ_PARALLEL) -timeout $(FUZZ_TIMEOUT) -fuzz-sql-corpora '$(FUZZ_SQL_CORPORA)'
+	go test ./parser -run '^$$' -fuzz '^$(FUZZ_TARGET)$$' -fuzztime $(FUZZ_TIME) -parallel $(FUZZ_PARALLEL) -timeout $(FUZZ_TIMEOUT) -fuzz-sql-corpora '$(FUZZ_SQL_CORPORA)'

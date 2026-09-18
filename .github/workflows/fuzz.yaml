@@ -8,6 +8,10 @@ permissions:
 
 jobs:
   fuzz:
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [FuzzParseStmts, FuzzAST]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -17,11 +21,11 @@ jobs:
           go-version-file: go.mod
           cache: true
       - name: Fuzz parser
-        run: make fuzz FUZZ_TIME=5m FUZZ_TIMEOUT=8m FUZZ_PARALLEL=2 FUZZ_SQL_CORPORA='../docs-sql/queries,../clickhouse-sql/queries'
+        run: make fuzz FUZZ_TARGET=${{ matrix.target }} FUZZ_TIME=5m FUZZ_TIMEOUT=8m FUZZ_PARALLEL=2 FUZZ_SQL_CORPORA='../docs-sql/queries,../clickhouse-sql/queries'
       - name: Preserve minimized failures
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: parser-fuzz-failures
-          path: parser/testdata/fuzz/FuzzParseStmts/
+          name: parser-fuzz-failures-${{ matrix.target }}
+          path: parser/testdata/fuzz/${{ matrix.target }}/
           if-no-files-found: ignore
