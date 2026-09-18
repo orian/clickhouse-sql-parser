@@ -11,6 +11,7 @@ func TestParser_TruncatedSQL(t *testing.T) {
 		"ALTER ", "DROP ", "SHOW ", "CREATE OR REPLACE ", "CREATE--", "/*", "/* unfinished",
 		"SELECT 1 /* unfinished", "CREATE USER A SETTINGS", "CREATE ROLE r SETTINGS",
 		"CREATE USER u SETTINGS x = 1,", "SELECT 1 ORDER BY 1 AS",
+		"WITH recent AS (SELECT uuid FROM events) SELECT recent.uuid FROM recent WHERE /* unfinished",
 		"WITH RECURSIVE", "WITH RECURSIVE t", "WITH RECURSIVE t AS", "WITH RECURSIVE t AS (",
 		"WITH RECURSIVE t AS (SELECT", "WITH RECURSIVE t AS (SELECT 1", "WITH RECURSIVE t AS (SELECT 1),",
 	} {
