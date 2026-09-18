@@ -1,9 +1,11 @@
 package parser
 
 import (
+	"crypto/sha256"
 	"flag"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"testing"
 )
@@ -12,10 +14,94 @@ var fuzzSQLCorpora = flag.String("fuzz-sql-corpora", "", "comma-separated direct
 
 const maxFuzzSQLBytes = 16 * 1024
 
+var sqlFixtureDirs = []string{"testdata/basic", "testdata/ddl", "testdata/dml", "testdata/query"}
+
+type sqlSeed struct {
+	name string
+	sql  string
+}
+
+// A zero limit includes every fixture. External corpora use a stable hash order
+// so their bounded sample is spread across filenames rather than one prefix.
+func readSQLSeeds(t testing.TB, dir string, limit int) []sqlSeed {
+	t.Helper()
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if limit > 0 {
+		sort.Slice(entries, func(i, j int) bool {
+			a := sha256.Sum256([]byte(entries[i].Name()))
+			b := sha256.Sum256([]byte(entries[j].Name()))
+			return string(a[:]) < string(b[:])
+		})
+	}
+	var seeds []sqlSeed
+	for _, entry := range entries {
+		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".sql") {
+			continue
+		}
+		name := filepath.Join(dir, entry.Name())
+		data, err := os.ReadFile(name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(data) > maxFuzzSQLBytes {
+			continue
+		}
+		seeds = append(seeds, sqlSeed{name: name, sql: string(data)})
+		if limit > 0 && len(seeds) == limit {
+			break
+		}
+	}
+	return seeds
+}
+
 // FuzzParseStmts exercises both valid SQL and malformed mutations. Parse errors
 // are expected; panics and hangs are failures. Go saves and minimizes failures in
 // testdata/fuzz/FuzzParseStmts so ordinary go test runs replay them automatically.
 func FuzzParseStmts(f *testing.F) {
+	addSQLFuzzSeeds(f)
+	f.Fuzz(func(t *testing.T, sql string) {
+		if len(sql) > maxFuzzSQLBytes {
+			t.Skip()
+		}
+		_, _ = NewParser(sql).ParseStmts()
+	})
+}
+
+// FuzzAST checks consumers of successfully parsed trees. Ordinary parse and
+// visitor errors are allowed; this target isolates the no-panic invariant from
+// formatting correctness and round-trip equivalence.
+func FuzzAST(f *testing.F) {
+	addSQLFuzzSeeds(f)
+	f.Fuzz(func(t *testing.T, sql string) {
+		if len(sql) > maxFuzzSQLBytes {
+			t.Skip()
+		}
+		stmts, err := NewParser(sql).ParseStmts()
+		if err != nil {
+			return
+		}
+		for _, stmt := range stmts {
+			Walk(stmt, func(node Expr) bool {
+				_ = node.Pos()
+				_ = node.End()
+				return true
+			})
+			_ = stmt.String()
+			printer := NewPrintVisitor()
+			_ = stmt.Accept(printer)
+			_ = printer.String()
+			beautifier := NewBeautifyVisitor()
+			_ = stmt.Accept(beautifier)
+			_ = beautifier.String()
+		}
+	})
+}
+
+func addSQLFuzzSeeds(f *testing.F) {
+	f.Helper()
 	for _, sql := range []string{
 		"", "SELECT 1", "SELECT (", "SELECT '\\'", "-- comment\nSELECT 1",
 		"/* comment */ SELECT 1; SELECT 2", "SELECT * FROM numbers(1_000)",
@@ -27,42 +113,21 @@ func FuzzParseStmts(f *testing.F) {
 		"WITH x AS (SELECT 1) SELECT * FROM x", "SYSTEM STOP MERGES t",
 		"WITH RECURSIVE t AS (SELECT 1 AS n UNION ALL SELECT n + 1 FROM t WHERE n < 10) SELECT sum(n) FROM t",
 		"WITH RECURSIVE t AS (SELECT 1 UNION ALL SELECT * FROM t",
+		"CREATE DICTIONARY d (x UInt64) PRIMARY KEY x SOURCE(CLICKHOUSE(DB currentDatabase() TABLE 't')) LAYOUT(FLAT()) LIFETIME(0)",
 	} {
 		f.Add(sql)
 	}
-	dirs := []string{"testdata/regressions/create_user", "testdata/regressions/clickhouse_panics"}
-	if *fuzzSQLCorpora != "" {
-		dirs = append(dirs, strings.Split(*fuzzSQLCorpora, ",")...)
-	}
+	dirs := append([]string{"testdata/regressions/create_user", "testdata/regressions/clickhouse_panics"}, sqlFixtureDirs...)
 	for _, dir := range dirs {
-		entries, err := os.ReadDir(dir) // Sorted, so optional seed selection is reproducible.
-		if err != nil {
-			f.Fatal(err)
+		for _, seed := range readSQLSeeds(f, dir, 0) {
+			f.Add(seed.sql)
 		}
-		added := 0
-		for _, entry := range entries {
-			if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".sql") {
-				continue
-			}
-			data, err := os.ReadFile(filepath.Join(dir, entry.Name()))
-			if err != nil {
-				f.Fatal(err)
-			}
-			if len(data) > maxFuzzSQLBytes {
-				continue
-			}
-			f.Add(string(data))
-			added++
-			if added == 256 {
-				break
+	}
+	if *fuzzSQLCorpora != "" {
+		for _, dir := range strings.Split(*fuzzSQLCorpora, ",") {
+			for _, seed := range readSQLSeeds(f, dir, 256) {
+				f.Add(seed.sql)
 			}
 		}
 	}
-	f.Fuzz(func(t *testing.T, sql string) {
-		// Keep mutation cost bounded; the existing corpora cover larger scripts.
-		if len(sql) > maxFuzzSQLBytes {
-			t.Skip()
-		}
-		_, _ = NewParser(sql).ParseStmts()
-	})
 }

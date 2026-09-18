@@ -2460,12 +2460,19 @@ func (p *Parser) parseDictionaryArgExpr(pos Pos) (*DictionaryArgExpr, error) {
 		}
 		// Check if it's followed by optional parentheses
 		if p.matchTokenKind(TokenKindLParen) {
+			leftParenPos := p.Pos()
 			_ = p.lexer.consumeToken() // consume (
+			rightParenPos := p.Pos()
 			if err := p.expectTokenKind(TokenKindRParen); err != nil {
 				return nil, err
 			}
 			value = &FunctionExpr{
 				Name: ident,
+				Params: &ParamExprList{
+					LeftParenPos:  leftParenPos,
+					RightParenPos: rightParenPos,
+					Items:         &ColumnExprList{ListPos: rightParenPos, ListEnd: rightParenPos},
+				},
 			}
 		} else {
 			value = ident

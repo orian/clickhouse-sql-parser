@@ -39,6 +39,11 @@ func TestParser_TruncatedTypeAndClauses(t *testing.T) {
 		"CREATE TABLE t (x DateTime('UTC' /* unfinished",
 		"Alter tABle A modifY ",
 		"CREATE USER u DEFAULT",
+		"ALTER TABLE t MATERIALIZE INDEX i IN",
+		"ALTER TABLE t MATERIALIZE PROJECTION p IN",
+		"ALTER TABLE t CLEAR INDEX i IN",
+		"ALTER TABLE t CLEAR COLUMN c IN",
+		"ALTER TABLE t CLEAR PROJECTION p IN",
 	} {
 		t.Run(sql, func(t *testing.T) {
 			_, err := NewParser(sql).ParseStmts()

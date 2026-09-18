@@ -7414,7 +7414,16 @@ func (i *InsertStmt) End() Pos {
 	if i.SelectExpr != nil {
 		return i.SelectExpr.End()
 	}
-	return i.Values[len(i.Values)-1].End()
+	if len(i.Values) > 0 {
+		return i.Values[len(i.Values)-1].End()
+	}
+	if i.Format != nil {
+		return i.Format.End()
+	}
+	if i.ColumnNames != nil {
+		return i.ColumnNames.End()
+	}
+	return i.Table.End()
 }
 
 func (i *InsertStmt) String() string {
@@ -7466,7 +7475,10 @@ func (c *CheckStmt) Pos() Pos {
 }
 
 func (c *CheckStmt) End() Pos {
-	return c.Partition.End()
+	if c.Partition != nil {
+		return c.Partition.End()
+	}
+	return c.Table.End()
 }
 
 func (c *CheckStmt) String() string {
