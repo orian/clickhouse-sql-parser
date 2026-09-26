@@ -84,7 +84,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             }
           }
         },

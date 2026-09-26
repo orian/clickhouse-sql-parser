@@ -133,7 +133,8 @@
                   "NameEnd": 92
                 }
               }
-            ]
+            ],
+            "HasTrailingComma": false
           },
           "ColumnArgList": null
         },

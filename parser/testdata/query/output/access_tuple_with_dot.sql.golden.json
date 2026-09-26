@@ -48,7 +48,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -171,7 +172,8 @@
                                 "NameEnd": 102
                               }
                             }
-                          ]
+                          ],
+                          "HasTrailingComma": false
                         },
                         "ColumnArgList": null
                       }
@@ -290,7 +292,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": null
           }
@@ -364,7 +367,8 @@
                                 "NameEnd": 208
                               }
                             }
-                          ]
+                          ],
+                          "HasTrailingComma": false
                         },
                         "ColumnArgList": null
                       }
@@ -483,7 +487,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": null
           },
@@ -539,7 +544,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -611,7 +617,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -627,7 +634,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": null
           }

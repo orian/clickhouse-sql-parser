@@ -88,7 +88,8 @@
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         },
         "RParenPos": 82
       },
@@ -270,7 +271,8 @@
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         },
         "RParenPos": 283
       },
@@ -452,7 +454,8 @@
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         },
         "RParenPos": 485
       },

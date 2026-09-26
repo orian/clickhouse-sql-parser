@@ -47,7 +47,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "GroupBy": null,
             "OrderBy": {
@@ -66,7 +67,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               }
             }
           },
@@ -155,7 +157,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "GroupBy": null,
             "OrderBy": {
@@ -174,7 +177,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               }
             }
           },

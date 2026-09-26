@@ -193,7 +193,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -229,7 +230,8 @@
                         "ListPos": 260,
                         "ListEnd": 260,
                         "HasDistinct": false,
-                        "Items": []
+                        "Items": [],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -266,7 +268,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -278,7 +281,8 @@
                     "NameEnd": 315
                   }
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "GroupBy": {
               "GroupByPos": 324,
@@ -307,7 +311,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "WithCube": false,
               "WithRollup": false,
@@ -334,7 +339,8 @@
           "ListPos": 377,
           "ListEnd": 377,
           "HasDistinct": false,
-          "Items": []
+          "Items": [],
+          "HasTrailingComma": false
         },
         "ColumnArgList": null
       },
@@ -375,7 +381,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             },

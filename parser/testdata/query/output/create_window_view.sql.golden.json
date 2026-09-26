@@ -81,7 +81,8 @@
                     "ListPos": 98,
                     "ListEnd": 98,
                     "HasDistinct": false,
-                    "Items": []
+                    "Items": [],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
@@ -107,7 +108,8 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   }
                 },
                 "OrderBy": {

@@ -101,7 +101,8 @@
                   "NameEnd": 53
                 }
               }
-            ]
+            ],
+            "HasTrailingComma": false
           },
           "Right": null,
           "Modifiers": [

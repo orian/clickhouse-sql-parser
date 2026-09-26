@@ -101,14 +101,16 @@
                     "ListPos": 158,
                     "ListEnd": 158,
                     "HasDistinct": false,
-                    "Items": []
+                    "Items": [],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         },
         "ColumnArgList": null
       },

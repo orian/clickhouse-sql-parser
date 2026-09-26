@@ -242,7 +242,8 @@
                           },
                           "Alias": null
                         }
-                      ]
+                      ],
+                      "HasTrailingComma": false
                     },
                     "ColumnArgList": null
                   }
@@ -258,7 +259,8 @@
                 },
                 "Alias": null
               }
-            ]
+            ],
+            "HasTrailingComma": false
           },
           "ColumnArgList": null
         }
@@ -343,14 +345,16 @@
                                 },
                                 "Alias": null
                               }
-                            ]
+                            ],
+                            "HasTrailingComma": false
                           },
                           "ColumnArgList": null
                         }
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "WithCube": false,
                 "WithRollup": false,
@@ -392,7 +396,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -433,7 +438,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
