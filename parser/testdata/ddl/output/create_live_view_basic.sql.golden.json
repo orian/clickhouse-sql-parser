@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "CreatePos": 0,
     "StatementEnd": 101,
     "Name": {
@@ -135,6 +137,7 @@
         "Limit": null,
         "Settings": null,
         "Format": null,
+        "OutputSettings": null,
         "UnionAll": null,
         "UnionDistinct": null,
         "Except": null

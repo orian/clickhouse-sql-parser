@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "CreatePos": 0,
     "StatementEnd": 153,
     "OrReplace": false,
@@ -173,6 +175,8 @@
     "IsAttach": false
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "CreatePos": 156,
     "StatementEnd": 496,
     "OrReplace": false,

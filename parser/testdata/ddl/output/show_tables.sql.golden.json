@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "ShowPos": 0,
     "StatementEnd": 12,
     "ShowType": "TABLES",
@@ -8,7 +10,6 @@
     "LikeType": "",
     "LikePattern": null,
     "Limit": null,
-    "OutFile": null,
-    "Format": null
+    "OutFile": null
   }
 ]

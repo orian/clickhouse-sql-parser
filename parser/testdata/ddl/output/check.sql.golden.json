@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "CheckPos": 0,
     "Table": {
       "Database": null,
@@ -13,6 +15,8 @@
     "Partition": null
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "CheckPos": 24,
     "Table": {
       "Database": null,

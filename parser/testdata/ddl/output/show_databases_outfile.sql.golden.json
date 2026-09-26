@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "ShowPos": 0,
     "StatementEnd": 49,
     "ShowType": "DATABASES",
@@ -12,7 +14,6 @@
       "LiteralPos": 29,
       "LiteralEnd": 47,
       "Literal": "/tmp/databases.txt"
-    },
-    "Format": null
+    }
   }
 ]

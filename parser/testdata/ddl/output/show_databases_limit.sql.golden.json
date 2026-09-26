@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "ShowPos": 0,
     "StatementEnd": 24,
     "ShowType": "DATABASES",
@@ -13,7 +15,6 @@
       "Literal": "10",
       "Base": 10
     },
-    "OutFile": null,
-    "Format": null
+    "OutFile": null
   }
 ]

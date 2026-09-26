@@ -40,6 +40,7 @@
     },
     "Settings": null,
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null
@@ -90,6 +91,7 @@
     },
     "Settings": null,
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null
@@ -135,6 +137,7 @@
     },
     "Settings": null,
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null

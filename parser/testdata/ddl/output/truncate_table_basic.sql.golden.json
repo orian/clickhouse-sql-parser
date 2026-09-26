@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "TruncatePos": 0,
     "StatementEnd": 40,
     "IsTemporary": false,

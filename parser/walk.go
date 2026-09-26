@@ -72,6 +72,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Format, fn) {
 			return false
 		}
+		if !Walk(n.OutputSettings, fn) {
+			return false
+		}
 	case *SubQuery:
 		if !Walk(n.Select, fn) {
 			return false
@@ -1565,9 +1568,6 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.OutFile, fn) {
 			return false
 		}
-		if !Walk(n.Format, fn) {
-			return false
-		}
 	case *DescribeStmt:
 		if !Walk(n.Target, fn) {
 			return false
@@ -1577,6 +1577,17 @@ func Walk(node Expr, fn WalkFunc) bool {
 			if !Walk(ident, fn) {
 				return false
 			}
+		}
+	}
+	// Trailing FORMAT/SETTINGS output clauses of any statement embedding
+	// OutputClauses.
+	if h, ok := node.(outputClausesHolder); ok {
+		o := h.outputClauses()
+		if !Walk(o.Format, fn) {
+			return false
+		}
+		if !Walk(o.OutputSettings, fn) {
+			return false
 		}
 	}
 	return true

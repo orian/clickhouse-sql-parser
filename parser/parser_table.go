@@ -1880,8 +1880,7 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 	if err != nil {
 		return nil, err
 	}
-	_, err = p.tryParseFormat(p.Pos())
-	if err != nil {
+	if err := p.tryParseQueryOutput(expr); err != nil {
 		return nil, err
 	}
 
@@ -1890,6 +1889,44 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 		return nil, fmt.Errorf("<EOF> or ';' was expected, but got: %q", p.lastTokenText())
 	}
 	return expr, nil
+}
+
+// tryParseQueryOutput parses the query output clauses `[FORMAT fmt]
+// [SETTINGS ...]` that may end a statement into its embedded OutputClauses
+// (#41). SELECT and INSERT handle FORMAT themselves. A statement that does
+// not embed OutputClauses is one ClickHouse accepts no output clauses for
+// (GRANT, SYSTEM, USE, SET, DELETE, USER/ROLE statements, CREATE FUNCTION,
+// CREATE NAMED COLLECTION), so the clause is rejected instead of silently
+// dropped.
+func (p *Parser) tryParseQueryOutput(stmt Expr) error {
+	switch stmt.(type) {
+	case *SelectQuery, *InsertStmt:
+		return nil
+	}
+	if !p.matchKeyword(KeywordFormat) && !p.matchKeyword(KeywordSettings) {
+		return nil
+	}
+	holder, ok := stmt.(outputClausesHolder)
+	if !ok {
+		return fmt.Errorf("%s is not supported after this statement", p.lastTokenText())
+	}
+	format, err := p.tryParseFormat(p.Pos())
+	if err != nil {
+		return err
+	}
+	settings, err := p.tryParseSettingsClause(p.Pos())
+	if err != nil {
+		return err
+	}
+	// CREATE TABLE's trailing query-level SETTINGS (CreateTable.Settings) is
+	// this same clause written before FORMAT; ClickHouse allows it only once.
+	if ct, ok := stmt.(*CreateTable); ok && ct.Settings != nil && settings != nil {
+		return errors.New("duplicate query-level SETTINGS clause")
+	}
+	output := holder.outputClauses()
+	output.Format = format
+	output.OutputSettings = settings
+	return nil
 }
 
 func (p *Parser) ParseStmts() ([]Expr, error) {
@@ -2025,30 +2062,7 @@ func (p *Parser) parseShowStmt(pos Pos) (*ShowStmt, error) {
 			stmt.OutFile = outFile
 		}
 
-		// Parse [FORMAT format]
-		if p.matchKeyword(KeywordFormat) {
-			_ = p.lexer.consumeToken()
-
-			// Format can be an identifier or a string
-			if p.matchTokenKind(TokenKindString) {
-				format, err := p.parseString(p.Pos())
-				if err != nil {
-					return nil, err
-				}
-				stmt.Format = format
-			} else if p.matchTokenKind(TokenKindIdent) {
-				// Handle format as identifier (like JSON, CSV, etc.)
-				token := p.last()
-				_ = p.lexer.consumeToken()
-				stmt.Format = &StringLiteral{
-					LiteralPos: token.Pos,
-					LiteralEnd: token.End,
-					Literal:    token.String,
-				}
-			} else {
-				return nil, fmt.Errorf("expected format specification after FORMAT, got %q", p.lastTokenText())
-			}
-		}
+		// A trailing FORMAT is parsed by parseStmt as a query output clause.
 	}
 
 	// Set statement end position

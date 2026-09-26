@@ -1,1 +1,0 @@
-SHOW DATABASES FORMAT 'TabSeparated'

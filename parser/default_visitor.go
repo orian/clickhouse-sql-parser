@@ -53,7 +53,7 @@ func (visitor DefaultASTVisitor) VisitAlterTable(a *AlterTable) error {
 			return err
 		}
 	}
-	return nil
+	return a.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitAlterTableAddColumn(a *AlterTableAddColumn) error {
@@ -476,7 +476,7 @@ func (visitor DefaultASTVisitor) VisitCheckExpr(c *CheckStmt) error {
 			return err
 		}
 	}
-	return nil
+	return c.OutputClauses.accept(visitor.Self)
 }
 func (visitor DefaultASTVisitor) VisitOnClusterExpr(o *ClusterClause) error {
 	visitor.Enter(o)
@@ -698,7 +698,7 @@ func (visitor DefaultASTVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 			return err
 		}
 	}
-	return nil
+	return c.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitCreateFunction(c *CreateFunction) error {
@@ -757,7 +757,7 @@ func (visitor DefaultASTVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 			return err
 		}
 	}
-	return nil
+	return c.OutputClauses.accept(visitor.Self)
 }
 func (visitor DefaultASTVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) error {
 	visitor.Enter(c)
@@ -820,7 +820,7 @@ func (visitor DefaultASTVisitor) VisitCreateMaterializedView(c *CreateMaterializ
 			return err
 		}
 	}
-	return nil
+	return c.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitAuthenticationClause(a *AuthenticationClause) error {
@@ -959,7 +959,7 @@ func (visitor DefaultASTVisitor) VisitCreateDictionary(c *CreateDictionary) erro
 			return err
 		}
 	}
-	return nil
+	return c.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitDictionarySchemaClause(d *DictionarySchemaClause) error {
@@ -1136,12 +1136,7 @@ func (visitor DefaultASTVisitor) VisitShowExpr(s *ShowStmt) error {
 			return err
 		}
 	}
-	if s.Format != nil {
-		if err := s.Format.Accept(visitor.Self); err != nil {
-			return err
-		}
-	}
-	return nil
+	return s.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitDescribeExpr(d *DescribeStmt) error {
@@ -1150,7 +1145,7 @@ func (visitor DefaultASTVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 	if err := d.Target.Accept(visitor.Self); err != nil {
 		return err
 	}
-	return nil
+	return d.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitCreateNamedCollection(c *CreateNamedCollection) error {
@@ -1304,7 +1299,7 @@ func (visitor DefaultASTVisitor) VisitCreateTable(c *CreateTable) error {
 			return err
 		}
 	}
-	return nil
+	return c.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitTimeSeriesTargetClause(t *TimeSeriesTargetClause) error {
@@ -1369,7 +1364,7 @@ func (visitor DefaultASTVisitor) VisitCreateView(c *CreateView) error {
 			return err
 		}
 	}
-	return nil
+	return c.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitDeduplicateExpr(d *DeduplicateClause) error {
@@ -1426,7 +1421,7 @@ func (visitor DefaultASTVisitor) VisitDropDatabase(d *DropDatabase) error {
 			return err
 		}
 	}
-	return nil
+	return d.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitDropStmt(d *DropStmt) error {
@@ -1440,8 +1435,7 @@ func (visitor DefaultASTVisitor) VisitDropStmt(d *DropStmt) error {
 			return err
 		}
 	}
-	return nil
-
+	return d.OutputClauses.accept(visitor.Self)
 }
 
 func (visitor DefaultASTVisitor) VisitDropUserOrRole(d *DropUserOrRole) error {
@@ -1530,7 +1524,7 @@ func (visitor DefaultASTVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	if err := e.Statement.Accept(visitor.Self); err != nil {
 		return err
 	}
-	return nil
+	return e.OutputClauses.accept(visitor.Self)
 }
 func (visitor DefaultASTVisitor) VisitExtractExpr(e *ExtractExpr) error {
 	visitor.Enter(e)
@@ -1915,7 +1909,7 @@ func (visitor DefaultASTVisitor) VisitOptimizeExpr(o *OptimizeStmt) error {
 			return err
 		}
 	}
-	return nil
+	return o.OutputClauses.accept(visitor.Self)
 }
 func (visitor DefaultASTVisitor) VisitOrderByListExpr(o *OrderByClause) error {
 	visitor.Enter(o)
@@ -2160,7 +2154,7 @@ func (visitor DefaultASTVisitor) VisitRenameStmt(r *RenameStmt) error {
 			return err
 		}
 	}
-	return nil
+	return r.OutputClauses.accept(visitor.Self)
 }
 func (visitor DefaultASTVisitor) VisitRoleName(r *RoleName) error {
 	visitor.Enter(r)
@@ -2331,6 +2325,11 @@ func (visitor DefaultASTVisitor) VisitSelectQuery(s *SelectQuery) error {
 	}
 	if s.Format != nil {
 		if err := s.Format.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.OutputSettings != nil {
+		if err := s.OutputSettings.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
@@ -2685,7 +2684,7 @@ func (visitor DefaultASTVisitor) VisitTruncateTable(t *TruncateTable) error {
 			return err
 		}
 	}
-	return nil
+	return t.OutputClauses.accept(visitor.Self)
 }
 func (visitor DefaultASTVisitor) VisitTypeWithParams(s *TypeWithParams) error {
 	visitor.Enter(s)

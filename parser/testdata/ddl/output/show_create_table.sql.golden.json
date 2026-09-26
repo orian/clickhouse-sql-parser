@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "ShowPos": 0,
     "StatementEnd": 26,
     "ShowType": "CREATE TABLE",
@@ -16,7 +18,6 @@
     "LikeType": "",
     "LikePattern": null,
     "Limit": null,
-    "OutFile": null,
-    "Format": null
+    "OutFile": null
   }
 ]

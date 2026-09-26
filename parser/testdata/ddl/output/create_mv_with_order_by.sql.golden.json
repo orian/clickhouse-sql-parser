@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "CreatePos": 0,
     "StatementEnd": 135,
     "Name": {
@@ -158,6 +160,7 @@
         "Limit": null,
         "Settings": null,
         "Format": null,
+        "OutputSettings": null,
         "UnionAll": null,
         "UnionDistinct": null,
         "Except": null
@@ -170,6 +173,8 @@
     "IsAttach": false
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "CreatePos": 138,
     "StatementEnd": 259,
     "Name": {
@@ -294,6 +299,7 @@
         "Limit": null,
         "Settings": null,
         "Format": null,
+        "OutputSettings": null,
         "UnionAll": null,
         "UnionDistinct": null,
         "Except": null

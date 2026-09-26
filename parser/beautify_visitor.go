@@ -556,6 +556,10 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.newline()
 		b.writeString(s.Format.String())
 	}
+	if s.OutputSettings != nil {
+		b.newline()
+		b.beautifySettings(s.OutputSettings)
+	}
 
 	if s.UnionAll != nil {
 		b.newline()
@@ -765,6 +769,7 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 		b.newline()
 		b.beautifySettings(c.Settings)
 	}
+	b.writeOutputClauses(&c.OutputClauses)
 	return nil
 }
 
@@ -1265,6 +1270,7 @@ func (b *BeautifyVisitor) VisitCreateView(c *CreateView) error {
 			return err
 		}
 	}
+	b.writeOutputClauses(&c.OutputClauses)
 	return nil
 }
 
@@ -1352,6 +1358,7 @@ func (b *BeautifyVisitor) VisitCreateMaterializedView(c *CreateMaterializedView)
 		b.writeString("COMMENT ")
 		b.writeString(c.Comment.String())
 	}
+	b.writeOutputClauses(&c.OutputClauses)
 	return nil
 }
 
@@ -1393,7 +1400,21 @@ func (b *BeautifyVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 			return err
 		}
 	}
+	b.writeOutputClauses(&c.OutputClauses)
 	return nil
+}
+
+// writeOutputClauses emits a statement's trailing FORMAT/SETTINGS output
+// clauses, each on its own line.
+func (b *BeautifyVisitor) writeOutputClauses(o *OutputClauses) {
+	if o.Format != nil {
+		b.newline()
+		b.writeString(o.Format.String())
+	}
+	if o.OutputSettings != nil {
+		b.newline()
+		b.beautifySettings(o.OutputSettings)
+	}
 }
 
 // VisitExplainExpr beautifies EXPLAIN, keeping the explain kind on the first
@@ -1405,7 +1426,11 @@ func (b *BeautifyVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	b.writeString("EXPLAIN ")
 	b.writeString(e.Type)
 	b.newline()
-	return e.Statement.Accept(b.Self)
+	if err := e.Statement.Accept(b.Self); err != nil {
+		return err
+	}
+	b.writeOutputClauses(&e.OutputClauses)
+	return nil
 }
 
 // The statements below have no multi-line layout yet. Without an override
@@ -1468,6 +1493,7 @@ func (b *BeautifyVisitor) VisitAlterTable(a *AlterTable) error {
 		b.writeString(expr.String())
 	}
 	b.indentOut()
+	b.writeOutputClauses(&a.OutputClauses)
 	return nil
 }
 

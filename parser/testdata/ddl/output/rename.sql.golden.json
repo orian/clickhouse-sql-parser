@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 16,
     "StatementEnd": 38,
     "RenameTarget": "TABLE",
@@ -28,6 +30,8 @@
     "OnCluster": null
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 40,
     "StatementEnd": 90,
     "RenameTarget": "TABLE",
@@ -63,6 +67,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 93,
     "StatementEnd": 126,
     "RenameTarget": "TABLE",
@@ -111,6 +117,8 @@
     "OnCluster": null
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 128,
     "StatementEnd": 189,
     "RenameTarget": "TABLE",
@@ -166,6 +174,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 216,
     "StatementEnd": 243,
     "RenameTarget": "DICTIONARY",
@@ -194,6 +204,8 @@
     "OnCluster": null
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 245,
     "StatementEnd": 300,
     "RenameTarget": "DICTIONARY",
@@ -229,6 +241,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 303,
     "StatementEnd": 341,
     "RenameTarget": "DICTIONARY",
@@ -277,6 +291,8 @@
     "OnCluster": null
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 343,
     "StatementEnd": 409,
     "RenameTarget": "DICTIONARY",
@@ -332,6 +348,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 431,
     "StatementEnd": 456,
     "RenameTarget": "DATABASE",
@@ -360,6 +378,8 @@
     "OnCluster": null
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 458,
     "StatementEnd": 511,
     "RenameTarget": "DATABASE",
@@ -395,6 +415,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 514,
     "StatementEnd": 550,
     "RenameTarget": "DATABASE",
@@ -443,6 +465,8 @@
     "OnCluster": null
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "RenamePos": 552,
     "StatementEnd": 616,
     "RenameTarget": "DATABASE",
