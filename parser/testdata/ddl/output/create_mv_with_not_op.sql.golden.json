@@ -56,7 +56,7 @@
         "Columns": [
           {
             "NamePos": 105,
-            "ColumnEnd": 121,
+            "ColumnEnd": 122,
             "Name": {
               "Ident": {
                 "Name": "f1",
@@ -305,7 +305,7 @@
                 "RightParenPos": 271,
                 "Items": {
                   "ListPos": 255,
-                  "ListEnd": 270,
+                  "ListEnd": 271,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -352,7 +352,7 @@
                 "RightParenPos": 327,
                 "Items": {
                   "ListPos": 311,
-                  "ListEnd": 326,
+                  "ListEnd": 327,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -399,7 +399,7 @@
                 "RightParenPos": 383,
                 "Items": {
                   "ListPos": 367,
-                  "ListEnd": 382,
+                  "ListEnd": 383,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -446,7 +446,7 @@
                 "RightParenPos": 436,
                 "Items": {
                   "ListPos": 420,
-                  "ListEnd": 435,
+                  "ListEnd": 436,
                   "HasDistinct": false,
                   "Items": [
                     {

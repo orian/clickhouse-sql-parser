@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 16,
+    "StatementEnd": 17,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -47,7 +47,7 @@
   },
   {
     "SelectPos": 19,
-    "StatementEnd": 42,
+    "StatementEnd": 43,
     "HasParen": false,
     "With": null,
     "Top": null,

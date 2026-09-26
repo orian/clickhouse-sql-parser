@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 52,
+    "StatementEnd": 53,
     "TableIdentifier": {
       "Database": null,
       "Table": {
@@ -17,11 +17,11 @@
     "AlterExprs": [
       {
         "ModifyPos": 15,
-        "StatementEnd": 52,
+        "StatementEnd": 53,
         "IfExists": false,
         "Column": {
           "NamePos": 29,
-          "ColumnEnd": 52,
+          "ColumnEnd": 53,
           "Name": {
             "Ident": {
               "Name": "f1",
@@ -49,7 +49,7 @@
           "Codec": null,
           "TTL": null,
           "Comment": {
-            "LiteralPos": 39,
+            "LiteralPos": 48,
             "LiteralEnd": 52,
             "Literal": "test"
           },

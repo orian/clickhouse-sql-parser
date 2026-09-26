@@ -81,7 +81,7 @@
           },
           {
             "NamePos": 89,
-            "ColumnEnd": 122,
+            "ColumnEnd": 123,
             "Name": {
               "Ident": {
                 "Name": "event_type",
@@ -125,7 +125,7 @@
           },
           {
             "NamePos": 130,
-            "ColumnEnd": 154,
+            "ColumnEnd": 155,
             "Name": {
               "Ident": {
                 "Name": "created_at",

@@ -98,7 +98,7 @@
         },
         {
           "NamePos": 153,
-          "ColumnEnd": 178,
+          "ColumnEnd": 179,
           "Name": {
             "Ident": {
               "Name": "f2",
@@ -142,7 +142,7 @@
         },
         {
           "NamePos": 186,
-          "ColumnEnd": 211,
+          "ColumnEnd": 212,
           "Name": {
             "Ident": {
               "Name": "f3",
@@ -186,7 +186,7 @@
         },
         {
           "NamePos": 219,
-          "ColumnEnd": 235,
+          "ColumnEnd": 236,
           "Name": {
             "Ident": {
               "Name": "f4",
@@ -228,7 +228,7 @@
         },
         {
           "NamePos": 243,
-          "ColumnEnd": 269,
+          "ColumnEnd": 270,
           "Name": {
             "Ident": {
               "Name": "f5",
@@ -282,7 +282,7 @@
         },
         {
           "NamePos": 277,
-          "ColumnEnd": 311,
+          "ColumnEnd": 312,
           "Name": {
             "Ident": {
               "Name": "succeed_at",
@@ -436,7 +436,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 386
           }
         ],
         "Interpolate": null

@@ -60,7 +60,7 @@
         },
         {
           "NamePos": 31,
-          "ColumnEnd": 54,
+          "ColumnEnd": 55,
           "Name": {
             "Ident": {
               "Name": "timestamp",

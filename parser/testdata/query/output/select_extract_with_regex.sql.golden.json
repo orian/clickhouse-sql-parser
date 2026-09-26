@@ -228,7 +228,7 @@
     },
     "GroupBy": {
       "GroupByPos": 198,
-      "GroupByEnd": 465,
+      "GroupByEnd": 464,
       "AggregateType": "",
       "Expr": {
         "ListPos": 209,
@@ -238,7 +238,7 @@
           {
             "Expr": {
               "CasePos": 209,
-              "EndPos": 0,
+              "EndPos": 309,
               "Expr": null,
               "Whens": [
                 {
@@ -257,7 +257,7 @@
                         "RightParenPos": 269,
                         "Items": {
                           "ListPos": 230,
-                          "ListEnd": 268,
+                          "ListEnd": 269,
                           "HasDistinct": false,
                           "Items": [
                             {
@@ -318,7 +318,7 @@
           {
             "Expr": {
               "CasePos": 313,
-              "EndPos": 0,
+              "EndPos": 415,
               "Expr": null,
               "Whens": [
                 {
@@ -337,7 +337,7 @@
                         "RightParenPos": 374,
                         "Items": {
                           "ListPos": 334,
-                          "ListEnd": 373,
+                          "ListEnd": 374,
                           "HasDistinct": false,
                           "Items": [
                             {

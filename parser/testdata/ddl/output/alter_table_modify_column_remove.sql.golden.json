@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 31,
+    "StatementEnd": 46,
     "TableIdentifier": {
       "Database": null,
       "Table": {
@@ -17,7 +17,7 @@
     "AlterExprs": [
       {
         "ModifyPos": 15,
-        "StatementEnd": 31,
+        "StatementEnd": 46,
         "IfExists": false,
         "Column": {
           "NamePos": 29,

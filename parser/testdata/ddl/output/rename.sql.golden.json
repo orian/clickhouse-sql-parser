@@ -33,7 +33,7 @@
     "Format": null,
     "OutputSettings": null,
     "RenamePos": 40,
-    "StatementEnd": 90,
+    "StatementEnd": 91,
     "RenameTarget": "TABLE",
     "TargetPairList": [
       {
@@ -120,7 +120,7 @@
     "Format": null,
     "OutputSettings": null,
     "RenamePos": 128,
-    "StatementEnd": 189,
+    "StatementEnd": 190,
     "RenameTarget": "TABLE",
     "TargetPairList": [
       {
@@ -207,7 +207,7 @@
     "Format": null,
     "OutputSettings": null,
     "RenamePos": 245,
-    "StatementEnd": 300,
+    "StatementEnd": 301,
     "RenameTarget": "DICTIONARY",
     "TargetPairList": [
       {
@@ -294,7 +294,7 @@
     "Format": null,
     "OutputSettings": null,
     "RenamePos": 343,
-    "StatementEnd": 409,
+    "StatementEnd": 410,
     "RenameTarget": "DICTIONARY",
     "TargetPairList": [
       {
@@ -381,7 +381,7 @@
     "Format": null,
     "OutputSettings": null,
     "RenamePos": 458,
-    "StatementEnd": 511,
+    "StatementEnd": 512,
     "RenameTarget": "DATABASE",
     "TargetPairList": [
       {
@@ -468,7 +468,7 @@
     "Format": null,
     "OutputSettings": null,
     "RenamePos": 552,
-    "StatementEnd": 616,
+    "StatementEnd": 617,
     "RenameTarget": "DATABASE",
     "TargetPairList": [
       {

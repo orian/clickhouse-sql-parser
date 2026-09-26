@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 92,
+    "StatementEnd": 93,
     "TableIdentifier": {
       "Database": null,
       "Table": {
@@ -17,7 +17,7 @@
     "AlterExprs": [
       {
         "AddPos": 14,
-        "StatementEnd": 92,
+        "StatementEnd": 93,
         "IfNotExists": false,
         "TableProjection": {
           "IncludeProjectionKeyword": false,

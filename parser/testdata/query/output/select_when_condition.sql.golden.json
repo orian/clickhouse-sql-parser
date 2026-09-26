@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 0,
+    "StatementEnd": 52,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -11,7 +11,7 @@
       {
         "Expr": {
           "CasePos": 7,
-          "EndPos": 0,
+          "EndPos": 52,
           "Expr": null,
           "Whens": [
             {

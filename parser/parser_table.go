@@ -228,6 +228,9 @@ func (p *Parser) parseCreateDatabase(pos Pos) (*CreateDatabase, error) {
 	if err != nil {
 		return nil, err
 	}
+	if commentExpr != nil {
+		StatementEnd = commentExpr.End()
+	}
 	return &CreateDatabase{
 		CreatePos:    pos,
 		StatementEnd: StatementEnd,
@@ -436,6 +439,9 @@ func (p *Parser) parseNamedCollectionParam(pos Pos) (*NamedCollectionParam, erro
 	} else if p.tryConsumeKeywords(KeywordOverridable) {
 		param.Overridable = true
 	}
+	if param.Overridable || param.NotOverridable {
+		param.ParamEnd = p.prevEnd()
+	}
 
 	return param, nil
 }
@@ -479,6 +485,9 @@ func (p *Parser) parseCreateTable(pos Pos, orReplace bool) (*CreateTable, error)
 		return nil, err
 	}
 	createTable.TableSchema = tableSchema
+	// The statement ends after its last part so far; ENGINE, AS, COMMENT and
+	// SETTINGS below extend it.
+	createTable.StatementEnd = p.prevEnd()
 
 	engineExpr, err := p.tryParseEngineExpr(p.Pos())
 	if err != nil {
@@ -734,7 +743,7 @@ func (p *Parser) parseTableSchemaClause(pos Pos) (*TableSchemaClause, error) {
 			}
 			return &TableSchemaClause{
 				SchemaPos: pos,
-				SchemaEnd: p.End(),
+				SchemaEnd: p.prevEnd(),
 				TableFunction: &TableFunctionExpr{
 					Name: ident,
 					Args: argsExpr,
@@ -743,7 +752,7 @@ func (p *Parser) parseTableSchemaClause(pos Pos) (*TableSchemaClause, error) {
 		default:
 			return &TableSchemaClause{
 				SchemaPos: pos,
-				SchemaEnd: p.End(),
+				SchemaEnd: p.prevEnd(),
 				AliasTable: &TableIdentifier{
 					Table: ident,
 				},
@@ -1197,8 +1206,10 @@ func (p *Parser) parseOrderExpr(pos Pos) (*OrderExpr, error) {
 
 	// Parse optional WITH FILL clause
 	var fill *Fill
-	if p.tryConsumeKeywords(KeywordWith, KeywordFill) {
-		fillPos := p.Pos()
+	if p.matchKeyword(KeywordWith) && p.peekKeyword(KeywordFill) {
+		_ = p.lexer.consumeToken() // WITH
+		fillPos := p.Pos()         // FILL
+		_ = p.lexer.consumeToken()
 		fill, err = p.parseFillClause(fillPos)
 		if err != nil {
 			return nil, err
@@ -1211,6 +1222,7 @@ func (p *Parser) parseOrderExpr(pos Pos) (*OrderExpr, error) {
 		Expr:      columnExpr,
 		Direction: direction,
 		Fill:      fill,
+		OrderEnd:  p.prevEnd(),
 	}, nil
 }
 
@@ -2066,7 +2078,7 @@ func (p *Parser) parseShowStmt(pos Pos) (*ShowStmt, error) {
 	}
 
 	// Set statement end position
-	stmt.StatementEnd = p.End()
+	stmt.StatementEnd = p.prevEnd()
 
 	return stmt, nil
 }
@@ -2218,12 +2230,13 @@ func (p *Parser) parseTypedPlaceholder(pos Pos) (Expr, error) {
 		return nil, err
 	}
 
+	rightBracePos := p.Pos()
 	if err := p.expectTokenKind(TokenKindRBrace); err != nil {
 		return nil, err
 	}
 	return &TypedPlaceholder{
 		LeftBracePos:  pos,
-		RightBracePos: p.Pos(),
+		RightBracePos: rightBracePos,
 		Name:          name,
 		Type:          columnType,
 	}, nil
@@ -2973,6 +2986,7 @@ func (p *Parser) parseDictionarySettingsClause(pos Pos) (*SettingsClause, error)
 	if err := p.expectTokenKind(TokenKindRParen); err != nil {
 		return nil, err
 	}
+	settings.ListEnd = p.prevEnd() // include the closing )
 
 	return settings, nil
 }

@@ -160,7 +160,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 153
           }
         ],
         "Interpolate": null
@@ -362,7 +363,7 @@
             },
             "GroupBy": {
               "GroupByPos": 358,
-              "GroupByEnd": 376,
+              "GroupByEnd": 371,
               "AggregateType": "",
               "Expr": {
                 "ListPos": 367,
@@ -465,7 +466,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 496
           }
         ],
         "Interpolate": null

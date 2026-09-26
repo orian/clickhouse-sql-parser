@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 203,
+    "StatementEnd": 217,
     "OrReplace": false,
     "Name": {
       "Database": null,
@@ -91,7 +91,7 @@
     },
     "Engine": {
       "EnginePos": 51,
-      "EngineEnd": 203,
+      "EngineEnd": 217,
       "Name": "MergeTree",
       "Params": null,
       "PrimaryKey": null,
@@ -99,7 +99,7 @@
         "PartitionPos": 70,
         "Expr": {
           "ListPos": 83,
-          "ListEnd": 93,
+          "ListEnd": 94,
           "HasDistinct": false,
           "Items": [
             {
@@ -142,7 +142,7 @@
       "SampleBy": null,
       "TTL": {
         "TTLPos": 106,
-        "ListEnd": 203,
+        "ListEnd": 217,
         "Items": [
           {
             "TTLPos": 106,
@@ -309,7 +309,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 221,
-    "StatementEnd": 364,
+    "StatementEnd": 396,
     "OrReplace": false,
     "Name": {
       "Database": null,
@@ -397,7 +397,7 @@
     },
     "Engine": {
       "EnginePos": 285,
-      "EngineEnd": 364,
+      "EngineEnd": 396,
       "Name": "MergeTree",
       "Params": null,
       "PrimaryKey": null,
@@ -405,7 +405,7 @@
         "PartitionPos": 304,
         "Expr": {
           "ListPos": 317,
-          "ListEnd": 327,
+          "ListEnd": 328,
           "HasDistinct": false,
           "Items": [
             {
@@ -448,7 +448,7 @@
       "SampleBy": null,
       "TTL": {
         "TTLPos": 340,
-        "ListEnd": 364,
+        "ListEnd": 396,
         "Items": [
           {
             "TTLPos": 340,
@@ -737,7 +737,7 @@
       "SampleBy": null,
       "TTL": {
         "TTLPos": 576,
-        "ListEnd": 610,
+        "ListEnd": 632,
         "Items": [
           {
             "TTLPos": 576,
@@ -832,7 +832,7 @@
       },
       "OrderBy": {
         "OrderPos": 551,
-        "ListEnd": 574,
+        "ListEnd": 575,
         "Items": [
           {
             "OrderPos": 551,
@@ -1045,7 +1045,7 @@
       "SampleBy": null,
       "TTL": {
         "TTLPos": 812,
-        "ListEnd": 884,
+        "ListEnd": 912,
         "Items": [
           {
             "TTLPos": 812,
@@ -1086,7 +1086,7 @@
                   "Action": "RECOMPRESS",
                   "Codec": {
                     "CodecPos": 848,
-                    "RightParenPos": 863,
+                    "RightParenPos": 862,
                     "Type": null,
                     "TypeLevel": null,
                     "Name": {
@@ -1147,7 +1147,7 @@
                   "Action": "RECOMPRESS",
                   "Codec": {
                     "CodecPos": 896,
-                    "RightParenPos": 912,
+                    "RightParenPos": 911,
                     "Type": null,
                     "TypeLevel": null,
                     "Name": {
@@ -1223,7 +1223,7 @@
       },
       "OrderBy": {
         "OrderPos": 778,
-        "ListEnd": 793,
+        "ListEnd": 794,
         "Items": [
           {
             "OrderPos": 778,
@@ -1249,7 +1249,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 794
           }
         ],
         "Interpolate": null

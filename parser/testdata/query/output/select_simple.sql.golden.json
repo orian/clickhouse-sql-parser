@@ -115,7 +115,7 @@
             },
             "OrderBy": {
               "OrderPos": 74,
-              "ListEnd": 85,
+              "ListEnd": 89,
               "Items": [
                 {
                   "OrderPos": 74,
@@ -127,7 +127,8 @@
                   },
                   "Alias": null,
                   "Direction": "ASC",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 89
                 }
               ],
               "Interpolate": null
@@ -185,7 +186,7 @@
               "RightParenPos": 155,
               "Items": {
                 "ListPos": 127,
-                "ListEnd": 154,
+                "ListEnd": 155,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -202,7 +203,7 @@
                         "RightParenPos": 154,
                         "Items": {
                           "ListPos": 135,
-                          "ListEnd": 153,
+                          "ListEnd": 154,
                           "HasDistinct": false,
                           "Items": [
                             {
@@ -250,7 +251,7 @@
               "RightParenPos": 176,
               "Items": {
                 "ListPos": 162,
-                "ListEnd": 175,
+                "ListEnd": 176,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -286,7 +287,7 @@
             "RightParenPos": 205,
             "Items": {
               "ListPos": 183,
-              "ListEnd": 204,
+              "ListEnd": 205,
               "HasDistinct": false,
               "Items": [
                 {
@@ -330,7 +331,7 @@
             "RightParenPos": 235,
             "Items": {
               "ListPos": 223,
-              "ListEnd": 234,
+              "ListEnd": 235,
               "HasDistinct": false,
               "Items": [
                 {
@@ -371,7 +372,7 @@
     },
     "GroupBy": {
       "GroupByPos": 239,
-      "GroupByEnd": 258,
+      "GroupByEnd": 256,
       "AggregateType": "",
       "Expr": {
         "ListPos": 248,

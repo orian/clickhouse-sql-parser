@@ -13,7 +13,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 7,
-          "NameEnd": 7
+          "NameEnd": 8
         },
         "Modifiers": [],
         "Alias": null
@@ -26,7 +26,7 @@
         "Left": {
           "Table": {
             "TablePos": 15,
-            "TableEnd": 17,
+            "TableEnd": 18,
             "Alias": null,
             "Expr": {
               "Database": null,
@@ -40,7 +40,7 @@
             "HasFinal": false,
             "Stream": null
           },
-          "StatementEnd": 17,
+          "StatementEnd": 18,
           "SampleRatio": null,
           "HasFinal": false
         },
@@ -49,7 +49,7 @@
           "Left": {
             "Table": {
               "TablePos": 25,
-              "TableEnd": 27,
+              "TableEnd": 28,
               "Alias": null,
               "Expr": {
                 "Database": null,
@@ -63,7 +63,7 @@
               "HasFinal": false,
               "Stream": null
             },
-            "StatementEnd": 27,
+            "StatementEnd": 28,
             "SampleRatio": null,
             "HasFinal": false
           },

@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 25,
+    "StatementEnd": 26,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -13,7 +13,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 7,
-          "NameEnd": 7
+          "NameEnd": 8
         },
         "Modifiers": [],
         "Alias": null
@@ -24,7 +24,7 @@
       "Expr": {
         "Table": {
           "TablePos": 15,
-          "TableEnd": 25,
+          "TableEnd": 26,
           "Alias": null,
           "Expr": {
             "Database": null,
@@ -38,7 +38,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 25,
+        "StatementEnd": 26,
         "SampleRatio": null,
         "HasFinal": false
       }

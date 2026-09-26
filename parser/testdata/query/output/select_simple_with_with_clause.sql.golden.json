@@ -16,8 +16,8 @@
             "NameEnd": 13
           },
           "Alias": {
-            "SelectPos": 18,
-            "StatementEnd": 35,
+            "SelectPos": 17,
+            "StatementEnd": 36,
             "HasParen": false,
             "With": null,
             "Top": null,
@@ -85,8 +85,8 @@
             "NameEnd": 46
           },
           "Alias": {
-            "SelectPos": 51,
-            "StatementEnd": 68,
+            "SelectPos": 50,
+            "StatementEnd": 69,
             "HasParen": false,
             "With": null,
             "Top": null,

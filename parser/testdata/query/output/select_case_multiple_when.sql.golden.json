@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 190,
+    "StatementEnd": 191,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -13,7 +13,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 11,
-          "NameEnd": 11
+          "NameEnd": 12
         },
         "Modifiers": [],
         "Alias": null
@@ -21,7 +21,7 @@
       {
         "Expr": {
           "CasePos": 18,
-          "EndPos": 0,
+          "EndPos": 134,
           "Expr": null,
           "Whens": [
             {

@@ -166,6 +166,9 @@ func (p *Parser) parseCreateMaterializedView(pos Pos) (*CreateMaterializedView, 
 			return nil, err
 		}
 		createMaterializedView.Comment = comment
+		if comment != nil {
+			createMaterializedView.StatementEnd = comment.End()
+		}
 	}
 	return createMaterializedView, nil
 }
@@ -284,6 +287,9 @@ func (p *Parser) parseCreateView(pos Pos, orReplace bool) (*CreateView, error) {
 			return nil, err
 		}
 		createView.Comment = comment
+		if comment != nil {
+			createView.StatementEnd = comment.End()
+		}
 	}
 
 	return createView, nil

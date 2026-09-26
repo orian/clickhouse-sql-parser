@@ -278,10 +278,9 @@ func (p *Parser) parseOptimizeStmt(pos Pos) (*OptimizeStmt, error) {
 	}
 
 	hasFinal := false
-	lastPos := p.Pos()
 	if p.tryConsumeKeywords(KeywordFinal) {
 		hasFinal = true
-		statementEnd = lastPos
+		statementEnd = p.prevEnd()
 	}
 
 	deduplicate, err := p.tryParseDeduplicateClause(p.Pos())
@@ -523,7 +522,7 @@ func (p *Parser) parseCreateRole(pos Pos) (*CreateRole, error) {
 		if err != nil {
 			return nil, err
 		}
-		statementEnd = accessStorageType.NameEnd
+		statementEnd = accessStorageType.End()
 	}
 
 	settings, err := p.tryParseRoleSettings(p.Pos())
@@ -1379,14 +1378,14 @@ func (p *Parser) parseGrantPrivilegeStmt(pos Pos) (*GrantPrivilegeStmt, error) {
 		return nil, err
 	}
 	if len(toRoles) != 0 {
-		statementEnd = toRoles[len(toRoles)-1].NameEnd
+		statementEnd = toRoles[len(toRoles)-1].End()
 	}
 	options, err := p.parseGrantOptions(p.Pos())
 	if err != nil {
 		return nil, err
 	}
 	if len(options) != 0 {
-		statementEnd = p.End()
+		statementEnd = p.prevEnd()
 	}
 
 	return &GrantPrivilegeStmt{
@@ -1460,7 +1459,7 @@ func (p *Parser) parseRoleRenamePair(_ Pos) (*RoleRenamePair, error) {
 			return nil, err
 		}
 		roleRenamePair.NewName = newName
-		roleRenamePair.StatementEnd = newName.NameEnd
+		roleRenamePair.StatementEnd = newName.End()
 	}
 	return roleRenamePair, nil
 }

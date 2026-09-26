@@ -193,7 +193,7 @@
   },
   {
     "CreatePos": 282,
-    "StatementEnd": 328,
+    "StatementEnd": 329,
     "IfNotExists": false,
     "OrReplace": false,
     "RoleNames": [
@@ -670,7 +670,7 @@
   },
   {
     "CreatePos": 862,
-    "StatementEnd": 908,
+    "StatementEnd": 909,
     "IfNotExists": false,
     "OrReplace": false,
     "RoleNames": [
@@ -896,7 +896,7 @@
   },
   {
     "CreatePos": 1123,
-    "StatementEnd": 1146,
+    "StatementEnd": 1147,
     "IfNotExists": false,
     "OrReplace": false,
     "RoleNames": [
@@ -920,7 +920,7 @@
   },
   {
     "CreatePos": 1149,
-    "StatementEnd": 1183,
+    "StatementEnd": 1184,
     "IfNotExists": false,
     "OrReplace": false,
     "RoleNames": [

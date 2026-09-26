@@ -60,7 +60,7 @@
         },
         {
           "NamePos": 35,
-          "ColumnEnd": 61,
+          "ColumnEnd": 62,
           "Name": {
             "Ident": {
               "Name": "n",
@@ -164,7 +164,7 @@
     },
     "Engine": {
       "EnginePos": 64,
-      "EngineEnd": 188,
+      "EngineEnd": 189,
       "Name": "Kafka",
       "Params": null,
       "PrimaryKey": null,
@@ -173,7 +173,7 @@
       "TTL": null,
       "Settings": {
         "SettingsPos": 79,
-        "ListEnd": 188,
+        "ListEnd": 189,
         "Items": [
           {
             "SettingsPos": 88,
@@ -370,7 +370,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 284
           }
         ],
         "Interpolate": null

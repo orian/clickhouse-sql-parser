@@ -201,6 +201,7 @@ func (p *Parser) parseInfix(expr Expr, precedence int) (Expr, error) {
 	case p.matchTokenKind(TokenKindQuestionMark):
 		return p.parseTernaryExpr(expr)
 	case p.matchKeyword(KeywordIs):
+		isPos := p.Pos()
 		_ = p.lexer.consumeToken()
 		isNotNull := p.tryConsumeKeywords(KeywordNot)
 		if err := p.expectKeyword(KeywordNull); err != nil {
@@ -208,13 +209,15 @@ func (p *Parser) parseInfix(expr Expr, precedence int) (Expr, error) {
 		}
 		if isNotNull {
 			return &IsNotNullExpr{
-				IsPos: p.Pos(),
-				Expr:  expr,
+				IsPos:   isPos,
+				NullEnd: p.prevEnd(),
+				Expr:    expr,
 			}, nil
 		}
 		return &IsNullExpr{
-			IsPos: p.Pos(),
-			Expr:  expr,
+			IsPos:   isPos,
+			NullEnd: p.prevEnd(),
+			Expr:    expr,
 		}, nil
 	default:
 		return nil, fmt.Errorf("unexpected token kind: %s", p.lastTokenKind())
@@ -533,7 +536,7 @@ func (p *Parser) parseColumnExpr(pos Pos) (Expr, error) { //nolint:funlen
 		_ = p.lexer.consumeToken()
 		return &PlaceHolder{
 			PlaceholderPos: pos,
-			PlaceHolderEnd: pos,
+			PlaceHolderEnd: pos + 1,
 			Type:           string(TokenKindQuestionMark),
 		}, nil
 	default:
@@ -577,16 +580,18 @@ func (p *Parser) parseColumnCastExpr(pos Pos) (Expr, error) {
 		return nil, err
 	}
 
+	rightParenPos := p.Pos()
 	if err := p.expectTokenKind(TokenKindRParen); err != nil {
 		return nil, err
 	}
 
 	return &CastExpr{
-		CastPos:   pos,
-		AsPos:     asPos,
-		Separator: separator,
-		Expr:      columnExpr,
-		AsType:    asColumnType,
+		RightParenPos: rightParenPos,
+		CastPos:       pos,
+		AsPos:         asPos,
+		Separator:     separator,
+		Expr:          columnExpr,
+		AsType:        asColumnType,
 	}, nil
 }
 
@@ -985,6 +990,7 @@ func (p *Parser) parseColumnCaseExpr(pos Pos) (*CaseExpr, error) {
 	if err := p.expectKeyword(KeywordEnd); err != nil {
 		return nil, err
 	}
+	caseExpr.EndPos = p.prevEnd()
 
 	return caseExpr, nil
 }
@@ -1102,6 +1108,7 @@ func (p *Parser) parseEnumType(name *Ident, pos Pos) (*EnumType, error) {
 	if err := p.expectTokenKind(TokenKindRParen); err != nil {
 		return nil, err
 	}
+	enumType.ListEnd = p.prevEnd() // include the closing )
 	return enumType, nil
 }
 
@@ -1469,7 +1476,7 @@ func (p *Parser) tryParseCompressionCodecs(pos Pos) (*CompressionCodec, error) {
 		}
 	}
 
-	rightParenPos := p.End()
+	rightParenPos := p.Pos() // position of the closing ), like other RightParenPos fields
 	if err := p.expectTokenKind(TokenKindRParen); err != nil {
 		return nil, err
 	}
@@ -1525,7 +1532,7 @@ func (p *Parser) parseColumnStar(pos Pos) (*Ident, error) {
 	}
 	return &Ident{
 		NamePos: pos,
-		NameEnd: pos,
+		NameEnd: pos + 1,
 		Name:    "*",
 	}, nil
 }

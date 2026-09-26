@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 199,
+    "StatementEnd": 201,
     "OrReplace": false,
     "Name": {
       "Database": {
@@ -110,7 +110,8 @@
         "UnionAll": null,
         "UnionDistinct": null,
         "Except": null
-      }
+      },
+      "RightParenPos": 200
     },
     "IsAttach": false
   }

@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 122,
-    "StatementEnd": 802,
+    "StatementEnd": 803,
     "OrReplace": false,
     "Name": {
       "Database": {
@@ -87,7 +87,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 198,
-            "RightParenPos": 212,
+            "RightParenPos": 211,
             "Type": null,
             "TypeLevel": null,
             "Name": {
@@ -109,7 +109,7 @@
         },
         {
           "NamePos": 218,
-          "ColumnEnd": 232,
+          "ColumnEnd": 233,
           "Name": {
             "Ident": {
               "Name": "f2",
@@ -215,7 +215,7 @@
         },
         {
           "NamePos": 273,
-          "ColumnEnd": 293,
+          "ColumnEnd": 294,
           "Name": {
             "Ident": {
               "Name": "f5",
@@ -299,7 +299,7 @@
         },
         {
           "NamePos": 315,
-          "ColumnEnd": 450,
+          "ColumnEnd": 451,
           "Name": {
             "Ident": {
               "Name": "f7",
@@ -527,7 +527,7 @@
         },
         {
           "NamePos": 457,
-          "ColumnEnd": 481,
+          "ColumnEnd": 482,
           "Name": {
             "Ident": {
               "Name": "f8",
@@ -578,7 +578,7 @@
         },
         {
           "NamePos": 488,
-          "ColumnEnd": 529,
+          "ColumnEnd": 530,
           "Name": {
             "Ident": {
               "Name": "f9",
@@ -611,7 +611,7 @@
               "RightParenPos": 529,
               "Items": {
                 "ListPos": 520,
-                "ListEnd": 528,
+                "ListEnd": 529,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -627,7 +627,7 @@
                         "RightBracketPos": 528,
                         "Items": {
                           "ListPos": 524,
-                          "ListEnd": 527,
+                          "ListEnd": 528,
                           "HasDistinct": false,
                           "Items": [
                             {
@@ -698,7 +698,7 @@
         },
         {
           "NamePos": 562,
-          "ColumnEnd": 653,
+          "ColumnEnd": 654,
           "Name": {
             "Ident": {
               "Name": "f12",
@@ -819,7 +819,7 @@
     },
     "Engine": {
       "EnginePos": 658,
-      "EngineEnd": 774,
+      "EngineEnd": 775,
       "Name": "MergeTree",
       "Params": null,
       "PrimaryKey": {
@@ -869,7 +869,7 @@
         "PartitionPos": 702,
         "Expr": {
           "ListPos": 715,
-          "ListEnd": 728,
+          "ListEnd": 729,
           "HasDistinct": false,
           "Items": [
             {
@@ -949,7 +949,7 @@
       "Settings": null,
       "OrderBy": {
         "OrderPos": 756,
-        "ListEnd": 774,
+        "ListEnd": 775,
         "Items": [
           {
             "OrderPos": 756,
@@ -995,7 +995,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 775
           }
         ],
         "Interpolate": null

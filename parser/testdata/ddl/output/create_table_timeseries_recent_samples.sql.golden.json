@@ -60,7 +60,7 @@
         },
         {
           "NamePos": 129,
-          "ColumnEnd": 153,
+          "ColumnEnd": 154,
           "Name": {
             "Ident": {
               "Name": "tags",
@@ -112,7 +112,7 @@
         },
         {
           "NamePos": 157,
-          "ColumnEnd": 205,
+          "ColumnEnd": 206,
           "Name": {
             "Ident": {
               "Name": "time_series",
@@ -393,7 +393,7 @@
           "Columns": [
             {
               "NamePos": 409,
-              "ColumnEnd": 431,
+              "ColumnEnd": 432,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -482,7 +482,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 460,
-                "RightParenPos": 487,
+                "RightParenPos": 486,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -536,7 +536,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 505,
-                "RightParenPos": 519,
+                "RightParenPos": 518,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -592,7 +592,7 @@
           },
           "OrderBy": {
             "OrderPos": 554,
-            "ListEnd": 577,
+            "ListEnd": 578,
             "Items": [
               {
                 "OrderPos": 554,
@@ -629,7 +629,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 578
               }
             ],
             "Interpolate": null
@@ -650,7 +651,7 @@
           "Columns": [
             {
               "NamePos": 645,
-              "ColumnEnd": 667,
+              "ColumnEnd": 668,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -739,7 +740,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 696,
-                "RightParenPos": 723,
+                "RightParenPos": 722,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -793,7 +794,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 741,
-                "RightParenPos": 755,
+                "RightParenPos": 754,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -827,7 +828,7 @@
           "SampleBy": null,
           "TTL": {
             "TTLPos": 822,
-            "ListEnd": 873,
+            "ListEnd": 874,
             "Items": [
               {
                 "TTLPos": 822,
@@ -938,7 +939,7 @@
           },
           "OrderBy": {
             "OrderPos": 797,
-            "ListEnd": 820,
+            "ListEnd": 821,
             "Items": [
               {
                 "OrderPos": 797,
@@ -996,7 +997,7 @@
           "Columns": [
             {
               "NamePos": 955,
-              "ColumnEnd": 1052,
+              "ColumnEnd": 1053,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -1048,7 +1049,7 @@
                   "RightParenPos": 1052,
                   "Items": {
                     "ListPos": 993,
-                    "ListEnd": 1051,
+                    "ListEnd": 1052,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -1097,7 +1098,7 @@
                             "RightParenPos": 1051,
                             "Items": {
                               "ListPos": 1035,
-                              "ListEnd": 1050,
+                              "ListEnd": 1051,
                               "HasDistinct": false,
                               "Items": [
                                 {
@@ -1158,7 +1159,7 @@
             },
             {
               "NamePos": 1056,
-              "ColumnEnd": 1090,
+              "ColumnEnd": 1091,
               "Name": {
                 "Ident": {
                   "Name": "metric_name",
@@ -1234,7 +1235,7 @@
             },
             {
               "NamePos": 1113,
-              "ColumnEnd": 1153,
+              "ColumnEnd": 1154,
               "Name": {
                 "Ident": {
                   "Name": "tags",
@@ -1298,7 +1299,7 @@
             },
             {
               "NamePos": 1157,
-              "ColumnEnd": 1219,
+              "ColumnEnd": 1220,
               "Name": {
                 "Ident": {
                   "Name": "min_time",
@@ -1372,7 +1373,7 @@
             },
             {
               "NamePos": 1223,
-              "ColumnEnd": 1285,
+              "ColumnEnd": 1286,
               "Name": {
                 "Ident": {
                   "Name": "max_time",
@@ -1503,7 +1504,7 @@
           },
           "OrderBy": {
             "OrderPos": 1353,
-            "ListEnd": 1383,
+            "ListEnd": 1384,
             "Items": [
               {
                 "OrderPos": 1353,
@@ -1548,7 +1549,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 1384
               }
             ],
             "Interpolate": null
@@ -1601,7 +1603,7 @@
             },
             {
               "NamePos": 1514,
-              "ColumnEnd": 1541,
+              "ColumnEnd": 1542,
               "Name": {
                 "Ident": {
                   "Name": "type",
@@ -1645,7 +1647,7 @@
             },
             {
               "NamePos": 1545,
-              "ColumnEnd": 1572,
+              "ColumnEnd": 1573,
               "Name": {
                 "Ident": {
                   "Name": "unit",
@@ -1747,7 +1749,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 1659
               }
             ],
             "Interpolate": null
@@ -1820,7 +1823,7 @@
         },
         {
           "NamePos": 1705,
-          "ColumnEnd": 1729,
+          "ColumnEnd": 1730,
           "Name": {
             "Ident": {
               "Name": "tags",
@@ -1872,7 +1875,7 @@
         },
         {
           "NamePos": 1733,
-          "ColumnEnd": 1781,
+          "ColumnEnd": 1782,
           "Name": {
             "Ident": {
               "Name": "time_series",
@@ -2150,7 +2153,7 @@
           "Columns": [
             {
               "NamePos": 1952,
-              "ColumnEnd": 2003,
+              "ColumnEnd": 2004,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -2182,7 +2185,7 @@
                   "RightParenPos": 2003,
                   "Items": {
                     "ListPos": 1987,
-                    "ListEnd": 2002,
+                    "ListEnd": 2003,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -2235,7 +2238,7 @@
             },
             {
               "NamePos": 2007,
-              "ColumnEnd": 2041,
+              "ColumnEnd": 2042,
               "Name": {
                 "Ident": {
                   "Name": "metric_name",
@@ -2279,7 +2282,7 @@
             },
             {
               "NamePos": 2045,
-              "ColumnEnd": 2085,
+              "ColumnEnd": 2086,
               "Name": {
                 "Ident": {
                   "Name": "tags",
@@ -2343,7 +2346,7 @@
             },
             {
               "NamePos": 2089,
-              "ColumnEnd": 2151,
+              "ColumnEnd": 2152,
               "Name": {
                 "Ident": {
                   "Name": "min_time",
@@ -2417,7 +2420,7 @@
             },
             {
               "NamePos": 2155,
-              "ColumnEnd": 2217,
+              "ColumnEnd": 2218,
               "Name": {
                 "Ident": {
                   "Name": "max_time",
@@ -2548,7 +2551,7 @@
           },
           "OrderBy": {
             "OrderPos": 2285,
-            "ListEnd": 2315,
+            "ListEnd": 2316,
             "Items": [
               {
                 "OrderPos": 2285,
@@ -2593,7 +2596,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 2316
               }
             ],
             "Interpolate": null
@@ -2646,7 +2650,7 @@
             },
             {
               "NamePos": 2446,
-              "ColumnEnd": 2473,
+              "ColumnEnd": 2474,
               "Name": {
                 "Ident": {
                   "Name": "type",
@@ -2690,7 +2694,7 @@
             },
             {
               "NamePos": 2477,
-              "ColumnEnd": 2504,
+              "ColumnEnd": 2505,
               "Name": {
                 "Ident": {
                   "Name": "unit",
@@ -2792,7 +2796,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 2591
               }
             ],
             "Interpolate": null
@@ -2882,7 +2887,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 2659,
-                "RightParenPos": 2686,
+                "RightParenPos": 2685,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -2936,7 +2941,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 2704,
-                "RightParenPos": 2718,
+                "RightParenPos": 2717,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -2970,7 +2975,7 @@
             "PartitionPos": 2760,
             "Expr": {
               "ListPos": 2773,
-              "ListEnd": 2831,
+              "ListEnd": 2832,
               "HasDistinct": false,
               "Items": [
                 {
@@ -2986,7 +2991,7 @@
                       "RightParenPos": 2831,
                       "Items": {
                         "ListPos": 2791,
-                        "ListEnd": 2830,
+                        "ListEnd": 2831,
                         "HasDistinct": false,
                         "Items": [
                           {
@@ -3070,7 +3075,7 @@
           "SampleBy": null,
           "TTL": {
             "TTLPos": 2858,
-            "ListEnd": 2909,
+            "ListEnd": 2910,
             "Items": [
               {
                 "TTLPos": 2858,
@@ -3181,7 +3186,7 @@
           },
           "OrderBy": {
             "OrderPos": 2833,
-            "ListEnd": 2856,
+            "ListEnd": 2857,
             "Items": [
               {
                 "OrderPos": 2833,
@@ -3291,7 +3296,7 @@
         },
         {
           "NamePos": 3021,
-          "ColumnEnd": 3045,
+          "ColumnEnd": 3046,
           "Name": {
             "Ident": {
               "Name": "tags",
@@ -3343,7 +3348,7 @@
         },
         {
           "NamePos": 3049,
-          "ColumnEnd": 3097,
+          "ColumnEnd": 3098,
           "Name": {
             "Ident": {
               "Name": "time_series",
@@ -3597,7 +3602,7 @@
           "Columns": [
             {
               "NamePos": 3253,
-              "ColumnEnd": 3275,
+              "ColumnEnd": 3276,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -3686,7 +3691,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 3304,
-                "RightParenPos": 3331,
+                "RightParenPos": 3330,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -3740,7 +3745,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 3349,
-                "RightParenPos": 3363,
+                "RightParenPos": 3362,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -3796,7 +3801,7 @@
           },
           "OrderBy": {
             "OrderPos": 3398,
-            "ListEnd": 3421,
+            "ListEnd": 3422,
             "Items": [
               {
                 "OrderPos": 3398,
@@ -3833,7 +3838,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 3422
               }
             ],
             "Interpolate": null
@@ -3854,7 +3860,7 @@
           "Columns": [
             {
               "NamePos": 3479,
-              "ColumnEnd": 3576,
+              "ColumnEnd": 3577,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -3906,7 +3912,7 @@
                   "RightParenPos": 3576,
                   "Items": {
                     "ListPos": 3517,
-                    "ListEnd": 3575,
+                    "ListEnd": 3576,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -3955,7 +3961,7 @@
                             "RightParenPos": 3575,
                             "Items": {
                               "ListPos": 3559,
-                              "ListEnd": 3574,
+                              "ListEnd": 3575,
                               "HasDistinct": false,
                               "Items": [
                                 {
@@ -4016,7 +4022,7 @@
             },
             {
               "NamePos": 3580,
-              "ColumnEnd": 3614,
+              "ColumnEnd": 3615,
               "Name": {
                 "Ident": {
                   "Name": "metric_name",
@@ -4060,7 +4066,7 @@
             },
             {
               "NamePos": 3618,
-              "ColumnEnd": 3658,
+              "ColumnEnd": 3659,
               "Name": {
                 "Ident": {
                   "Name": "tags",
@@ -4124,7 +4130,7 @@
             },
             {
               "NamePos": 3662,
-              "ColumnEnd": 3724,
+              "ColumnEnd": 3725,
               "Name": {
                 "Ident": {
                   "Name": "min_time",
@@ -4198,7 +4204,7 @@
             },
             {
               "NamePos": 3728,
-              "ColumnEnd": 3790,
+              "ColumnEnd": 3791,
               "Name": {
                 "Ident": {
                   "Name": "max_time",
@@ -4329,7 +4335,7 @@
           },
           "OrderBy": {
             "OrderPos": 3858,
-            "ListEnd": 3888,
+            "ListEnd": 3889,
             "Items": [
               {
                 "OrderPos": 3858,
@@ -4374,7 +4380,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 3889
               }
             ],
             "Interpolate": null
@@ -4427,7 +4434,7 @@
             },
             {
               "NamePos": 4019,
-              "ColumnEnd": 4046,
+              "ColumnEnd": 4047,
               "Name": {
                 "Ident": {
                   "Name": "type",
@@ -4471,7 +4478,7 @@
             },
             {
               "NamePos": 4050,
-              "ColumnEnd": 4077,
+              "ColumnEnd": 4078,
               "Name": {
                 "Ident": {
                   "Name": "unit",
@@ -4573,7 +4580,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 4164
               }
             ],
             "Interpolate": null
@@ -4646,7 +4654,7 @@
         },
         {
           "NamePos": 4212,
-          "ColumnEnd": 4236,
+          "ColumnEnd": 4237,
           "Name": {
             "Ident": {
               "Name": "tags",
@@ -4698,7 +4706,7 @@
         },
         {
           "NamePos": 4240,
-          "ColumnEnd": 4288,
+          "ColumnEnd": 4289,
           "Name": {
             "Ident": {
               "Name": "time_series",
@@ -4952,7 +4960,7 @@
           "Columns": [
             {
               "NamePos": 4449,
-              "ColumnEnd": 4471,
+              "ColumnEnd": 4472,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -5041,7 +5049,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 4500,
-                "RightParenPos": 4527,
+                "RightParenPos": 4526,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -5095,7 +5103,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 4545,
-                "RightParenPos": 4559,
+                "RightParenPos": 4558,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -5151,7 +5159,7 @@
           },
           "OrderBy": {
             "OrderPos": 4594,
-            "ListEnd": 4617,
+            "ListEnd": 4618,
             "Items": [
               {
                 "OrderPos": 4594,
@@ -5188,7 +5196,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 4618
               }
             ],
             "Interpolate": null
@@ -5209,7 +5218,7 @@
           "Columns": [
             {
               "NamePos": 4675,
-              "ColumnEnd": 4772,
+              "ColumnEnd": 4773,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -5261,7 +5270,7 @@
                   "RightParenPos": 4772,
                   "Items": {
                     "ListPos": 4713,
-                    "ListEnd": 4771,
+                    "ListEnd": 4772,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -5310,7 +5319,7 @@
                             "RightParenPos": 4771,
                             "Items": {
                               "ListPos": 4755,
-                              "ListEnd": 4770,
+                              "ListEnd": 4771,
                               "HasDistinct": false,
                               "Items": [
                                 {
@@ -5371,7 +5380,7 @@
             },
             {
               "NamePos": 4776,
-              "ColumnEnd": 4810,
+              "ColumnEnd": 4811,
               "Name": {
                 "Ident": {
                   "Name": "metric_name",
@@ -5415,7 +5424,7 @@
             },
             {
               "NamePos": 4814,
-              "ColumnEnd": 4854,
+              "ColumnEnd": 4855,
               "Name": {
                 "Ident": {
                   "Name": "tags",
@@ -5479,7 +5488,7 @@
             },
             {
               "NamePos": 4858,
-              "ColumnEnd": 4920,
+              "ColumnEnd": 4921,
               "Name": {
                 "Ident": {
                   "Name": "min_time",
@@ -5553,7 +5562,7 @@
             },
             {
               "NamePos": 4924,
-              "ColumnEnd": 4986,
+              "ColumnEnd": 4987,
               "Name": {
                 "Ident": {
                   "Name": "max_time",
@@ -5684,7 +5693,7 @@
           },
           "OrderBy": {
             "OrderPos": 5054,
-            "ListEnd": 5084,
+            "ListEnd": 5085,
             "Items": [
               {
                 "OrderPos": 5054,
@@ -5729,7 +5738,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 5085
               }
             ],
             "Interpolate": null
@@ -5782,7 +5792,7 @@
             },
             {
               "NamePos": 5215,
-              "ColumnEnd": 5242,
+              "ColumnEnd": 5243,
               "Name": {
                 "Ident": {
                   "Name": "type",
@@ -5826,7 +5836,7 @@
             },
             {
               "NamePos": 5246,
-              "ColumnEnd": 5273,
+              "ColumnEnd": 5274,
               "Name": {
                 "Ident": {
                   "Name": "unit",
@@ -5928,7 +5938,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 5360
               }
             ],
             "Interpolate": null
@@ -5949,7 +5960,7 @@
           "Columns": [
             {
               "NamePos": 5392,
-              "ColumnEnd": 5414,
+              "ColumnEnd": 5415,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -6038,7 +6049,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 5443,
-                "RightParenPos": 5470,
+                "RightParenPos": 5469,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -6092,7 +6103,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 5488,
-                "RightParenPos": 5502,
+                "RightParenPos": 5501,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -6126,7 +6137,7 @@
             "PartitionPos": 5544,
             "Expr": {
               "ListPos": 5557,
-              "ListEnd": 5615,
+              "ListEnd": 5616,
               "HasDistinct": false,
               "Items": [
                 {
@@ -6142,7 +6153,7 @@
                       "RightParenPos": 5615,
                       "Items": {
                         "ListPos": 5575,
-                        "ListEnd": 5614,
+                        "ListEnd": 5615,
                         "HasDistinct": false,
                         "Items": [
                           {
@@ -6226,7 +6237,7 @@
           "SampleBy": null,
           "TTL": {
             "TTLPos": 5642,
-            "ListEnd": 5693,
+            "ListEnd": 5694,
             "Items": [
               {
                 "TTLPos": 5642,
@@ -6337,7 +6348,7 @@
           },
           "OrderBy": {
             "OrderPos": 5617,
-            "ListEnd": 5640,
+            "ListEnd": 5641,
             "Items": [
               {
                 "OrderPos": 5617,
@@ -6453,7 +6464,7 @@
         },
         {
           "NamePos": 5953,
-          "ColumnEnd": 5977,
+          "ColumnEnd": 5978,
           "Name": {
             "Ident": {
               "Name": "tags",
@@ -6505,7 +6516,7 @@
         },
         {
           "NamePos": 5985,
-          "ColumnEnd": 6050,
+          "ColumnEnd": 6051,
           "Name": {
             "Ident": {
               "Name": "time_series",
@@ -6792,7 +6803,7 @@
           "Columns": [
             {
               "NamePos": 6334,
-              "ColumnEnd": 6373,
+              "ColumnEnd": 6374,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -6881,7 +6892,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 6406,
-                "RightParenPos": 6433,
+                "RightParenPos": 6432,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -6935,7 +6946,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 6455,
-                "RightParenPos": 6469,
+                "RightParenPos": 6468,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -6991,7 +7002,7 @@
           },
           "OrderBy": {
             "OrderPos": 6505,
-            "ListEnd": 6528,
+            "ListEnd": 6529,
             "Items": [
               {
                 "OrderPos": 6505,
@@ -7028,7 +7039,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 6529
               }
             ],
             "Interpolate": null
@@ -7055,7 +7067,7 @@
           "Columns": [
             {
               "NamePos": 6666,
-              "ColumnEnd": 6705,
+              "ColumnEnd": 6706,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -7144,7 +7156,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 6738,
-                "RightParenPos": 6765,
+                "RightParenPos": 6764,
                 "Type": {
                   "Name": "DoubleDelta",
                   "QuoteType": 1,
@@ -7198,7 +7210,7 @@
               "AliasExpr": null,
               "Codec": {
                 "CodecPos": 6787,
-                "RightParenPos": 6801,
+                "RightParenPos": 6800,
                 "Type": null,
                 "TypeLevel": null,
                 "Name": {
@@ -7232,7 +7244,7 @@
           "SampleBy": null,
           "TTL": {
             "TTLPos": 6869,
-            "ListEnd": 6920,
+            "ListEnd": 6921,
             "Items": [
               {
                 "TTLPos": 6869,
@@ -7343,7 +7355,7 @@
           },
           "OrderBy": {
             "OrderPos": 6844,
-            "ListEnd": 6867,
+            "ListEnd": 6868,
             "Items": [
               {
                 "OrderPos": 6844,
@@ -7407,7 +7419,7 @@
           "Columns": [
             {
               "NamePos": 7062,
-              "ColumnEnd": 7176,
+              "ColumnEnd": 7177,
               "Name": {
                 "Ident": {
                   "Name": "id",
@@ -7459,7 +7471,7 @@
                   "RightParenPos": 7176,
                   "Items": {
                     "ListPos": 7117,
-                    "ListEnd": 7175,
+                    "ListEnd": 7176,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -7508,7 +7520,7 @@
                             "RightParenPos": 7175,
                             "Items": {
                               "ListPos": 7159,
-                              "ListEnd": 7174,
+                              "ListEnd": 7175,
                               "HasDistinct": false,
                               "Items": [
                                 {
@@ -7569,7 +7581,7 @@
             },
             {
               "NamePos": 7184,
-              "ColumnEnd": 7218,
+              "ColumnEnd": 7219,
               "Name": {
                 "Ident": {
                   "Name": "metric_name",
@@ -7645,7 +7657,7 @@
             },
             {
               "NamePos": 7249,
-              "ColumnEnd": 7289,
+              "ColumnEnd": 7290,
               "Name": {
                 "Ident": {
                   "Name": "tags",
@@ -7709,7 +7721,7 @@
             },
             {
               "NamePos": 7297,
-              "ColumnEnd": 7359,
+              "ColumnEnd": 7360,
               "Name": {
                 "Ident": {
                   "Name": "min_time",
@@ -7783,7 +7795,7 @@
             },
             {
               "NamePos": 7367,
-              "ColumnEnd": 7429,
+              "ColumnEnd": 7430,
               "Name": {
                 "Ident": {
                   "Name": "max_time",
@@ -7914,7 +7926,7 @@
           },
           "OrderBy": {
             "OrderPos": 7498,
-            "ListEnd": 7528,
+            "ListEnd": 7529,
             "Items": [
               {
                 "OrderPos": 7498,
@@ -7959,7 +7971,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 7529
               }
             ],
             "Interpolate": null
@@ -8018,7 +8031,7 @@
             },
             {
               "NamePos": 7726,
-              "ColumnEnd": 7753,
+              "ColumnEnd": 7754,
               "Name": {
                 "Ident": {
                   "Name": "type",
@@ -8062,7 +8075,7 @@
             },
             {
               "NamePos": 7761,
-              "ColumnEnd": 7788,
+              "ColumnEnd": 7789,
               "Name": {
                 "Ident": {
                   "Name": "unit",
@@ -8164,7 +8177,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 7880
               }
             ],
             "Interpolate": null
@@ -8390,7 +8404,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 8120
               }
             ],
             "Interpolate": null
@@ -8475,7 +8490,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 8204
               }
             ],
             "Interpolate": null

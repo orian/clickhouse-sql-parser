@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 205,
+    "StatementEnd": 206,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -13,7 +13,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 11,
-          "NameEnd": 11
+          "NameEnd": 12
         },
         "Modifiers": [],
         "Alias": null
@@ -21,7 +21,7 @@
       {
         "Expr": {
           "CasePos": 18,
-          "EndPos": 0,
+          "EndPos": 149,
           "Expr": null,
           "Whens": [
             {
@@ -39,13 +39,13 @@
                   "RightParenPos": 100,
                   "Items": {
                     "ListPos": 43,
-                    "ListEnd": 99,
+                    "ListEnd": 100,
                     "HasDistinct": false,
                     "Items": [
                       {
                         "Expr": {
                           "SelectPos": 43,
-                          "StatementEnd": 99,
+                          "StatementEnd": 100,
                           "HasParen": false,
                           "With": null,
                           "Top": null,

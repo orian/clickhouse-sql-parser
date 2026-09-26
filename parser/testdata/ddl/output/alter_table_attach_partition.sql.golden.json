@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 43,
+    "StatementEnd": 44,
     "TableIdentifier": {
       "Database": null,
       "Table": {
@@ -75,7 +75,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 103,
-    "StatementEnd": 149,
+    "StatementEnd": 150,
     "TableIdentifier": {
       "Database": null,
       "Table": {

@@ -16,8 +16,8 @@
             "NameEnd": 16
           },
           "Alias": {
-            "SelectPos": 30,
-            "StatementEnd": 236,
+            "SelectPos": 20,
+            "StatementEnd": 237,
             "HasParen": false,
             "With": null,
             "Top": null,
@@ -161,7 +161,7 @@
             },
             "GroupBy": {
               "GroupByPos": 205,
-              "GroupByEnd": 236,
+              "GroupByEnd": 231,
               "AggregateType": "",
               "Expr": {
                 "ListPos": 214,
@@ -215,8 +215,8 @@
             "NameEnd": 249
           },
           "Alias": {
-            "SelectPos": 263,
-            "StatementEnd": 448,
+            "SelectPos": 253,
+            "StatementEnd": 454,
             "HasParen": false,
             "With": null,
             "Top": null,
@@ -302,7 +302,7 @@
                     },
                     "OrderBy": {
                       "OrderPos": 389,
-                      "ListEnd": 408,
+                      "ListEnd": 413,
                       "Items": [
                         {
                           "OrderPos": 389,
@@ -314,7 +314,8 @@
                           },
                           "Alias": null,
                           "Direction": "DESC",
-                          "Fill": null
+                          "Fill": null,
+                          "OrderEnd": 413
                         }
                       ],
                       "Interpolate": null
@@ -497,7 +498,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 603
                 }
               ],
               "Interpolate": null
@@ -598,7 +600,8 @@
           },
           "Alias": null,
           "Direction": "",
-          "Fill": null
+          "Fill": null,
+          "OrderEnd": 734
         },
         {
           "OrderPos": 720,
@@ -610,7 +613,8 @@
           },
           "Alias": null,
           "Direction": "",
-          "Fill": null
+          "Fill": null,
+          "OrderEnd": 746
         }
       ],
       "Interpolate": null

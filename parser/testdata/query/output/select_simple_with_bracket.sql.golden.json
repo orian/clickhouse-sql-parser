@@ -21,7 +21,7 @@
             "RightParenPos": 41,
             "Items": {
               "ListPos": 19,
-              "ListEnd": 40,
+              "ListEnd": 41,
               "HasDistinct": false,
               "Items": [
                 {
@@ -150,7 +150,7 @@
             "RightBracketPos": 59,
             "Items": {
               "ListPos": 55,
-              "ListEnd": 58,
+              "ListEnd": 59,
               "HasDistinct": false,
               "Items": [
                 {

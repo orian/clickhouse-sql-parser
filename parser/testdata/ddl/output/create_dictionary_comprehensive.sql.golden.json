@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 586,
+    "StatementEnd": 587,
     "OrReplace": true,
     "Name": {
       "Database": {
@@ -358,7 +358,7 @@
       "Range": null,
       "Settings": {
         "SettingsPos": 523,
-        "ListEnd": 586,
+        "ListEnd": 587,
         "Items": [
           {
             "SettingsPos": 532,

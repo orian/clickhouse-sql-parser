@@ -26,7 +26,7 @@
     "Format": null,
     "OutputSettings": null,
     "OptimizePos": 49,
-    "StatementEnd": 85,
+    "StatementEnd": 86,
     "Table": {
       "Database": null,
       "Table": {
@@ -43,7 +43,7 @@
       "DeduplicatePos": 70,
       "By": {
         "ListPos": 85,
-        "ListEnd": 85,
+        "ListEnd": 86,
         "HasDistinct": false,
         "Items": [
           {
@@ -51,7 +51,7 @@
               "Name": "*",
               "QuoteType": 0,
               "NamePos": 85,
-              "NameEnd": 85
+              "NameEnd": 86
             },
             "Alias": null
           }
@@ -122,7 +122,7 @@
     "Format": null,
     "OutputSettings": null,
     "OptimizePos": 183,
-    "StatementEnd": 219,
+    "StatementEnd": 232,
     "Table": {
       "Database": null,
       "Table": {
@@ -139,7 +139,7 @@
       "DeduplicatePos": 204,
       "By": {
         "ListPos": 219,
-        "ListEnd": 219,
+        "ListEnd": 220,
         "HasDistinct": false,
         "Items": [
           {
@@ -147,7 +147,7 @@
               "Name": "*",
               "QuoteType": 0,
               "NamePos": 219,
-              "NameEnd": 219
+              "NameEnd": 220
             },
             "Alias": null
           }
@@ -177,7 +177,7 @@
     "Format": null,
     "OutputSettings": null,
     "OptimizePos": 234,
-    "StatementEnd": 270,
+    "StatementEnd": 291,
     "Table": {
       "Database": null,
       "Table": {
@@ -194,7 +194,7 @@
       "DeduplicatePos": 255,
       "By": {
         "ListPos": 270,
-        "ListEnd": 270,
+        "ListEnd": 271,
         "HasDistinct": false,
         "Items": [
           {
@@ -202,7 +202,7 @@
               "Name": "*",
               "QuoteType": 0,
               "NamePos": 270,
-              "NameEnd": 270
+              "NameEnd": 271
             },
             "Alias": null
           }
@@ -211,7 +211,7 @@
       },
       "Except": {
         "ListPos": 279,
-        "ListEnd": 290,
+        "ListEnd": 291,
         "HasDistinct": false,
         "Items": [
           {
@@ -257,7 +257,7 @@
     "Format": null,
     "OutputSettings": null,
     "OptimizePos": 293,
-    "StatementEnd": 362,
+    "StatementEnd": 363,
     "Table": {
       "Database": null,
       "Table": {
@@ -274,7 +274,7 @@
       "DeduplicatePos": 314,
       "By": {
         "ListPos": 329,
-        "ListEnd": 362,
+        "ListEnd": 363,
         "HasDistinct": false,
         "Items": [
           {
@@ -290,7 +290,7 @@
                 "RightParenPos": 362,
                 "Items": {
                   "ListPos": 338,
-                  "ListEnd": 361,
+                  "ListEnd": 362,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -319,7 +319,7 @@
     "Format": null,
     "OutputSettings": null,
     "OptimizePos": 365,
-    "StatementEnd": 434,
+    "StatementEnd": 447,
     "Table": {
       "Database": null,
       "Table": {
@@ -336,7 +336,7 @@
       "DeduplicatePos": 386,
       "By": {
         "ListPos": 401,
-        "ListEnd": 434,
+        "ListEnd": 435,
         "HasDistinct": false,
         "Items": [
           {
@@ -352,7 +352,7 @@
                 "RightParenPos": 434,
                 "Items": {
                   "ListPos": 410,
-                  "ListEnd": 433,
+                  "ListEnd": 434,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -397,7 +397,7 @@
     "Format": null,
     "OutputSettings": null,
     "OptimizePos": 449,
-    "StatementEnd": 518,
+    "StatementEnd": 539,
     "Table": {
       "Database": null,
       "Table": {
@@ -414,7 +414,7 @@
       "DeduplicatePos": 470,
       "By": {
         "ListPos": 485,
-        "ListEnd": 518,
+        "ListEnd": 519,
         "HasDistinct": false,
         "Items": [
           {
@@ -430,7 +430,7 @@
                 "RightParenPos": 518,
                 "Items": {
                   "ListPos": 494,
-                  "ListEnd": 517,
+                  "ListEnd": 518,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -454,7 +454,7 @@
       },
       "Except": {
         "ListPos": 527,
-        "ListEnd": 538,
+        "ListEnd": 539,
         "HasDistinct": false,
         "Items": [
           {

@@ -21,12 +21,7 @@ func TestStatementEndOptionalClauses(t *testing.T) {
 			stmts, err := NewParser(sql).ParseStmts()
 			require.NoError(t, err)
 			require.Len(t, stmts, 1)
-			end := len(sql)
-			// Parenthesized nodes currently report the closing token's position.
-			if strings.HasSuffix(sql, ")") {
-				end--
-			}
-			require.Equal(t, Pos(end), stmts[0].End())
+			require.Equal(t, Pos(len(sql)), stmts[0].End())
 		})
 	}
 }
@@ -42,7 +37,7 @@ func TestDictionaryEmptyFunctionArgument(t *testing.T) {
 	})
 	require.True(t, found)
 	require.Equal(t, "currentDatabase()", node.String())
-	require.Equal(t, Pos(strings.Index(sql, "currentDatabase()")+len("currentDatabase(")), node.End())
+	require.Equal(t, Pos(strings.Index(sql, "currentDatabase()")+len("currentDatabase()")), node.End())
 	printer := NewPrintVisitor()
 	require.NoError(t, stmts[0].Accept(printer))
 	require.Contains(t, printer.String(), "currentDatabase()")

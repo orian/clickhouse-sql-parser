@@ -31,7 +31,7 @@
       "Columns": [
         {
           "NamePos": 50,
-          "ColumnEnd": 62,
+          "ColumnEnd": 63,
           "Name": {
             "Ident": {
               "Name": "tup0",
@@ -66,7 +66,7 @@
         },
         {
           "NamePos": 70,
-          "ColumnEnd": 95,
+          "ColumnEnd": 96,
           "Name": {
             "Ident": {
               "Name": "tup1",
@@ -118,7 +118,7 @@
         },
         {
           "NamePos": 103,
-          "ColumnEnd": 144,
+          "ColumnEnd": 145,
           "Name": {
             "Ident": {
               "Name": "tup2",
@@ -190,7 +190,7 @@
         },
         {
           "NamePos": 152,
-          "ColumnEnd": 202,
+          "ColumnEnd": 203,
           "Name": {
             "Ident": {
               "Name": "tup3",
@@ -244,7 +244,7 @@
               },
               {
                 "NamePos": 174,
-                "ColumnEnd": 201,
+                "ColumnEnd": 202,
                 "Name": {
                   "Ident": {
                     "Name": "cd",
@@ -369,7 +369,7 @@
         "RightParenPos": 284,
         "Items": {
           "ListPos": 236,
-          "ListEnd": 283,
+          "ListEnd": 284,
           "HasDistinct": false,
           "Items": [
             {
@@ -420,7 +420,7 @@
       },
       "OrderBy": {
         "OrderPos": 286,
-        "ListEnd": 312,
+        "ListEnd": 313,
         "Items": [
           {
             "OrderPos": 286,
@@ -466,7 +466,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 313
           }
         ],
         "Interpolate": null

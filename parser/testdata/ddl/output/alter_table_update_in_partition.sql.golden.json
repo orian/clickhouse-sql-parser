@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 98,
+    "StatementEnd": 99,
     "TableIdentifier": {
       "Database": {
         "Name": "test",
@@ -22,7 +22,7 @@
     "AlterExprs": [
       {
         "UpdatePos": 23,
-        "StatementEnd": 98,
+        "StatementEnd": 99,
         "Assignments": [
           {
             "AssignmentPos": 30,

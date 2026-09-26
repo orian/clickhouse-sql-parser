@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 96,
+    "StatementEnd": 97,
     "TableIdentifier": {
       "Database": {
         "Name": "test",
@@ -29,7 +29,7 @@
     "AlterExprs": [
       {
         "DeletePos": 53,
-        "StatementEnd": 96,
+        "StatementEnd": 97,
         "InPartition": null,
         "WhereClause": {
           "LeftExpr": {

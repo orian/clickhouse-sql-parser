@@ -34,7 +34,7 @@
         "Values": [
           {
             "LeftBracePos": 26,
-            "RightBracePos": 40,
+            "RightBracePos": 39,
             "Name": {
               "Name": "name",
               "QuoteType": 1,

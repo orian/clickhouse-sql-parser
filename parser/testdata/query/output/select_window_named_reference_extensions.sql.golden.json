@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 303,
+    "StatementEnd": 304,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -65,7 +65,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 34
                 }
               ],
               "Interpolate": null
@@ -184,7 +185,7 @@
     },
     "Window": {
       "WindowPos": 192,
-      "EndPos": 303,
+      "EndPos": 304,
       "Windows": [
         {
           "Name": {
@@ -254,7 +255,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 254
                 }
               ],
               "Interpolate": null

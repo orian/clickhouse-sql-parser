@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 176,
+    "StatementEnd": 177,
     "OrReplace": false,
     "Name": {
       "Database": null,
@@ -193,7 +193,7 @@
     },
     "Engine": {
       "EnginePos": 142,
-      "EngineEnd": 176,
+      "EngineEnd": 177,
       "Name": "MergeTree",
       "Params": null,
       "PrimaryKey": null,
@@ -203,7 +203,7 @@
       "Settings": null,
       "OrderBy": {
         "OrderPos": 161,
-        "ListEnd": 176,
+        "ListEnd": 177,
         "Items": [
           {
             "OrderPos": 161,
@@ -229,7 +229,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 177
           }
         ],
         "Interpolate": null

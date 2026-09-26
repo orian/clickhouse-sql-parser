@@ -37,7 +37,7 @@
             "With": null,
             "SelectColumns": {
               "ListPos": 84,
-              "ListEnd": 84,
+              "ListEnd": 85,
               "HasDistinct": false,
               "Items": [
                 {
@@ -45,7 +45,7 @@
                     "Name": "*",
                     "QuoteType": 0,
                     "NamePos": 84,
-                    "NameEnd": 84
+                    "NameEnd": 85
                   },
                   "Alias": null
                 }
@@ -54,7 +54,7 @@
             },
             "GroupBy": {
               "GroupByPos": 86,
-              "GroupByEnd": 105,
+              "GroupByEnd": 104,
               "AggregateType": "",
               "Expr": {
                 "ListPos": 95,

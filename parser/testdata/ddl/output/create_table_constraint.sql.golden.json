@@ -145,7 +145,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 119
           }
         ],
         "Interpolate": null

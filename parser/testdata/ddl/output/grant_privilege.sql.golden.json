@@ -69,7 +69,7 @@
   },
   {
     "GrantPos": 39,
-    "StatementEnd": 113,
+    "StatementEnd": 112,
     "OnCluster": null,
     "Privileges": [
       {
@@ -492,7 +492,7 @@
   },
   {
     "GrantPos": 323,
-    "StatementEnd": 372,
+    "StatementEnd": 371,
     "OnCluster": null,
     "Privileges": [
       {

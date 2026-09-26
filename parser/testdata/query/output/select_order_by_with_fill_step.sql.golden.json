@@ -34,13 +34,13 @@
       "Expr": {
         "Table": {
           "TablePos": 24,
-          "TableEnd": 123,
+          "TableEnd": 126,
           "Alias": null,
           "Expr": {
             "HasParen": true,
             "Select": {
               "SelectPos": 30,
-              "StatementEnd": 123,
+              "StatementEnd": 124,
               "HasParen": false,
               "With": null,
               "Top": null,
@@ -61,7 +61,7 @@
                         "RightParenPos": 56,
                         "Items": {
                           "ListPos": 45,
-                          "ListEnd": 55,
+                          "ListEnd": 56,
                           "HasDistinct": false,
                           "Items": [
                             {
@@ -126,7 +126,7 @@
                 "Expr": {
                   "Table": {
                     "TablePos": 114,
-                    "TableEnd": 123,
+                    "TableEnd": 124,
                     "Alias": null,
                     "Expr": {
                       "Name": {
@@ -151,7 +151,7 @@
                     "HasFinal": false,
                     "Stream": null
                   },
-                  "StatementEnd": 123,
+                  "StatementEnd": 124,
                   "SampleRatio": null,
                   "HasFinal": false
                 }
@@ -171,12 +171,13 @@
               "UnionAll": null,
               "UnionDistinct": null,
               "Except": null
-            }
+            },
+            "RightParenPos": 125
           },
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 123,
+        "StatementEnd": 126,
         "SampleRatio": null,
         "HasFinal": false
       }
@@ -202,7 +203,7 @@
           "Alias": null,
           "Direction": "",
           "Fill": {
-            "FillPos": 151,
+            "FillPos": 146,
             "From": null,
             "To": null,
             "Step": {
@@ -221,7 +222,8 @@
               }
             },
             "Staleness": null
-          }
+          },
+          "OrderEnd": 170
         }
       ],
       "Interpolate": null

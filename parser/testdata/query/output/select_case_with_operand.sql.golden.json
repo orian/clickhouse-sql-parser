@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 76,
+    "StatementEnd": 77,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -11,7 +11,7 @@
       {
         "Expr": {
           "CasePos": 7,
-          "EndPos": 0,
+          "EndPos": 61,
           "Expr": {
             "Name": "number",
             "QuoteType": 1,
@@ -77,7 +77,7 @@
       "Expr": {
         "Table": {
           "TablePos": 67,
-          "TableEnd": 76,
+          "TableEnd": 77,
           "Alias": null,
           "Expr": {
             "Name": {
@@ -102,7 +102,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 76,
+        "StatementEnd": 77,
         "SampleRatio": null,
         "HasFinal": false
       }
@@ -125,7 +125,7 @@
   },
   {
     "SelectPos": 79,
-    "StatementEnd": 176,
+    "StatementEnd": 177,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -135,7 +135,7 @@
       {
         "Expr": {
           "CasePos": 86,
-          "EndPos": 0,
+          "EndPos": 153,
           "Expr": {
             "LeftExpr": {
               "Name": "number",
@@ -210,7 +210,7 @@
       "Expr": {
         "Table": {
           "TablePos": 167,
-          "TableEnd": 176,
+          "TableEnd": 177,
           "Alias": null,
           "Expr": {
             "Name": {
@@ -235,7 +235,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 176,
+        "StatementEnd": 177,
         "SampleRatio": null,
         "HasFinal": false
       }

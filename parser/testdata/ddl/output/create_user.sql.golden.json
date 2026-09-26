@@ -150,7 +150,7 @@
   },
   {
     "CreatePos": 206,
-    "StatementEnd": 274,
+    "StatementEnd": 275,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -167,7 +167,7 @@
     ],
     "Authentication": {
       "AuthPos": 224,
-      "AuthEnd": 274,
+      "AuthEnd": 275,
       "NotIdentified": false,
       "AuthType": "plaintext_password",
       "AuthValue": {
@@ -189,7 +189,7 @@
   },
   {
     "CreatePos": 277,
-    "StatementEnd": 338,
+    "StatementEnd": 339,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -206,7 +206,7 @@
     ],
     "Authentication": {
       "AuthPos": 295,
-      "AuthEnd": 338,
+      "AuthEnd": 339,
       "NotIdentified": false,
       "AuthType": "sha256_password",
       "AuthValue": {
@@ -228,7 +228,7 @@
   },
   {
     "CreatePos": 341,
-    "StatementEnd": 399,
+    "StatementEnd": 400,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -245,7 +245,7 @@
     ],
     "Authentication": {
       "AuthPos": 359,
-      "AuthEnd": 399,
+      "AuthEnd": 400,
       "NotIdentified": false,
       "AuthType": "",
       "AuthValue": null,
@@ -302,7 +302,7 @@
   },
   {
     "CreatePos": 447,
-    "StatementEnd": 509,
+    "StatementEnd": 510,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -319,7 +319,7 @@
     ],
     "Authentication": {
       "AuthPos": 466,
-      "AuthEnd": 509,
+      "AuthEnd": 510,
       "NotIdentified": false,
       "AuthType": "",
       "AuthValue": null,
@@ -341,7 +341,7 @@
   },
   {
     "CreatePos": 545,
-    "StatementEnd": 596,
+    "StatementEnd": 597,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -371,7 +371,7 @@
   },
   {
     "CreatePos": 599,
-    "StatementEnd": 693,
+    "StatementEnd": 694,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -388,7 +388,7 @@
     ],
     "Authentication": {
       "AuthPos": 618,
-      "AuthEnd": 668,
+      "AuthEnd": 669,
       "NotIdentified": false,
       "AuthType": "plaintext_password",
       "AuthValue": {
@@ -414,7 +414,7 @@
   },
   {
     "CreatePos": 696,
-    "StatementEnd": 736,
+    "StatementEnd": 737,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -543,7 +543,7 @@
   },
   {
     "CreatePos": 868,
-    "StatementEnd": 907,
+    "StatementEnd": 908,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -563,7 +563,7 @@
     "Hosts": [
       {
         "HostPos": 887,
-        "HostEnd": 907,
+        "HostEnd": 908,
         "HostType": "NAME",
         "HostValue": {
           "LiteralPos": 898,
@@ -580,7 +580,7 @@
   },
   {
     "CreatePos": 910,
-    "StatementEnd": 958,
+    "StatementEnd": 959,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -600,7 +600,7 @@
     "Hosts": [
       {
         "HostPos": 929,
-        "HostEnd": 958,
+        "HostEnd": 959,
         "HostType": "REGEXP",
         "HostValue": {
           "LiteralPos": 942,
@@ -617,7 +617,7 @@
   },
   {
     "CreatePos": 961,
-    "StatementEnd": 1000,
+    "StatementEnd": 1001,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -637,7 +637,7 @@
     "Hosts": [
       {
         "HostPos": 980,
-        "HostEnd": 1000,
+        "HostEnd": 1001,
         "HostType": "IP",
         "HostValue": {
           "LiteralPos": 989,
@@ -654,7 +654,7 @@
   },
   {
     "CreatePos": 1003,
-    "StatementEnd": 1038,
+    "StatementEnd": 1039,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -674,7 +674,7 @@
     "Hosts": [
       {
         "HostPos": 1022,
-        "HostEnd": 1038,
+        "HostEnd": 1039,
         "HostType": "LIKE",
         "HostValue": {
           "LiteralPos": 1033,
@@ -1149,7 +1149,7 @@
   },
   {
     "CreatePos": 1637,
-    "StatementEnd": 1681,
+    "StatementEnd": 1682,
     "IfNotExists": false,
     "OrReplace": false,
     "UserNames": [
@@ -1279,7 +1279,7 @@
     ],
     "Authentication": {
       "AuthPos": 1819,
-      "AuthEnd": 1866,
+      "AuthEnd": 1867,
       "NotIdentified": false,
       "AuthType": "plaintext_password",
       "AuthValue": {
@@ -1299,7 +1299,7 @@
     "Hosts": [
       {
         "HostPos": 1901,
-        "HostEnd": 1921,
+        "HostEnd": 1922,
         "HostType": "NAME",
         "HostValue": {
           "LiteralPos": 1912,
