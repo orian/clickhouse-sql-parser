@@ -409,8 +409,12 @@ func (p *PrintVisitor) VisitCaseExpr(c *CaseExpr) error {
 	builder.WriteString("CASE ")
 	if c.Expr != nil {
 		builder.WriteString(c.Expr.String())
+		builder.WriteByte(' ')
 	}
-	for _, when := range c.Whens {
+	for i, when := range c.Whens {
+		if i > 0 {
+			builder.WriteByte(' ')
+		}
 		builder.WriteString(when.String())
 	}
 	if c.Else != nil {

@@ -4791,6 +4791,7 @@ func (c *CaseExpr) String() string {
 	builder.WriteString("CASE ")
 	if c.Expr != nil {
 		builder.WriteString(c.Expr.String())
+		builder.WriteByte(' ')
 	}
 	for i, when := range c.Whens {
 		if i > 0 {
