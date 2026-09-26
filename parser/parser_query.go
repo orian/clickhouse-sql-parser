@@ -1110,13 +1110,13 @@ func (p *Parser) parseSelectStmt(pos Pos) (*SelectQuery, error) { // nolint: fun
 		statementEnd = groupBy.End()
 	}
 	withTotal := false
-	lastPos := p.Pos()
 	if p.tryConsumeKeywords(KeywordWith) {
+		totalsEnd := p.End()
 		if err := p.expectKeyword(KeywordTotals); err != nil {
 			return nil, err
 		}
 		withTotal = true
-		statementEnd = lastPos
+		statementEnd = totalsEnd
 	}
 	having, err := p.tryParseHavingClause(p.Pos())
 	if err != nil {

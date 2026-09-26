@@ -1859,6 +1859,11 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 		builder.WriteString(" ")
 		builder.WriteString(s.GroupBy.String())
 	}
+	// WITH TOTALS without GROUP BY (a totals row over the whole query); with
+	// GROUP BY it is part of the GROUP BY clause.
+	if s.WithTotal {
+		builder.WriteString(" WITH TOTALS")
+	}
 	if s.Having != nil {
 		builder.WriteString(" ")
 		builder.WriteString(s.Having.String())
