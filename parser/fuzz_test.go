@@ -129,6 +129,7 @@ func addSQLFuzzSeeds(f *testing.F) {
 		"SELECT a FROM t GROUP BY a WITH TOTALS WITH CUBE",
 		"CREATE LIVE VIEW v WITH TIMEOUT AS SELECT 1",
 		"SELECT CAST(a = b, 'Bool') FROM t", "SELECT {value:UInt64}",
+		"SELECT -1::Int32, - -1, 2 - -1, -x::Int8, +1e-5::Float64", "SELECT - -",
 		"SELECT groupArraySample(5, 1)(DISTINCT x), quantilesTimingIf(0.1)(DISTINCT x, y) FROM t",
 		"WITH x AS (SELECT 1) SELECT * FROM x", "SYSTEM STOP MERGES t",
 		"SELECT 1 FROM a GLOBAL ANY LEFT JOIN b ON a.x = b.x GLOBAL CROSS JOIN c", "SELECT 1 FROM a LOCAL JOIN b USING (x)",
