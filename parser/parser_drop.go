@@ -25,11 +25,28 @@ func (p *Parser) parseDropDatabase(pos Pos) (*DropDatabase, error) {
 		statementEnd = onCluster.End()
 	}
 
+	// PERMANENTLY is only valid for DETACH; the DROP caller rejects it.
+	permanently := p.matchPermanently()
+	if permanently {
+		statementEnd = p.End()
+		_ = p.lexer.consumeToken()
+	}
+
+	modifier, err := p.tryParseModifier()
+	if err != nil {
+		return nil, err
+	}
+	if modifier != "" {
+		statementEnd = p.Pos()
+	}
+
 	return &DropDatabase{
 		DropPos:      pos,
 		Name:         name,
 		IfExists:     isExists,
 		OnCluster:    onCluster,
+		Permanently:  permanently,
+		Modifier:     modifier,
 		StatementEnd: statementEnd,
 	}, nil
 }
@@ -64,6 +81,12 @@ func (p *Parser) parseDropStmt(pos Pos) (*DropStmt, error) {
 		return nil, err
 	}
 
+	// PERMANENTLY is only valid for DETACH; the DROP caller rejects it.
+	permanently := p.matchPermanently()
+	if permanently {
+		_ = p.lexer.consumeToken()
+	}
+
 	modifier, err := p.tryParseModifier()
 	if err != nil {
 		return nil, err
@@ -77,6 +100,7 @@ func (p *Parser) parseDropStmt(pos Pos) (*DropStmt, error) {
 		OnCluster:    onCluster,
 		IsTemporary:  isTemporary,
 		Modifier:     modifier,
+		Permanently:  permanently,
 		StatementEnd: p.Pos(),
 	}, nil
 }

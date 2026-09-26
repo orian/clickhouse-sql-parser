@@ -178,7 +178,8 @@
       "Range": null,
       "Settings": null
     },
-    "Comment": null
+    "Comment": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 197,
@@ -359,7 +360,8 @@
       "Range": null,
       "Settings": null
     },
-    "Comment": null
+    "Comment": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 401,
@@ -540,6 +542,7 @@
       "Range": null,
       "Settings": null
     },
-    "Comment": null
+    "Comment": null,
+    "IsAttach": false
   }
 ]

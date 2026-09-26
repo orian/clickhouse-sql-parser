@@ -364,6 +364,7 @@
       "LiteralPos": 455,
       "LiteralEnd": 493,
       "Literal": "This is a test dictionary with comment"
-    }
+    },
+    "IsAttach": false
   }
 ]

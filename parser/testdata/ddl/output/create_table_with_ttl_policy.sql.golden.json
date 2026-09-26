@@ -298,7 +298,8 @@
     "HasTemporary": false,
     "Comment": null,
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 221,
@@ -555,7 +556,8 @@
     "HasTemporary": false,
     "Comment": null,
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 399,
@@ -865,7 +867,8 @@
     "HasTemporary": false,
     "Comment": null,
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 669,
@@ -1239,6 +1242,7 @@
     "HasTemporary": false,
     "Comment": null,
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   }
 ]

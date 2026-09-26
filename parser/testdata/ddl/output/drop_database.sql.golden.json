@@ -9,6 +9,9 @@
       "NameEnd": 36
     },
     "IfExists": true,
-    "OnCluster": null
+    "OnCluster": null,
+    "IsDetach": false,
+    "Permanently": false,
+    "Modifier": ""
   }
 ]

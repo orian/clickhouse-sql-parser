@@ -161,7 +161,8 @@
     "Populate": false,
     "Comment": null,
     "Definer": null,
-    "SQLSecurity": ""
+    "SQLSecurity": "",
+    "IsAttach": false
   },
   {
     "CreatePos": 138,
@@ -292,6 +293,7 @@
     "Populate": false,
     "Comment": null,
     "Definer": null,
-    "SQLSecurity": ""
+    "SQLSecurity": "",
+    "IsAttach": false
   }
 ]

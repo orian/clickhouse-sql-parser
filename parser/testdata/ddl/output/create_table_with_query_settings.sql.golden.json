@@ -258,7 +258,8 @@
           }
         }
       ]
-    }
+    },
+    "IsAttach": false
   },
   {
     "CreatePos": 219,
@@ -396,7 +397,8 @@
           }
         }
       ]
-    }
+    },
+    "IsAttach": false
   },
   {
     "CreatePos": 348,
@@ -500,6 +502,7 @@
           }
         }
       ]
-    }
+    },
+    "IsAttach": false
   }
 ]

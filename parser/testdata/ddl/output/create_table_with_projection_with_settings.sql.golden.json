@@ -167,7 +167,8 @@
     "HasTemporary": false,
     "Comment": null,
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 156,
@@ -464,6 +465,7 @@
     "HasTemporary": false,
     "Comment": null,
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   }
 ]

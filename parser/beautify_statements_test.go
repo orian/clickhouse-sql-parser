@@ -66,9 +66,8 @@ func TestBeautify_StatementsWithoutFixtures(t *testing.T) {
 			want: "CREATE LIVE VIEW IF NOT EXISTS v UUID '3493e374-e2bb-481b-b493-e374e2bb981b'\nWITH TIMEOUT 10\nTO dst (\n  id UInt64\n)\nAS\nSELECT id\nFROM t",
 		},
 		{
-			// ATTACH is printed as CREATE until #43 is fixed.
 			sql:  "ATTACH DICTIONARY d (x UInt64) PRIMARY KEY x SOURCE(NULL()) LAYOUT(FLAT()) LIFETIME(0)",
-			want: "CREATE DICTIONARY d (x UInt64) PRIMARY KEY x SOURCE(NULL()) LIFETIME(0) LAYOUT(FLAT())",
+			want: "ATTACH DICTIONARY d (x UInt64) PRIMARY KEY x SOURCE(NULL()) LIFETIME(0) LAYOUT(FLAT())",
 		},
 		{
 			sql:  "CREATE VIEW v AS (SELECT 1)",

@@ -1745,7 +1745,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 1661,
@@ -3203,7 +3204,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 2971,
@@ -4549,7 +4551,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 4166,
@@ -6334,7 +6337,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 5853,
@@ -8112,7 +8116,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 7946,
@@ -8250,7 +8255,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 8037,
@@ -8332,7 +8338,8 @@
         "EngineShorthand": true
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 8122,
@@ -8414,7 +8421,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 8206,
@@ -8515,7 +8523,8 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 8293,
@@ -8581,6 +8590,7 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   }
 ]

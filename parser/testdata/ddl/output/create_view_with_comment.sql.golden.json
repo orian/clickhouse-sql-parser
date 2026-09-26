@@ -173,6 +173,7 @@
         "UnionDistinct": null,
         "Except": null
       }
-    }
+    },
+    "IsAttach": false
   }
 ]

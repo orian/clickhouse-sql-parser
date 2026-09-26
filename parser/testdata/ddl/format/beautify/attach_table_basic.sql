@@ -14,7 +14,7 @@ PARTITION BY toYYYYMMDD(f3)
 ORDER BY (f0,f1,f2);
 
 -- Beautify SQL:
-CREATE TABLE IF NOT EXISTS test.events_local
+ATTACH TABLE IF NOT EXISTS test.events_local
 ON CLUSTER 'default_cluster' (
   f0 String,
   f1 String,

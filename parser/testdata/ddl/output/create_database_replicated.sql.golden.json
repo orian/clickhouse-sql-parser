@@ -57,6 +57,7 @@
       "Settings": null,
       "OrderBy": null
     },
-    "Comment": null
+    "Comment": null,
+    "IsAttach": false
   }
 ]

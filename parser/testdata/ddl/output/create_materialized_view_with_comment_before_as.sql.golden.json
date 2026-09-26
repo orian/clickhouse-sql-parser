@@ -260,6 +260,7 @@
       "Literal": "{\"blueprint_hash\":\"abc123\",\"timestamp\":\"2026-04-08T12:00:00Z\"}"
     },
     "Definer": null,
-    "SQLSecurity": ""
+    "SQLSecurity": "",
+    "IsAttach": false
   }
 ]

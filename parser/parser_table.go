@@ -10,10 +10,14 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 	switch {
 	case p.matchKeyword(KeywordCreate),
 		p.matchKeyword(KeywordAttach):
+		isAttach := p.matchKeyword(KeywordAttach)
 		_ = p.lexer.consumeToken()
 		orReplace := p.tryConsumeKeywords(KeywordOr, KeywordReplace)
 		if orReplace && !p.matchOneOfKeywords(KeywordTemporary, KeywordTable, KeywordView, KeywordFunction, KeywordDictionary) {
 			return nil, fmt.Errorf("expected keyword: TEMPORARY|TABLE|VIEW|FUNCTION|DICTIONARY, but got %q", p.lastTokenText())
+		}
+		if isAttach {
+			return p.parseAttach(pos, orReplace)
 		}
 		switch {
 		case p.matchKeyword(KeywordNamed):
@@ -21,7 +25,14 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 		case p.matchKeyword(KeywordDatabase):
 			return p.parseCreateDatabase(pos)
 		case p.matchKeyword(KeywordDictionary):
-			return p.parseCreateDictionary(pos, orReplace)
+			stmt, err := p.parseCreateDictionary(pos, orReplace)
+			if err != nil {
+				return nil, err
+			}
+			if stmt.Schema == nil {
+				return nil, fmt.Errorf("expected dictionary definition after CREATE DICTIONARY %s", stmt.Name.String())
+			}
+			return stmt, nil
 		case p.matchKeyword(KeywordTable),
 			p.matchKeyword(KeywordTemporary):
 			return p.parseCreateTable(pos, orReplace)
@@ -51,17 +62,33 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 		default:
 			return nil, fmt.Errorf("expected keyword: TABLE|ROLE, but got %q", p.lastTokenText())
 		}
-	case p.matchKeyword(KeywordDrop),
-		p.matchKeyword(KeywordDetach):
+	case p.matchKeyword(KeywordDetach):
+		_ = p.lexer.consumeToken()
+		return p.parseDetach(pos)
+	case p.matchKeyword(KeywordDrop):
 		_ = p.lexer.consumeToken()
 		switch {
 		case p.matchKeyword(KeywordDatabase):
-			return p.parseDropDatabase(pos)
+			stmt, err := p.parseDropDatabase(pos)
+			if err != nil {
+				return nil, err
+			}
+			if stmt.Permanently {
+				return nil, errors.New("PERMANENTLY is only valid with DETACH")
+			}
+			return stmt, nil
 		case p.matchKeyword(KeywordTemporary),
 			p.matchKeyword(KeywordView),
 			p.matchKeyword(KeywordDictionary),
 			p.matchKeyword(KeywordTable):
-			return p.parseDropStmt(pos)
+			stmt, err := p.parseDropStmt(pos)
+			if err != nil {
+				return nil, err
+			}
+			if stmt.Permanently {
+				return nil, errors.New("PERMANENTLY is only valid with DETACH")
+			}
+			return stmt, nil
 		case p.matchKeyword(KeywordUser),
 			p.matchKeyword(KeywordRole):
 			return p.parserDropUserOrRole(pos)
@@ -74,6 +101,97 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 		return p.parseRenameStmt(pos)
 	}
 	return nil, nil // nolint
+}
+
+// parseAttach parses ATTACH TABLE|VIEW|MATERIALIZED VIEW|LIVE VIEW|DICTIONARY|
+// DATABASE. It shares the CREATE parsers and marks the result IsAttach so
+// that it prints back as ATTACH. ClickHouse accepts no OR REPLACE and no
+// FUNCTION, ROLE, USER or NAMED COLLECTION after ATTACH.
+func (p *Parser) parseAttach(pos Pos, orReplace bool) (DDL, error) {
+	if orReplace {
+		return nil, errors.New("ATTACH does not support OR REPLACE")
+	}
+	switch {
+	case p.matchKeyword(KeywordDatabase):
+		stmt, err := p.parseCreateDatabase(pos)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsAttach = true
+		return stmt, nil
+	case p.matchKeyword(KeywordDictionary):
+		stmt, err := p.parseCreateDictionary(pos, false)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsAttach = true
+		return stmt, nil
+	case p.matchKeyword(KeywordTable), p.matchKeyword(KeywordTemporary):
+		stmt, err := p.parseCreateTable(pos, false)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsAttach = true
+		return stmt, nil
+	case p.matchKeyword(KeywordMaterialized):
+		stmt, err := p.parseCreateMaterializedView(pos)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsAttach = true
+		return stmt, nil
+	case p.matchKeyword(KeywordLive):
+		stmt, err := p.parseCreateLiveView(pos)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsAttach = true
+		return stmt, nil
+	case p.matchKeyword(KeywordView):
+		stmt, err := p.parseCreateView(pos, false)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsAttach = true
+		return stmt, nil
+	default:
+		return nil, fmt.Errorf("expected keyword: DATABASE|DICTIONARY|TABLE|VIEW|MATERIALIZED|LIVE after ATTACH, but got %q",
+			p.lastTokenText())
+	}
+}
+
+// matchPermanently reports whether the current token is the PERMANENTLY
+// modifier of DETACH. It is not a reserved keyword, so it is matched as an
+// unquoted identifier.
+func (p *Parser) matchPermanently() bool {
+	return isUnquotedIdent(p.last()) && strings.EqualFold(p.last().String, "PERMANENTLY")
+}
+
+// parseDetach parses DETACH TABLE|VIEW|DICTIONARY|DATABASE ... [PERMANENTLY]
+// [SYNC]. It shares the DROP parsers and marks the result IsDetach so that it
+// prints back as DETACH rather than DROP.
+func (p *Parser) parseDetach(pos Pos) (DDL, error) {
+	switch {
+	case p.matchKeyword(KeywordDatabase):
+		stmt, err := p.parseDropDatabase(pos)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsDetach = true
+		return stmt, nil
+	case p.matchKeyword(KeywordTemporary),
+		p.matchKeyword(KeywordView),
+		p.matchKeyword(KeywordDictionary),
+		p.matchKeyword(KeywordTable):
+		stmt, err := p.parseDropStmt(pos)
+		if err != nil {
+			return nil, err
+		}
+		stmt.IsDetach = true
+		return stmt, nil
+	default:
+		return nil, fmt.Errorf("expected keyword: DATABASE|TABLE|VIEW|DICTIONARY after DETACH, but got %q", p.lastTokenText())
+	}
 }
 
 func (p *Parser) parseCreateDatabase(pos Pos) (*CreateDatabase, error) {
@@ -158,6 +276,21 @@ func (p *Parser) parseCreateDictionary(pos Pos, orReplace bool) (*CreateDictiona
 		return nil, err
 	}
 	createDict.OnCluster = onCluster
+	createDict.StatementEnd = p.End()
+	switch {
+	case onCluster != nil:
+		createDict.StatementEnd = onCluster.End()
+	case uuid != nil:
+		createDict.StatementEnd = uuid.End()
+	default:
+		createDict.StatementEnd = name.End()
+	}
+
+	// `ATTACH DICTIONARY name` re-attaches a detached dictionary and has no
+	// definition; parseDDL rejects the short form for CREATE.
+	if !p.matchTokenKind(TokenKindLParen) {
+		return createDict, nil
+	}
 
 	// parse dictionary schema clause (required)
 	schema, err := p.parseDictionarySchemaClause(p.Pos())

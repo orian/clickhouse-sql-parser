@@ -383,6 +383,7 @@
       "NamePos": 185,
       "NameEnd": 192
     },
-    "SQLSecurity": "DEFINER"
+    "SQLSecurity": "DEFINER",
+    "IsAttach": false
   }
 ]

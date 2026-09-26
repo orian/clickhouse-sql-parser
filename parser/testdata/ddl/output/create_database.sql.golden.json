@@ -11,6 +11,7 @@
     "IfNotExists": true,
     "OnCluster": null,
     "Engine": null,
-    "Comment": null
+    "Comment": null,
+    "IsAttach": false
   }
 ]

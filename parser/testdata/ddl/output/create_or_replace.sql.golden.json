@@ -331,7 +331,8 @@
       "Literal": "Comment for table"
     },
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   },
   {
     "CreatePos": 393,
@@ -493,7 +494,8 @@
         "UnionDistinct": null,
         "Except": null
       }
-    }
+    },
+    "IsAttach": false
   },
   {
     "CreatePos": 511,

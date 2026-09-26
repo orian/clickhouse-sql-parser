@@ -607,7 +607,7 @@ func (p *PrintVisitor) VisitConstraintExpr(c *ConstraintClause) error {
 }
 func (p *PrintVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 	builder := p.builder
-	builder.WriteString("CREATE DATABASE ")
+	builder.WriteString(createVerb(c.IsAttach) + " DATABASE ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
@@ -617,7 +617,7 @@ func (p *PrintVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 		builder.WriteString(c.OnCluster.String())
 	}
 	if c.Engine != nil {
-		builder.WriteString(" ")
+		// EngineExpr.String() already emits a leading " ENGINE = ...".
 		builder.WriteString(c.Engine.String())
 	}
 	if c.Comment != nil {
@@ -651,7 +651,7 @@ func (p *PrintVisitor) VisitCreateFunction(c *CreateFunction) error {
 
 func (p *PrintVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 	builder := p.builder
-	builder.WriteString("CREATE LIVE VIEW ")
+	builder.WriteString(createVerb(c.IsAttach) + " LIVE VIEW ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
@@ -690,7 +690,7 @@ func (p *PrintVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 }
 func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) error {
 	builder := p.builder
-	builder.WriteString("CREATE MATERIALIZED VIEW ")
+	builder.WriteString(createVerb(c.IsAttach) + " MATERIALIZED VIEW ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
@@ -766,7 +766,7 @@ func (p *PrintVisitor) VisitRefreshExpr(r *RefreshExpr) error {
 
 func (p *PrintVisitor) VisitCreateDictionary(c *CreateDictionary) error {
 	builder := p.builder
-	builder.WriteString("CREATE")
+	builder.WriteString(createVerb(c.IsAttach))
 	if c.OrReplace {
 		builder.WriteString(" OR REPLACE")
 	}
@@ -945,7 +945,7 @@ func (p *PrintVisitor) VisitCreateRole(c *CreateRole) error {
 }
 func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 	builder := p.builder
-	builder.WriteString("CREATE")
+	builder.WriteString(createVerb(c.IsAttach))
 	if c.OrReplace {
 		builder.WriteString(" OR REPLACE")
 	}
@@ -996,7 +996,7 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 
 func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 	builder := p.builder
-	builder.WriteString("CREATE")
+	builder.WriteString(createVerb(c.IsAttach))
 	if c.OrReplace {
 		builder.WriteString(" OR REPLACE")
 	}
@@ -1078,7 +1078,7 @@ func (p *PrintVisitor) VisitDestinationExpr(d *DestinationClause) error {
 
 func (p *PrintVisitor) VisitDropDatabase(d *DropDatabase) error {
 	builder := p.builder
-	builder.WriteString("DROP DATABASE ")
+	builder.WriteString(dropVerb(d.IsDetach) + " DATABASE ")
 	if d.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
@@ -1087,12 +1087,18 @@ func (p *PrintVisitor) VisitDropDatabase(d *DropDatabase) error {
 		builder.WriteString(" ")
 		builder.WriteString(d.OnCluster.String())
 	}
+	if d.Permanently {
+		builder.WriteString(" PERMANENTLY")
+	}
+	if d.Modifier != "" {
+		builder.WriteString(" " + d.Modifier)
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitDropStmt(d *DropStmt) error {
 	builder := p.builder
-	builder.WriteString("DROP ")
+	builder.WriteString(dropVerb(d.IsDetach) + " ")
 	if d.IsTemporary {
 		builder.WriteString("TEMPORARY ")
 	}
@@ -1104,6 +1110,9 @@ func (p *PrintVisitor) VisitDropStmt(d *DropStmt) error {
 	if d.OnCluster != nil {
 		builder.WriteString(" ")
 		builder.WriteString(d.OnCluster.String())
+	}
+	if d.Permanently {
+		builder.WriteString(" PERMANENTLY")
 	}
 	if len(d.Modifier) != 0 {
 		builder.WriteString(" " + d.Modifier)

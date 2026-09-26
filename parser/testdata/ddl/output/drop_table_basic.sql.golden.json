@@ -20,6 +20,8 @@
     "IfExists": true,
     "OnCluster": null,
     "IsTemporary": false,
-    "Modifier": ""
+    "Modifier": "",
+    "IsDetach": false,
+    "Permanently": false
   }
 ]

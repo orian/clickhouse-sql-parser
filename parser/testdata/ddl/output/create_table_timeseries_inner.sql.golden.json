@@ -464,6 +464,7 @@
         "EngineShorthand": false
       }
     ],
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   }
 ]
