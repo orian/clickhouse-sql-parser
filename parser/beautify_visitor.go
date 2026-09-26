@@ -729,7 +729,7 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 		b.newline()
 		b.writeString("AS")
 		b.newline()
-		if err := c.SubQuery.Select.Accept(b.Self); err != nil {
+		if err := c.SubQuery.Accept(b.Self); err != nil {
 			return err
 		}
 	}
@@ -1239,7 +1239,7 @@ func (b *BeautifyVisitor) VisitCreateView(c *CreateView) error {
 		b.newline()
 		b.writeString("AS")
 		b.newline()
-		if err := c.SubQuery.Select.Accept(b.Self); err != nil {
+		if err := c.SubQuery.Accept(b.Self); err != nil {
 			return err
 		}
 	}
@@ -1321,7 +1321,7 @@ func (b *BeautifyVisitor) VisitCreateMaterializedView(c *CreateMaterializedView)
 		b.newline()
 		b.writeString("AS")
 		b.newline()
-		if err := c.SubQuery.Select.Accept(b.Self); err != nil {
+		if err := c.SubQuery.Accept(b.Self); err != nil {
 			return err
 		}
 	}
@@ -1332,6 +1332,97 @@ func (b *BeautifyVisitor) VisitCreateMaterializedView(c *CreateMaterializedView)
 	}
 	return nil
 }
+
+// VisitCreateLiveView beautifies CREATE LIVE VIEW.
+func (b *BeautifyVisitor) VisitCreateLiveView(c *CreateLiveView) error {
+	b.Enter(c)
+	defer b.Leave(c)
+
+	b.writeString("CREATE LIVE VIEW ")
+	if c.IfNotExists {
+		b.writeString("IF NOT EXISTS ")
+	}
+	b.writeString(c.Name.String())
+	if c.UUID != nil {
+		b.writeSpace()
+		b.writeString(c.UUID.String())
+	}
+	if c.OnCluster != nil {
+		b.newline()
+		b.writeString(c.OnCluster.String())
+	}
+	if c.WithTimeout != nil {
+		b.newline()
+		b.writeString(c.WithTimeout.String())
+	}
+	if c.Destination != nil {
+		b.newline()
+		b.writeString(c.Destination.String())
+	}
+	if c.TableSchema != nil {
+		b.writeSpace()
+		b.beautifyTableSchema(c.TableSchema)
+	}
+	if c.SubQuery != nil {
+		b.newline()
+		b.writeString("AS")
+		b.newline()
+		if err := c.SubQuery.Accept(b.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// VisitExplainExpr beautifies EXPLAIN, keeping the explain kind on the first
+// line and beautifying the explained statement below it.
+func (b *BeautifyVisitor) VisitExplainExpr(e *ExplainStmt) error {
+	b.Enter(e)
+	defer b.Leave(e)
+
+	b.writeString("EXPLAIN ")
+	b.writeString(e.Type)
+	b.newline()
+	return e.Statement.Accept(b.Self)
+}
+
+// The statements below have no multi-line layout yet. Without an override
+// they would fall back to DefaultASTVisitor, which only descends into the
+// children and so emits nothing (or just a nested SELECT); emit their compact
+// String() form instead.
+
+func (b *BeautifyVisitor) writeCompact(expr Expr) error {
+	b.Enter(expr)
+	defer b.Leave(expr)
+	b.writeString(expr.String())
+	return nil
+}
+
+func (b *BeautifyVisitor) VisitAlterRole(s *AlterRole) error               { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitCheckExpr(s *CheckStmt) error               { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitCreateDatabase(s *CreateDatabase) error     { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitCreateDictionary(s *CreateDictionary) error { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitCreateFunction(s *CreateFunction) error     { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitCreateNamedCollection(s *CreateNamedCollection) error {
+	return b.writeCompact(s)
+}
+func (b *BeautifyVisitor) VisitCreateRole(s *CreateRole) error         { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitCreateUser(s *CreateUser) error         { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitDeleteFromExpr(s *DeleteClause) error   { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitDescribeExpr(s *DescribeStmt) error     { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitDropDatabase(s *DropDatabase) error     { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitDropStmt(s *DropStmt) error             { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitDropUserOrRole(s *DropUserOrRole) error { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitGrantPrivilegeExpr(s *GrantPrivilegeStmt) error {
+	return b.writeCompact(s)
+}
+func (b *BeautifyVisitor) VisitOptimizeExpr(s *OptimizeStmt) error   { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitRenameStmt(s *RenameStmt) error       { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitSetExpr(s *SetStmt) error             { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitShowExpr(s *ShowStmt) error           { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitSystemExpr(s *SystemStmt) error       { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitTruncateTable(s *TruncateTable) error { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitUseExpr(s *UseStmt) error             { return b.writeCompact(s) }
 
 // VisitAlterTable beautifies ALTER TABLE.
 func (b *BeautifyVisitor) VisitAlterTable(a *AlterTable) error {

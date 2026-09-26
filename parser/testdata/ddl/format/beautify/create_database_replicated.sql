@@ -3,4 +3,4 @@ CREATE DATABASE IF NOT EXISTS `test` ENGINE=Replicated('/root/test_local', 'shar
 
 
 -- Beautify SQL:
-;
+CREATE DATABASE IF NOT EXISTS `test`  ENGINE = Replicated('/root/test_local', 'shard', 'replica');

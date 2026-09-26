@@ -28,7 +28,9 @@ TO events_export (
 DEFINER = default
 SQL SECURITY DEFINER
 AS
-SELECT timestamp, field_1, field_2
-FROM event_table
-WHERE toStartOfHour(timestamp) = toStartOfHour(now() - toIntervalHour(1))
+(
+  SELECT timestamp, field_1, field_2
+  FROM event_table
+  WHERE toStartOfHour(timestamp) = toStartOfHour(now() - toIntervalHour(1))
+)
 COMMENT 'Test comment';

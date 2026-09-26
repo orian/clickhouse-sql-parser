@@ -2,4 +2,4 @@
 SHOW DATABASES NOT ILIKE 'Temp%'
 
 -- Beautify SQL:
-;
+SHOW DATABASES NOT ILIKE 'Temp%';
