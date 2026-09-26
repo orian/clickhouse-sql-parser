@@ -1,0 +1,505 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 217,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "d",
+        "QuoteType": 1,
+        "NamePos": 13,
+        "NameEnd": 14
+      },
+      "Table": {
+        "Name": "kafka_t",
+        "QuoteType": 1,
+        "NamePos": 15,
+        "NameEnd": 22
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 23,
+      "SchemaEnd": 62,
+      "Columns": [
+        {
+          "NamePos": 24,
+          "ColumnEnd": 33,
+          "Name": {
+            "Ident": {
+              "Name": "id",
+              "QuoteType": 1,
+              "NamePos": 24,
+              "NameEnd": 26
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt64",
+              "QuoteType": 1,
+              "NamePos": 27,
+              "NameEnd": 33
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 35,
+          "ColumnEnd": 61,
+          "Name": {
+            "Ident": {
+              "Name": "n",
+              "QuoteType": 1,
+              "NamePos": 35,
+              "NameEnd": 36
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "LeftParenPos": 44,
+            "RightParenPos": 61,
+            "Name": {
+              "Name": "Nested",
+              "QuoteType": 1,
+              "NamePos": 37,
+              "NameEnd": 43
+            },
+            "Columns": [
+              {
+                "NamePos": 44,
+                "ColumnEnd": 51,
+                "Name": {
+                  "Ident": {
+                    "Name": "a",
+                    "QuoteType": 1,
+                    "NamePos": 44,
+                    "NameEnd": 45
+                  },
+                  "DotIdent": null
+                },
+                "Type": {
+                  "Name": {
+                    "Name": "UInt8",
+                    "QuoteType": 1,
+                    "NamePos": 46,
+                    "NameEnd": 51
+                  }
+                },
+                "NotNull": null,
+                "Nullable": null,
+                "DefaultExpr": null,
+                "MaterializedExpr": null,
+                "IsEphemeral": false,
+                "EphemeralExpr": null,
+                "AliasExpr": null,
+                "Codec": null,
+                "TTL": null,
+                "Comment": null,
+                "CompressionCodec": null
+              },
+              {
+                "NamePos": 53,
+                "ColumnEnd": 61,
+                "Name": {
+                  "Ident": {
+                    "Name": "b",
+                    "QuoteType": 1,
+                    "NamePos": 53,
+                    "NameEnd": 54
+                  },
+                  "DotIdent": null
+                },
+                "Type": {
+                  "Name": {
+                    "Name": "String",
+                    "QuoteType": 1,
+                    "NamePos": 55,
+                    "NameEnd": 61
+                  }
+                },
+                "NotNull": null,
+                "Nullable": null,
+                "DefaultExpr": null,
+                "MaterializedExpr": null,
+                "IsEphemeral": false,
+                "EphemeralExpr": null,
+                "AliasExpr": null,
+                "Codec": null,
+                "TTL": null,
+                "Comment": null,
+                "CompressionCodec": null
+              }
+            ]
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 64,
+      "EngineEnd": 188,
+      "Name": "Kafka",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": {
+        "SettingsPos": 79,
+        "ListEnd": 188,
+        "Items": [
+          {
+            "SettingsPos": 88,
+            "Name": {
+              "Name": "kafka_broker_list",
+              "QuoteType": 1,
+              "NamePos": 88,
+              "NameEnd": 105
+            },
+            "Expr": {
+              "LiteralPos": 109,
+              "LiteralEnd": 110,
+              "Literal": "b"
+            }
+          },
+          {
+            "SettingsPos": 113,
+            "Name": {
+              "Name": "kafka_topic_list",
+              "QuoteType": 1,
+              "NamePos": 113,
+              "NameEnd": 129
+            },
+            "Expr": {
+              "LiteralPos": 133,
+              "LiteralEnd": 134,
+              "Literal": "t"
+            }
+          },
+          {
+            "SettingsPos": 137,
+            "Name": {
+              "Name": "kafka_group_name",
+              "QuoteType": 1,
+              "NamePos": 137,
+              "NameEnd": 153
+            },
+            "Expr": {
+              "LiteralPos": 157,
+              "LiteralEnd": 158,
+              "Literal": "g"
+            }
+          },
+          {
+            "SettingsPos": 161,
+            "Name": {
+              "Name": "kafka_format",
+              "QuoteType": 1,
+              "NamePos": 161,
+              "NameEnd": 173
+            },
+            "Expr": {
+              "LiteralPos": 177,
+              "LiteralEnd": 188,
+              "Literal": "JSONEachRow"
+            }
+          }
+        ]
+      },
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null,
+    "TimeSeriesTargets": null,
+    "Settings": {
+      "SettingsPos": 190,
+      "ListEnd": 217,
+      "Items": [
+        {
+          "SettingsPos": 199,
+          "Name": {
+            "Name": "flatten_nested",
+            "QuoteType": 1,
+            "NamePos": 199,
+            "NameEnd": 213
+          },
+          "Expr": {
+            "NumPos": 216,
+            "NumEnd": 217,
+            "Literal": "0",
+            "Base": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "CreatePos": 219,
+    "StatementEnd": 346,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "d",
+        "QuoteType": 1,
+        "NamePos": 232,
+        "NameEnd": 233
+      },
+      "Table": {
+        "Name": "merge_t",
+        "QuoteType": 1,
+        "NamePos": 234,
+        "NameEnd": 241
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 242,
+      "SchemaEnd": 252,
+      "Columns": [
+        {
+          "NamePos": 243,
+          "ColumnEnd": 252,
+          "Name": {
+            "Ident": {
+              "Name": "id",
+              "QuoteType": 1,
+              "NamePos": 243,
+              "NameEnd": 245
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt64",
+              "QuoteType": 1,
+              "NamePos": 246,
+              "NameEnd": 252
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 254,
+      "EngineEnd": 318,
+      "Name": "MergeTree",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": {
+        "SettingsPos": 285,
+        "ListEnd": 318,
+        "Items": [
+          {
+            "SettingsPos": 294,
+            "Name": {
+              "Name": "index_granularity",
+              "QuoteType": 1,
+              "NamePos": 294,
+              "NameEnd": 311
+            },
+            "Expr": {
+              "NumPos": 314,
+              "NumEnd": 318,
+              "Literal": "8192",
+              "Base": 10
+            }
+          }
+        ]
+      },
+      "OrderBy": {
+        "OrderPos": 273,
+        "ListEnd": 284,
+        "Items": [
+          {
+            "OrderPos": 273,
+            "Expr": {
+              "Name": "id",
+              "QuoteType": 1,
+              "NamePos": 282,
+              "NameEnd": 284
+            },
+            "Alias": null,
+            "Direction": "",
+            "Fill": null
+          }
+        ],
+        "Interpolate": null
+      }
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null,
+    "TimeSeriesTargets": null,
+    "Settings": {
+      "SettingsPos": 319,
+      "ListEnd": 346,
+      "Items": [
+        {
+          "SettingsPos": 328,
+          "Name": {
+            "Name": "flatten_nested",
+            "QuoteType": 1,
+            "NamePos": 328,
+            "NameEnd": 342
+          },
+          "Expr": {
+            "NumPos": 345,
+            "NumEnd": 346,
+            "Literal": "0",
+            "Base": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "CreatePos": 348,
+    "StatementEnd": 442,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "d",
+        "QuoteType": 1,
+        "NamePos": 361,
+        "NameEnd": 362
+      },
+      "Table": {
+        "Name": "memory_t",
+        "QuoteType": 1,
+        "NamePos": 363,
+        "NameEnd": 371
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 372,
+      "SchemaEnd": 382,
+      "Columns": [
+        {
+          "NamePos": 373,
+          "ColumnEnd": 382,
+          "Name": {
+            "Ident": {
+              "Name": "id",
+              "QuoteType": 1,
+              "NamePos": 373,
+              "NameEnd": 375
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt64",
+              "QuoteType": 1,
+              "NamePos": 376,
+              "NameEnd": 382
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 384,
+      "EngineEnd": 399,
+      "Name": "Memory",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": null,
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": {
+      "LiteralPos": 409,
+      "LiteralEnd": 416,
+      "Literal": "comment"
+    },
+    "TimeSeriesTargets": null,
+    "Settings": {
+      "SettingsPos": 418,
+      "ListEnd": 442,
+      "Items": [
+        {
+          "SettingsPos": 427,
+          "Name": {
+            "Name": "max_threads",
+            "QuoteType": 1,
+            "NamePos": 427,
+            "NameEnd": 438
+          },
+          "Expr": {
+            "NumPos": 441,
+            "NumEnd": 442,
+            "Literal": "4",
+            "Base": 10
+          }
+        }
+      ]
+    }
+  }
+]

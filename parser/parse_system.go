@@ -406,6 +406,12 @@ func (p *Parser) tryParseRoleSettings(pos Pos) ([]*RoleSetting, error) {
 func (p *Parser) parseRoleSetting(_ Pos) (*RoleSetting, error) {
 	pairs := make([]*SettingPair, 0)
 	for p.matchTokenKind(TokenKindIdent) {
+		// A clause keyword after the first pair starts the next clause
+		// (e.g. `SETTINGS a = 1 SETTINGS b = 2` or `SETTINGS a = 1 HOST ANY`).
+		if len(pairs) > 0 && p.matchOneOfKeywords(KeywordSettings, KeywordHost, KeywordDefault,
+			KeywordGrantees, KeywordIdentified, KeywordNot, KeywordValid) {
+			break
+		}
 		name, err := p.parseIdent()
 		if err != nil {
 			return nil, err
@@ -792,6 +798,9 @@ func (p *Parser) parseDefaultClause(createUser *CreateUser) (bool, error) {
 	}
 
 	if nextToken.String == KeywordRole {
+		if createUser.DefaultRole != nil {
+			return false, fmt.Errorf("duplicate DEFAULT ROLE clause")
+		}
 		defaultRole, err := p.parseDefaultRoleClause(p.Pos())
 		if err != nil {
 			return false, err
@@ -800,6 +809,9 @@ func (p *Parser) parseDefaultClause(createUser *CreateUser) (bool, error) {
 		createUser.StatementEnd = defaultRole.End()
 		return true, nil
 	} else if nextToken.String == KeywordDatabase {
+		if createUser.DefaultDatabase != nil || createUser.DefaultDbNone {
+			return false, fmt.Errorf("duplicate DEFAULT DATABASE clause")
+		}
 		_ = p.lexer.consumeToken() // consume DEFAULT
 		_ = p.lexer.consumeToken() // consume DATABASE
 		if p.matchKeyword(KeywordNone) {
@@ -819,11 +831,17 @@ func (p *Parser) parseDefaultClause(createUser *CreateUser) (bool, error) {
 	return false, nil
 }
 
+// parseOptionalClauses parses the CREATE USER clauses, which may appear in any
+// order. As in ClickHouse, HOST and SETTINGS clauses may repeat and are merged;
+// every other clause may appear at most once.
 func (p *Parser) parseOptionalClauses(createUser *CreateUser) error {
 	continueParsing := true
 	for continueParsing {
 		switch {
 		case p.matchOneOfKeywords(KeywordNot, KeywordIdentified):
+			if createUser.Authentication != nil {
+				return fmt.Errorf("duplicate IDENTIFIED clause")
+			}
 			auth, err := p.parseAuthenticationClause(p.Pos())
 			if err != nil {
 				return err
@@ -832,6 +850,9 @@ func (p *Parser) parseOptionalClauses(createUser *CreateUser) error {
 			createUser.StatementEnd = auth.End()
 
 		case p.matchKeyword(KeywordValid):
+			if createUser.ValidUntil != nil {
+				return fmt.Errorf("duplicate VALID UNTIL clause")
+			}
 			_ = p.lexer.consumeToken() // consume VALID keyword
 			if err := p.expectKeyword(KeywordUntil); err != nil {
 				return err
@@ -848,7 +869,7 @@ func (p *Parser) parseOptionalClauses(createUser *CreateUser) error {
 			if err != nil {
 				return err
 			}
-			createUser.Hosts = hosts
+			createUser.Hosts = append(createUser.Hosts, hosts...)
 			createUser.StatementEnd = hosts[len(hosts)-1].End()
 
 		case p.matchKeyword(KeywordDefault):
@@ -861,6 +882,9 @@ func (p *Parser) parseOptionalClauses(createUser *CreateUser) error {
 			}
 
 		case p.matchKeyword(KeywordGrantees):
+			if createUser.Grantees != nil {
+				return fmt.Errorf("duplicate GRANTEES clause")
+			}
 			grantees, err := p.parseGranteesClause(p.Pos())
 			if err != nil {
 				return err
@@ -874,7 +898,7 @@ func (p *Parser) parseOptionalClauses(createUser *CreateUser) error {
 			if err != nil {
 				return err
 			}
-			createUser.Settings = settings
+			createUser.Settings = append(createUser.Settings, settings...)
 			if len(settings) > 0 {
 				createUser.StatementEnd = settings[len(settings)-1].End()
 			}

@@ -979,6 +979,10 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
 	}
+	if c.Settings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Settings.String())
+	}
 	return nil
 }
 

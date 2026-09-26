@@ -410,6 +410,20 @@ func (p *Parser) parseCreateTable(pos Pos, orReplace bool) (*CreateTable, error)
 		return nil, err
 	}
 	createTable.Comment = comment
+	if comment != nil {
+		createTable.StatementEnd = comment.End()
+	}
+
+	// A trailing SETTINGS clause holds query-level settings for the CREATE
+	// itself. It is kept apart from the engine's storage SETTINGS.
+	if p.matchKeyword(KeywordSettings) {
+		settings, err := p.tryParseSettingsClause(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		createTable.Settings = settings
+		createTable.StatementEnd = settings.End()
+	}
 	return createTable, nil
 }
 
@@ -1440,7 +1454,7 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 				return nil, err
 			}
 			engineExpr.Params = params
-			engineExpr.EngineEnd = params.End()
+			engineEnd = params.End()
 		}
 	default:
 		return nil, fmt.Errorf("unexpected token: %s", p.lastTokenKind())
@@ -1449,6 +1463,9 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 	for !p.lexer.isEOF() {
 		switch {
 		case p.matchKeyword(KeywordOrder):
+			if engineExpr.OrderBy != nil {
+				return nil, fmt.Errorf("duplicate ORDER BY clause")
+			}
 			orderBy, err := p.tryParseOrderByClause(p.Pos())
 			if err != nil {
 				return nil, err
@@ -1456,6 +1473,9 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 			engineExpr.OrderBy = orderBy
 			engineEnd = orderBy.End()
 		case p.matchKeyword(KeywordPartition):
+			if engineExpr.PartitionBy != nil {
+				return nil, fmt.Errorf("duplicate PARTITION BY clause")
+			}
 			partitionBy, err := p.tryParsePartitionByClause(p.Pos())
 			if err != nil {
 				return nil, err
@@ -1463,6 +1483,9 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 			engineExpr.PartitionBy = partitionBy
 			engineEnd = partitionBy.End()
 		case p.matchKeyword(KeywordPrimary):
+			if engineExpr.PrimaryKey != nil {
+				return nil, fmt.Errorf("duplicate PRIMARY KEY clause")
+			}
 			primaryKey, err := p.tryParsePrimaryKeyClause(p.Pos())
 			if err != nil {
 				return nil, err
@@ -1470,6 +1493,9 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 			engineExpr.PrimaryKey = primaryKey
 			engineEnd = primaryKey.End()
 		case p.matchKeyword(KeywordSample):
+			if engineExpr.SampleBy != nil {
+				return nil, fmt.Errorf("duplicate SAMPLE BY clause")
+			}
 			sampleBy, err := p.tryParseSampleByClause(p.Pos())
 			if err != nil {
 				return nil, err
@@ -1477,6 +1503,9 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 			engineExpr.SampleBy = sampleBy
 			engineEnd = sampleBy.End()
 		case p.matchKeyword(KeywordTtl):
+			if engineExpr.TTL != nil {
+				return nil, fmt.Errorf("duplicate TTL clause")
+			}
 			ttl, err := p.tryParseTTLClause(p.Pos(), true)
 			if err != nil {
 				return nil, err
@@ -1484,6 +1513,12 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 			engineExpr.TTL = ttl
 			engineEnd = ttl.End()
 		case p.matchKeyword(KeywordSettings):
+			if engineExpr.Settings != nil {
+				// A second SETTINGS clause ends the storage definition; the
+				// caller parses it as the statement's query-level settings.
+				engineExpr.EngineEnd = engineEnd
+				return engineExpr, nil
+			}
 			settingsClause, err := p.tryParseSettingsClause(p.Pos())
 			if err != nil {
 				return nil, err

@@ -1642,6 +1642,10 @@ type CreateTable struct {
 	// TimeSeriesTargets holds the optional SAMPLES/DATA, TAGS and METRICS
 	// target clauses that follow an `ENGINE = TimeSeries` expression.
 	TimeSeriesTargets []*TimeSeriesTargetClause
+	// Settings holds the trailing query-level SETTINGS clause, which applies
+	// to the CREATE statement itself (e.g. flatten_nested = 0) and is not
+	// persisted. Storage settings live in Engine.Settings.
+	Settings *SettingsClause
 }
 
 func (c *CreateTable) Pos() Pos {
@@ -1699,6 +1703,10 @@ func (c *CreateTable) String() string {
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
+	}
+	if c.Settings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Settings.String())
 	}
 	return builder.String()
 }

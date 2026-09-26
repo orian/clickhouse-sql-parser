@@ -1294,6 +1294,11 @@ func (visitor DefaultASTVisitor) VisitCreateTable(c *CreateTable) error {
 			return err
 		}
 	}
+	if c.Settings != nil {
+		if err := c.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 

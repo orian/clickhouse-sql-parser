@@ -743,6 +743,10 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 		b.writeString("COMMENT ")
 		b.writeString(c.Comment.String())
 	}
+	if c.Settings != nil {
+		b.newline()
+		b.beautifySettings(c.Settings)
+	}
 	return nil
 }
 

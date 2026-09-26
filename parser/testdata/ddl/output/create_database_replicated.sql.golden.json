@@ -1,7 +1,7 @@
 [
   {
     "CreatePos": 0,
-    "StatementEnd": 54,
+    "StatementEnd": 93,
     "Name": {
       "Name": "test",
       "QuoteType": 3,
@@ -12,7 +12,7 @@
     "OnCluster": null,
     "Engine": {
       "EnginePos": 37,
-      "EngineEnd": 54,
+      "EngineEnd": 93,
       "Name": "Replicated",
       "Params": {
         "LeftParenPos": 54,
