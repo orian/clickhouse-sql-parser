@@ -3,8 +3,8 @@ package parser
 import (
 	"errors"
 	"fmt"
-
 	"slices"
+	"strings"
 )
 
 func (p *Parser) tryParseWithClause(pos Pos) (*WithClause, error) {
@@ -264,6 +264,9 @@ func (p *Parser) parseJoinTableExpr(_ Pos) (Expr, error) {
 
 		hasFinal := p.matchKeyword(KeywordFinal)
 		if hasFinal {
+			if tableExpr.Stream != nil {
+				return nil, errors.New("FINAL must come before STREAM")
+			}
 			statementEnd = p.End()
 			_ = p.lexer.consumeToken()
 		}
@@ -273,6 +276,9 @@ func (p *Parser) parseJoinTableExpr(_ Pos) (Expr, error) {
 			return nil, err
 		}
 		if sampleRatio != nil {
+			if tableExpr.Stream != nil {
+				return nil, errors.New("SAMPLE cannot follow STREAM")
+			}
 			statementEnd = sampleRatio.End()
 		}
 		return &JoinTableExpr{
@@ -430,10 +436,11 @@ func (p *Parser) parseTableExpr(pos Pos) (*TableExpr, error) {
 			Alias:    alias,
 		}
 		tableEnd = expr.End()
-	} else if p.matchTokenKind(TokenKindIdent) && p.lastTokenKind() != TokenKindKeyword ||
+	} else if p.matchTokenKind(TokenKindIdent) && p.lastTokenKind() != TokenKindKeyword && !p.matchStreamKeyword() ||
 		p.matchKeyword(KeywordLocal) {
 		// LOCAL is not a join keyword in ClickHouse; like an identifier it
 		// aliases the table (`FROM a LOCAL JOIN b` is `FROM a AS LOCAL JOIN b`).
+		// STREAM is the streaming-query modifier, never an implicit alias.
 		alias, err := p.parseIdent()
 		if err != nil {
 			return nil, err
@@ -458,12 +465,50 @@ func (p *Parser) parseTableExpr(pos Pos) (*TableExpr, error) {
 		tableEnd = expr.End()
 	}
 
+	// `STREAM [BOUNDED] [UNORDERED]` turns the read into a streaming query.
+	// It must not be read as an implicit alias (#60).
+	var stream *StreamClause
+	if p.matchStreamKeyword() {
+		stream = &StreamClause{StreamPos: p.Pos(), StreamEnd: p.End()}
+		_ = p.lexer.consumeToken()
+		for {
+			var modifier string
+			switch {
+			case p.matchUnquotedIdent("BOUNDED"):
+				modifier = "BOUNDED"
+			case p.matchUnquotedIdent("UNORDERED"):
+				modifier = "UNORDERED"
+			}
+			if modifier == "" {
+				break
+			}
+			stream.Modifiers = append(stream.Modifiers, modifier)
+			stream.StreamEnd = p.End()
+			_ = p.lexer.consumeToken()
+		}
+		tableEnd = stream.StreamEnd
+	}
+
 	return &TableExpr{
 		TablePos: pos,
 		TableEnd: tableEnd,
 		Expr:     expr,
 		HasFinal: isFinalExist,
+		Stream:   stream,
 	}, nil
+}
+
+// matchUnquotedIdent reports whether the current token is the unquoted
+// identifier word (case-insensitive). ClickHouse does not reserve words such
+// as STREAM, BOUNDED or UNORDERED, so they are matched this way.
+func (p *Parser) matchUnquotedIdent(word string) bool {
+	return isUnquotedIdent(p.last()) && strings.EqualFold(p.last().String, word)
+}
+
+// matchStreamKeyword reports whether the current token is the STREAM
+// modifier of a table expression.
+func (p *Parser) matchStreamKeyword() bool {
+	return p.matchUnquotedIdent("STREAM")
 }
 
 func (p *Parser) tryParsePrewhereClause(pos Pos) (*PrewhereClause, error) {

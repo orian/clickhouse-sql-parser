@@ -878,6 +878,10 @@ func (b *BeautifyVisitor) beautifyTableExpr(t *TableExpr) {
 	if t.HasFinal {
 		b.writeString(" FINAL")
 	}
+	if t.Stream != nil {
+		b.writeString(" ")
+		b.writeString(t.Stream.String())
+	}
 }
 
 // unwrapSubQueryTable returns the inner SubQuery if expr is one (possibly

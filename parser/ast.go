@@ -5605,6 +5605,36 @@ type TableExpr struct {
 	Alias    *AliasExpr
 	Expr     Expr
 	HasFinal bool
+	// Stream holds the streaming-query modifier `STREAM [BOUNDED]
+	// [UNORDERED]` that may follow the table, its alias and FINAL. It is
+	// nil for a regular (non-streaming) read.
+	Stream *StreamClause
+}
+
+// StreamClause is the `STREAM [BOUNDED] [UNORDERED]` modifier of a table
+// expression, which turns the read into a streaming query.
+type StreamClause struct {
+	StreamPos Pos
+	StreamEnd Pos
+	// Modifiers are the keywords after STREAM, in source order.
+	Modifiers []string
+}
+
+func (s *StreamClause) Pos() Pos { return s.StreamPos }
+
+func (s *StreamClause) End() Pos { return s.StreamEnd }
+
+func (s *StreamClause) String() string {
+	if len(s.Modifiers) == 0 {
+		return "STREAM"
+	}
+	return "STREAM " + strings.Join(s.Modifiers, " ")
+}
+
+func (s *StreamClause) Accept(visitor ASTVisitor) error {
+	visitor.Enter(s)
+	defer visitor.Leave(s)
+	return nil
 }
 
 func (t *TableExpr) Pos() Pos {
@@ -5624,6 +5654,10 @@ func (t *TableExpr) String() string {
 	}
 	if t.HasFinal {
 		builder.WriteString(" FINAL")
+	}
+	if t.Stream != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.Stream.String())
 	}
 	return builder.String()
 }

@@ -52,7 +52,8 @@
               ]
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 32,
         "SampleRatio": null,
@@ -125,7 +126,8 @@
                 ]
               }
             },
-            "HasFinal": false
+            "HasFinal": false,
+            "Stream": null
           },
           "StatementEnd": 72,
           "SampleRatio": null,
@@ -198,7 +200,8 @@
                   ]
                 }
               },
-              "HasFinal": false
+              "HasFinal": false,
+              "Stream": null
             },
             "StatementEnd": 112,
             "SampleRatio": null,

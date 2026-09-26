@@ -35,7 +35,8 @@
               "NameEnd": 38
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 38,
         "SampleRatio": null,

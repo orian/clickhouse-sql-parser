@@ -107,7 +107,8 @@
               "NameEnd": 100
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 100,
         "SampleRatio": null,

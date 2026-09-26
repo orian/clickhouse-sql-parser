@@ -35,7 +35,8 @@
               "NameEnd": 24
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 24,
         "SampleRatio": null,
@@ -125,7 +126,8 @@
               "NameEnd": 114
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 114,
         "SampleRatio": null,
@@ -215,7 +217,8 @@
               "NameEnd": 210
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 210,
         "SampleRatio": null,
@@ -305,7 +308,8 @@
               "NameEnd": 306
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 306,
         "SampleRatio": null,
@@ -460,7 +464,8 @@
                             "NameEnd": 477
                           }
                         },
-                        "HasFinal": false
+                        "HasFinal": false,
+                        "Stream": null
                       },
                       "StatementEnd": 477,
                       "SampleRatio": null,
@@ -500,7 +505,8 @@
                 "NameEnd": 488
               }
             },
-            "HasFinal": false
+            "HasFinal": false,
+            "Stream": null
           },
           "StatementEnd": 488,
           "SampleRatio": null,
@@ -562,7 +568,8 @@
                               "NameEnd": 528
                             }
                           },
-                          "HasFinal": false
+                          "HasFinal": false,
+                          "Stream": null
                         },
                         "StatementEnd": 528,
                         "SampleRatio": null,
@@ -593,7 +600,8 @@
                   "NameEnd": 531
                 }
               },
-              "HasFinal": false
+              "HasFinal": false,
+              "Stream": null
             },
             "StatementEnd": 531,
             "SampleRatio": null,
