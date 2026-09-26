@@ -664,11 +664,20 @@ func (p *Parser) parseLimitClause(pos Pos) (*LimitClause, error) {
 		return nil, err
 	}
 
-	return &LimitClause{
+	limitClause := &LimitClause{
 		LimitPos: pos,
 		Limit:    limit,
 		Offset:   offset,
-	}, nil
+	}
+	// LIMIT n [OFFSET m] WITH TIES (#48). ClickHouse only checks at analysis
+	// time that ORDER BY is present, so that is not enforced here.
+	if limit != nil && p.matchKeyword(KeywordWith) && p.peekKeyword(KeywordTies) {
+		_ = p.lexer.consumeToken() // WITH
+		limitClause.WithTiesEnd = p.End()
+		_ = p.lexer.consumeToken() // TIES
+		limitClause.WithTies = true
+	}
+	return limitClause, nil
 }
 
 func (p *Parser) tryParseLimitByClause(pos Pos) (Expr, error) {
