@@ -2237,9 +2237,7 @@ func (p *PrintVisitor) VisitUseExpr(u *UseStmt) error {
 }
 
 func (p *PrintVisitor) VisitUsingExpr(u *UsingClause) error {
-	builder := p.builder
-	builder.WriteString("USING ")
-	builder.WriteString(u.Using.String())
+	p.builder.WriteString(u.String())
 	return nil
 }
 
