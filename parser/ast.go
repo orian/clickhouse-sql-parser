@@ -2802,12 +2802,13 @@ func (t *TableSchemaClause) String() string {
 		}
 		builder.WriteByte(')')
 	}
+	// Callers write the separating space, so the AS forms start without one.
 	if t.AliasTable != nil {
-		builder.WriteString(" AS ")
+		builder.WriteString("AS ")
 		builder.WriteString(t.AliasTable.String())
 	}
 	if t.TableFunction != nil {
-		builder.WriteString(" AS ")
+		builder.WriteString("AS ")
 		builder.WriteString(t.TableFunction.String())
 	}
 	return builder.String()
