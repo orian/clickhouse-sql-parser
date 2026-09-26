@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "CreatePos": 0,
     "StatementEnd": 135,
     "Name": {
@@ -171,6 +173,8 @@
     "IsAttach": false
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "CreatePos": 138,
     "StatementEnd": 259,
     "Name": {

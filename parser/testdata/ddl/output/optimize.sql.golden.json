@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 0,
     "StatementEnd": 32,
     "Table": {
@@ -21,6 +23,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 49,
     "StatementEnd": 85,
     "Table": {
@@ -58,6 +62,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 131,
     "StatementEnd": 181,
     "Table": {
@@ -113,6 +119,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 183,
     "StatementEnd": 219,
     "Table": {
@@ -166,6 +174,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 234,
     "StatementEnd": 270,
     "Table": {
@@ -244,6 +254,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 293,
     "StatementEnd": 362,
     "Table": {
@@ -304,6 +316,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 365,
     "StatementEnd": 434,
     "Table": {
@@ -380,6 +394,8 @@
     }
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "OptimizePos": 449,
     "StatementEnd": 518,
     "Table": {

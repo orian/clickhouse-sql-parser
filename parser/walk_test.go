@@ -224,11 +224,8 @@ func TestWalk_ShowStmtNewFields(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, 1, len(stmts))
 
-	// A trailing FORMAT is a query output clause: the statement is wrapped.
-	wrapped, ok := stmts[0].(*QueryWithOutput)
-	require.True(t, ok, "Statement should be QueryWithOutput")
-	_, ok = wrapped.Query.(*ShowStmt)
-	require.True(t, ok, "Wrapped statement should be ShowStmt")
+	_, ok := stmts[0].(*ShowStmt)
+	require.True(t, ok, "Statement should be ShowStmt")
 
 	// Collect all nodes during walk
 	var foundNodes []Expr

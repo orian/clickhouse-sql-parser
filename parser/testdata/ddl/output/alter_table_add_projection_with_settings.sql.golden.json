@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "AlterPos": 0,
     "StatementEnd": 92,
     "TableIdentifier": {
@@ -101,6 +103,8 @@
     ]
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "AlterPos": 96,
     "StatementEnd": 250,
     "TableIdentifier": {

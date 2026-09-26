@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "AlterPos": 0,
     "StatementEnd": 110,
     "TableIdentifier": {
@@ -85,6 +87,8 @@
     ]
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "AlterPos": 112,
     "StatementEnd": 226,
     "TableIdentifier": {
@@ -164,6 +168,8 @@
     ]
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "AlterPos": 228,
     "StatementEnd": 346,
     "TableIdentifier": {
@@ -243,6 +249,8 @@
     ]
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "AlterPos": 348,
     "StatementEnd": 479,
     "TableIdentifier": {
@@ -334,6 +342,8 @@
     ]
   },
   {
+    "Format": null,
+    "OutputSettings": null,
     "AlterPos": 481,
     "StatementEnd": 613,
     "TableIdentifier": {

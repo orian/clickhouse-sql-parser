@@ -172,7 +172,6 @@ type ASTVisitor interface {
 	VisitCTEExpr(expr *CTEStmt) error
 	VisitSetExpr(expr *SetStmt) error
 	VisitFormatExpr(expr *FormatClause) error
-	VisitQueryWithOutput(expr *QueryWithOutput) error
 	VisitOptimizeExpr(expr *OptimizeStmt) error
 	VisitDeduplicateExpr(expr *DeduplicateClause) error
 	VisitSystemExpr(expr *SystemStmt) error

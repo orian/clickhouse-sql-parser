@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "ShowPos": 0,
     "StatementEnd": 26,
     "ShowType": "CREATE TABLE",

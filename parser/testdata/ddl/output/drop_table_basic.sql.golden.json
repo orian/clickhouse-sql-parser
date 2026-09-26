@@ -1,5 +1,7 @@
 [
   {
+    "Format": null,
+    "OutputSettings": null,
     "DropPos": 0,
     "StatementEnd": 36,
     "DropTarget": "TABLE",

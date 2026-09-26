@@ -227,6 +227,7 @@ type AlterTableClause interface {
 }
 
 type AlterTable struct {
+	OutputClauses
 	AlterPos        Pos
 	StatementEnd    Pos
 	TableIdentifier *TableIdentifier
@@ -239,6 +240,10 @@ func (a *AlterTable) Pos() Pos {
 }
 
 func (a *AlterTable) End() Pos {
+	return a.outputEnd(a.baseEnd())
+}
+
+func (a *AlterTable) baseEnd() Pos {
 	return a.StatementEnd
 }
 
@@ -247,6 +252,10 @@ func (a *AlterTable) Type() string {
 }
 
 func (a *AlterTable) String() string {
+	return a.baseString() + a.outputString()
+}
+
+func (a *AlterTable) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("ALTER TABLE ")
 	builder.WriteString(a.TableIdentifier.String())
@@ -1581,6 +1590,7 @@ func (u *UUID) Accept(visitor ASTVisitor) error {
 }
 
 type CreateDatabase struct {
+	OutputClauses
 	CreatePos    Pos // position of CREATE keyword
 	StatementEnd Pos
 	Name         Expr
@@ -1596,6 +1606,10 @@ func (c *CreateDatabase) Pos() Pos {
 }
 
 func (c *CreateDatabase) End() Pos {
+	return c.outputEnd(c.baseEnd())
+}
+
+func (c *CreateDatabase) baseEnd() Pos {
 	return c.StatementEnd
 }
 
@@ -1604,6 +1618,10 @@ func (c *CreateDatabase) Type() string {
 }
 
 func (c *CreateDatabase) String() string {
+	return c.baseString() + c.outputString()
+}
+
+func (c *CreateDatabase) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(createVerb(c.IsAttach) + " DATABASE ")
 	if c.IfNotExists {
@@ -1633,6 +1651,7 @@ func (c *CreateDatabase) Accept(visitor ASTVisitor) error {
 }
 
 type CreateTable struct {
+	OutputClauses
 	CreatePos     Pos // position of CREATE|ATTACH keyword
 	StatementEnd  Pos
 	OrReplace     bool
@@ -1661,6 +1680,10 @@ func (c *CreateTable) Pos() Pos {
 }
 
 func (c *CreateTable) End() Pos {
+	return c.outputEnd(c.baseEnd())
+}
+
+func (c *CreateTable) baseEnd() Pos {
 	return c.StatementEnd
 }
 
@@ -1669,6 +1692,10 @@ func (c *CreateTable) Type() string {
 }
 
 func (c *CreateTable) String() string {
+	return c.baseString() + c.outputString()
+}
+
+func (c *CreateTable) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(createVerb(c.IsAttach))
 	if c.OrReplace {
@@ -1809,6 +1836,7 @@ func (t *TimeSeriesTargetClause) Accept(visitor ASTVisitor) error {
 }
 
 type CreateMaterializedView struct {
+	OutputClauses
 	CreatePos    Pos // position of CREATE|ATTACH keyword
 	StatementEnd Pos
 	Name         *TableIdentifier
@@ -1835,6 +1863,10 @@ func (c *CreateMaterializedView) Pos() Pos {
 }
 
 func (c *CreateMaterializedView) End() Pos {
+	return c.outputEnd(c.baseEnd())
+}
+
+func (c *CreateMaterializedView) baseEnd() Pos {
 	return c.StatementEnd
 }
 
@@ -1843,6 +1875,10 @@ func (c *CreateMaterializedView) Type() string {
 }
 
 func (c *CreateMaterializedView) String() string {
+	return c.baseString() + c.outputString()
+}
+
+func (c *CreateMaterializedView) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(createVerb(c.IsAttach) + " MATERIALIZED VIEW ")
 	if c.IfNotExists {
@@ -1920,6 +1956,7 @@ func (c *CreateMaterializedView) Accept(visitor ASTVisitor) error {
 }
 
 type CreateView struct {
+	OutputClauses
 	CreatePos    Pos // position of CREATE|ATTACH keyword
 	StatementEnd Pos
 	OrReplace    bool
@@ -1940,6 +1977,10 @@ func (c *CreateView) Pos() Pos {
 }
 
 func (c *CreateView) End() Pos {
+	return c.outputEnd(c.baseEnd())
+}
+
+func (c *CreateView) baseEnd() Pos {
 	return c.StatementEnd
 }
 
@@ -1948,6 +1989,10 @@ func (c *CreateView) Type() string {
 }
 
 func (c *CreateView) String() string {
+	return c.baseString() + c.outputString()
+}
+
+func (c *CreateView) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(createVerb(c.IsAttach))
 	if c.OrReplace {
@@ -4944,6 +4989,7 @@ func (t *TopClause) Accept(visitor ASTVisitor) error {
 }
 
 type CreateLiveView struct {
+	OutputClauses
 	CreatePos    Pos
 	StatementEnd Pos
 	Name         *TableIdentifier
@@ -4966,10 +5012,18 @@ func (c *CreateLiveView) Pos() Pos {
 }
 
 func (c *CreateLiveView) End() Pos {
+	return c.outputEnd(c.baseEnd())
+}
+
+func (c *CreateLiveView) baseEnd() Pos {
 	return c.StatementEnd
 }
 
 func (c *CreateLiveView) String() string {
+	return c.baseString() + c.outputString()
+}
+
+func (c *CreateLiveView) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(createVerb(c.IsAttach) + " LIVE VIEW ")
 	if c.IfNotExists {
@@ -5017,6 +5071,7 @@ func (c *CreateLiveView) Accept(visitor ASTVisitor) error {
 }
 
 type CreateDictionary struct {
+	OutputClauses
 	CreatePos    Pos
 	StatementEnd Pos
 	OrReplace    bool
@@ -5039,10 +5094,18 @@ func (c *CreateDictionary) Pos() Pos {
 }
 
 func (c *CreateDictionary) End() Pos {
+	return c.outputEnd(c.baseEnd())
+}
+
+func (c *CreateDictionary) baseEnd() Pos {
 	return c.StatementEnd
 }
 
 func (c *CreateDictionary) String() string {
+	return c.baseString() + c.outputString()
+}
+
+func (c *CreateDictionary) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(createVerb(c.IsAttach) + " ")
 	if c.OrReplace {
@@ -6643,51 +6706,66 @@ func (s *DistinctOn) Accept(visitor ASTVisitor) error {
 	return visitor.VisitDistinctOn(s)
 }
 
-// QueryWithOutput wraps a non-SELECT statement that ends with ClickHouse's
-// query output clauses `[FORMAT fmt] [SETTINGS ...]`, e.g.
+// OutputClauses holds ClickHouse's query output clauses
+// `[FORMAT fmt] [SETTINGS ...]` that may end a statement, e.g.
 // `SHOW TABLES FORMAT JSON` or `DROP TABLE t SETTINGS max_threads = 1`. It is
-// only created when such a clause is present, so other statements keep their
-// own node type. SELECT keeps these clauses on SelectQuery (Format,
-// OutputSettings) and INSERT's FORMAT names the input data format, so neither
-// is wrapped.
-type QueryWithOutput struct {
-	Query    Expr
-	Format   *FormatClause
-	Settings *SettingsClause
+// embedded in every statement type ClickHouse accepts them for, mirroring
+// ClickHouse's ASTQueryWithOutput base class, so the statement keeps its own
+// node type. SelectQuery has its own Format and OutputSettings fields with
+// the same meaning, and INSERT's FORMAT names the input data format instead.
+type OutputClauses struct {
+	Format         *FormatClause
+	OutputSettings *SettingsClause
 }
 
-func (q *QueryWithOutput) Pos() Pos {
-	return q.Query.Pos()
+// outputClauses gives parser, printers and Walk generic access to the
+// embedded clauses of any statement that supports them.
+func (o *OutputClauses) outputClauses() *OutputClauses { return o }
+
+// outputClausesHolder is implemented by every statement embedding
+// OutputClauses.
+type outputClausesHolder interface {
+	outputClauses() *OutputClauses
 }
 
-func (q *QueryWithOutput) End() Pos {
-	if q.Settings != nil {
-		return q.Settings.End()
-	}
-	if q.Format != nil {
-		return q.Format.End()
-	}
-	return q.Query.End()
-}
-
-func (q *QueryWithOutput) String() string {
+// outputString renders the clauses with a leading space, or "" if absent.
+func (o *OutputClauses) outputString() string {
 	var builder strings.Builder
-	builder.WriteString(q.Query.String())
-	if q.Format != nil {
+	if o.Format != nil {
 		builder.WriteString(" ")
-		builder.WriteString(q.Format.String())
+		builder.WriteString(o.Format.String())
 	}
-	if q.Settings != nil {
+	if o.OutputSettings != nil {
 		builder.WriteString(" ")
-		builder.WriteString(q.Settings.String())
+		builder.WriteString(o.OutputSettings.String())
 	}
 	return builder.String()
 }
 
-func (q *QueryWithOutput) Accept(visitor ASTVisitor) error {
-	visitor.Enter(q)
-	defer visitor.Leave(q)
-	return visitor.VisitQueryWithOutput(q)
+// outputEnd returns the end of the clauses, or base when there are none.
+func (o *OutputClauses) outputEnd(base Pos) Pos {
+	if o.OutputSettings != nil {
+		return o.OutputSettings.End()
+	}
+	if o.Format != nil {
+		return o.Format.End()
+	}
+	return base
+}
+
+// accept visits the clauses with visitor.
+func (o *OutputClauses) accept(visitor ASTVisitor) error {
+	if o.Format != nil {
+		if err := o.Format.Accept(visitor); err != nil {
+			return err
+		}
+	}
+	if o.OutputSettings != nil {
+		if err := o.OutputSettings.Accept(visitor); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 type SubQuery struct {
@@ -6858,6 +6936,7 @@ func (e *ExtractExpr) Accept(visitor ASTVisitor) error {
 }
 
 type DropDatabase struct {
+	OutputClauses
 	DropPos      Pos
 	StatementEnd Pos
 	Name         *Ident
@@ -6889,6 +6968,10 @@ func (d *DropDatabase) Pos() Pos {
 }
 
 func (d *DropDatabase) End() Pos {
+	return d.outputEnd(d.baseEnd())
+}
+
+func (d *DropDatabase) baseEnd() Pos {
 	return d.StatementEnd
 }
 
@@ -6897,6 +6980,10 @@ func (d *DropDatabase) Type() string {
 }
 
 func (d *DropDatabase) String() string {
+	return d.baseString() + d.outputString()
+}
+
+func (d *DropDatabase) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(dropVerb(d.IsDetach) + " DATABASE ")
 	if d.IfExists {
@@ -6924,6 +7011,7 @@ func (d *DropDatabase) Accept(visitor ASTVisitor) error {
 }
 
 type DropStmt struct {
+	OutputClauses
 	DropPos      Pos
 	StatementEnd Pos
 
@@ -6942,6 +7030,10 @@ func (d *DropStmt) Pos() Pos {
 }
 
 func (d *DropStmt) End() Pos {
+	return d.outputEnd(d.baseEnd())
+}
+
+func (d *DropStmt) baseEnd() Pos {
 	return d.StatementEnd
 }
 
@@ -6950,6 +7042,10 @@ func (d *DropStmt) Type() string {
 }
 
 func (d *DropStmt) String() string {
+	return d.baseString() + d.outputString()
+}
+
+func (d *DropStmt) baseString() string {
 	var builder strings.Builder
 	builder.WriteString(dropVerb(d.IsDetach) + " ")
 	if d.IsTemporary {
@@ -7148,6 +7244,7 @@ func (f *FormatClause) Accept(visitor ASTVisitor) error {
 }
 
 type OptimizeStmt struct {
+	OutputClauses
 	OptimizePos  Pos
 	StatementEnd Pos
 	Table        *TableIdentifier
@@ -7162,10 +7259,18 @@ func (o *OptimizeStmt) Pos() Pos {
 }
 
 func (o *OptimizeStmt) End() Pos {
+	return o.outputEnd(o.baseEnd())
+}
+
+func (o *OptimizeStmt) baseEnd() Pos {
 	return o.StatementEnd
 }
 
 func (o *OptimizeStmt) String() string {
+	return o.baseString() + o.outputString()
+}
+
+func (o *OptimizeStmt) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("OPTIMIZE TABLE ")
 	builder.WriteString(o.Table.String())
@@ -7410,6 +7515,7 @@ func (s *SystemDropExpr) Accept(visitor ASTVisitor) error {
 }
 
 type TruncateTable struct {
+	OutputClauses
 	TruncatePos  Pos
 	StatementEnd Pos
 	IsTemporary  bool
@@ -7423,6 +7529,10 @@ func (t *TruncateTable) Pos() Pos {
 }
 
 func (t *TruncateTable) End() Pos {
+	return t.outputEnd(t.baseEnd())
+}
+
+func (t *TruncateTable) baseEnd() Pos {
 	return t.StatementEnd
 }
 
@@ -7431,6 +7541,10 @@ func (t *TruncateTable) Type() string {
 }
 
 func (t *TruncateTable) String() string {
+	return t.baseString() + t.outputString()
+}
+
+func (t *TruncateTable) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("TRUNCATE ")
 	if t.IsTemporary {
@@ -7676,6 +7790,7 @@ func (i *InsertStmt) Accept(visitor ASTVisitor) error {
 }
 
 type CheckStmt struct {
+	OutputClauses
 	CheckPos  Pos
 	Table     *TableIdentifier
 	Partition *PartitionClause
@@ -7686,6 +7801,10 @@ func (c *CheckStmt) Pos() Pos {
 }
 
 func (c *CheckStmt) End() Pos {
+	return c.outputEnd(c.baseEnd())
+}
+
+func (c *CheckStmt) baseEnd() Pos {
 	if c.Partition != nil {
 		return c.Partition.End()
 	}
@@ -7693,6 +7812,10 @@ func (c *CheckStmt) End() Pos {
 }
 
 func (c *CheckStmt) String() string {
+	return c.baseString() + c.outputString()
+}
+
+func (c *CheckStmt) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("CHECK TABLE ")
 	builder.WriteString(c.Table.String())
@@ -7752,6 +7875,7 @@ func (n *UnaryExpr) Accept(visitor ASTVisitor) error {
 }
 
 type RenameStmt struct {
+	OutputClauses
 	RenamePos    Pos
 	StatementEnd Pos
 
@@ -7765,6 +7889,10 @@ func (r *RenameStmt) Pos() Pos {
 }
 
 func (r *RenameStmt) End() Pos {
+	return r.outputEnd(r.baseEnd())
+}
+
+func (r *RenameStmt) baseEnd() Pos {
 	return r.StatementEnd
 }
 
@@ -7773,6 +7901,10 @@ func (r *RenameStmt) Type() string {
 }
 
 func (r *RenameStmt) String() string {
+	return r.baseString() + r.outputString()
+}
+
+func (r *RenameStmt) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("RENAME " + r.RenameTarget + " ")
 	for i, pair := range r.TargetPairList {
@@ -7821,6 +7953,7 @@ func (t *TargetPair) Accept(visitor ASTVisitor) error {
 }
 
 type ExplainStmt struct {
+	OutputClauses
 	ExplainPos Pos
 	Type       string
 	Statement  Expr
@@ -7831,10 +7964,18 @@ func (e *ExplainStmt) Pos() Pos {
 }
 
 func (e *ExplainStmt) End() Pos {
+	return e.outputEnd(e.baseEnd())
+}
+
+func (e *ExplainStmt) baseEnd() Pos {
 	return e.Statement.End()
 }
 
 func (e *ExplainStmt) String() string {
+	return e.baseString() + e.outputString()
+}
+
+func (e *ExplainStmt) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("EXPLAIN ")
 	builder.WriteString(e.Type)
@@ -7945,6 +8086,7 @@ func (g *GrantPrivilegeStmt) Accept(visitor ASTVisitor) error {
 }
 
 type ShowStmt struct {
+	OutputClauses
 	ShowPos      Pos
 	StatementEnd Pos
 	ShowType     string           // e.g., "CREATE TABLE", "DATABASES", "TABLES"
@@ -7963,6 +8105,10 @@ func (s *ShowStmt) Pos() Pos {
 }
 
 func (s *ShowStmt) End() Pos {
+	return s.outputEnd(s.baseEnd())
+}
+
+func (s *ShowStmt) baseEnd() Pos {
 	// Find the rightmost element to determine the end position
 	if s.OutFile != nil {
 		return s.OutFile.End()
@@ -7980,6 +8126,10 @@ func (s *ShowStmt) End() Pos {
 }
 
 func (s *ShowStmt) String() string {
+	return s.baseString() + s.outputString()
+}
+
+func (s *ShowStmt) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("SHOW ")
 	builder.WriteString(s.ShowType)
@@ -8020,6 +8170,7 @@ func (s *ShowStmt) Accept(visitor ASTVisitor) error {
 }
 
 type DescribeStmt struct {
+	OutputClauses
 	DescribePos  Pos
 	StatementEnd Pos
 	DescribeType string // e.g., "TABLE", empty if not used
@@ -8031,10 +8182,18 @@ func (d *DescribeStmt) Pos() Pos {
 }
 
 func (d *DescribeStmt) End() Pos {
+	return d.outputEnd(d.baseEnd())
+}
+
+func (d *DescribeStmt) baseEnd() Pos {
 	return d.Target.End()
 }
 
 func (d *DescribeStmt) String() string {
+	return d.baseString() + d.outputString()
+}
+
+func (d *DescribeStmt) baseString() string {
 	var builder strings.Builder
 	builder.WriteString("DESCRIBE ")
 	if d.DescribeType != "" {

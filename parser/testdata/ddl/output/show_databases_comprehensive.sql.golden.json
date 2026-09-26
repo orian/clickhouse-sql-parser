@@ -1,29 +1,5 @@
 [
   {
-    "Query": {
-      "ShowPos": 0,
-      "StatementEnd": 75,
-      "ShowType": "DATABASES",
-      "Target": null,
-      "NotLike": false,
-      "LikeType": "LIKE",
-      "LikePattern": {
-        "LiteralPos": 21,
-        "LiteralEnd": 26,
-        "Literal": "prod%"
-      },
-      "Limit": {
-        "NumPos": 34,
-        "NumEnd": 35,
-        "Literal": "5",
-        "Base": 10
-      },
-      "OutFile": {
-        "LiteralPos": 50,
-        "LiteralEnd": 67,
-        "Literal": "/tmp/prod_dbs.txt"
-      }
-    },
     "Format": {
       "FormatPos": 69,
       "Format": {
@@ -33,6 +9,28 @@
         "NameEnd": 80
       }
     },
-    "Settings": null
+    "OutputSettings": null,
+    "ShowPos": 0,
+    "StatementEnd": 75,
+    "ShowType": "DATABASES",
+    "Target": null,
+    "NotLike": false,
+    "LikeType": "LIKE",
+    "LikePattern": {
+      "LiteralPos": 21,
+      "LiteralEnd": 26,
+      "Literal": "prod%"
+    },
+    "Limit": {
+      "NumPos": 34,
+      "NumEnd": 35,
+      "Literal": "5",
+      "Base": 10
+    },
+    "OutFile": {
+      "LiteralPos": 50,
+      "LiteralEnd": 67,
+      "Literal": "/tmp/prod_dbs.txt"
+    }
   }
 ]

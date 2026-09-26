@@ -1880,8 +1880,7 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 	if err != nil {
 		return nil, err
 	}
-	expr, err = p.tryParseQueryOutput(expr)
-	if err != nil {
+	if err := p.tryParseQueryOutput(expr); err != nil {
 		return nil, err
 	}
 
@@ -1893,51 +1892,41 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 }
 
 // tryParseQueryOutput parses the query output clauses `[FORMAT fmt]
-// [SETTINGS ...]` that may end a statement and wraps the statement in a
-// QueryWithOutput when one is present (#41). SELECT and INSERT handle FORMAT
-// themselves. Statements that ClickHouse does not accept output clauses for
-// are rejected instead of silently dropping the clause.
-func (p *Parser) tryParseQueryOutput(stmt Expr) (Expr, error) {
+// [SETTINGS ...]` that may end a statement into its embedded OutputClauses
+// (#41). SELECT and INSERT handle FORMAT themselves. A statement that does
+// not embed OutputClauses is one ClickHouse accepts no output clauses for
+// (GRANT, SYSTEM, USE, SET, DELETE, USER/ROLE statements, CREATE FUNCTION,
+// CREATE NAMED COLLECTION), so the clause is rejected instead of silently
+// dropped.
+func (p *Parser) tryParseQueryOutput(stmt Expr) error {
 	switch stmt.(type) {
 	case *SelectQuery, *InsertStmt:
-		return stmt, nil
+		return nil
 	}
 	if !p.matchKeyword(KeywordFormat) && !p.matchKeyword(KeywordSettings) {
-		return stmt, nil
+		return nil
 	}
-	if !allowsQueryOutput(stmt) {
-		return nil, fmt.Errorf("%s is not supported after this statement", p.lastTokenText())
+	holder, ok := stmt.(outputClausesHolder)
+	if !ok {
+		return fmt.Errorf("%s is not supported after this statement", p.lastTokenText())
 	}
 	format, err := p.tryParseFormat(p.Pos())
 	if err != nil {
-		return nil, err
+		return err
 	}
 	settings, err := p.tryParseSettingsClause(p.Pos())
 	if err != nil {
-		return nil, err
+		return err
 	}
 	// CREATE TABLE's trailing query-level SETTINGS (CreateTable.Settings) is
 	// this same clause written before FORMAT; ClickHouse allows it only once.
 	if ct, ok := stmt.(*CreateTable); ok && ct.Settings != nil && settings != nil {
-		return nil, errors.New("duplicate query-level SETTINGS clause")
+		return errors.New("duplicate query-level SETTINGS clause")
 	}
-	return &QueryWithOutput{Query: stmt, Format: format, Settings: settings}, nil
-}
-
-// allowsQueryOutput reports whether ClickHouse accepts FORMAT/SETTINGS output
-// clauses after the statement (its "query with output" statements). Checked
-// against ClickHouse 26.8: GRANT, SYSTEM, USE, SET, DELETE, access entities
-// (USER/ROLE), CREATE FUNCTION and CREATE NAMED COLLECTION reject them.
-func allowsQueryOutput(stmt Expr) bool {
-	switch stmt.(type) {
-	case *ShowStmt, *DescribeStmt, *CheckStmt, *ExplainStmt,
-		*CreateTable, *CreateView, *CreateMaterializedView, *CreateLiveView,
-		*CreateDictionary, *CreateDatabase,
-		*AlterTable, *DropStmt, *DropDatabase, *TruncateTable, *RenameStmt,
-		*OptimizeStmt:
-		return true
-	}
-	return false
+	output := holder.outputClauses()
+	output.Format = format
+	output.OutputSettings = settings
+	return nil
 }
 
 func (p *Parser) ParseStmts() ([]Expr, error) {

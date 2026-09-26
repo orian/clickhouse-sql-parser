@@ -71,6 +71,7 @@ func (p *PrintVisitor) VisitAlterTable(a *AlterTable) error {
 			builder.WriteString(",")
 		}
 	}
+	builder.WriteString(a.outputString())
 	return nil
 }
 
@@ -447,6 +448,7 @@ func (p *PrintVisitor) VisitCheckExpr(c *CheckStmt) error {
 		builder.WriteString(" ")
 		builder.WriteString(c.Partition.String())
 	}
+	builder.WriteString(c.outputString())
 	return nil
 }
 func (p *PrintVisitor) VisitOnClusterExpr(o *ClusterClause) error {
@@ -630,6 +632,7 @@ func (p *PrintVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
 	}
+	builder.WriteString(c.outputString())
 	return nil
 }
 
@@ -692,6 +695,7 @@ func (p *PrintVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 		builder.WriteString(c.SubQuery.String())
 	}
 
+	builder.WriteString(c.outputString())
 	return nil
 }
 func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) error {
@@ -762,6 +766,7 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
 	}
+	builder.WriteString(c.outputString())
 	return nil
 }
 
@@ -801,6 +806,7 @@ func (p *PrintVisitor) VisitCreateDictionary(c *CreateDictionary) error {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
 	}
+	builder.WriteString(c.outputString())
 	return nil
 }
 
@@ -846,21 +852,6 @@ func (p *PrintVisitor) VisitDictionaryLayoutClause(d *DictionaryLayoutClause) er
 
 func (p *PrintVisitor) VisitDictionaryRangeClause(d *DictionaryRangeClause) error {
 	p.builder.WriteString(d.String())
-	return nil
-}
-
-func (p *PrintVisitor) VisitQueryWithOutput(q *QueryWithOutput) error {
-	if err := q.Query.Accept(p); err != nil {
-		return err
-	}
-	if q.Format != nil {
-		p.builder.WriteString(" ")
-		p.builder.WriteString(q.Format.String())
-	}
-	if q.Settings != nil {
-		p.builder.WriteString(" ")
-		p.builder.WriteString(q.Settings.String())
-	}
 	return nil
 }
 
@@ -1012,6 +1003,7 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 		builder.WriteString(" ")
 		builder.WriteString(c.Settings.String())
 	}
+	builder.WriteString(c.outputString())
 	return nil
 }
 
@@ -1059,6 +1051,7 @@ func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 		builder.WriteString(" AS ")
 		builder.WriteString(c.SubQuery.String())
 	}
+	builder.WriteString(c.outputString())
 	return nil
 }
 
@@ -1114,6 +1107,7 @@ func (p *PrintVisitor) VisitDropDatabase(d *DropDatabase) error {
 	if d.Modifier != "" {
 		builder.WriteString(" " + d.Modifier)
 	}
+	builder.WriteString(d.outputString())
 	return nil
 }
 
@@ -1138,6 +1132,7 @@ func (p *PrintVisitor) VisitDropStmt(d *DropStmt) error {
 	if len(d.Modifier) != 0 {
 		builder.WriteString(" " + d.Modifier)
 	}
+	builder.WriteString(d.outputString())
 	return nil
 }
 
@@ -1223,6 +1218,7 @@ func (p *PrintVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	builder.WriteString(e.Type)
 	builder.WriteByte(' ')
 	builder.WriteString(e.Statement.String())
+	builder.WriteString(e.outputString())
 	return nil
 }
 func (p *PrintVisitor) VisitExtractExpr(e *ExtractExpr) error {
@@ -1587,6 +1583,7 @@ func (p *PrintVisitor) VisitOptimizeExpr(o *OptimizeStmt) error {
 	if o.Deduplicate != nil {
 		builder.WriteString(o.Deduplicate.String())
 	}
+	builder.WriteString(o.outputString())
 	return nil
 }
 func (p *PrintVisitor) VisitOrderByListExpr(o *OrderByClause) error {
@@ -1744,6 +1741,7 @@ func (p *PrintVisitor) VisitRenameStmt(r *RenameStmt) error {
 		builder.WriteString(" ")
 		builder.WriteString(r.OnCluster.String())
 	}
+	builder.WriteString(r.outputString())
 	return nil
 }
 func (p *PrintVisitor) VisitRoleName(r *RoleName) error {
@@ -2235,6 +2233,7 @@ func (p *PrintVisitor) VisitTruncateTable(t *TruncateTable) error {
 		builder.WriteString(" ")
 		builder.WriteString(t.OnCluster.String())
 	}
+	builder.WriteString(t.outputString())
 	return nil
 }
 

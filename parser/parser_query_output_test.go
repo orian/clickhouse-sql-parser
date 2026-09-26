@@ -92,22 +92,38 @@ func TestParser_QueryOutputClausesRejected(t *testing.T) {
 	}
 }
 
-// TestParser_QueryOutputAST checks the AST shape: only statements with output
-// clauses are wrapped, and SELECT keeps its two SETTINGS clauses apart
-// (ClickHouse applies the SELECT's own value on a key clash).
+// TestParser_QueryOutputAST checks the AST shape: the clauses are embedded
+// fields of the statement, which keeps its own node type, and SELECT keeps
+// its two SETTINGS clauses apart (ClickHouse applies the SELECT's own value
+// on a key clash).
 func TestParser_QueryOutputAST(t *testing.T) {
 	stmts, err := NewParser("SHOW TABLES").ParseStmts()
 	require.NoError(t, err)
-	require.IsType(t, &ShowStmt{}, stmts[0])
+	show := stmts[0].(*ShowStmt)
+	require.Nil(t, show.Format)
+	require.Nil(t, show.OutputSettings)
 
 	sql := "DESCRIBE TABLE t FORMAT JSON SETTINGS max_threads=1"
 	stmts, err = NewParser(sql).ParseStmts()
 	require.NoError(t, err)
-	wrapped := stmts[0].(*QueryWithOutput)
-	require.IsType(t, &DescribeStmt{}, wrapped.Query)
-	require.Equal(t, "FORMAT JSON", wrapped.Format.String())
-	require.Equal(t, "SETTINGS max_threads=1", wrapped.Settings.String())
-	require.Equal(t, Pos(len(sql)), wrapped.End())
+	describe, ok := stmts[0].(*DescribeStmt)
+	require.True(t, ok, "the statement keeps its own node type")
+	require.Equal(t, "FORMAT JSON", describe.Format.String())
+	require.Equal(t, "SETTINGS max_threads=1", describe.OutputSettings.String())
+	require.Equal(t, Pos(len(sql)), describe.End())
+
+	var formats, settings int
+	Walk(describe, func(node Expr) bool {
+		switch node.(type) {
+		case *FormatClause:
+			formats++
+		case *SettingsClause:
+			settings++
+		}
+		return true
+	})
+	require.Equal(t, 1, formats)
+	require.Equal(t, 1, settings)
 
 	stmts, err = NewParser("SELECT 1 SETTINGS max_threads=1 FORMAT JSON SETTINGS max_threads=3").ParseStmts()
 	require.NoError(t, err)
