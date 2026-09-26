@@ -510,6 +510,10 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.newline()
 		b.beautifyGroupBy(s.GroupBy)
 	}
+	if s.WithTotal {
+		b.newline()
+		b.writeString("WITH TOTALS")
+	}
 	if s.Having != nil {
 		b.newline()
 		b.writeString("HAVING")
