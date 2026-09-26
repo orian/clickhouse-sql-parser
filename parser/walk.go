@@ -633,6 +633,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Comment, fn) {
 			return false
 		}
+		if !Walk(n.Settings, fn) {
+			return false
+		}
 	case *TimeSeriesTargetClause:
 		if !Walk(n.External, fn) {
 			return false

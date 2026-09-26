@@ -1294,6 +1294,11 @@ func (visitor DefaultASTVisitor) VisitCreateTable(c *CreateTable) error {
 			return err
 		}
 	}
+	if c.Settings != nil {
+		if err := c.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -2883,8 +2888,10 @@ func (visitor DefaultASTVisitor) VisitWithExpr(w *WithClause) error {
 func (visitor DefaultASTVisitor) VisitWithTimeoutExpr(w *WithTimeoutClause) error {
 	visitor.Enter(w)
 	defer visitor.Leave(w)
-	if err := w.Number.Accept(visitor.Self); err != nil {
-		return err
+	if w.Number != nil {
+		if err := w.Number.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	return nil
 }

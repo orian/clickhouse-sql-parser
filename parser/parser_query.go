@@ -533,14 +533,25 @@ func (p *Parser) parseGroupByClause(pos Pos) (*GroupByClause, error) {
 		Expr:          expr,
 	}
 
-	// parse WITH CUBE, ROLLUP, TOTALS
+	// parse [WITH ROLLUP | WITH CUBE] [WITH TOTALS]; as in ClickHouse, each
+	// modifier appears at most once and TOTALS comes last.
 	for p.tryConsumeKeywords(KeywordWith) {
 		switch {
-		case p.tryConsumeKeywords(KeywordCube):
-			groupBy.WithCube = true
-		case p.tryConsumeKeywords(KeywordRollup):
-			groupBy.WithRollup = true
-		case p.tryConsumeKeywords(KeywordTotals):
+		case p.matchKeyword(KeywordCube), p.matchKeyword(KeywordRollup):
+			if groupBy.WithCube || groupBy.WithRollup || groupBy.WithTotals {
+				return nil, fmt.Errorf("unexpected WITH %s after GROUP BY modifiers", p.last().String)
+			}
+			if p.tryConsumeKeywords(KeywordCube) {
+				groupBy.WithCube = true
+			} else {
+				_ = p.tryConsumeKeywords(KeywordRollup)
+				groupBy.WithRollup = true
+			}
+		case p.matchKeyword(KeywordTotals):
+			if groupBy.WithTotals {
+				return nil, fmt.Errorf("duplicate WITH TOTALS modifier")
+			}
+			_ = p.tryConsumeKeywords(KeywordTotals)
 			groupBy.WithTotals = true
 		default:
 			return nil, fmt.Errorf("expected CUBE, ROLLUP or TOTALS, got %s", p.lastTokenKind())

@@ -1642,6 +1642,10 @@ type CreateTable struct {
 	// TimeSeriesTargets holds the optional SAMPLES/DATA, TAGS and METRICS
 	// target clauses that follow an `ENGINE = TimeSeries` expression.
 	TimeSeriesTargets []*TimeSeriesTargetClause
+	// Settings holds the trailing query-level SETTINGS clause, which applies
+	// to the CREATE statement itself (e.g. flatten_nested = 0) and is not
+	// persisted. Storage settings live in Engine.Settings.
+	Settings *SettingsClause
 }
 
 func (c *CreateTable) Pos() Pos {
@@ -1699,6 +1703,10 @@ func (c *CreateTable) String() string {
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
 		builder.WriteString(c.Comment.String())
+	}
+	if c.Settings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.Settings.String())
 	}
 	return builder.String()
 }
@@ -3543,7 +3551,7 @@ func (f *ParamExprList) String() string {
 	builder.WriteString(f.Items.String())
 	builder.WriteString(")")
 	if f.ColumnArgList != nil {
-	    builder.WriteString(f.ColumnArgList.String())
+		builder.WriteString(f.ColumnArgList.String())
 	}
 	return builder.String()
 }
@@ -5081,10 +5089,10 @@ func (c *CreateNamedCollection) Accept(visitor ASTVisitor) error {
 }
 
 type NamedCollectionParam struct {
-	ParamPos      Pos
-	Name          *Ident
-	Value         Expr
-	Overridable   bool
+	ParamPos       Pos
+	Name           *Ident
+	Value          Expr
+	Overridable    bool
 	NotOverridable bool
 }
 
@@ -5510,6 +5518,7 @@ func (d *DictionaryRangeClause) Accept(visitor ASTVisitor) error {
 
 type WithTimeoutClause struct {
 	WithTimeoutPos Pos
+	WithTimeoutEnd Pos // end of the TIMEOUT keyword; used when Number is omitted
 	Expr           Expr
 	Number         *NumberLiteral
 }
@@ -5519,13 +5528,19 @@ func (w *WithTimeoutClause) Pos() Pos {
 }
 
 func (w *WithTimeoutClause) End() Pos {
-	return w.Number.End()
+	if w.Number != nil {
+		return w.Number.End()
+	}
+	return w.WithTimeoutEnd
 }
 
 func (w *WithTimeoutClause) String() string {
 	var builder strings.Builder
-	builder.WriteString("WITH TIMEOUT ")
-	builder.WriteString(w.Number.String())
+	builder.WriteString("WITH TIMEOUT")
+	if w.Number != nil {
+		builder.WriteString(" ")
+		builder.WriteString(w.Number.String())
+	}
 	return builder.String()
 }
 

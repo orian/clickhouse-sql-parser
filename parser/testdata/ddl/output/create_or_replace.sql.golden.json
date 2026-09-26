@@ -1,7 +1,7 @@
 [
   {
     "CreatePos": 122,
-    "StatementEnd": 361,
+    "StatementEnd": 389,
     "OrReplace": true,
     "Name": {
       "Database": {
@@ -330,7 +330,8 @@
       "LiteralEnd": 389,
       "Literal": "Comment for table"
     },
-    "TimeSeriesTargets": null
+    "TimeSeriesTargets": null,
+    "Settings": null
   },
   {
     "CreatePos": 393,

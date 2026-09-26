@@ -72,6 +72,7 @@
     "TableFunction": null,
     "HasTemporary": false,
     "Comment": null,
-    "TimeSeriesTargets": null
+    "TimeSeriesTargets": null,
+    "Settings": null
   }
 ]
