@@ -1582,6 +1582,7 @@ type CreateDatabase struct {
 	OnCluster    *ClusterClause
 	Engine       *EngineExpr
 	Comment      *StringLiteral
+	IsAttach     bool // ATTACH instead of CREATE
 }
 
 func (c *CreateDatabase) Pos() Pos {
@@ -1598,7 +1599,7 @@ func (c *CreateDatabase) Type() string {
 
 func (c *CreateDatabase) String() string {
 	var builder strings.Builder
-	builder.WriteString("CREATE DATABASE ")
+	builder.WriteString(createVerb(c.IsAttach) + " DATABASE ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
@@ -1608,7 +1609,7 @@ func (c *CreateDatabase) String() string {
 		builder.WriteString(c.OnCluster.String())
 	}
 	if c.Engine != nil {
-		builder.WriteString(" ")
+		// EngineExpr.String() already emits a leading " ENGINE = ...".
 		builder.WriteString(c.Engine.String())
 	}
 	if c.Comment != nil {
@@ -1646,6 +1647,7 @@ type CreateTable struct {
 	// to the CREATE statement itself (e.g. flatten_nested = 0) and is not
 	// persisted. Storage settings live in Engine.Settings.
 	Settings *SettingsClause
+	IsAttach bool // ATTACH instead of CREATE
 }
 
 func (c *CreateTable) Pos() Pos {
@@ -1662,7 +1664,7 @@ func (c *CreateTable) Type() string {
 
 func (c *CreateTable) String() string {
 	var builder strings.Builder
-	builder.WriteString("CREATE")
+	builder.WriteString(createVerb(c.IsAttach))
 	if c.OrReplace {
 		builder.WriteString(" OR REPLACE")
 	}
@@ -1819,6 +1821,7 @@ type CreateMaterializedView struct {
 	Comment      *StringLiteral
 	Definer      *Ident
 	SQLSecurity  string
+	IsAttach     bool // ATTACH instead of CREATE
 }
 
 func (c *CreateMaterializedView) Pos() Pos {
@@ -1835,7 +1838,7 @@ func (c *CreateMaterializedView) Type() string {
 
 func (c *CreateMaterializedView) String() string {
 	var builder strings.Builder
-	builder.WriteString("CREATE MATERIALIZED VIEW ")
+	builder.WriteString(createVerb(c.IsAttach) + " MATERIALIZED VIEW ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
@@ -1923,6 +1926,7 @@ type CreateView struct {
 	SQLSecurity  string
 	Comment      *StringLiteral
 	SubQuery     *SubQuery
+	IsAttach     bool // ATTACH instead of CREATE
 }
 
 func (c *CreateView) Pos() Pos {
@@ -1939,7 +1943,7 @@ func (c *CreateView) Type() string {
 
 func (c *CreateView) String() string {
 	var builder strings.Builder
-	builder.WriteString("CREATE")
+	builder.WriteString(createVerb(c.IsAttach))
 	if c.OrReplace {
 		builder.WriteString(" OR REPLACE")
 	}
@@ -4930,6 +4934,7 @@ type CreateLiveView struct {
 	TableSchema  *TableSchemaClause
 	WithTimeout  *WithTimeoutClause
 	SubQuery     *SubQuery
+	IsAttach     bool // ATTACH instead of CREATE
 }
 
 func (c *CreateLiveView) Type() string {
@@ -4946,7 +4951,7 @@ func (c *CreateLiveView) End() Pos {
 
 func (c *CreateLiveView) String() string {
 	var builder strings.Builder
-	builder.WriteString("CREATE LIVE VIEW ")
+	builder.WriteString(createVerb(c.IsAttach) + " LIVE VIEW ")
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
@@ -5002,6 +5007,7 @@ type CreateDictionary struct {
 	Schema       *DictionarySchemaClause
 	Engine       *DictionaryEngineClause
 	Comment      *StringLiteral
+	IsAttach     bool // ATTACH instead of CREATE
 }
 
 func (c *CreateDictionary) Type() string {
@@ -5018,7 +5024,7 @@ func (c *CreateDictionary) End() Pos {
 
 func (c *CreateDictionary) String() string {
 	var builder strings.Builder
-	builder.WriteString("CREATE ")
+	builder.WriteString(createVerb(c.IsAttach) + " ")
 	if c.OrReplace {
 		builder.WriteString("OR REPLACE ")
 	}
@@ -6731,6 +6737,25 @@ type DropDatabase struct {
 	Name         *Ident
 	IfExists     bool
 	OnCluster    *ClusterClause
+	IsDetach     bool   // DETACH instead of DROP
+	Permanently  bool   // DETACH ... PERMANENTLY
+	Modifier     string // SYNC or NO DELAY
+}
+
+// createVerb returns the keyword a CREATE-family statement was written with.
+func createVerb(isAttach bool) string {
+	if isAttach {
+		return "ATTACH"
+	}
+	return "CREATE"
+}
+
+// dropVerb returns the keyword a DROP-family statement was written with.
+func dropVerb(isDetach bool) string {
+	if isDetach {
+		return "DETACH"
+	}
+	return "DROP"
 }
 
 func (d *DropDatabase) Pos() Pos {
@@ -6747,7 +6772,7 @@ func (d *DropDatabase) Type() string {
 
 func (d *DropDatabase) String() string {
 	var builder strings.Builder
-	builder.WriteString("DROP DATABASE ")
+	builder.WriteString(dropVerb(d.IsDetach) + " DATABASE ")
 	if d.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
@@ -6755,6 +6780,12 @@ func (d *DropDatabase) String() string {
 	if d.OnCluster != nil {
 		builder.WriteString(" ")
 		builder.WriteString(d.OnCluster.String())
+	}
+	if d.Permanently {
+		builder.WriteString(" PERMANENTLY")
+	}
+	if d.Modifier != "" {
+		builder.WriteString(" " + d.Modifier)
 	}
 	return builder.String()
 }
@@ -6776,6 +6807,8 @@ type DropStmt struct {
 	OnCluster   *ClusterClause
 	IsTemporary bool
 	Modifier    string
+	IsDetach    bool // DETACH instead of DROP
+	Permanently bool // DETACH ... PERMANENTLY
 }
 
 func (d *DropStmt) Pos() Pos {
@@ -6787,12 +6820,12 @@ func (d *DropStmt) End() Pos {
 }
 
 func (d *DropStmt) Type() string {
-	return "DROP " + d.DropTarget
+	return dropVerb(d.IsDetach) + " " + d.DropTarget
 }
 
 func (d *DropStmt) String() string {
 	var builder strings.Builder
-	builder.WriteString("DROP ")
+	builder.WriteString(dropVerb(d.IsDetach) + " ")
 	if d.IsTemporary {
 		builder.WriteString("TEMPORARY ")
 	}
@@ -6804,6 +6837,9 @@ func (d *DropStmt) String() string {
 	if d.OnCluster != nil {
 		builder.WriteString(" ")
 		builder.WriteString(d.OnCluster.String())
+	}
+	if d.Permanently {
+		builder.WriteString(" PERMANENTLY")
 	}
 	if len(d.Modifier) != 0 {
 		builder.WriteString(" " + d.Modifier)

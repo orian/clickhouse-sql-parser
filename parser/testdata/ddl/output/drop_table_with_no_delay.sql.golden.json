@@ -27,6 +27,8 @@
       }
     },
     "IsTemporary": false,
-    "Modifier": "NO DELAY"
+    "Modifier": "NO DELAY",
+    "IsDetach": false,
+    "Permanently": false
   }
 ]

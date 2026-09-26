@@ -786,6 +786,7 @@
     "HasTemporary": false,
     "Comment": null,
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   }
 ]

@@ -690,7 +690,7 @@ func (b *BeautifyVisitor) VisitCreateTable(c *CreateTable) error {
 	b.Enter(c)
 	defer b.Leave(c)
 
-	b.writeString("CREATE")
+	b.writeString(createVerb(c.IsAttach))
 	if c.OrReplace {
 		b.writeString(" OR REPLACE")
 	}
@@ -1199,7 +1199,7 @@ func (b *BeautifyVisitor) VisitCreateView(c *CreateView) error {
 	b.Enter(c)
 	defer b.Leave(c)
 
-	b.writeString("CREATE")
+	b.writeString(createVerb(c.IsAttach))
 	if c.OrReplace {
 		b.writeString(" OR REPLACE")
 	}
@@ -1251,7 +1251,7 @@ func (b *BeautifyVisitor) VisitCreateMaterializedView(c *CreateMaterializedView)
 	b.Enter(c)
 	defer b.Leave(c)
 
-	b.writeString("CREATE MATERIALIZED VIEW ")
+	b.writeString(createVerb(c.IsAttach) + " MATERIALIZED VIEW ")
 	if c.IfNotExists {
 		b.writeString("IF NOT EXISTS ")
 	}
@@ -1338,7 +1338,7 @@ func (b *BeautifyVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 	b.Enter(c)
 	defer b.Leave(c)
 
-	b.writeString("CREATE LIVE VIEW ")
+	b.writeString(createVerb(c.IsAttach) + " LIVE VIEW ")
 	if c.IfNotExists {
 		b.writeString("IF NOT EXISTS ")
 	}

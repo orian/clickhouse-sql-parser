@@ -1001,6 +1001,7 @@
       "Literal": "Comment for table"
     },
     "TimeSeriesTargets": null,
-    "Settings": null
+    "Settings": null,
+    "IsAttach": false
   }
 ]

@@ -223,6 +223,7 @@
     "Populate": false,
     "Comment": null,
     "Definer": null,
-    "SQLSecurity": ""
+    "SQLSecurity": "",
+    "IsAttach": false
   }
 ]

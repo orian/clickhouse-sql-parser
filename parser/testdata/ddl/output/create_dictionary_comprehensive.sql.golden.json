@@ -389,6 +389,7 @@
         ]
       }
     },
-    "Comment": null
+    "Comment": null,
+    "IsAttach": false
   }
 ]
