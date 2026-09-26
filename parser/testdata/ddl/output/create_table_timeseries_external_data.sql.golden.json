@@ -170,8 +170,10 @@
             "NameEnd": 108
           }
         },
+        "InnerUUID": null,
         "InnerColumns": null,
-        "InnerEngine": null
+        "InnerEngine": null,
+        "EngineShorthand": false
       },
       {
         "KindPos": 109,
@@ -192,8 +194,10 @@
             "NameEnd": 123
           }
         },
+        "InnerUUID": null,
         "InnerColumns": null,
-        "InnerEngine": null
+        "InnerEngine": null,
+        "EngineShorthand": false
       },
       {
         "KindPos": 124,
@@ -214,8 +218,10 @@
             "NameEnd": 144
           }
         },
+        "InnerUUID": null,
         "InnerColumns": null,
-        "InnerEngine": null
+        "InnerEngine": null,
+        "EngineShorthand": false
       }
     ],
     "Settings": null

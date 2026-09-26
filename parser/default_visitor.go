@@ -1310,6 +1310,11 @@ func (visitor DefaultASTVisitor) VisitTimeSeriesTargetClause(t *TimeSeriesTarget
 			return err
 		}
 	}
+	if t.InnerUUID != nil {
+		if err := t.InnerUUID.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if t.InnerColumns != nil {
 		if err := t.InnerColumns.Accept(visitor.Self); err != nil {
 			return err

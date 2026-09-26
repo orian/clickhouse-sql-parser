@@ -362,9 +362,13 @@ func (p *Parser) parseCreateTable(pos Pos, orReplace bool) (*CreateTable, error)
 			if err != nil {
 				return nil, err
 			}
-			if len(targets) > 0 {
-				createTable.TimeSeriesTargets = targets
-				createTable.StatementEnd = targets[len(targets)-1].End()
+			createTable.TimeSeriesTargets = targets
+			// Targets are ordered by first occurrence, so a later part of
+			// an earlier target can end after the last target.
+			for _, target := range targets {
+				if target.End() > createTable.StatementEnd {
+					createTable.StatementEnd = target.End()
+				}
 			}
 		}
 	}
@@ -1535,7 +1539,8 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 }
 
 // timeSeriesTargetKind normalises a TimeSeries target keyword to its slot.
-// SAMPLES and its backwards-compat alias DATA both map to "samples".
+// SAMPLES and its backwards-compat alias DATA both map to "samples". The
+// two-word RECENT SAMPLES target is matched by matchTimeSeriesTarget.
 func timeSeriesTargetKind(s string) (kind string, ok bool) {
 	switch strings.ToUpper(s) {
 	case "SAMPLES", "DATA":
@@ -1548,92 +1553,145 @@ func timeSeriesTargetKind(s string) (kind string, ok bool) {
 	return "", false
 }
 
+// isUnquotedIdent reports whether token is an identifier written without
+// quotes. A quoted identifier (e.g. `DATA`) is never treated as a keyword.
+func isUnquotedIdent(token *Token) bool {
+	return token != nil && token.Kind == TokenKindIdent &&
+		token.QuoteType != DoubleQuote && token.QuoteType != BackTicks
+}
+
 // matchTimeSeriesTarget reports the normalised slot for the current token when
-// it is an unquoted identifier naming a TimeSeries target keyword. A quoted
-// identifier (e.g. `DATA`) is intentionally not treated as a keyword.
+// it starts a TimeSeries target keyword: SAMPLES, DATA, TAGS, METRICS, or
+// RECENT followed by SAMPLES.
 func (p *Parser) matchTimeSeriesTarget() (kind string, ok bool) {
-	if p.lastTokenKind() != TokenKindIdent {
+	if !isUnquotedIdent(p.last()) {
 		return "", false
 	}
-	if q := p.last().QuoteType; q == DoubleQuote || q == BackTicks {
-		return "", false
+	if strings.EqualFold(p.last().String, "RECENT") {
+		next, err := p.lexer.peekToken()
+		if err != nil || !isUnquotedIdent(next) || !strings.EqualFold(next.String, "SAMPLES") {
+			return "", false
+		}
+		return "recent_samples", true
 	}
 	return timeSeriesTargetKind(p.last().String)
 }
 
-// parseTimeSeriesTargets parses the optional tail of SAMPLES/DATA, TAGS and
-// METRICS target clauses that may follow an `ENGINE = TimeSeries` expression.
-// Each target may reference an external table, use the documented INNER form,
-// or use ClickHouse's SHOW CREATE shorthand with an ENGINE directly after the
-// target keyword. Each slot may appear at most once (DATA and SAMPLES share the
-// "samples" slot).
+// parseTimeSeriesTargets parses the optional tail of SAMPLES/DATA, TAGS,
+// METRICS and RECENT SAMPLES target clauses that may follow an
+// `ENGINE = TimeSeries` expression. Each occurrence of a target keyword
+// introduces one part of that target:
+//
+//	<KEYWORD> [db.]table
+//	<KEYWORD> INNER UUID 'uuid'
+//	<KEYWORD> INNER COLUMNS (...)
+//	<KEYWORD> [INNER] ENGINE = engine ...
+//
+// As in ClickHouse, the parts of one target may be spread over several
+// occurrences in any order, and each part may be given at most once. The parts
+// are collected into a single clause per target (DATA and SAMPLES share the
+// "samples" target), ordered by the first occurrence of each target.
 func (p *Parser) parseTimeSeriesTargets() ([]*TimeSeriesTargetClause, error) {
 	var targets []*TimeSeriesTargetClause
-	seen := make(map[string]string)
+	byKind := make(map[string]*TimeSeriesTargetClause)
 	for {
 		kind, ok := p.matchTimeSeriesTarget()
 		if !ok {
 			break
 		}
 		kwToken := p.last()
-		clause := &TimeSeriesTargetClause{
-			KindPos: kwToken.Pos,
-			KindEnd: kwToken.End,
-			Kind:    kind,
-			Keyword: kwToken.String,
-		}
+		keyword := kwToken.String
+		kwEnd := kwToken.End
 		_ = p.lexer.consumeToken() // consume the target keyword identifier
-
-		if prev, dup := seen[kind]; dup {
-			return nil, fmt.Errorf("duplicate TimeSeries target clause %q (already specified as %q)", clause.Keyword, prev)
+		if kind == "recent_samples" {
+			keyword += " " + p.last().String
+			kwEnd = p.last().End
+			_ = p.lexer.consumeToken() // consume SAMPLES
 		}
-		seen[kind] = clause.Keyword
 
-		if p.matchKeyword(KeywordInner) {
-			_ = p.lexer.consumeToken() // INNER
-			if err := p.expectKeyword(KeywordColumns); err != nil {
-				return nil, err
+		clause := byKind[kind]
+		if clause == nil {
+			clause = &TimeSeriesTargetClause{
+				KindPos: kwToken.Pos,
+				KindEnd: kwEnd,
+				Kind:    kind,
+				Keyword: keyword,
 			}
-			columns, err := p.parseTableSchemaClause(p.Pos())
-			if err != nil {
-				return nil, err
-			}
-			if columns == nil {
-				return nil, fmt.Errorf("expected ( after %s INNER COLUMNS", clause.Keyword)
-			}
-			clause.InnerColumns = columns
-			clause.KindEnd = columns.End()
+			byKind[kind] = clause
+			targets = append(targets, clause)
+		}
+		duplicate := func(part string) error {
+			return fmt.Errorf("duplicate TimeSeries target clause %s%s", keyword, part)
+		}
 
-			// Optional `<KEYWORD> INNER ENGINE = engine(...)` for the same slot.
-			if k2, ok := p.matchTimeSeriesTarget(); ok && k2 == kind && p.peekKeyword(KeywordInner) {
-				_ = p.lexer.consumeToken() // target keyword identifier
-				_ = p.lexer.consumeToken() // INNER
+		var partEnd Pos
+		switch {
+		case p.tryConsumeKeywords(KeywordInner):
+			switch {
+			case p.matchKeyword(KeywordUuid):
+				if clause.InnerUUID != nil {
+					return nil, duplicate(" INNER UUID")
+				}
+				uuid, err := p.parseUUID()
+				if err != nil {
+					return nil, err
+				}
+				clause.InnerUUID = uuid
+				partEnd = uuid.End()
+			case p.tryConsumeKeywords(KeywordColumns):
+				if clause.InnerColumns != nil {
+					return nil, duplicate(" INNER COLUMNS")
+				}
+				columns, err := p.parseTableSchemaClause(p.Pos())
+				if err != nil {
+					return nil, err
+				}
+				if columns == nil {
+					return nil, fmt.Errorf("expected ( after %s INNER COLUMNS", keyword)
+				}
+				clause.InnerColumns = columns
+				partEnd = columns.End()
+			case p.matchKeyword(KeywordEngine):
+				if clause.InnerEngine != nil {
+					return nil, duplicate(" INNER ENGINE")
+				}
 				innerEngine, err := p.parseEngineExpr(p.Pos())
 				if err != nil {
 					return nil, err
 				}
 				clause.InnerEngine = innerEngine
-				clause.KindEnd = innerEngine.End()
+				clause.EngineShorthand = false
+				partEnd = innerEngine.End()
+			default:
+				return nil, fmt.Errorf("expected UUID, COLUMNS or ENGINE after %s INNER, got %s", keyword, p.lastTokenKind())
 			}
-		} else if p.matchKeyword(KeywordEngine) {
+		case p.matchKeyword(KeywordEngine):
 			// ClickHouse emits `<KEYWORD> ENGINE = ...` for auto-generated
-			// TimeSeries targets in SHOW CREATE TABLE, omitting both INNER and
-			// an explicit column list.
+			// TimeSeries targets in SHOW CREATE TABLE, omitting INNER.
+			if clause.InnerEngine != nil {
+				return nil, duplicate(" INNER ENGINE")
+			}
 			innerEngine, err := p.parseEngineExpr(p.Pos())
 			if err != nil {
 				return nil, err
 			}
 			clause.InnerEngine = innerEngine
-			clause.KindEnd = innerEngine.End()
-		} else {
+			clause.EngineShorthand = true
+			partEnd = innerEngine.End()
+		default:
+			if clause.External != nil {
+				return nil, duplicate(" table")
+			}
 			external, err := p.parseTableIdentifier(p.Pos())
 			if err != nil {
 				return nil, err
 			}
 			clause.External = external
-			clause.KindEnd = external.End()
+			partEnd = external.End()
 		}
-		targets = append(targets, clause)
+		if partEnd > clause.KindEnd {
+			clause.KindEnd = partEnd
+		}
 	}
 	return targets, nil
 }

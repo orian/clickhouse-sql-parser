@@ -640,6 +640,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.External, fn) {
 			return false
 		}
+		if !Walk(n.InnerUUID, fn) {
+			return false
+		}
 		if !Walk(n.InnerColumns, fn) {
 			return false
 		}

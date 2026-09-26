@@ -157,6 +157,7 @@
         "Kind": "samples",
         "Keyword": "SAMPLES",
         "External": null,
+        "InnerUUID": null,
         "InnerColumns": {
           "SchemaPos": 116,
           "SchemaEnd": 170,
@@ -324,7 +325,8 @@
             ],
             "Interpolate": null
           }
-        }
+        },
+        "EngineShorthand": false
       },
       {
         "KindPos": 230,
@@ -332,6 +334,7 @@
         "Kind": "tags",
         "Keyword": "TAGS",
         "External": null,
+        "InnerUUID": null,
         "InnerColumns": {
           "SchemaPos": 249,
           "SchemaEnd": 273,
@@ -433,7 +436,8 @@
             ],
             "Interpolate": null
           }
-        }
+        },
+        "EngineShorthand": false
       },
       {
         "KindPos": 317,
@@ -454,8 +458,10 @@
             "NameEnd": 337
           }
         },
+        "InnerUUID": null,
         "InnerColumns": null,
-        "InnerEngine": null
+        "InnerEngine": null,
+        "EngineShorthand": false
       }
     ],
     "Settings": null
