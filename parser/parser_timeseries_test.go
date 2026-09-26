@@ -21,29 +21,22 @@ func TestParser_TimeSeriesTargets(t *testing.T) {
 				"ENGINE = TimeSeries DATA db.m_data TAGS db.m_tags METRICS db.m_metrics",
 		},
 		{
-			// The empty () schema and SETTINGS spacing are normalised by the
-			// existing CreateTable/EngineExpr formatters (pre-existing behaviour),
-			// so spell out the expected round-trip output for these cases.
 			name: "external SAMPLES canonical",
-			sql:  "CREATE TABLE db.m () ENGINE = TimeSeries SAMPLES db.m_samples TAGS db.m_tags METRICS db.m_metrics",
-			want: "CREATE TABLE db.m  ENGINE = TimeSeries SAMPLES db.m_samples TAGS db.m_tags METRICS db.m_metrics",
+			sql:  "CREATE TABLE db.m ENGINE = TimeSeries SAMPLES db.m_samples TAGS db.m_tags METRICS db.m_metrics",
 		},
 		{
 			name: "bare TimeSeries",
-			sql:  "CREATE TABLE db.m () ENGINE = TimeSeries",
-			want: "CREATE TABLE db.m  ENGINE = TimeSeries",
+			sql:  "CREATE TABLE db.m ENGINE = TimeSeries",
 		},
 		{
+			// SETTINGS spacing is normalised by the EngineExpr formatter.
 			name: "settings only",
-			sql:  "CREATE TABLE db.m () ENGINE = TimeSeries SETTINGS id_generator = 'sipHash64(metric_name, all_tags)'",
-			want: "CREATE TABLE db.m  ENGINE = TimeSeries SETTINGS id_generator='sipHash64(metric_name, all_tags)'",
+			sql:  "CREATE TABLE db.m ENGINE = TimeSeries SETTINGS id_generator = 'sipHash64(metric_name, all_tags)'",
+			want: "CREATE TABLE db.m ENGINE = TimeSeries SETTINGS id_generator='sipHash64(metric_name, all_tags)'",
 		},
 		{
 			name: "inner columns and inner engine",
-			sql: "CREATE TABLE db.m () ENGINE = TimeSeries " +
-				"SAMPLES INNER COLUMNS (`id` UUID, `timestamp` DateTime64(3), `value` Float64) " +
-				"SAMPLES INNER ENGINE = MergeTree ORDER BY (id, timestamp)",
-			want: "CREATE TABLE db.m  ENGINE = TimeSeries " +
+			sql: "CREATE TABLE db.m ENGINE = TimeSeries " +
 				"SAMPLES INNER COLUMNS (`id` UUID, `timestamp` DateTime64(3), `value` Float64) " +
 				"SAMPLES INNER ENGINE = MergeTree ORDER BY (id, timestamp)",
 		},
@@ -117,15 +110,10 @@ func TestParser_TimeSeriesTargets(t *testing.T) {
 			}
 			require.Equal(t, want, stmts[0].String())
 
-			// Re-parsing the formatted output must succeed and converge to a
-			// fixpoint. (The very first pass can collapse an empty `()` schema,
-			// a pre-existing formatter quirk, so compare the 2nd and 3rd
-			// generations rather than the 1st and 2nd.)
+			// Re-parsing the formatted output must succeed and reproduce it.
 			gen2, err := NewParser(stmts[0].String()).ParseStmts()
 			require.NoError(t, err)
-			gen3, err := NewParser(gen2[0].String()).ParseStmts()
-			require.NoError(t, err)
-			require.Equal(t, gen2[0].String(), gen3[0].String())
+			require.Equal(t, want, gen2[0].String())
 		})
 	}
 }
@@ -187,8 +175,8 @@ func TestParser_TimeSeriesRecentSamplesAST(t *testing.T) {
 // ClickHouse does, and that malformed target keywords fail.
 func TestParser_TimeSeriesDuplicateTarget(t *testing.T) {
 	for _, sql := range []string{
-		"CREATE TABLE db.m () ENGINE = TimeSeries DATA db.a SAMPLES db.b",
-		"CREATE TABLE db.m () ENGINE = TimeSeries TAGS db.a TAGS db.b",
+		"CREATE TABLE db.m ENGINE = TimeSeries DATA db.a SAMPLES db.b",
+		"CREATE TABLE db.m ENGINE = TimeSeries TAGS db.a TAGS db.b",
 		"CREATE TABLE d.ts ENGINE = TimeSeries RECENT SAMPLES d.r RECENT SAMPLES d.q",
 		"CREATE TABLE d.ts ENGINE = TimeSeries SAMPLES INNER ENGINE = MergeTree ORDER BY id SAMPLES INNER ENGINE = Memory",
 		"CREATE TABLE d.ts ENGINE = TimeSeries SAMPLES ENGINE = MergeTree ORDER BY id SAMPLES INNER ENGINE = Memory",

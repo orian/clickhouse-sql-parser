@@ -554,6 +554,10 @@ func (p *Parser) parseTableSchemaClause(pos Pos) (*TableSchemaClause, error) {
 		if err != nil {
 			return nil, err
 		}
+		// ClickHouse rejects an empty column list `()`.
+		if len(columns) == 0 {
+			return nil, fmt.Errorf("expected column definition, got %s", p.lastTokenKind())
+		}
 
 		rightParenPos := p.Pos()
 		if err := p.expectTokenKind(TokenKindRParen); err != nil {
