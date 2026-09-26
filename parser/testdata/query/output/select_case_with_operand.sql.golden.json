@@ -1,0 +1,253 @@
+[
+  {
+    "SelectPos": 0,
+    "StatementEnd": 76,
+    "With": null,
+    "Top": null,
+    "HasDistinct": false,
+    "DistinctOn": null,
+    "SelectItems": [
+      {
+        "Expr": {
+          "CasePos": 7,
+          "EndPos": 0,
+          "Expr": {
+            "Name": "number",
+            "QuoteType": 1,
+            "NamePos": 12,
+            "NameEnd": 18
+          },
+          "Whens": [
+            {
+              "WhenPos": 19,
+              "ThenPos": 26,
+              "When": {
+                "NumPos": 24,
+                "NumEnd": 25,
+                "Literal": "1",
+                "Base": 10
+              },
+              "Then": {
+                "LeftExpr": {
+                  "Name": "number",
+                  "QuoteType": 1,
+                  "NamePos": 31,
+                  "NameEnd": 37
+                },
+                "Operation": "+",
+                "RightExpr": {
+                  "NumPos": 40,
+                  "NumEnd": 41,
+                  "Literal": "2",
+                  "Base": 10
+                },
+                "HasGlobal": false,
+                "HasNot": false
+              },
+              "ElsePos": 0,
+              "Else": null
+            }
+          ],
+          "ElsePos": 42,
+          "Else": {
+            "LeftExpr": {
+              "Name": "number",
+              "QuoteType": 1,
+              "NamePos": 47,
+              "NameEnd": 53
+            },
+            "Operation": "*",
+            "RightExpr": {
+              "NumPos": 56,
+              "NumEnd": 57,
+              "Literal": "2",
+              "Base": 10
+            },
+            "HasGlobal": false,
+            "HasNot": false
+          }
+        },
+        "Modifiers": [],
+        "Alias": null
+      }
+    ],
+    "From": {
+      "FromPos": 62,
+      "Expr": {
+        "Table": {
+          "TablePos": 67,
+          "TableEnd": 76,
+          "Alias": null,
+          "Expr": {
+            "Name": {
+              "Name": "numbers",
+              "QuoteType": 1,
+              "NamePos": 67,
+              "NameEnd": 74
+            },
+            "Args": {
+              "LeftParenPos": 74,
+              "RightParenPos": 76,
+              "Args": [
+                {
+                  "NumPos": 75,
+                  "NumEnd": 76,
+                  "Literal": "3",
+                  "Base": 10
+                }
+              ]
+            }
+          },
+          "HasFinal": false
+        },
+        "StatementEnd": 76,
+        "SampleRatio": null,
+        "HasFinal": false
+      }
+    },
+    "Window": null,
+    "Prewhere": null,
+    "Where": null,
+    "GroupBy": null,
+    "WithTotal": false,
+    "Having": null,
+    "OrderBy": null,
+    "LimitBy": null,
+    "Limit": null,
+    "Settings": null,
+    "Format": null,
+    "UnionAll": null,
+    "UnionDistinct": null,
+    "Except": null
+  },
+  {
+    "SelectPos": 79,
+    "StatementEnd": 176,
+    "With": null,
+    "Top": null,
+    "HasDistinct": false,
+    "DistinctOn": null,
+    "SelectItems": [
+      {
+        "Expr": {
+          "CasePos": 86,
+          "EndPos": 0,
+          "Expr": {
+            "LeftExpr": {
+              "Name": "number",
+              "QuoteType": 1,
+              "NamePos": 91,
+              "NameEnd": 97
+            },
+            "Operation": "%",
+            "RightExpr": {
+              "NumPos": 100,
+              "NumEnd": 101,
+              "Literal": "3",
+              "Base": 10
+            },
+            "HasGlobal": false,
+            "HasNot": false
+          },
+          "Whens": [
+            {
+              "WhenPos": 102,
+              "ThenPos": 109,
+              "When": {
+                "NumPos": 107,
+                "NumEnd": 108,
+                "Literal": "0",
+                "Base": 10
+              },
+              "Then": {
+                "LiteralPos": 115,
+                "LiteralEnd": 119,
+                "Literal": "zero"
+              },
+              "ElsePos": 0,
+              "Else": null
+            },
+            {
+              "WhenPos": 121,
+              "ThenPos": 128,
+              "When": {
+                "NumPos": 126,
+                "NumEnd": 127,
+                "Literal": "1",
+                "Base": 10
+              },
+              "Then": {
+                "LiteralPos": 134,
+                "LiteralEnd": 137,
+                "Literal": "one"
+              },
+              "ElsePos": 0,
+              "Else": null
+            }
+          ],
+          "ElsePos": 139,
+          "Else": {
+            "LiteralPos": 145,
+            "LiteralEnd": 148,
+            "Literal": "two"
+          }
+        },
+        "Modifiers": [],
+        "Alias": {
+          "Name": "name",
+          "QuoteType": 1,
+          "NamePos": 157,
+          "NameEnd": 161
+        }
+      }
+    ],
+    "From": {
+      "FromPos": 162,
+      "Expr": {
+        "Table": {
+          "TablePos": 167,
+          "TableEnd": 176,
+          "Alias": null,
+          "Expr": {
+            "Name": {
+              "Name": "numbers",
+              "QuoteType": 1,
+              "NamePos": 167,
+              "NameEnd": 174
+            },
+            "Args": {
+              "LeftParenPos": 174,
+              "RightParenPos": 176,
+              "Args": [
+                {
+                  "NumPos": 175,
+                  "NumEnd": 176,
+                  "Literal": "6",
+                  "Base": 10
+                }
+              ]
+            }
+          },
+          "HasFinal": false
+        },
+        "StatementEnd": 176,
+        "SampleRatio": null,
+        "HasFinal": false
+      }
+    },
+    "Window": null,
+    "Prewhere": null,
+    "Where": null,
+    "GroupBy": null,
+    "WithTotal": false,
+    "Having": null,
+    "OrderBy": null,
+    "LimitBy": null,
+    "Limit": null,
+    "Settings": null,
+    "Format": null,
+    "UnionAll": null,
+    "UnionDistinct": null,
+    "Except": null
+  }
+]
