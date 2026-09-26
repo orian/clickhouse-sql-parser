@@ -36,6 +36,7 @@
     "Limit": null,
     "Settings": null,
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": {
       "SelectPos": 25,
       "StatementEnd": 39,
@@ -73,6 +74,7 @@
       "Limit": null,
       "Settings": null,
       "Format": null,
+      "OutputSettings": null,
       "UnionAll": {
         "SelectPos": 50,
         "StatementEnd": 64,
@@ -110,6 +112,7 @@
         "Limit": null,
         "Settings": null,
         "Format": null,
+        "OutputSettings": null,
         "UnionAll": null,
         "UnionDistinct": null,
         "Except": null

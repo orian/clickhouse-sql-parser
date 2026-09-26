@@ -6463,27 +6463,31 @@ type SelectQuery struct {
 	// HasParen records that this query, together with its own UNION/EXCEPT
 	// chain, was written in parentheses, as in `a UNION ALL (b UNION ALL c)`.
 	// The grouping is significant and is printed back (#59).
-	HasParen      bool
-	With          *WithClause
-	Top           *TopClause
-	HasDistinct   bool
-	DistinctOn    *DistinctOn
-	SelectItems   []*SelectItem
-	From          *FromClause
-	Window        *WindowClause
-	Prewhere      *PrewhereClause
-	Where         *WhereClause
-	GroupBy       *GroupByClause
-	WithTotal     bool
-	Having        *HavingClause
-	OrderBy       *OrderByClause
-	LimitBy       *LimitByClause
-	Limit         *LimitClause
-	Settings      *SettingsClause
-	Format        *FormatClause
-	UnionAll      *SelectQuery
-	UnionDistinct *SelectQuery
-	Except        *SelectQuery
+	HasParen    bool
+	With        *WithClause
+	Top         *TopClause
+	HasDistinct bool
+	DistinctOn  *DistinctOn
+	SelectItems []*SelectItem
+	From        *FromClause
+	Window      *WindowClause
+	Prewhere    *PrewhereClause
+	Where       *WhereClause
+	GroupBy     *GroupByClause
+	WithTotal   bool
+	Having      *HavingClause
+	OrderBy     *OrderByClause
+	LimitBy     *LimitByClause
+	Limit       *LimitClause
+	Settings    *SettingsClause
+	Format      *FormatClause
+	// OutputSettings is the query-level SETTINGS clause after FORMAT
+	// (`SELECT ... SETTINGS a = 1 FORMAT JSON SETTINGS b = 2`). It is distinct
+	// from Settings: on a key clash ClickHouse applies the SELECT's own value.
+	OutputSettings *SettingsClause
+	UnionAll       *SelectQuery
+	UnionDistinct  *SelectQuery
+	Except         *SelectQuery
 }
 
 func (s *SelectQuery) Pos() Pos {
@@ -6583,6 +6587,10 @@ func (s *SelectQuery) String() string { // nolint: funlen
 		builder.WriteString(" ")
 		builder.WriteString(s.Format.String())
 	}
+	if s.OutputSettings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(s.OutputSettings.String())
+	}
 	if s.UnionAll != nil {
 		builder.WriteString(" UNION ALL ")
 		builder.WriteString(s.UnionAll.String())
@@ -6633,6 +6641,53 @@ func (s *DistinctOn) Accept(visitor ASTVisitor) error {
 	visitor.Enter(s)
 	defer visitor.Leave(s)
 	return visitor.VisitDistinctOn(s)
+}
+
+// QueryWithOutput wraps a non-SELECT statement that ends with ClickHouse's
+// query output clauses `[FORMAT fmt] [SETTINGS ...]`, e.g.
+// `SHOW TABLES FORMAT JSON` or `DROP TABLE t SETTINGS max_threads = 1`. It is
+// only created when such a clause is present, so other statements keep their
+// own node type. SELECT keeps these clauses on SelectQuery (Format,
+// OutputSettings) and INSERT's FORMAT names the input data format, so neither
+// is wrapped.
+type QueryWithOutput struct {
+	Query    Expr
+	Format   *FormatClause
+	Settings *SettingsClause
+}
+
+func (q *QueryWithOutput) Pos() Pos {
+	return q.Query.Pos()
+}
+
+func (q *QueryWithOutput) End() Pos {
+	if q.Settings != nil {
+		return q.Settings.End()
+	}
+	if q.Format != nil {
+		return q.Format.End()
+	}
+	return q.Query.End()
+}
+
+func (q *QueryWithOutput) String() string {
+	var builder strings.Builder
+	builder.WriteString(q.Query.String())
+	if q.Format != nil {
+		builder.WriteString(" ")
+		builder.WriteString(q.Format.String())
+	}
+	if q.Settings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(q.Settings.String())
+	}
+	return builder.String()
+}
+
+func (q *QueryWithOutput) Accept(visitor ASTVisitor) error {
+	visitor.Enter(q)
+	defer visitor.Leave(q)
+	return visitor.VisitQueryWithOutput(q)
 }
 
 type SubQuery struct {
@@ -7901,7 +7956,6 @@ type ShowStmt struct {
 	LikePattern Expr           // pattern expression for LIKE/ILIKE
 	Limit       Expr           // limit expression
 	OutFile     *StringLiteral // filename for INTO OUTFILE
-	Format      *StringLiteral // format specification
 }
 
 func (s *ShowStmt) Pos() Pos {
@@ -7910,9 +7964,6 @@ func (s *ShowStmt) Pos() Pos {
 
 func (s *ShowStmt) End() Pos {
 	// Find the rightmost element to determine the end position
-	if s.Format != nil {
-		return s.Format.End()
-	}
 	if s.OutFile != nil {
 		return s.OutFile.End()
 	}
@@ -7957,11 +8008,6 @@ func (s *ShowStmt) String() string {
 	if s.OutFile != nil {
 		builder.WriteString(" INTO OUTFILE ")
 		builder.WriteString(s.OutFile.String())
-	}
-
-	if s.Format != nil {
-		builder.WriteString(" FORMAT ")
-		builder.WriteString(s.Format.String())
 	}
 
 	return builder.String()

@@ -849,6 +849,21 @@ func (p *PrintVisitor) VisitDictionaryRangeClause(d *DictionaryRangeClause) erro
 	return nil
 }
 
+func (p *PrintVisitor) VisitQueryWithOutput(q *QueryWithOutput) error {
+	if err := q.Query.Accept(p); err != nil {
+		return err
+	}
+	if q.Format != nil {
+		p.builder.WriteString(" ")
+		p.builder.WriteString(q.Format.String())
+	}
+	if q.Settings != nil {
+		p.builder.WriteString(" ")
+		p.builder.WriteString(q.Settings.String())
+	}
+	return nil
+}
+
 func (p *PrintVisitor) VisitShowExpr(s *ShowStmt) error {
 	p.builder.WriteString(s.String())
 	return nil
@@ -1897,6 +1912,10 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 	if s.Format != nil {
 		builder.WriteString(" ")
 		builder.WriteString(s.Format.String())
+	}
+	if s.OutputSettings != nil {
+		builder.WriteString(" ")
+		builder.WriteString(s.OutputSettings.String())
 	}
 	if s.UnionAll != nil {
 		builder.WriteString(" UNION ALL ")

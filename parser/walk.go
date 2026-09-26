@@ -72,6 +72,19 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Format, fn) {
 			return false
 		}
+		if !Walk(n.OutputSettings, fn) {
+			return false
+		}
+	case *QueryWithOutput:
+		if !Walk(n.Query, fn) {
+			return false
+		}
+		if !Walk(n.Format, fn) {
+			return false
+		}
+		if !Walk(n.Settings, fn) {
+			return false
+		}
 	case *SubQuery:
 		if !Walk(n.Select, fn) {
 			return false
@@ -1563,9 +1576,6 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 		if !Walk(n.OutFile, fn) {
-			return false
-		}
-		if !Walk(n.Format, fn) {
 			return false
 		}
 	case *DescribeStmt:

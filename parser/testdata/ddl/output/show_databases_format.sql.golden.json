@@ -1,18 +1,25 @@
 [
   {
-    "ShowPos": 0,
-    "StatementEnd": 27,
-    "ShowType": "DATABASES",
-    "Target": null,
-    "NotLike": false,
-    "LikeType": "",
-    "LikePattern": null,
-    "Limit": null,
-    "OutFile": null,
+    "Query": {
+      "ShowPos": 0,
+      "StatementEnd": 21,
+      "ShowType": "DATABASES",
+      "Target": null,
+      "NotLike": false,
+      "LikeType": "",
+      "LikePattern": null,
+      "Limit": null,
+      "OutFile": null
+    },
     "Format": {
-      "LiteralPos": 22,
-      "LiteralEnd": 26,
-      "Literal": "JSON"
-    }
+      "FormatPos": 15,
+      "Format": {
+        "Name": "JSON",
+        "QuoteType": 1,
+        "NamePos": 22,
+        "NameEnd": 26
+      }
+    },
+    "Settings": null
   }
 ]

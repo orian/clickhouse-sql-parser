@@ -59,6 +59,7 @@
     "Limit": null,
     "Settings": null,
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": {
       "SelectPos": 59,
@@ -128,6 +129,7 @@
           "NameEnd": 121
         }
       },
+      "OutputSettings": null,
       "UnionAll": null,
       "UnionDistinct": null,
       "Except": null

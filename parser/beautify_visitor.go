@@ -556,6 +556,10 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.newline()
 		b.writeString(s.Format.String())
 	}
+	if s.OutputSettings != nil {
+		b.newline()
+		b.beautifySettings(s.OutputSettings)
+	}
 
 	if s.UnionAll != nil {
 		b.newline()
@@ -1392,6 +1396,25 @@ func (b *BeautifyVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 		if err := c.SubQuery.Accept(b.Self); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+// VisitQueryWithOutput beautifies a statement with trailing FORMAT/SETTINGS
+// output clauses, each on its own line.
+func (b *BeautifyVisitor) VisitQueryWithOutput(q *QueryWithOutput) error {
+	b.Enter(q)
+	defer b.Leave(q)
+	if err := q.Query.Accept(b.Self); err != nil {
+		return err
+	}
+	if q.Format != nil {
+		b.newline()
+		b.writeString(q.Format.String())
+	}
+	if q.Settings != nil {
+		b.newline()
+		b.beautifySettings(q.Settings)
 	}
 	return nil
 }

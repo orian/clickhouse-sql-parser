@@ -224,8 +224,11 @@ func TestWalk_ShowStmtNewFields(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, 1, len(stmts))
 
-	_, ok := stmts[0].(*ShowStmt)
-	require.True(t, ok, "Statement should be ShowStmt")
+	// A trailing FORMAT is a query output clause: the statement is wrapped.
+	wrapped, ok := stmts[0].(*QueryWithOutput)
+	require.True(t, ok, "Statement should be QueryWithOutput")
+	_, ok = wrapped.Query.(*ShowStmt)
+	require.True(t, ok, "Wrapped statement should be ShowStmt")
 
 	// Collect all nodes during walk
 	var foundNodes []Expr
@@ -234,36 +237,29 @@ func TestWalk_ShowStmtNewFields(t *testing.T) {
 		return true
 	})
 
-	// Should find the ShowStmt itself plus all its expression fields
-	require.Greater(t, len(foundNodes), 4, "Should visit at least ShowStmt + 4 expression fields")
-
-	// Find specific types of expressions that should be walked
 	var stringLiterals []*StringLiteral
 	var numberLiterals []*NumberLiteral
-
+	var formats []*FormatClause
 	for _, node := range foundNodes {
 		switch n := node.(type) {
 		case *StringLiteral:
 			stringLiterals = append(stringLiterals, n)
 		case *NumberLiteral:
 			numberLiterals = append(numberLiterals, n)
+		case *FormatClause:
+			formats = append(formats, n)
 		}
 	}
 
-	// Should find exactly 3 string literals: LIKE pattern, OUTFILE path, FORMAT type
-	require.Equal(t, 3, len(stringLiterals), "Should find exactly 3 StringLiteral nodes")
-
-	// Should find exactly 1 number literal: LIMIT value
-	require.Equal(t, 1, len(numberLiterals), "Should find exactly 1 NumberLiteral node")
-
-	// Verify the specific values
+	// LIKE pattern and OUTFILE path; FORMAT is a FormatClause, not a string.
 	stringValues := make([]string, len(stringLiterals))
 	for i, sl := range stringLiterals {
 		stringValues[i] = sl.Literal
 	}
-	require.Contains(t, stringValues, "prod%", "Should contain LIKE pattern")
-	require.Contains(t, stringValues, "/tmp/prod_dbs.txt", "Should contain OUTFILE path")
-	require.Contains(t, stringValues, "JSON", "Should contain FORMAT type")
+	require.ElementsMatch(t, []string{"prod%", "/tmp/prod_dbs.txt"}, stringValues)
+	require.Len(t, formats, 1, "Should visit the FORMAT clause")
+	require.Equal(t, "FORMAT JSON", formats[0].String())
 
+	require.Len(t, numberLiterals, 1, "Should find exactly 1 NumberLiteral node")
 	require.Equal(t, "5", numberLiterals[0].Literal, "Should contain LIMIT value")
 }

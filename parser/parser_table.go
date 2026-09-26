@@ -1880,7 +1880,7 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 	if err != nil {
 		return nil, err
 	}
-	_, err = p.tryParseFormat(p.Pos())
+	expr, err = p.tryParseQueryOutput(expr)
 	if err != nil {
 		return nil, err
 	}
@@ -1890,6 +1890,54 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 		return nil, fmt.Errorf("<EOF> or ';' was expected, but got: %q", p.lastTokenText())
 	}
 	return expr, nil
+}
+
+// tryParseQueryOutput parses the query output clauses `[FORMAT fmt]
+// [SETTINGS ...]` that may end a statement and wraps the statement in a
+// QueryWithOutput when one is present (#41). SELECT and INSERT handle FORMAT
+// themselves. Statements that ClickHouse does not accept output clauses for
+// are rejected instead of silently dropping the clause.
+func (p *Parser) tryParseQueryOutput(stmt Expr) (Expr, error) {
+	switch stmt.(type) {
+	case *SelectQuery, *InsertStmt:
+		return stmt, nil
+	}
+	if !p.matchKeyword(KeywordFormat) && !p.matchKeyword(KeywordSettings) {
+		return stmt, nil
+	}
+	if !allowsQueryOutput(stmt) {
+		return nil, fmt.Errorf("%s is not supported after this statement", p.lastTokenText())
+	}
+	format, err := p.tryParseFormat(p.Pos())
+	if err != nil {
+		return nil, err
+	}
+	settings, err := p.tryParseSettingsClause(p.Pos())
+	if err != nil {
+		return nil, err
+	}
+	// CREATE TABLE's trailing query-level SETTINGS (CreateTable.Settings) is
+	// this same clause written before FORMAT; ClickHouse allows it only once.
+	if ct, ok := stmt.(*CreateTable); ok && ct.Settings != nil && settings != nil {
+		return nil, errors.New("duplicate query-level SETTINGS clause")
+	}
+	return &QueryWithOutput{Query: stmt, Format: format, Settings: settings}, nil
+}
+
+// allowsQueryOutput reports whether ClickHouse accepts FORMAT/SETTINGS output
+// clauses after the statement (its "query with output" statements). Checked
+// against ClickHouse 26.8: GRANT, SYSTEM, USE, SET, DELETE, access entities
+// (USER/ROLE), CREATE FUNCTION and CREATE NAMED COLLECTION reject them.
+func allowsQueryOutput(stmt Expr) bool {
+	switch stmt.(type) {
+	case *ShowStmt, *DescribeStmt, *CheckStmt, *ExplainStmt,
+		*CreateTable, *CreateView, *CreateMaterializedView, *CreateLiveView,
+		*CreateDictionary, *CreateDatabase,
+		*AlterTable, *DropStmt, *DropDatabase, *TruncateTable, *RenameStmt,
+		*OptimizeStmt:
+		return true
+	}
+	return false
 }
 
 func (p *Parser) ParseStmts() ([]Expr, error) {
@@ -2025,30 +2073,7 @@ func (p *Parser) parseShowStmt(pos Pos) (*ShowStmt, error) {
 			stmt.OutFile = outFile
 		}
 
-		// Parse [FORMAT format]
-		if p.matchKeyword(KeywordFormat) {
-			_ = p.lexer.consumeToken()
-
-			// Format can be an identifier or a string
-			if p.matchTokenKind(TokenKindString) {
-				format, err := p.parseString(p.Pos())
-				if err != nil {
-					return nil, err
-				}
-				stmt.Format = format
-			} else if p.matchTokenKind(TokenKindIdent) {
-				// Handle format as identifier (like JSON, CSV, etc.)
-				token := p.last()
-				_ = p.lexer.consumeToken()
-				stmt.Format = &StringLiteral{
-					LiteralPos: token.Pos,
-					LiteralEnd: token.End,
-					Literal:    token.String,
-				}
-			} else {
-				return nil, fmt.Errorf("expected format specification after FORMAT, got %q", p.lastTokenText())
-			}
-		}
+		// A trailing FORMAT is parsed by parseStmt as a query output clause.
 	}
 
 	// Set statement end position

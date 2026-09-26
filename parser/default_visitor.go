@@ -1136,11 +1136,6 @@ func (visitor DefaultASTVisitor) VisitShowExpr(s *ShowStmt) error {
 			return err
 		}
 	}
-	if s.Format != nil {
-		if err := s.Format.Accept(visitor.Self); err != nil {
-			return err
-		}
-	}
 	return nil
 }
 
@@ -1520,6 +1515,25 @@ func (visitor DefaultASTVisitor) VisitEnumValue(e *EnumValue) error {
 	}
 	if err := e.Value.Accept(visitor.Self); err != nil {
 		return err
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitQueryWithOutput(q *QueryWithOutput) error {
+	visitor.Enter(q)
+	defer visitor.Leave(q)
+	if err := q.Query.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if q.Format != nil {
+		if err := q.Format.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if q.Settings != nil {
+		if err := q.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -2331,6 +2345,11 @@ func (visitor DefaultASTVisitor) VisitSelectQuery(s *SelectQuery) error {
 	}
 	if s.Format != nil {
 		if err := s.Format.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.OutputSettings != nil {
+		if err := s.OutputSettings.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}

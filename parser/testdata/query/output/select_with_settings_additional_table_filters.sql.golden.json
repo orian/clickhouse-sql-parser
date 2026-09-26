@@ -86,6 +86,7 @@
       ]
     },
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null
@@ -177,6 +178,7 @@
       ]
     },
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null
@@ -268,6 +270,7 @@
       ]
     },
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null
@@ -367,6 +370,7 @@
         "NameEnd": 415
       }
     },
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null
@@ -492,6 +496,7 @@
                   },
                   "Settings": null,
                   "Format": null,
+                  "OutputSettings": null,
                   "UnionAll": null,
                   "UnionDistinct": null,
                   "Except": null
@@ -587,6 +592,7 @@
                     "Limit": null,
                     "Settings": null,
                     "Format": null,
+                    "OutputSettings": null,
                     "UnionAll": null,
                     "UnionDistinct": null,
                     "Except": null
@@ -724,6 +730,7 @@
       ]
     },
     "Format": null,
+    "OutputSettings": null,
     "UnionAll": null,
     "UnionDistinct": null,
     "Except": null
