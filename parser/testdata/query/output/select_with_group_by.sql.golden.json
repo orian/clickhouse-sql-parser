@@ -52,7 +52,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": null
           }
@@ -131,7 +132,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               },
@@ -155,7 +157,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               },
@@ -179,7 +182,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               },
@@ -193,13 +197,15 @@
                   "ListPos": 168,
                   "ListEnd": 168,
                   "HasDistinct": false,
-                  "Items": []
+                  "Items": [],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         },
         "ColumnArgList": null
       },
@@ -271,7 +277,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": null
           }

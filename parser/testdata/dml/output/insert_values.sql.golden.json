@@ -89,7 +89,8 @@
                 "ListPos": 151,
                 "ListEnd": 151,
                 "HasDistinct": false,
-                "Items": []
+                "Items": [],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -131,7 +132,8 @@
                 "ListPos": 245,
                 "ListEnd": 245,
                 "HasDistinct": false,
-                "Items": []
+                "Items": [],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -173,7 +175,8 @@
                 "ListPos": 329,
                 "ListEnd": 329,
                 "HasDistinct": false,
-                "Items": []
+                "Items": [],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -216,7 +219,8 @@
                   "ListPos": 415,
                   "ListEnd": 415,
                   "HasDistinct": false,
-                  "Items": []
+                  "Items": [],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }

@@ -130,7 +130,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }
@@ -330,7 +331,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }

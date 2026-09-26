@@ -1851,7 +1851,8 @@
                 "ListPos": 1378,
                 "ListEnd": 1378,
                 "HasDistinct": false,
-                "Items": []
+                "Items": [],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -2071,7 +2072,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }
@@ -2202,14 +2204,16 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         }
       },
       "SampleBy": null,
@@ -2244,7 +2248,8 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
@@ -2274,7 +2279,8 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
@@ -2388,14 +2394,16 @@
                               },
                               "Alias": null
                             }
-                          ]
+                          ],
+                          "HasTrailingComma": false
                         },
                         "ColumnArgList": null
                       }
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             },

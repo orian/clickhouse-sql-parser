@@ -50,7 +50,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": null
           }
@@ -138,7 +139,8 @@
                           },
                           "Alias": null
                         }
-                      ]
+                      ],
+                      "HasTrailingComma": false
                     },
                     "ColumnArgList": null
                   }
@@ -150,7 +152,8 @@
                   "NameEnd": 123
                 }
               }
-            ]
+            ],
+            "HasTrailingComma": false
           },
           "Right": {
             "JoinPos": 128,
@@ -224,7 +227,8 @@
                               },
                               "Alias": null
                             }
-                          ]
+                          ],
+                          "HasTrailingComma": false
                         },
                         "ColumnArgList": null
                       }
@@ -236,7 +240,8 @@
                       "NameEnd": 239
                     }
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "Right": {
                 "JoinPos": 244,
@@ -323,7 +328,8 @@
                                     },
                                     "Alias": null
                                   }
-                                ]
+                                ],
+                                "HasTrailingComma": false
                               },
                               "ColumnArgList": null
                             }
@@ -333,7 +339,8 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   }
                 }
               },
@@ -405,7 +412,8 @@
                                 },
                                 "Alias": null
                               }
-                            ]
+                            ],
+                            "HasTrailingComma": false
                           },
                           "ColumnArgList": null
                         }
@@ -415,7 +423,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               }
             }
           },

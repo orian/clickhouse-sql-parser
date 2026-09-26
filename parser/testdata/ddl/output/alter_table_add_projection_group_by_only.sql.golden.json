@@ -63,7 +63,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -99,7 +100,8 @@
                         "ListPos": 122,
                         "ListEnd": 122,
                         "HasDistinct": false,
-                        "Items": []
+                        "Items": [],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -136,7 +138,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -148,7 +151,8 @@
                     "NameEnd": 156
                   }
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "GroupBy": {
               "GroupByPos": 157,
@@ -177,7 +181,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "WithCube": false,
               "WithRollup": false,

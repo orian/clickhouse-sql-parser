@@ -61,7 +61,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -83,7 +84,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             }
           }
         },
@@ -196,7 +198,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -248,7 +251,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }
@@ -270,7 +274,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               }
             }
           },

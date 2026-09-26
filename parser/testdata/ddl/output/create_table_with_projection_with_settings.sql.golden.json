@@ -81,7 +81,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "GroupBy": null,
             "OrderBy": {
@@ -100,7 +101,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               }
             }
           },
@@ -300,7 +302,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -337,7 +340,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -349,7 +353,8 @@
                     "NameEnd": 349
                   }
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "GroupBy": {
               "GroupByPos": 358,
@@ -369,7 +374,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "WithCube": false,
               "WithRollup": false,
@@ -431,7 +437,8 @@
           "ListPos": 475,
           "ListEnd": 475,
           "HasDistinct": false,
-          "Items": []
+          "Items": [],
+          "HasTrailingComma": false
         },
         "ColumnArgList": null
       },

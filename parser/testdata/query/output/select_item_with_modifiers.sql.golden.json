@@ -44,7 +44,8 @@
                       "NameEnd": 26
                     }
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -147,7 +148,8 @@
                       "NameEnd": 64
                     }
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -250,7 +252,8 @@
                       "NameEnd": 102
                     }
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -279,7 +282,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -308,7 +312,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }

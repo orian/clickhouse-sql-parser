@@ -119,7 +119,8 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   }
                 }
               },
@@ -155,7 +156,8 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   }
                 }
               }
