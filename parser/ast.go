@@ -4680,6 +4680,9 @@ func (c *ColumnArgList) End() Pos {
 func (c *ColumnArgList) String() string {
 	var builder strings.Builder
 	builder.WriteByte('(')
+	if c.Distinct {
+		builder.WriteString("DISTINCT ")
+	}
 	for i, item := range c.Items {
 		if i > 0 {
 			builder.WriteString(", ")
