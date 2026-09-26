@@ -958,6 +958,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *AlterTableDelete:
+		if !Walk(n.InPartition, fn) {
+			return false
+		}
 		if !Walk(n.WhereClause, fn) {
 			return false
 		}

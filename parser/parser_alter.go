@@ -549,18 +549,12 @@ func (p *Parser) parseAlterTableDropPartition(pos Pos) (AlterTableClause, error)
 		_ = p.lexer.consumeToken()
 		hasDetached = true
 	}
-	partitionPos := p.Pos()
-	if err := p.expectKeyword(KeywordPartition); err != nil {
-		return nil, err
-	}
-	partition := &PartitionClause{
-		PartitionPos: partitionPos,
-	}
-	expr, err := p.parseExpr(p.Pos())
+	// Share parsePartitionClause so PARTITION ID 'x' and PARTITION ALL are
+	// handled like in every other partition statement.
+	partition, err := p.parsePartitionClause(p.Pos())
 	if err != nil {
 		return nil, err
 	}
-	partition.Expr = expr
 
 	settings, err := p.tryParseSettingsClause(p.Pos())
 	if err != nil {
@@ -948,6 +942,16 @@ func (p *Parser) parseAlterTableDelete(pos Pos) (AlterTableClause, error) {
 		return nil, err
 	}
 
+	// Syntax: DELETE [IN PARTITION partition] WHERE condition
+	var inPartition *PartitionClause
+	if p.tryConsumeKeywords(KeywordIn) {
+		var err error
+		inPartition, err = p.parsePartitionClause(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	if err := p.expectKeyword(KeywordWhere); err != nil {
 		return nil, err
 	}
@@ -960,6 +964,7 @@ func (p *Parser) parseAlterTableDelete(pos Pos) (AlterTableClause, error) {
 	return &AlterTableDelete{
 		DeletePos:    pos,
 		StatementEnd: whereExpr.End(),
+		InPartition:  inPartition,
 		WhereClause:  whereExpr,
 	}, nil
 }

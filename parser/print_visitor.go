@@ -1613,6 +1613,7 @@ func (p *PrintVisitor) VisitPartitionByExpr(part *PartitionByClause) error {
 func (p *PrintVisitor) VisitPartitionExpr(part *PartitionClause) error {
 	p.builder.WriteString("PARTITION ")
 	if part.ID != nil {
+		p.builder.WriteString("ID ")
 		part.ID.Accept(p)
 	} else if part.All {
 		p.builder.WriteString("ALL")
