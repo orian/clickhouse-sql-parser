@@ -28,6 +28,7 @@
       {
         "DeletePos": 53,
         "StatementEnd": 96,
+        "InPartition": null,
         "WhereClause": {
           "LeftExpr": {
             "LeftExpr": {

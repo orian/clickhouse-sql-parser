@@ -1277,6 +1277,7 @@ func (a *AlterTableReplacePartition) Accept(visitor ASTVisitor) error {
 type AlterTableDelete struct {
 	DeletePos    Pos
 	StatementEnd Pos
+	InPartition  *PartitionClause
 	WhereClause  Expr
 }
 
@@ -1294,7 +1295,12 @@ func (a *AlterTableDelete) AlterType() string {
 
 func (a *AlterTableDelete) String() string {
 	var builder strings.Builder
-	builder.WriteString("DELETE WHERE ")
+	builder.WriteString("DELETE")
+	if a.InPartition != nil {
+		builder.WriteString(" IN ")
+		builder.WriteString(a.InPartition.String())
+	}
+	builder.WriteString(" WHERE ")
 	builder.WriteString(a.WhereClause.String())
 	return builder.String()
 }
@@ -2939,6 +2945,9 @@ func (p *PartitionClause) String() string {
 	var builder strings.Builder
 	builder.WriteString("PARTITION ")
 	if p.ID != nil {
+		// PARTITION ID 'x' selects by partition ID; PARTITION 'x' selects by
+		// partition expression value (#58).
+		builder.WriteString("ID ")
 		builder.WriteString(p.ID.String())
 	} else if p.All {
 		builder.WriteString("ALL")

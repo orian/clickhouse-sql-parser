@@ -21,6 +21,7 @@
       {
         "DeletePos": 24,
         "StatementEnd": 61,
+        "InPartition": null,
         "WhereClause": {
           "LeftExpr": {
             "Name": "created_at",
