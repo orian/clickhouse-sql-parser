@@ -33,6 +33,7 @@
       "Select": {
         "SelectPos": 20,
         "StatementEnd": 28,
+        "HasParen": false,
         "With": null,
         "Top": null,
         "HasDistinct": false,

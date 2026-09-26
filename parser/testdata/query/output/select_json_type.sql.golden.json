@@ -2,6 +2,7 @@
   {
     "SelectPos": 0,
     "StatementEnd": 24,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,
@@ -95,6 +96,7 @@
   {
     "SelectPos": 26,
     "StatementEnd": 75,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,
@@ -161,6 +163,7 @@
   {
     "SelectPos": 78,
     "StatementEnd": 114,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,
@@ -211,6 +214,7 @@
   {
     "SelectPos": 116,
     "StatementEnd": 157,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,
@@ -271,6 +275,7 @@
   {
     "SelectPos": 159,
     "StatementEnd": 205,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,
@@ -337,6 +342,7 @@
   {
     "SelectPos": 207,
     "StatementEnd": 258,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,

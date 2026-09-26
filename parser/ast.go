@@ -6424,8 +6424,12 @@ func (f *WindowFrameParam) Accept(visitor ASTVisitor) error {
 }
 
 type SelectQuery struct {
-	SelectPos     Pos
-	StatementEnd  Pos
+	SelectPos    Pos
+	StatementEnd Pos
+	// HasParen records that this query, together with its own UNION/EXCEPT
+	// chain, was written in parentheses, as in `a UNION ALL (b UNION ALL c)`.
+	// The grouping is significant and is printed back (#59).
+	HasParen      bool
 	With          *WithClause
 	Top           *TopClause
 	HasDistinct   bool
@@ -6457,6 +6461,11 @@ func (s *SelectQuery) End() Pos {
 }
 
 func (s *SelectQuery) String() string { // nolint: funlen
+	if s.HasParen {
+		inner := *s
+		inner.HasParen = false
+		return "(" + inner.String() + ")"
+	}
 	var builder strings.Builder
 	if s.With != nil {
 		builder.WriteString("WITH")

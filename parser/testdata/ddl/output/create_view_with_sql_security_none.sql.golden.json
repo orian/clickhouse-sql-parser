@@ -29,6 +29,7 @@
       "Select": {
         "SelectPos": 38,
         "StatementEnd": 46,
+        "HasParen": false,
         "With": null,
         "Top": null,
         "HasDistinct": false,
