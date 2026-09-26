@@ -2328,8 +2328,7 @@ func (p *PrintVisitor) VisitWithExpr(w *WithClause) error {
 
 func (p *PrintVisitor) VisitWithTimeoutExpr(w *WithTimeoutClause) error {
 	builder := p.builder
-	builder.WriteString("WITH TIMEOUT ")
-	builder.WriteString(w.Number.String())
+	builder.WriteString(w.String())
 	return nil
 }
 

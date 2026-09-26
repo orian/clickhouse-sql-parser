@@ -366,11 +366,12 @@ func (p *Parser) tryParseWithTimeout(pos Pos) (*WithTimeoutClause, error) {
 	if !p.tryConsumeKeywords(KeywordWith) {
 		return nil, nil // nolint
 	}
+	timeoutEnd := p.End()
 	if err := p.expectKeyword(KeywordTimeout); err != nil {
 		return nil, err
 	}
 
-	withTimeout := &WithTimeoutClause{WithTimeoutPos: pos}
+	withTimeout := &WithTimeoutClause{WithTimeoutPos: pos, WithTimeoutEnd: timeoutEnd}
 
 	if p.matchTokenKind(TokenKindInt) {
 		decimalNumber, err := p.parseDecimal(p.Pos())
