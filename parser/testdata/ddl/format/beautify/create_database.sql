@@ -2,4 +2,4 @@
 CREATE DATABASE IF NOT EXISTS `test`
 
 -- Beautify SQL:
-;
+CREATE DATABASE IF NOT EXISTS `test`;

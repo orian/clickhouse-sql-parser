@@ -652,6 +652,10 @@ func (p *PrintVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 		builder.WriteString("IF NOT EXISTS ")
 	}
 	builder.WriteString(c.Name.String())
+	if c.UUID != nil {
+		builder.WriteString(" ")
+		builder.WriteString(c.UUID.String())
+	}
 
 	if c.OnCluster != nil {
 		builder.WriteString(" ")

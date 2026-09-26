@@ -9,11 +9,11 @@ OPTIMIZE TABLE table DEDUPLICATE BY COLUMNS('column-matched-by-regex') EXCEPT co
 OPTIMIZE TABLE table DEDUPLICATE BY COLUMNS('column-matched-by-regex') EXCEPT (colX, colY);
 
 -- Beautify SQL:
-;
-;
-;
-;
-;
-;
-;
-;
+OPTIMIZE TABLE table DEDUPLICATE;
+OPTIMIZE TABLE table DEDUPLICATE BY *;
+OPTIMIZE TABLE table DEDUPLICATE BY colX, colY, colZ;
+OPTIMIZE TABLE table DEDUPLICATE BY * EXCEPT colX;
+OPTIMIZE TABLE table DEDUPLICATE BY * EXCEPT (colX, colY);
+OPTIMIZE TABLE table DEDUPLICATE BY COLUMNS('column-matched-by-regex');
+OPTIMIZE TABLE table DEDUPLICATE BY COLUMNS('column-matched-by-regex') EXCEPT colX;
+OPTIMIZE TABLE table DEDUPLICATE BY COLUMNS('column-matched-by-regex') EXCEPT (colX, colY);

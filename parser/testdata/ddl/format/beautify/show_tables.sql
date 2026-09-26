@@ -2,4 +2,4 @@
 SHOW TABLES
 
 -- Beautify SQL:
-;
+SHOW TABLES;
