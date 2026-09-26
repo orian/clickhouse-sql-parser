@@ -138,7 +138,8 @@
                   "NameEnd": 104
                 }
               },
-              "HasFinal": false
+              "HasFinal": false,
+              "Stream": null
             },
             "StatementEnd": 104,
             "SampleRatio": null,

@@ -51,7 +51,8 @@
                       "NameEnd": 35
                     }
                   },
-                  "HasFinal": false
+                  "HasFinal": false,
+                  "Stream": null
                 },
                 "StatementEnd": 35,
                 "SampleRatio": null,
@@ -118,7 +119,8 @@
                       "NameEnd": 68
                     }
                   },
-                  "HasFinal": false
+                  "HasFinal": false,
+                  "Stream": null
                 },
                 "StatementEnd": 68,
                 "SampleRatio": null,
@@ -226,7 +228,8 @@
                 "NameEnd": 124
               }
             },
-            "HasFinal": false
+            "HasFinal": false,
+            "Stream": null
           },
           "StatementEnd": 124,
           "SampleRatio": null,
@@ -248,7 +251,8 @@
                   "NameEnd": 129
                 }
               },
-              "HasFinal": false
+              "HasFinal": false,
+              "Stream": null
             },
             "StatementEnd": 129,
             "SampleRatio": null,
@@ -268,7 +272,8 @@
                   "NameEnd": 134
                 }
               },
-              "HasFinal": false
+              "HasFinal": false,
+              "Stream": null
             },
             "StatementEnd": 134,
             "SampleRatio": null,

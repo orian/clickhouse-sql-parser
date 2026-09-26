@@ -84,7 +84,8 @@
                 "NameEnd": 64
               }
             },
-            "HasFinal": false
+            "HasFinal": false,
+            "Stream": null
           },
           "StatementEnd": 64,
           "SampleRatio": null,
@@ -172,7 +173,8 @@
                     "NameEnd": 141
                   }
                 },
-                "HasFinal": false
+                "HasFinal": false,
+                "Stream": null
               },
               "StatementEnd": 141,
               "SampleRatio": null,
@@ -260,7 +262,8 @@
                         "NameEnd": 257
                       }
                     },
-                    "HasFinal": false
+                    "HasFinal": false,
+                    "Stream": null
                   },
                   "StatementEnd": 257,
                   "SampleRatio": null,

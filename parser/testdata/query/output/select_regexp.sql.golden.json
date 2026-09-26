@@ -45,7 +45,8 @@
               "NameEnd": 18
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 18,
         "SampleRatio": null,

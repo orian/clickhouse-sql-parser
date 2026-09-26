@@ -500,7 +500,8 @@
                   "NameEnd": 469
                 }
               },
-              "HasFinal": false
+              "HasFinal": false,
+              "Stream": null
             },
             "StatementEnd": 469,
             "SampleRatio": null,

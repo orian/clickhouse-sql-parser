@@ -2023,7 +2023,8 @@
               "NameEnd": 3904
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 3904,
         "SampleRatio": null,

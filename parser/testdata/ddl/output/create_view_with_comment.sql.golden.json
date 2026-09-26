@@ -152,7 +152,8 @@
                   "NameEnd": 156
                 }
               },
-              "HasFinal": false
+              "HasFinal": false,
+              "Stream": null
             },
             "StatementEnd": 156,
             "SampleRatio": null,

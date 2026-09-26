@@ -2082,6 +2082,10 @@ func (p *PrintVisitor) VisitTableExpr(t *TableExpr) error {
 	if t.HasFinal {
 		builder.WriteString(" FINAL")
 	}
+	if t.Stream != nil {
+		builder.WriteString(" ")
+		builder.WriteString(t.Stream.String())
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitTableFunctionExpr(t *TableFunctionExpr) error {

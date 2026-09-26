@@ -148,7 +148,8 @@
                         ]
                       }
                     },
-                    "HasFinal": false
+                    "HasFinal": false,
+                    "Stream": null
                   },
                   "StatementEnd": 123,
                   "SampleRatio": null,
@@ -171,7 +172,8 @@
               "Except": null
             }
           },
-          "HasFinal": false
+          "HasFinal": false,
+          "Stream": null
         },
         "StatementEnd": 123,
         "SampleRatio": null,
