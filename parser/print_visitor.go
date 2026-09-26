@@ -2250,7 +2250,7 @@ func (p *PrintVisitor) VisitUUID(u *UUID) error {
 
 func (p *PrintVisitor) VisitUnaryExpr(n *UnaryExpr) error {
 	p.builder.WriteString(string(n.Kind))
-	p.builder.WriteByte(' ')
+	p.builder.WriteString(n.operandSeparator())
 	return n.Expr.Accept(p)
 }
 

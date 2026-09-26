@@ -7670,7 +7670,23 @@ func (n *UnaryExpr) End() Pos {
 }
 
 func (n *UnaryExpr) String() string {
-	return string(n.Kind) + " " + n.Expr.String()
+	return string(n.Kind) + n.operandSeparator() + n.Expr.String()
+}
+
+// operandSeparator returns the text between the operator and its operand.
+// A sign is written directly against a numeric literal (`-1`, not `- 1`):
+// ClickHouse turns `-1::Int32` into CAST('-1', 'Int32') using the source
+// text, so `- 1::Int32` becomes CAST('- 1', 'Int32') and fails at runtime
+// (#61). Every other operand keeps the space, which also prevents `- -1`
+// from turning into the comment `--1`.
+func (n *UnaryExpr) operandSeparator() string {
+	if n.Kind != TokenKindMinus && n.Kind != TokenKindPlus {
+		return " "
+	}
+	if lit, ok := n.Expr.(*NumberLiteral); ok && !strings.HasPrefix(lit.Literal, "-") && !strings.HasPrefix(lit.Literal, "+") {
+		return ""
+	}
+	return " "
 }
 
 func (n *UnaryExpr) Accept(visitor ASTVisitor) error {
