@@ -1458,6 +1458,9 @@ func (b *BeautifyVisitor) VisitInsertExpr(i *InsertStmt) error {
 	if i.HasTableKeyword {
 		b.writeString("TABLE ")
 	}
+	if i.IsTableFunction() {
+		b.writeString("FUNCTION ")
+	}
 	b.writeString(i.Table.String())
 	if i.ColumnNames != nil {
 		b.indentIn()

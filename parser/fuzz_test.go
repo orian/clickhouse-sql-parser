@@ -119,6 +119,7 @@ func addSQLFuzzSeeds(f *testing.F) {
 		"SELECT (3,), ((3,),), (*,).1, (1, 2,)", "SELECT plus(1, 2,)", "SELECT [1,]",
 		"CREATE TABLE t (x UInt64) ENGINE = Memory COMMENT 'c' SETTINGS max_threads = 1",
 		"INSERT INTO t VALUES (1), (2)", "ALTER TABLE t ATTACH PARTITION ALL",
+		"INSERT INTO FUNCTION mysql('h', 'db', 't', 'u', 'p') (a, b) VALUES (1, 2)", "INSERT INTO TABLE FUNCTION null() SELECT 1",
 		"CREATE USER u NOT IDENTIFIED", "CREATE USER u SETTINGS PROFILE p",
 		"CREATE USER u HOST LOCAL HOST ANY SETTINGS a = 1 SETTINGS b = 2",
 		"CREATE USER u IDENTIFIED BY 'a' IDENTIFIED BY 'b'",
