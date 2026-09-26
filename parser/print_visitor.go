@@ -539,6 +539,9 @@ func (p *PrintVisitor) VisitColumnExprList(c *ColumnExprList) error {
 			builder.WriteString(", ")
 		}
 	}
+	if c.HasTrailingComma {
+		builder.WriteString(",")
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitColumnNamesExpr(c *ColumnNamesExpr) error {
@@ -1592,15 +1595,9 @@ func (p *PrintVisitor) VisitOrderByExpr(o *OrderExpr) error {
 }
 
 func (p *PrintVisitor) VisitParamExprList(f *ParamExprList) error {
-	builder := p.builder
-	builder.WriteString("(")
-	for i, item := range f.Items.Items {
-		if i > 0 {
-			builder.WriteString(", ")
-		}
-		builder.WriteString(item.String())
-	}
-	builder.WriteString(")")
+	// String() also covers the trailing comma of `(x,)` and a parametric
+	// argument list such as `quantiles(0.5)(x)`.
+	p.builder.WriteString(f.String())
 	return nil
 }
 func (p *PrintVisitor) VisitPartitionByExpr(part *PartitionByClause) error {

@@ -4702,6 +4702,10 @@ type ColumnExprList struct {
 	ListEnd     Pos
 	HasDistinct bool
 	Items       []Expr
+	// HasTrailingComma records a comma after the last item, as in the
+	// one-element tuple `(x,)`. It is significant there: `(x,)` is a Tuple
+	// while `(x)` is just x.
+	HasTrailingComma bool
 }
 
 func (c *ColumnExprList) Pos() Pos {
@@ -4722,6 +4726,9 @@ func (c *ColumnExprList) String() string {
 		if i != len(c.Items)-1 {
 			builder.WriteString(", ")
 		}
+	}
+	if c.HasTrailingComma {
+		builder.WriteString(",")
 	}
 	return builder.String()
 }

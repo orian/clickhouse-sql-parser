@@ -84,7 +84,8 @@
                           },
                           "Alias": null
                         }
-                      ]
+                      ],
+                      "HasTrailingComma": false
                     },
                     "ColumnArgList": null
                   }
@@ -96,7 +97,8 @@
                   "NameEnd": 70
                 }
               }
-            ]
+            ],
+            "HasTrailingComma": false
           },
           "Right": {
             "JoinPos": 75,
@@ -154,7 +156,8 @@
                                       },
                                       "Alias": null
                                     }
-                                  ]
+                                  ],
+                                  "HasTrailingComma": false
                                 },
                                 "ColumnArgList": null
                               }
@@ -194,14 +197,16 @@
                                       },
                                       "Alias": null
                                     }
-                                  ]
+                                  ],
+                                  "HasTrailingComma": false
                                 },
                                 "ColumnArgList": null
                               }
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -213,7 +218,8 @@
                     "NameEnd": 160
                   }
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "Right": null,
             "Modifiers": [

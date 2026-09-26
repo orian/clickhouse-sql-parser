@@ -32,7 +32,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": {
               "Distinct": false,
@@ -86,7 +87,8 @@
                   },
                   "Alias": null
                 }
-              ]
+              ],
+              "HasTrailingComma": false
             },
             "ColumnArgList": {
               "Distinct": false,

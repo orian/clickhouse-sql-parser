@@ -125,14 +125,16 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         }
       },
       "SampleBy": null,
@@ -427,14 +429,16 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         }
       },
       "SampleBy": null,
@@ -509,7 +513,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -762,7 +767,8 @@
                         },
                         "Alias": null
                       }
-                    ]
+                    ],
+                    "HasTrailingComma": false
                   },
                   "ColumnArgList": null
                 }
@@ -850,7 +856,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             },
@@ -1001,7 +1008,8 @@
           "ListPos": 776,
           "ListEnd": 776,
           "HasDistinct": false,
-          "Items": []
+          "Items": [],
+          "HasTrailingComma": false
         },
         "ColumnArgList": null
       },
@@ -1022,7 +1030,8 @@
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         }
       },
       "SampleBy": null,
@@ -1224,7 +1233,8 @@
                   "ListPos": 793,
                   "ListEnd": 793,
                   "HasDistinct": false,
-                  "Items": []
+                  "Items": [],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }

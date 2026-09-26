@@ -47,7 +47,8 @@
                           },
                           "Alias": null
                         }
-                      ]
+                      ],
+                      "HasTrailingComma": false
                     },
                     "ColumnArgList": null
                   }
@@ -95,7 +96,8 @@
                           },
                           "Alias": null
                         }
-                      ]
+                      ],
+                      "HasTrailingComma": false
                     },
                     "ColumnArgList": null
                   }
@@ -181,7 +183,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "WithCube": false,
               "WithRollup": false,
@@ -261,7 +264,8 @@
                         "ListPos": 357,
                         "ListEnd": 357,
                         "HasDistinct": false,
-                        "Items": []
+                        "Items": [],
+                        "HasTrailingComma": false
                       },
                       "ColumnArgList": null
                     }
@@ -287,7 +291,8 @@
                             },
                             "Alias": null
                           }
-                        ]
+                        ],
+                        "HasTrailingComma": false
                       }
                     },
                     "OrderBy": {
@@ -440,7 +445,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             }
@@ -466,7 +472,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               }
             },
             "OrderBy": {

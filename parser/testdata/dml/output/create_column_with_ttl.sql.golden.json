@@ -219,7 +219,8 @@
                   "ListPos": 176,
                   "ListEnd": 176,
                   "HasDistinct": false,
-                  "Items": []
+                  "Items": [],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }

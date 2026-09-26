@@ -512,7 +512,7 @@ func (p *Parser) parseColumnExpr(pos Pos) (Expr, error) { //nolint:funlen
 				return p.parseSubQuery(pos)
 			}
 		}
-		return p.parseFunctionParams(p.Pos())
+		return p.parseParenExprList(p.Pos(), true)
 	case p.matchTokenKind("*"):
 		return p.parseColumnStar(p.Pos())
 	case p.matchTokenKind(TokenKindLBracket):
@@ -624,6 +624,10 @@ func (p *Parser) parseColumnExprListWithTerm(term TokenKind, pos Pos) (*ColumnEx
 		if p.tryConsumeTokenKind(TokenKindComma) == nil {
 			break
 		}
+		if term != "" && p.matchTokenKind(term) {
+			columnExprList.HasTrailingComma = true
+			break
+		}
 	}
 	columnExprList.Items = columnList
 	if len(columnList) > 0 {
@@ -713,6 +717,9 @@ func (p *Parser) parseColumnArgList(pos Pos) (*ColumnArgList, error) {
 		if p.tryConsumeTokenKind(TokenKindComma) == nil {
 			break
 		}
+		if p.matchTokenKind(TokenKindRParen) {
+			return nil, fmt.Errorf("unexpected trailing comma before )")
+		}
 	}
 	rightParenPos := p.Pos()
 	if err := p.expectTokenKind(TokenKindRParen); err != nil {
@@ -726,13 +733,24 @@ func (p *Parser) parseColumnArgList(pos Pos) (*ColumnArgList, error) {
 	}, nil
 }
 
+// parseFunctionParams parses a parenthesised argument list. ClickHouse
+// rejects a trailing comma there (`f(a, b,)`).
 func (p *Parser) parseFunctionParams(pos Pos) (*ParamExprList, error) {
+	return p.parseParenExprList(pos, false)
+}
+
+// parseParenExprList parses `( expr, ... )`. allowTrailingComma is set only
+// for a bare parenthesised expression, where `(x,)` is a one-element tuple.
+func (p *Parser) parseParenExprList(pos Pos, allowTrailingComma bool) (*ParamExprList, error) {
 	if err := p.expectTokenKind(TokenKindLParen); err != nil {
 		return nil, err
 	}
 	params, err := p.parseColumnExprListWithLParen(p.Pos())
 	if err != nil {
 		return nil, err
+	}
+	if params.HasTrailingComma && !allowTrailingComma {
+		return nil, fmt.Errorf("unexpected trailing comma before )")
 	}
 	rightParenPos := p.Pos()
 	if err := p.expectTokenKind(TokenKindRParen); err != nil {
@@ -829,6 +847,9 @@ func (p *Parser) parseArrayParams(pos Pos) (*ArrayParamList, error) {
 	params, err := p.parseColumnExprListWithSquareBracket(p.Pos())
 	if err != nil {
 		return nil, err
+	}
+	if params.HasTrailingComma {
+		return nil, fmt.Errorf("unexpected trailing comma before ]")
 	}
 	rightBracketPos := p.Pos()
 	if err := p.expectTokenKind(TokenKindRBracket); err != nil {

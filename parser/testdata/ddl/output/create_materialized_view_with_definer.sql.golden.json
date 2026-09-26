@@ -272,7 +272,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }
@@ -309,7 +310,8 @@
                               "ListPos": 334,
                               "ListEnd": 334,
                               "HasDistinct": false,
-                              "Items": []
+                              "Items": [],
+                              "HasTrailingComma": false
                             },
                             "ColumnArgList": null
                           }
@@ -339,7 +341,8 @@
                                   },
                                   "Alias": null
                                 }
-                              ]
+                              ],
+                              "HasTrailingComma": false
                             },
                             "ColumnArgList": null
                           }
@@ -349,7 +352,8 @@
                       },
                       "Alias": null
                     }
-                  ]
+                  ],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }

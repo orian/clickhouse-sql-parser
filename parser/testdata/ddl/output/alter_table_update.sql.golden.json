@@ -64,7 +64,8 @@
                   "ListPos": 66,
                   "ListEnd": 66,
                   "HasDistinct": false,
-                  "Items": []
+                  "Items": [],
+                  "HasTrailingComma": false
                 },
                 "ColumnArgList": null
               }

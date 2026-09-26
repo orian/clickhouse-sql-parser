@@ -29,7 +29,8 @@
           "ListPos": 75,
           "ListEnd": 75,
           "HasDistinct": false,
-          "Items": []
+          "Items": [],
+          "HasTrailingComma": false
         },
         "ColumnArgList": null
       },
@@ -52,7 +53,8 @@
                 },
                 "Alias": null
               }
-            ]
+            ],
+            "HasTrailingComma": false
           },
           "ColumnArgList": null
         }
@@ -84,7 +86,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             },
@@ -194,7 +197,8 @@
           "ListPos": 213,
           "ListEnd": 213,
           "HasDistinct": false,
-          "Items": []
+          "Items": [],
+          "HasTrailingComma": false
         },
         "ColumnArgList": null
       },
@@ -217,7 +221,8 @@
                 },
                 "Alias": null
               }
-            ]
+            ],
+            "HasTrailingComma": false
           },
           "ColumnArgList": null
         }

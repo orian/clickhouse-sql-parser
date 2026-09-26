@@ -184,7 +184,8 @@
               },
               "Alias": null
             }
-          ]
+          ],
+          "HasTrailingComma": false
         }
       },
       "SampleBy": null,
@@ -242,7 +243,8 @@
                     },
                     "Alias": null
                   }
-                ]
+                ],
+                "HasTrailingComma": false
               },
               "ColumnArgList": null
             },
