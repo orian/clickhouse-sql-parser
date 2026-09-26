@@ -4976,7 +4976,7 @@ func (t *TopClause) String() string {
 	builder.WriteString("TOP ")
 	builder.WriteString(t.Number.Literal)
 	if t.WithTies {
-		return "WITH TIES"
+		builder.WriteString(" WITH TIES")
 	}
 	return builder.String()
 }
@@ -6129,6 +6129,10 @@ type LimitClause struct {
 	LimitPos Pos
 	Limit    Expr
 	Offset   Expr
+	// WithTies records `LIMIT n WITH TIES`: rows tied with the last row on
+	// the ORDER BY key are returned too. WithTiesEnd is the end of TIES.
+	WithTies    bool `json:",omitempty"`
+	WithTiesEnd Pos  `json:",omitempty"`
 }
 
 func (l *LimitClause) Pos() Pos {
@@ -6136,10 +6140,18 @@ func (l *LimitClause) Pos() Pos {
 }
 
 func (l *LimitClause) End() Pos {
-	if l.Offset != nil {
-		return l.Offset.End()
+	if l.WithTies {
+		return l.WithTiesEnd
 	}
-	return l.Limit.End()
+	// `LIMIT m, n` puts the offset first, so take whichever ends last.
+	end := Pos(0)
+	if l.Limit != nil {
+		end = l.Limit.End()
+	}
+	if l.Offset != nil && l.Offset.End() > end {
+		end = l.Offset.End()
+	}
+	return end
 }
 
 func (l *LimitClause) String() string {
@@ -6154,6 +6166,9 @@ func (l *LimitClause) String() string {
 	if l.Offset != nil {
 		builder.WriteString("OFFSET ")
 		builder.WriteString(l.Offset.String())
+	}
+	if l.WithTies {
+		builder.WriteString(" WITH TIES")
 	}
 	return builder.String()
 }

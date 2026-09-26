@@ -1475,13 +1475,8 @@ func (p *PrintVisitor) VisitLimitByExpr(l *LimitByClause) error {
 	return nil
 }
 func (p *PrintVisitor) VisitLimitExpr(l *LimitClause) error {
-	builder := p.builder
-	builder.WriteString("LIMIT ")
-	builder.WriteString(l.Limit.String())
-	if l.Offset != nil {
-		builder.WriteString(" OFFSET ")
-		builder.WriteString(l.Offset.String())
-	}
+	// String() covers an OFFSET-only clause and WITH TIES.
+	p.builder.WriteString(l.String())
 	return nil
 }
 func (p *PrintVisitor) VisitMapLiteral(m *MapLiteral) error {
