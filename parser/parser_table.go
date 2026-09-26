@@ -2253,6 +2253,37 @@ func (p *Parser) parseAssignmentValues(pos Pos) (*AssignmentValues, error) {
 	}, nil
 }
 
+// parseInsertTableFunction parses the table function of
+// `INSERT INTO [TABLE] FUNCTION f(args) [(columns)]`. Unlike an aggregate
+// call, a second parenthesised list here is the insert's column list, not a
+// parametric argument list, so only the function's own arguments are parsed.
+func (p *Parser) parseInsertTableFunction() (*FunctionExpr, error) {
+	name, err := p.parseIdent()
+	if err != nil {
+		return nil, err
+	}
+	leftParenPos := p.Pos()
+	if err := p.expectTokenKind(TokenKindLParen); err != nil {
+		return nil, err
+	}
+	args, err := p.parseColumnExprListWithLParen(p.Pos())
+	if err != nil {
+		return nil, err
+	}
+	rightParenPos := p.Pos()
+	if err := p.expectTokenKind(TokenKindRParen); err != nil {
+		return nil, err
+	}
+	return &FunctionExpr{
+		Name: name,
+		Params: &ParamExprList{
+			LeftParenPos:  leftParenPos,
+			RightParenPos: rightParenPos,
+			Items:         args,
+		},
+	}, nil
+}
+
 func (p *Parser) parseInsertStmt(pos Pos) (*InsertStmt, error) {
 	if err := p.expectKeyword(KeywordInsert); err != nil {
 		return nil, err
@@ -2267,7 +2298,7 @@ func (p *Parser) parseInsertStmt(pos Pos) (*InsertStmt, error) {
 	var table Expr
 	var err error
 	if p.tryConsumeKeywords(KeywordFunction) {
-		table, err = p.parseFunctionExpr(p.Pos())
+		table, err = p.parseInsertTableFunction()
 	} else {
 		table, err = p.parseTableIdentifier(p.Pos())
 	}

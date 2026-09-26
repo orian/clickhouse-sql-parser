@@ -1319,6 +1319,9 @@ func (p *PrintVisitor) VisitInsertExpr(i *InsertStmt) error {
 	if i.HasTableKeyword {
 		builder.WriteString("TABLE ")
 	}
+	if i.IsTableFunction() {
+		builder.WriteString("FUNCTION ")
+	}
 	builder.WriteString(i.Table.String())
 	if i.ColumnNames != nil {
 		builder.WriteString(" ")

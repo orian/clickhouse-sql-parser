@@ -7490,6 +7490,15 @@ type InsertStmt struct {
 	SelectExpr      *SelectQuery
 }
 
+// IsTableFunction reports whether the insert target is a table function
+// (`INSERT INTO [TABLE] FUNCTION f(...)`). Printers must emit FUNCTION for
+// it: without the keyword ClickHouse reads `f(...)` as a table named f
+// followed by a column list.
+func (i *InsertStmt) IsTableFunction() bool {
+	_, ok := i.Table.(*FunctionExpr)
+	return ok
+}
+
 func (i *InsertStmt) Pos() Pos {
 	return i.InsertPos
 }
@@ -7515,6 +7524,9 @@ func (i *InsertStmt) String() string {
 	builder.WriteString("INSERT INTO ")
 	if i.HasTableKeyword {
 		builder.WriteString("TABLE ")
+	}
+	if i.IsTableFunction() {
+		builder.WriteString("FUNCTION ")
 	}
 	builder.WriteString(i.Table.String())
 	if i.ColumnNames != nil {
