@@ -459,6 +459,9 @@ func (p *PrintVisitor) VisitOnClusterExpr(o *ClusterClause) error {
 func (p *PrintVisitor) VisitColumnArgList(c *ColumnArgList) error {
 	builder := p.builder
 	builder.WriteByte('(')
+	if c.Distinct {
+		builder.WriteString("DISTINCT ")
+	}
 	for i, item := range c.Items {
 		if i > 0 {
 			builder.WriteString(", ")
