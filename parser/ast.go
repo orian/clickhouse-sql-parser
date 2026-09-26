@@ -1639,8 +1639,8 @@ type CreateTable struct {
 	TableFunction *TableFunctionExpr
 	HasTemporary  bool
 	Comment       *StringLiteral
-	// TimeSeriesTargets holds the optional SAMPLES/DATA, TAGS and METRICS
-	// target clauses that follow an `ENGINE = TimeSeries` expression.
+	// TimeSeriesTargets holds the optional SAMPLES/DATA, TAGS, METRICS and
+	// RECENT SAMPLES target clauses that follow an `ENGINE = TimeSeries` expression.
 	TimeSeriesTargets []*TimeSeriesTargetClause
 	// Settings holds the trailing query-level SETTINGS clause, which applies
 	// to the CREATE statement itself (e.g. flatten_nested = 0) and is not
@@ -1717,32 +1717,39 @@ func (c *CreateTable) Accept(visitor ASTVisitor) error {
 	return visitor.VisitCreateTable(c)
 }
 
-// TimeSeriesTargetClause is one of the SAMPLES/DATA, TAGS or METRICS target
-// clauses that may trail an `ENGINE = TimeSeries` expression. Each clause
-// references an external target table (External), describes an inline target
-// via InnerColumns and an optional InnerEngine, or uses the engine-only SHOW
-// CREATE shorthand represented by InnerEngine without InnerColumns.
+// TimeSeriesTargetClause is one of the SAMPLES/DATA, TAGS, METRICS or RECENT
+// SAMPLES targets that may trail an `ENGINE = TimeSeries` expression. It
+// collects every part given for that target: an external target table
+// (External), or an inner table described by InnerUUID, InnerColumns and
+// InnerEngine. ClickHouse allows the parts to be spread over several
+// occurrences of the target keyword; String() emits them grouped, in the order
+// ClickHouse's formatter uses.
 type TimeSeriesTargetClause struct {
 	KindPos Pos
 	KindEnd Pos
 
-	// Kind is the normalised lowercase slot: "samples" | "tags" | "metrics".
+	// Kind is the normalised lowercase slot: "samples" | "tags" | "metrics" |
+	// "recent_samples".
 	Kind string
 
-	// Keyword is the verbatim source keyword ("SAMPLES" | "DATA" | "TAGS" |
-	// "METRICS"), preserved so a SHOW CREATE TABLE round-trip re-emits the same
-	// word (notably the DATA backwards-compat alias for SAMPLES).
+	// Keyword is the verbatim source keyword of the first occurrence ("SAMPLES"
+	// | "DATA" | "TAGS" | "METRICS" | "RECENT SAMPLES"), preserved so a SHOW
+	// CREATE TABLE round-trip re-emits the same word (notably the DATA
+	// backwards-compat alias for SAMPLES).
 	Keyword string
 
 	// External holds the `<KEYWORD> db.table` form.
 	External *TableIdentifier
 
-	// InnerColumns holds the `<KEYWORD> INNER COLUMNS (...)` body. InnerEngine is
-	// either the optional `<KEYWORD> INNER ENGINE = engine(args)` that follows
-	// InnerColumns or the engine in the `<KEYWORD> ENGINE = engine(args)` SHOW
-	// CREATE shorthand when InnerColumns is nil.
+	// InnerUUID holds `<KEYWORD> INNER UUID 'uuid'`, InnerColumns holds
+	// `<KEYWORD> INNER COLUMNS (...)` and InnerEngine holds
+	// `<KEYWORD> [INNER] ENGINE = engine ...`.
+	InnerUUID    *UUID
 	InnerColumns *TableSchemaClause
 	InnerEngine  *EngineExpr
+	// EngineShorthand records that InnerEngine was written without INNER
+	// (`<KEYWORD> ENGINE = ...`), as older SHOW CREATE TABLE output does.
+	EngineShorthand bool
 }
 
 func (t *TimeSeriesTargetClause) Pos() Pos {
@@ -1755,20 +1762,30 @@ func (t *TimeSeriesTargetClause) End() Pos {
 
 func (t *TimeSeriesTargetClause) String() string {
 	var builder strings.Builder
-	builder.WriteString(" ")
-	builder.WriteString(t.Keyword)
+	// Every part repeats the target keyword, e.g.
+	// ` SAMPLES INNER COLUMNS (...) SAMPLES INNER ENGINE = ...`.
+	writeKeyword := func() {
+		builder.WriteString(" ")
+		builder.WriteString(t.Keyword)
+	}
 	if t.External != nil {
+		writeKeyword()
 		builder.WriteString(" ")
 		builder.WriteString(t.External.String())
 	}
+	if t.InnerUUID != nil {
+		writeKeyword()
+		builder.WriteString(" INNER ")
+		builder.WriteString(t.InnerUUID.String())
+	}
 	if t.InnerColumns != nil {
+		writeKeyword()
 		builder.WriteString(" INNER COLUMNS ")
 		builder.WriteString(t.InnerColumns.String())
 	}
 	if t.InnerEngine != nil {
-		if t.InnerColumns != nil {
-			builder.WriteString(" ")
-			builder.WriteString(t.Keyword)
+		writeKeyword()
+		if !t.EngineShorthand {
 			builder.WriteString(" INNER")
 		}
 		// EngineExpr.String() already emits a leading " ENGINE = ...".
