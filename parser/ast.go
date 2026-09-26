@@ -5668,8 +5668,11 @@ func (u *UsingClause) End() Pos {
 
 func (u *UsingClause) String() string {
 	var builder strings.Builder
-	builder.WriteString("USING ")
+	// Always parenthesise: without parentheses a following comma join
+	// (`USING x, c`) is read as another USING column (#73).
+	builder.WriteString("USING (")
 	builder.WriteString(u.Using.String())
+	builder.WriteString(")")
 	return builder.String()
 }
 
@@ -5706,13 +5709,13 @@ func (j *JoinExpr) End() Pos {
 func buildJoinString(builder *strings.Builder, expr Expr) {
 	joinExpr, ok := expr.(*JoinExpr)
 	if !ok {
-		builder.WriteString(",")
+		builder.WriteString(", ")
 		builder.WriteString(expr.String())
 		return
 	}
 
 	if len(joinExpr.Modifiers) == 0 {
-		builder.WriteString(",")
+		builder.WriteString(", ")
 	} else {
 		builder.WriteString(" ")
 		builder.WriteString(strings.Join(joinExpr.Modifiers, " "))

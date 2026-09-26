@@ -289,12 +289,26 @@ func (p *Parser) parseJoinTableExpr(_ Pos) (Expr, error) {
 func (p *Parser) parseJoinRightExpr(pos Pos) (expr Expr, err error) {
 	var rightExpr Expr
 	var modifiers []string
-	switch {
-	case p.tryConsumeKeywords(KeywordGlobal):
-	case p.tryConsumeKeywords(KeywordLocal):
-	case p.tryConsumeTokenKind(TokenKindComma) != nil:
+	if p.tryConsumeTokenKind(TokenKindComma) != nil {
 		return p.parseJoinExpr(p.Pos())
-	default:
+	}
+	// GLOBAL is kept as the first modifier: it changes how a distributed
+	// join runs, so dropping it silently changes the query (#57).
+	// ClickHouse has no LOCAL join; `a LOCAL JOIN b` aliases a as LOCAL,
+	// which parseTableExpr handles.
+	if p.tryConsumeKeywords(KeywordGlobal) {
+		modifiers = append(modifiers, KeywordGlobal)
+		if p.matchKeyword(KeywordArray) || p.matchKeyword(KeywordLeft) && p.peekKeyword(KeywordArray) {
+			return nil, errors.New("GLOBAL cannot be used with ARRAY JOIN")
+		}
+		if !p.matchKeyword(KeywordJoin) {
+			op := p.parseJoinOp(p.Pos())
+			if len(op) == 0 {
+				return nil, fmt.Errorf("expected JOIN after GLOBAL, got %s", p.lastTokenKind())
+			}
+			modifiers = append(modifiers, op...)
+		}
+	} else {
 		modifiers = p.parseJoinOp(p.Pos())
 	}
 
@@ -416,7 +430,10 @@ func (p *Parser) parseTableExpr(pos Pos) (*TableExpr, error) {
 			Alias:    alias,
 		}
 		tableEnd = expr.End()
-	} else if p.matchTokenKind(TokenKindIdent) && p.lastTokenKind() != TokenKindKeyword {
+	} else if p.matchTokenKind(TokenKindIdent) && p.lastTokenKind() != TokenKindKeyword ||
+		p.matchKeyword(KeywordLocal) {
+		// LOCAL is not a join keyword in ClickHouse; like an identifier it
+		// aliases the table (`FROM a LOCAL JOIN b` is `FROM a AS LOCAL JOIN b`).
 		alias, err := p.parseIdent()
 		if err != nil {
 			return nil, err
