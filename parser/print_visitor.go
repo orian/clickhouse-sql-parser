@@ -1806,6 +1806,16 @@ func (p *PrintVisitor) VisitSelectItem(s *SelectItem) error {
 }
 
 func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
+	if s.HasParen {
+		inner := *s
+		inner.HasParen = false
+		p.builder.WriteString("(")
+		if err := p.VisitSelectQuery(&inner); err != nil {
+			return err
+		}
+		p.builder.WriteString(")")
+		return nil
+	}
 	builder := p.builder
 	if s.With != nil {
 		builder.WriteString("WITH")

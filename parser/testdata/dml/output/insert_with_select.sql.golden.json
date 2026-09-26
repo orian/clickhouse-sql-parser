@@ -22,6 +22,7 @@
     "SelectExpr": {
       "SelectPos": 29,
       "StatementEnd": 103,
+      "HasParen": false,
       "With": null,
       "Top": null,
       "HasDistinct": false,

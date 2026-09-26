@@ -1048,6 +1048,7 @@ func (p *Parser) parseSelectQuery(_ Pos) (*SelectQuery, error) {
 		if err := p.expectTokenKind(TokenKindRParen); err != nil {
 			return nil, err
 		}
+		selectStmt.HasParen = true
 	}
 	return selectStmt, nil
 }
@@ -1223,6 +1224,8 @@ func (p *Parser) parseCTEStmt(pos Pos) (*CTEStmt, error) {
 		if err != nil {
 			return nil, err
 		}
+		// CTEStmt prints the parentheses of `name AS (SELECT ...)` itself.
+		selectQuery.HasParen = false
 		return &CTEStmt{
 			CTEPos: pos,
 			Expr:   expr,

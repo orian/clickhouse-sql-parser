@@ -429,6 +429,20 @@ func (b *BeautifyVisitor) emitFunctionMultiLine(f *FunctionExpr) {
 //	FROM t
 //	WHERE ...
 func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
+	if s.HasParen {
+		inner := *s
+		inner.HasParen = false
+		b.writeString("(")
+		b.indentIn()
+		b.newline()
+		if err := b.VisitSelectQuery(&inner); err != nil {
+			return err
+		}
+		b.indentOut()
+		b.newline()
+		b.writeString(")")
+		return nil
+	}
 	b.Enter(s)
 	defer b.Leave(s)
 

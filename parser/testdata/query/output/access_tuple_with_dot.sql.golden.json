@@ -2,6 +2,7 @@
   {
     "SelectPos": 0,
     "StatementEnd": 34,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,
@@ -95,6 +96,7 @@
   {
     "SelectPos": 37,
     "StatementEnd": 336,
+    "HasParen": false,
     "With": null,
     "Top": null,
     "HasDistinct": false,
