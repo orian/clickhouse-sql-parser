@@ -26,6 +26,9 @@ jobs:
       - name: Download dependencies
         run: go mod download
 
+      - name: gofmt
+        run: make fmt-check
+
       - name: go vet
         run: go vet ./...
 
