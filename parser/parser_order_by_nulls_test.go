@@ -1,6 +1,8 @@
 package parser
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -67,5 +69,34 @@ func TestParser_OrderByNullsRejected(t *testing.T) {
 			_, err := NewParser(sql).ParseStmts()
 			require.Error(t, err)
 		})
+	}
+}
+
+// TestPrintVisitor_OrderExprStreams checks, for every ORDER BY element and
+// WITH FILL clause in the fixtures, that PrintVisitor (which streams into one
+// builder and recurses via Accept) prints the same SQL as String().
+func TestPrintVisitor_OrderExprStreams(t *testing.T) {
+	for _, dir := range sqlFixtureDirs {
+		files, err := filepath.Glob(filepath.Join(dir, "*.sql"))
+		require.NoError(t, err)
+		for _, file := range files {
+			src, err := os.ReadFile(file)
+			require.NoError(t, err)
+			stmts, err := NewParser(string(src)).ParseStmts()
+			if err != nil {
+				continue
+			}
+			for _, stmt := range stmts {
+				Walk(stmt, func(node Expr) bool {
+					switch node.(type) {
+					case *OrderExpr, *Fill:
+						printer := NewPrintVisitor()
+						require.NoError(t, node.Accept(printer))
+						require.Equal(t, node.String(), printer.String(), "%s: %T", file, node)
+					}
+					return true
+				})
+			}
+		}
 	}
 }

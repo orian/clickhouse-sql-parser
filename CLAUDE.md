@@ -130,6 +130,19 @@ The project uses a comprehensive testing approach:
 - String() method should regenerate valid ClickHouse SQL
 - Accept() method must call visitor.Enter()/Leave() and visit all child nodes
 
+**Printing with `PrintVisitor`**
+- `PrintVisitor` is the canonical formatter (see `refactor-visitor.md`). A
+  `PrintVisitor.VisitX` method writes its own keywords and punctuation into
+  `p.builder` and prints every child with `child.Accept(p)`, so the whole
+  statement streams into one builder.
+- Never write `p.builder.WriteString(x.String())` or
+  `builder.WriteString(child.String())` in `PrintVisitor`: `String()` builds a
+  separate string for the whole subtree only to copy it.
+- Do not add formatting methods such as `Write(*strings.Builder)` or
+  `FormatSQL` to AST nodes; formatting belongs in the visitors.
+- Keep `String()` in sync with `PrintVisitor`: `PrintVisitor` output of any
+  node must equal that node's `String()`.
+
 ** Walking the AST**
 
 - For a new expression type, it should be also added to the `Walk` function in `walk.go`.

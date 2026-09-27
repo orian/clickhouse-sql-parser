@@ -1594,9 +1594,33 @@ func (p *PrintVisitor) VisitOrderByListExpr(o *OrderByClause) error {
 	return nil
 }
 func (p *PrintVisitor) VisitOrderByExpr(o *OrderExpr) error {
-	// String() covers NULLS, COLLATE and WITH FILL (WITH FILL used to be
-	// dropped here).
-	p.builder.WriteString(o.String())
+	if err := o.Expr.Accept(p); err != nil {
+		return err
+	}
+	if o.Alias != nil {
+		p.builder.WriteString(" AS ")
+		if err := o.Alias.Accept(p); err != nil {
+			return err
+		}
+	}
+	if o.Direction != OrderDirectionNone {
+		p.builder.WriteByte(' ')
+		p.builder.WriteString(string(o.Direction))
+	}
+	if o.Nulls != "" {
+		p.builder.WriteString(" NULLS ")
+		p.builder.WriteString(o.Nulls)
+	}
+	if o.Collate != nil {
+		p.builder.WriteString(" COLLATE ")
+		if err := o.Collate.Accept(p); err != nil {
+			return err
+		}
+	}
+	if o.Fill != nil {
+		p.builder.WriteByte(' ')
+		return o.Fill.Accept(p)
+	}
 	return nil
 }
 
@@ -2279,7 +2303,19 @@ func (p *PrintVisitor) VisitWindowFrameParam(f *WindowFrameParam) error {
 }
 
 func (p *PrintVisitor) VisitFill(f *Fill) error {
-	p.builder.WriteString(f.String())
+	p.builder.WriteString("WITH FILL")
+	for _, part := range []struct {
+		keyword string
+		expr    Expr
+	}{{" FROM ", f.From}, {" TO ", f.To}, {" STEP ", f.Step}, {" STALENESS ", f.Staleness}} {
+		if part.expr == nil {
+			continue
+		}
+		p.builder.WriteString(part.keyword)
+		if err := part.expr.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
