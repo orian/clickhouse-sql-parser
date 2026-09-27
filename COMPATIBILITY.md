@@ -113,6 +113,15 @@ Entries are grouped as:
   so a custom visitor that overrides it no longer gets the parameter visited
   first.
 
+- `Walk`, and so `Find`, `FindAll`, `WalkWithBreak` and `Transform`, now
+  visits every node that `Accept` with `DefaultASTVisitor` reaches (#105). It
+  used to skip the operands of `EXCEPT`, the rows of `INSERT … VALUES`, TTL
+  actions (`DELETE`, `RECOMPRESS CODEC(…)`), the name, `ON CLUSTER` and
+  parameters of `CREATE NAMED COLLECTION`, and query parameters in window
+  frames. Code that counts or collects nodes, for example the tables of a
+  query, now sees them. Map literal keys are now walked (and visited) in
+  place: rewriting the `*StringLiteral` of a key changes the AST, where it
+  used to change a copy.
 - `BeautifyVisitor` emits every statement type (#51). Before, it produced an
   empty string for SET, USE, SHOW, DESCRIBE, DROP, TRUNCATE, RENAME, OPTIMIZE,
   CHECK, SYSTEM, GRANT, DELETE, CREATE/ALTER ROLE, CREATE USER, CREATE

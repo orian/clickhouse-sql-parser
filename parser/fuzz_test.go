@@ -84,7 +84,9 @@ func FuzzAST(f *testing.F) {
 			return
 		}
 		for _, stmt := range stmts {
+			walked := map[Expr]bool{}
 			Walk(stmt, func(node Expr) bool {
+				walked[node] = true
 				_ = node.Pos()
 				_ = node.End()
 				// PrintVisitor applied to any subtree prints the same SQL as
@@ -96,6 +98,16 @@ func FuzzAST(f *testing.F) {
 				}
 				return true
 			})
+			// Walk reaches every node the visitor recursion reaches (#105).
+			entered := &enteredNodes{seen: map[Expr]bool{}}
+			entered.Self = entered
+			if err := stmt.Accept(entered); err == nil {
+				for _, node := range entered.list {
+					if !walked[node] {
+						t.Fatalf("Walk misses %T %q in %q", node, node.String(), stmt.String())
+					}
+				}
+			}
 			_ = stmt.String()
 			printer := NewPrintVisitor()
 			_ = stmt.Accept(printer)

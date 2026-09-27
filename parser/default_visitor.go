@@ -1788,11 +1788,11 @@ func (visitor DefaultASTVisitor) VisitLimitExpr(l *LimitClause) error {
 func (visitor DefaultASTVisitor) VisitMapLiteral(m *MapLiteral) error {
 	visitor.Enter(m)
 	defer visitor.Leave(m)
-	for _, kv := range m.KeyValues {
-		if err := kv.Key.Accept(visitor.Self); err != nil {
+	for i := range m.KeyValues {
+		if err := m.KeyValues[i].Key.Accept(visitor.Self); err != nil {
 			return err
 		}
-		if err := kv.Value.Accept(visitor.Self); err != nil {
+		if err := m.KeyValues[i].Value.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
