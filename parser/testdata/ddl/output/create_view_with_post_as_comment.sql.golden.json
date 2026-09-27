@@ -36,6 +36,7 @@
         "SelectPos": 20,
         "StatementEnd": 28,
         "HasParen": false,
+        "Group": null,
         "With": null,
         "Top": null,
         "HasDistinct": false,

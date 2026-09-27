@@ -429,22 +429,21 @@ func (b *BeautifyVisitor) emitFunctionMultiLine(f *FunctionExpr) {
 //	FROM t
 //	WHERE ...
 func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
-	if s.HasParen {
-		inner := *s
-		inner.HasParen = false
+	b.Enter(s)
+	defer b.Leave(s)
+
+	if s.Group != nil {
 		b.writeString("(")
 		b.indentIn()
 		b.newline()
-		if err := b.VisitSelectQuery(&inner); err != nil {
+		if err := s.Group.Accept(b.Self); err != nil {
 			return err
 		}
 		b.indentOut()
 		b.newline()
 		b.writeString(")")
-		return nil
+		return b.beautifySelectTail(s)
 	}
-	b.Enter(s)
-	defer b.Leave(s)
 
 	if s.With != nil {
 		b.writeString("WITH")
@@ -548,6 +547,13 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.newline()
 		b.writeString(s.Limit.String())
 	}
+	return b.beautifySelectTail(s)
+}
+
+// beautifySelectTail emits the clauses shared by a SELECT and a
+// parenthesised group: SETTINGS, FORMAT, output SETTINGS and the UNION/EXCEPT
+// continuation.
+func (b *BeautifyVisitor) beautifySelectTail(s *SelectQuery) error {
 	if s.Settings != nil {
 		b.newline()
 		b.beautifySettings(s.Settings)

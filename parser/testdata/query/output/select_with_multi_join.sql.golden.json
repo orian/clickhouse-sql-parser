@@ -3,6 +3,7 @@
     "SelectPos": 0,
     "StatementEnd": 297,
     "HasParen": false,
+    "Group": null,
     "With": {
       "WithPos": 0,
       "EndPos": 91,
@@ -16,9 +17,10 @@
             "NameEnd": 7
           },
           "Alias": {
-            "SelectPos": 11,
-            "StatementEnd": 47,
+            "SelectPos": 17,
+            "StatementEnd": 41,
             "HasParen": false,
+            "Group": null,
             "With": null,
             "Top": null,
             "HasDistinct": false,
@@ -66,9 +68,10 @@
             "NameEnd": 51
           },
           "Alias": {
-            "SelectPos": 55,
-            "StatementEnd": 87,
+            "SelectPos": 57,
+            "StatementEnd": 81,
             "HasParen": false,
+            "Group": null,
             "With": null,
             "Top": null,
             "HasDistinct": false,
@@ -116,9 +119,10 @@
             "NameEnd": 91
           },
           "Alias": {
-            "SelectPos": 95,
-            "StatementEnd": 127,
+            "SelectPos": 97,
+            "StatementEnd": 121,
             "HasParen": false,
+            "Group": null,
             "With": null,
             "Top": null,
             "HasDistinct": false,

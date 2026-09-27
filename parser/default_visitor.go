@@ -2256,6 +2256,11 @@ func (visitor DefaultASTVisitor) VisitSelectItem(s *SelectItem) error {
 func (visitor DefaultASTVisitor) VisitSelectQuery(s *SelectQuery) error {
 	visitor.Enter(s)
 	defer visitor.Leave(s)
+	if s.Group != nil {
+		if err := s.Group.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if s.With != nil {
 		if err := s.With.Accept(visitor.Self); err != nil {
 			return err

@@ -1814,14 +1814,13 @@ func (p *PrintVisitor) VisitSelectItem(s *SelectItem) error {
 }
 
 func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
-	if s.HasParen {
-		inner := *s
-		inner.HasParen = false
+	if s.Group != nil {
 		p.builder.WriteString("(")
-		if err := p.VisitSelectQuery(&inner); err != nil {
+		if err := s.Group.Accept(p); err != nil {
 			return err
 		}
 		p.builder.WriteString(")")
+		s.writeTail(p.builder)
 		return nil
 	}
 	builder := p.builder
@@ -1898,28 +1897,7 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 		builder.WriteString(" ")
 		builder.WriteString(s.Limit.String())
 	}
-	if s.Settings != nil {
-		builder.WriteString(" ")
-		builder.WriteString(s.Settings.String())
-	}
-	if s.Format != nil {
-		builder.WriteString(" ")
-		builder.WriteString(s.Format.String())
-	}
-	if s.OutputSettings != nil {
-		builder.WriteString(" ")
-		builder.WriteString(s.OutputSettings.String())
-	}
-	if s.UnionAll != nil {
-		builder.WriteString(" UNION ALL ")
-		builder.WriteString(s.UnionAll.String())
-	} else if s.UnionDistinct != nil {
-		builder.WriteString(" UNION DISTINCT ")
-		builder.WriteString(s.UnionDistinct.String())
-	} else if s.Except != nil {
-		builder.WriteString(" EXCEPT ")
-		builder.WriteString(s.Except.String())
-	}
+	s.writeTail(builder)
 	return nil
 }
 

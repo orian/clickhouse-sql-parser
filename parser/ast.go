@@ -6591,10 +6591,15 @@ func (f *WindowFrameParam) Accept(visitor ASTVisitor) error {
 type SelectQuery struct {
 	SelectPos    Pos
 	StatementEnd Pos
-	// HasParen records that this query, together with its own UNION/EXCEPT
-	// chain, was written in parentheses, as in `a UNION ALL (b UNION ALL c)`.
-	// The grouping is significant and is printed back (#59).
-	HasParen    bool
+	// HasParen and Group mark a parenthesised set-operation operand, such as
+	// the `(b UNION ALL c)` in `a UNION ALL (b UNION ALL c) UNION ALL d`
+	// (#59, #78). Such a group node has no SELECT of its own: Group holds the
+	// query inside the parentheses, and the node's UnionAll/UnionDistinct/Except
+	// hold what follows the closing parenthesis. Settings, Format and
+	// OutputSettings may hold the clauses after a final group. HasParen is set
+	// exactly when Group is.
+	HasParen bool
+	Group    *SelectQuery
 	With        *WithClause
 	Top         *TopClause
 	HasDistinct bool
@@ -6630,12 +6635,14 @@ func (s *SelectQuery) End() Pos {
 }
 
 func (s *SelectQuery) String() string { // nolint: funlen
-	if s.HasParen {
-		inner := *s
-		inner.HasParen = false
-		return "(" + inner.String() + ")"
-	}
 	var builder strings.Builder
+	if s.Group != nil {
+		builder.WriteString("(")
+		builder.WriteString(s.Group.String())
+		builder.WriteString(")")
+		s.writeTail(&builder)
+		return builder.String()
+	}
 	if s.With != nil {
 		builder.WriteString("WITH")
 		if s.With.HasRecursive {
@@ -6710,6 +6717,13 @@ func (s *SelectQuery) String() string { // nolint: funlen
 		builder.WriteString(" ")
 		builder.WriteString(s.Limit.String())
 	}
+	s.writeTail(&builder)
+	return builder.String()
+}
+
+// writeTail writes the clauses shared by a SELECT and a parenthesised group:
+// SETTINGS, FORMAT, output SETTINGS and the UNION/EXCEPT continuation.
+func (s *SelectQuery) writeTail(builder *strings.Builder) {
 	if s.Settings != nil {
 		builder.WriteString(" ")
 		builder.WriteString(s.Settings.String())
@@ -6732,7 +6746,6 @@ func (s *SelectQuery) String() string { // nolint: funlen
 		builder.WriteString(" EXCEPT ")
 		builder.WriteString(s.Except.String())
 	}
-	return builder.String()
 }
 
 func (s *SelectQuery) Accept(visitor ASTVisitor) error {

@@ -1857,7 +1857,7 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 		p.matchKeyword(KeywordTruncate),
 		p.matchKeyword(KeywordRename):
 		expr, err = p.parseDDL(pos)
-	case p.matchKeyword(KeywordSelect), p.matchKeyword(KeywordWith):
+	case p.matchKeyword(KeywordSelect), p.matchKeyword(KeywordWith), p.matchTokenKind(TokenKindLParen):
 		expr, err = p.parseSelectQuery(pos)
 	case p.matchKeyword(KeywordDelete):
 		expr, err = p.parseDeleteClause(pos)
@@ -2334,7 +2334,7 @@ func (p *Parser) parseInsertStmt(pos Pos) (*InsertStmt, error) {
 	}
 	insertExpr.Table = table
 
-	if p.matchTokenKind(TokenKindLParen) {
+	if p.matchTokenKind(TokenKindLParen) && !p.peekKeyword(KeywordSelect) && !p.peekKeyword(KeywordWith) {
 		// parse column names
 		insertExpr.ColumnNames, err = p.parseColumnNamesExpr(p.Pos())
 		if err != nil {
@@ -2360,7 +2360,7 @@ func (p *Parser) parseInsertStmt(pos Pos) (*InsertStmt, error) {
 			}
 		}
 		insertExpr.Values = values
-	case p.matchKeyword(KeywordSelect):
+	case p.matchKeyword(KeywordSelect), p.matchKeyword(KeywordWith), p.matchTokenKind(TokenKindLParen):
 		insertExpr.SelectExpr, err = p.parseSelectQuery(p.Pos())
 	default:
 		// do nothing
