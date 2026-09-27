@@ -130,6 +130,10 @@ Entries are grouped as:
   `- 1::Int32` (#83).
 - `TOP n WITH TIES` prints `TOP n` (#90). `String()` used to print only
   `WITH TIES`.
+- `PrintVisitor` keeps `PRECEDING`/`FOLLOWING` after an `INTERVAL` window-frame
+  bound (#109). The CLI `-format` path printed
+  `RANGE BETWEEN INTERVAL 1 DAY AND CURRENT ROW`, which ClickHouse reads as a
+  different window.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
