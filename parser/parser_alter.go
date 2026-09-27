@@ -25,7 +25,7 @@ func (p *Parser) parseAlterTable(pos Pos) (*AlterTable, error) {
 	}
 	alterTable.OnCluster = onCluster
 
-	for !p.lexer.isEOF() {
+	for !p.atEOF() {
 		var alter AlterTableClause
 		switch {
 		case p.matchKeyword(KeywordAdd):

@@ -364,7 +364,7 @@ func (p *Parser) parseCreateNamedCollection(pos Pos) (*CreateNamedCollection, er
 
 	// parse parameters
 	params := make([]*NamedCollectionParam, 0)
-	for !p.lexer.isEOF() {
+	for !p.atEOF() {
 		param, err := p.parseNamedCollectionParam(p.Pos())
 		if err != nil {
 			return nil, err
@@ -765,7 +765,7 @@ func (p *Parser) parseTableSchemaClause(pos Pos) (*TableSchemaClause, error) {
 
 func (p *Parser) parseTableColumns() ([]Expr, error) {
 	columns := make([]Expr, 0)
-	for !p.lexer.isEOF() {
+	for !p.atEOF() {
 		switch {
 		case p.matchKeyword(KeywordIndex):
 			indexPos := p.Pos()
@@ -978,7 +978,7 @@ func (p *Parser) parseTableArgList(pos Pos) (*TableArgListExpr, error) {
 	}
 
 	args := make([]Expr, 0)
-	for !p.lexer.isEOF() {
+	for !p.atEOF() {
 		// Check if this is a named parameter (identifier followed by =)
 		var arg Expr
 		var err error
@@ -1137,7 +1137,7 @@ func (p *Parser) parseOrderByClause(pos Pos) (*OrderByClause, error) {
 		}
 		items = append(items, expr)
 
-		if p.lexer.isEOF() || p.tryConsumeTokenKind(TokenKindComma) == nil {
+		if p.atEOF() || p.tryConsumeTokenKind(TokenKindComma) == nil {
 			break
 		}
 	}
@@ -1362,7 +1362,7 @@ func (p *Parser) parseTTLClause(pos Pos, allowMultiValues bool) ([]*TTLExpr, err
 		return nil, err
 	}
 	items = append(items, expr)
-	for allowMultiValues && !p.lexer.isEOF() && p.tryConsumeTokenKind(TokenKindComma) != nil {
+	for allowMultiValues && !p.atEOF() && p.tryConsumeTokenKind(TokenKindComma) != nil {
 		expr, err = p.parseTTLExpr(pos)
 		if err != nil {
 			return nil, err
@@ -1635,7 +1635,7 @@ func (p *Parser) parseEngineExpr(pos Pos) (*EngineExpr, error) {
 		return nil, fmt.Errorf("unexpected token: %s", p.lastTokenKind())
 	}
 
-	for !p.lexer.isEOF() {
+	for !p.atEOF() {
 		switch {
 		case p.matchKeyword(KeywordOrder):
 			if engineExpr.OrderBy != nil {
@@ -1979,7 +1979,7 @@ func (p *Parser) ParseStmts() ([]Expr, error) {
 		if err := p.lexer.consumeToken(); err != nil {
 			return nil, p.wrapError(err)
 		}
-		if p.lexer.isEOF() {
+		if p.atEOF() {
 			break
 		}
 		if p.matchTokenKind(";") {
@@ -2223,7 +2223,7 @@ func (p *Parser) parseColumnNamesExpr(pos Pos) (*ColumnNamesExpr, error) {
 	}
 
 	var columnNames []NestedIdentifier
-	for !p.lexer.isEOF() && p.tryConsumeTokenKind(TokenKindRParen) == nil {
+	for !p.atEOF() && p.tryConsumeTokenKind(TokenKindRParen) == nil {
 		name, err := p.ParseNestedIdentifier(p.Pos())
 		if err != nil {
 			return nil, err
@@ -2282,7 +2282,7 @@ func (p *Parser) parseAssignmentValues(pos Pos) (*AssignmentValues, error) {
 	var value Expr
 	var err error
 	values := make([]Expr, 0)
-	for !p.lexer.isEOF() && p.tryConsumeTokenKind(TokenKindRParen) == nil {
+	for !p.atEOF() && p.tryConsumeTokenKind(TokenKindRParen) == nil {
 		switch {
 		case p.matchTokenKind(TokenKindLParen):
 			value, err = p.parseAssignmentValues(p.Pos())
@@ -2381,7 +2381,7 @@ func (p *Parser) parseInsertStmt(pos Pos) (*InsertStmt, error) {
 		// consume VALUES keyword
 		_ = p.lexer.consumeToken()
 		values := make([]*AssignmentValues, 0)
-		for !p.lexer.isEOF() {
+		for !p.atEOF() {
 			value, err := p.parseAssignmentValues(p.Pos())
 			if err != nil {
 				return nil, err
