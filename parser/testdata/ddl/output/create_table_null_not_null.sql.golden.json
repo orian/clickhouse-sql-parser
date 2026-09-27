@@ -1,0 +1,131 @@
+[
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "CreatePos": 0,
+    "StatementEnd": 73,
+    "OrReplace": false,
+    "Name": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 13,
+        "NameEnd": 14
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 15,
+      "SchemaEnd": 56,
+      "Columns": [
+        {
+          "NamePos": 16,
+          "ColumnEnd": 38,
+          "Name": {
+            "Ident": {
+              "Name": "a",
+              "QuoteType": 1,
+              "NamePos": 16,
+              "NameEnd": 17
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "LeftParenPos": 27,
+            "RightParenPos": 32,
+            "Name": {
+              "Name": "Nullable",
+              "QuoteType": 1,
+              "NamePos": 18,
+              "NameEnd": 26
+            },
+            "Params": [
+              {
+                "Name": {
+                  "Name": "Int32",
+                  "QuoteType": 1,
+                  "NamePos": 27,
+                  "NameEnd": 32
+                }
+              }
+            ]
+          },
+          "NotNull": null,
+          "Nullable": {
+            "NullPos": 34
+          },
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        {
+          "NamePos": 40,
+          "ColumnEnd": 56,
+          "Name": {
+            "Ident": {
+              "Name": "b",
+              "QuoteType": 1,
+              "NamePos": 40,
+              "NameEnd": 41
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Int32",
+              "QuoteType": 1,
+              "NamePos": 42,
+              "NameEnd": 47
+            }
+          },
+          "NotNull": {
+            "NotPos": 48,
+            "NullLiteral": {
+              "NullPos": 52
+            }
+          },
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 58,
+      "EngineEnd": 73,
+      "Name": "Memory",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": null,
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null,
+    "TimeSeriesTargets": null,
+    "Settings": null,
+    "IsAttach": false
+  }
+]

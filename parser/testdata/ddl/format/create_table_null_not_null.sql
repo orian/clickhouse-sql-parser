@@ -1,0 +1,6 @@
+-- Origin SQL:
+CREATE TABLE t (a Nullable(Int32) NULL, b Int32 NOT NULL) ENGINE = Memory;
+
+
+-- Format SQL:
+CREATE TABLE t (a Nullable(Int32) NULL, b Int32 NOT NULL) ENGINE = Memory;

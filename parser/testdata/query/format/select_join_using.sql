@@ -1,0 +1,8 @@
+-- Origin SQL:
+SELECT * FROM t1 JOIN t2 USING (k);
+SELECT * FROM t1 LEFT JOIN t2 USING (k1, k2);
+
+
+-- Format SQL:
+SELECT * FROM t1 JOIN t2 USING (k);
+SELECT * FROM t1 LEFT JOIN t2 USING (k1, k2);

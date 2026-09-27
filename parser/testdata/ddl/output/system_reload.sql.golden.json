@@ -1,0 +1,42 @@
+[
+  {
+    "SystemPos": 0,
+    "Expr": {
+      "ReloadPos": 7,
+      "StatementEnd": 29,
+      "Dictionary": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 25,
+          "NameEnd": 27
+        },
+        "Table": {
+          "Name": "d",
+          "QuoteType": 1,
+          "NamePos": 28,
+          "NameEnd": 29
+        }
+      },
+      "Type": "DICTIONARY"
+    }
+  },
+  {
+    "SystemPos": 31,
+    "Expr": {
+      "ReloadPos": 38,
+      "StatementEnd": 57,
+      "Dictionary": null,
+      "Type": "DICTIONARIES"
+    }
+  },
+  {
+    "SystemPos": 59,
+    "Expr": {
+      "ReloadPos": 66,
+      "StatementEnd": 94,
+      "Dictionary": null,
+      "Type": "EMBEDDED DICTIONARIES"
+    }
+  }
+]

@@ -1,0 +1,2 @@
+SELECT count() FROM t SAMPLE 1/10 OFFSET 1/2;
+SELECT count() FROM t SAMPLE 0.1;
