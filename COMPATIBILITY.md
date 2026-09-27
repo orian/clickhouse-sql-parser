@@ -93,6 +93,26 @@ Entries are grouped as:
 
 ### Changed behavior (printed SQL)
 
+- `PrintVisitor` applied to a subtree now prints the same SQL as the node's
+  `String()` for every node type (#98). Before, it crashed or printed wrong SQL
+  for some nodes:
+  - **crashes**: a privilege with a column list such as `SELECT(x, y)` recursed
+    until the stack overflowed; a window-frame `BETWEEN … AND …` and
+    `GROUP BY ALL` dereferenced nil;
+  - **dropped clauses**: `INTERPOLATE`, and `SETTINGS` on `ADD COLUMN`;
+  - **wrong SQL**: `PRECEDING UNBOUNDED`, doubled window-frame parameters and
+    `EXTRACT` operands, `MODIFY TTL TTL`, missing spaces in `INDEX`, `INTERVAL`
+    added to `1 HOUR`, single-quoted names printed unquoted, and a different
+    ENGINE clause order.
+
+  Printing whole statements (the CLI `-format` path) is unchanged.
+- `IntervalFrom.Accept` and `WindowFrameParam.Accept` no longer visit their
+  child before calling the visitor (#98). A visitor embedding
+  `DefaultASTVisitor` used to see an `EXTRACT(… FROM x)` operand twice. It now
+  sees it once. `DefaultASTVisitor.VisitWindowFrameParam` visits the parameter,
+  so a custom visitor that overrides it no longer gets the parameter visited
+  first.
+
 - `BeautifyVisitor` emits every statement type (#51). Before, it produced an
   empty string for SET, USE, SHOW, DESCRIBE, DROP, TRUNCATE, RENAME, OPTIMIZE,
   CHECK, SYSTEM, GRANT, DELETE, CREATE/ALTER ROLE, CREATE USER, CREATE
