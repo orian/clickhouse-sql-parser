@@ -137,6 +137,11 @@ Entries are grouped as:
 - `SYSTEM SYNC REPLICA t` keeps `REPLICA` (#62). It used to print as
   `SYSTEM SYNC t`, which ClickHouse rejects. `SystemSyncExpr.End()` is now the
   end of the whole command (`SyncEnd`), not the end of the table.
+- `SYSTEM START|STOP DISTRIBUTED SENDS` without a table no longer prints as
+  `… DISTRIBUTED SENDS SENDS`, which ClickHouse reads as a table named `SENDS`
+  (#108). `SystemCtrlExpr.Type` is now the whole target, e.g. `"MERGES"` or
+  `"REPLICATION QUEUES"`, and `SystemCtrlExpr.Cluster` is nil when no table
+  is given.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -175,6 +180,9 @@ Entries are grouped as:
 - `INSERT INTO t VALUES (…) FORMAT x` (#87). After `VALUES` everything is row
   data, and ClickHouse fails at runtime with `CANNOT_PARSE_INPUT_ASSERTION_FAILED`.
 - A repeated `WITH TIES`, and `LIMIT n BY … WITH TIES` (#90).
+- `SYSTEM START|STOP DISTRIBUTED MERGES|FETCHES|TTL MERGES`, which ClickHouse
+  rejects (#108). They used to be printed as `… MERGES MERGES`, a different
+  statement. Use `SYSTEM START|STOP MERGES|FETCHES|TTL MERGES`.
 
 ### Additive
 
@@ -203,6 +211,7 @@ Entries are grouped as:
   - `SystemSyncExpr.SyncEnd`, `Target`, `OnCluster`, `Database`,
     `IfExists`, `Mode`, `From`, `CacheName` (#62). `SystemSyncExpr.Cluster`
     is unchanged and still holds the table of `SYNC REPLICA`.
+  - `SystemCtrlExpr.OnCluster` (#108);
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
@@ -231,3 +240,8 @@ Entries are grouped as:
     [FROM 'r', …] | PULL]`, `SYSTEM SYNC DATABASE REPLICA`, `SYSTEM SYNC
     TRANSACTION LOG`, `SYSTEM SYNC FILE CACHE` and `SYSTEM SYNC FILESYSTEM
     CACHE ['name']`, each with `ON CLUSTER` (#62).
+  - `SYSTEM START|STOP` with the targets `MERGES`, `TTL MERGES`, `MOVES`,
+    `FETCHES`, `REPLICATED SENDS`, `REPLICATION QUEUES`, `DISTRIBUTED SENDS`,
+    `PULLING REPLICATION LOG`, `CLEANUP`, `REDUCE BLOCKING PARTS` and
+    `VIRTUAL PARTS UPDATE`, each with an optional `ON CLUSTER` and table, and
+    `VIEWS`, `VIEW v` and `REPLICATED VIEW v` (#108).

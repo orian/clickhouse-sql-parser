@@ -2425,6 +2425,11 @@ func (visitor DefaultASTVisitor) VisitSubQueryExpr(s *SubQuery) error {
 func (visitor DefaultASTVisitor) VisitSystemCtrlExpr(s *SystemCtrlExpr) error {
 	visitor.Enter(s)
 	defer visitor.Leave(s)
+	if s.OnCluster != nil {
+		if err := s.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if s.Cluster != nil {
 		if err := s.Cluster.Accept(visitor.Self); err != nil {
 			return err

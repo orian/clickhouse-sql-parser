@@ -2924,9 +2924,17 @@ func (p *PrintVisitor) VisitSystemCtrlExpr(s *SystemCtrlExpr) error {
 	builder.WriteString(s.Command)
 	builder.WriteByte(' ')
 	builder.WriteString(s.Type)
+	if s.OnCluster != nil {
+		builder.WriteByte(' ')
+		if err := s.OnCluster.Accept(p); err != nil {
+			return err
+		}
+	}
 	if s.Cluster != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(s.Cluster.String())
+		if err := s.Cluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }

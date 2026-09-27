@@ -544,7 +544,7 @@ func Walk(node Expr, fn WalkFunc) bool {
 			}
 		}
 	case *SystemCtrlExpr:
-		if !Walk(n.Cluster, fn) {
+		if !Walk(n.OnCluster, fn) || !Walk(n.Cluster, fn) {
 			return false
 		}
 	case *SystemDropExpr:
