@@ -1,0 +1,205 @@
+[
+  {
+    "SelectPos": 0,
+    "StatementEnd": 80,
+    "HasParen": false,
+    "Group": null,
+    "With": null,
+    "Top": null,
+    "HasDistinct": false,
+    "DistinctOn": null,
+    "SelectItems": [
+      {
+        "Expr": {
+          "Name": "a",
+          "QuoteType": 1,
+          "NamePos": 7,
+          "NameEnd": 8
+        },
+        "Modifiers": [],
+        "Alias": null
+      },
+      {
+        "Expr": {
+          "Name": {
+            "Name": "sum",
+            "QuoteType": 1,
+            "NamePos": 10,
+            "NameEnd": 13
+          },
+          "Params": {
+            "LeftParenPos": 13,
+            "RightParenPos": 15,
+            "Items": {
+              "ListPos": 14,
+              "ListEnd": 15,
+              "HasDistinct": false,
+              "Items": [
+                {
+                  "Expr": {
+                    "Name": "b",
+                    "QuoteType": 1,
+                    "NamePos": 14,
+                    "NameEnd": 15
+                  },
+                  "Alias": null
+                }
+              ],
+              "HasTrailingComma": false
+            },
+            "ColumnArgList": null
+          }
+        },
+        "Modifiers": [],
+        "Alias": null
+      }
+    ],
+    "From": {
+      "FromPos": 17,
+      "Expr": {
+        "Table": {
+          "TablePos": 22,
+          "TableEnd": 23,
+          "Alias": null,
+          "Expr": {
+            "Database": null,
+            "Table": {
+              "Name": "t",
+              "QuoteType": 1,
+              "NamePos": 22,
+              "NameEnd": 23
+            }
+          },
+          "HasFinal": false,
+          "Stream": null
+        },
+        "StatementEnd": 23,
+        "SampleRatio": null,
+        "HasFinal": false
+      }
+    },
+    "Window": null,
+    "Prewhere": {
+      "PrewherePos": 24,
+      "Expr": {
+        "LeftExpr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 33,
+          "NameEnd": 34
+        },
+        "Operation": "\u003e",
+        "RightExpr": {
+          "NumPos": 37,
+          "NumEnd": 38,
+          "Literal": "1",
+          "Base": 10
+        },
+        "HasGlobal": false,
+        "HasNot": false
+      }
+    },
+    "Where": {
+      "WherePos": 39,
+      "Expr": {
+        "LeftExpr": {
+          "Name": "d",
+          "QuoteType": 1,
+          "NamePos": 45,
+          "NameEnd": 46
+        },
+        "Operation": "\u003c",
+        "RightExpr": {
+          "NumPos": 49,
+          "NumEnd": 50,
+          "Literal": "2",
+          "Base": 10
+        },
+        "HasGlobal": false,
+        "HasNot": false
+      }
+    },
+    "GroupBy": {
+      "GroupByPos": 51,
+      "GroupByEnd": 61,
+      "AggregateType": "",
+      "Expr": {
+        "ListPos": 60,
+        "ListEnd": 61,
+        "HasDistinct": false,
+        "Items": [
+          {
+            "Expr": {
+              "Name": "a",
+              "QuoteType": 1,
+              "NamePos": 60,
+              "NameEnd": 61
+            },
+            "Alias": null
+          }
+        ],
+        "HasTrailingComma": false
+      },
+      "WithCube": false,
+      "WithRollup": false,
+      "WithTotals": false
+    },
+    "WithTotal": false,
+    "Having": {
+      "HavingPos": 62,
+      "Expr": {
+        "Expr": {
+          "LeftExpr": {
+            "Name": {
+              "Name": "sum",
+              "QuoteType": 1,
+              "NamePos": 69,
+              "NameEnd": 72
+            },
+            "Params": {
+              "LeftParenPos": 72,
+              "RightParenPos": 74,
+              "Items": {
+                "ListPos": 73,
+                "ListEnd": 74,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "b",
+                      "QuoteType": 1,
+                      "NamePos": 73,
+                      "NameEnd": 74
+                    },
+                    "Alias": null
+                  }
+                ],
+                "HasTrailingComma": false
+              },
+              "ColumnArgList": null
+            }
+          },
+          "Operation": "\u003e",
+          "RightExpr": {
+            "NumPos": 78,
+            "NumEnd": 80,
+            "Literal": "10",
+            "Base": 10
+          },
+          "HasGlobal": false,
+          "HasNot": false
+        },
+        "Alias": null
+      }
+    },
+    "OrderBy": null,
+    "LimitBy": null,
+    "Limit": null,
+    "Settings": null,
+    "Format": null,
+    "OutputSettings": null,
+    "UnionAll": null,
+    "UnionDistinct": null,
+    "Except": null
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "SelectPos": 0,
+    "StatementEnd": 31,
+    "HasParen": false,
+    "Group": null,
+    "With": null,
+    "Top": null,
+    "HasDistinct": false,
+    "DistinctOn": null,
+    "SelectItems": [
+      {
+        "Expr": {
+          "Condition": {
+            "LeftExpr": {
+              "Name": "a",
+              "QuoteType": 1,
+              "NamePos": 7,
+              "NameEnd": 8
+            },
+            "Operation": "\u003e",
+            "RightExpr": {
+              "NumPos": 11,
+              "NumEnd": 12,
+              "Literal": "1",
+              "Base": 10
+            },
+            "HasGlobal": false,
+            "HasNot": false
+          },
+          "TrueExpr": {
+            "LiteralPos": 16,
+            "LiteralEnd": 17,
+            "Literal": "x"
+          },
+          "FalseExpr": {
+            "LiteralPos": 22,
+            "LiteralEnd": 23,
+            "Literal": "y"
+          }
+        },
+        "Modifiers": [],
+        "Alias": null
+      }
+    ],
+    "From": {
+      "FromPos": 25,
+      "Expr": {
+        "Table": {
+          "TablePos": 30,
+          "TableEnd": 31,
+          "Alias": null,
+          "Expr": {
+            "Database": null,
+            "Table": {
+              "Name": "t",
+              "QuoteType": 1,
+              "NamePos": 30,
+              "NameEnd": 31
+            }
+          },
+          "HasFinal": false,
+          "Stream": null
+        },
+        "StatementEnd": 31,
+        "SampleRatio": null,
+        "HasFinal": false
+      }
+    },
+    "Window": null,
+    "Prewhere": null,
+    "Where": null,
+    "GroupBy": null,
+    "WithTotal": false,
+    "Having": null,
+    "OrderBy": null,
+    "LimitBy": null,
+    "Limit": null,
+    "Settings": null,
+    "Format": null,
+    "OutputSettings": null,
+    "UnionAll": null,
+    "UnionDistinct": null,
+    "Except": null
+  }
+]
