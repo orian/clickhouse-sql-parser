@@ -181,57 +181,80 @@ func (p *Parser) parseSystemSyncExpr(pos Pos) (*SystemSyncExpr, error) {
 	return sync, nil
 }
 
+// systemCtrlTargets are the SYSTEM START|STOP targets, longest first where
+// one is a prefix of another. tableScoped targets take an optional
+// [ON CLUSTER c] [db.]table; the VIEW targets require a view.
+var systemCtrlTargets = []struct {
+	words       []string
+	tableScoped bool
+}{
+	{[]string{"TTL", "MERGES"}, true},
+	{[]string{"MERGES"}, true},
+	{[]string{"MOVES"}, true},
+	{[]string{"FETCHES"}, true},
+	{[]string{"REPLICATED", "SENDS"}, true},
+	{[]string{"REPLICATED", "VIEW"}, false},
+	{[]string{"REPLICATION", "QUEUES"}, true},
+	{[]string{"DISTRIBUTED", "SENDS"}, true},
+	{[]string{"PULLING", "REPLICATION", "LOG"}, true},
+	{[]string{"CLEANUP"}, true},
+	{[]string{"REDUCE", "BLOCKING", "PARTS"}, true},
+	{[]string{"VIRTUAL", "PARTS", "UPDATE"}, true},
+	{[]string{"VIEWS"}, false},
+	{[]string{"VIEW"}, false},
+}
+
+// tryConsumeWords consumes the given words, each matched case-insensitively
+// as a keyword or an unquoted identifier. On a mismatch nothing is consumed.
+func (p *Parser) tryConsumeWords(words ...string) bool {
+	savedState := p.lexer.saveState()
+	for _, word := range words {
+		if !p.matchKeyword(word) && !p.matchUnquotedIdent(word) {
+			p.lexer.restoreState(savedState)
+			return false
+		}
+		_ = p.lexer.consumeToken()
+	}
+	return true
+}
+
 func (p *Parser) parseSystemCtrlExpr(pos Pos) (*SystemCtrlExpr, error) {
 	if !p.matchKeyword(KeywordStart) && !p.matchKeyword(KeywordStop) {
 		return nil, fmt.Errorf("expected START|STOP")
 	}
-	command := strings.ToUpper(p.last().String)
+	ctrl := &SystemCtrlExpr{CtrlPos: pos, Command: strings.ToUpper(p.last().String)}
 	_ = p.lexer.consumeToken()
 
-	var typ string
+	tableScoped := false
+	for _, target := range systemCtrlTargets {
+		if p.tryConsumeWords(target.words...) {
+			ctrl.Type = strings.Join(target.words, " ")
+			tableScoped = target.tableScoped
+			break
+		}
+	}
+	var err error
 	switch {
-	case p.tryConsumeKeywords(KeywordDistributed):
-		switch {
-		case p.matchKeyword(KeywordSends):
-			typ = "DISTRIBUTED SENDS"
-		case p.matchKeyword(KeywordFetches):
-			typ = "FETCHES"
-		case p.matchKeyword(KeywordMerges):
-			typ = "MERGES"
-		case p.matchKeyword(KeywordTtl):
-			typ = "TTL MERGES"
-			if err := p.expectKeyword(KeywordMerges); err != nil {
+	case ctrl.Type == "":
+		return nil, fmt.Errorf("expected a SYSTEM %s target such as MERGES, TTL MERGES, MOVES, FETCHES, "+
+			"REPLICATED SENDS, REPLICATION QUEUES, DISTRIBUTED SENDS or VIEWS, got %q", ctrl.Command, p.lastTokenText())
+	case tableScoped:
+		if ctrl.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+		// Like ClickHouse, any word after the target is the table.
+		if p.matchTokenKind(TokenKindIdent) {
+			if ctrl.Cluster, err = p.parseTableIdentifier(p.Pos()); err != nil {
 				return nil, err
 			}
-		default:
-			return nil, fmt.Errorf("expected SENDS|FETCHES|MERGES|TTL")
 		}
-		cluster, err := p.parseTableIdentifier(p.Pos())
-		if err != nil {
+	case ctrl.Type != "VIEWS":
+		if ctrl.Cluster, err = p.parseTableIdentifier(p.Pos()); err != nil {
 			return nil, err
 		}
-		return &SystemCtrlExpr{
-			CtrlPos:      pos,
-			StatementEnd: cluster.End(),
-			Command:      command,
-			Type:         typ,
-			Cluster:      cluster,
-		}, nil
-	case p.tryConsumeKeywords(KeywordReplicated):
-		lastToken := p.last()
-		if err := p.expectKeyword(KeywordSends); err != nil {
-			return nil, err
-		}
-		typ = "REPLICATED SENDS"
-		return &SystemCtrlExpr{
-			CtrlPos:      pos,
-			StatementEnd: lastToken.End,
-			Command:      command,
-			Type:         typ,
-		}, nil
-	default:
-		return nil, fmt.Errorf("expected DISTRIBUTED|REPLICATED")
 	}
+	ctrl.StatementEnd = p.prevEnd()
+	return ctrl, nil
 }
 
 func (p *Parser) parseSystemDropExpr(pos Pos) (*SystemDropExpr, error) {

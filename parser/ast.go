@@ -7603,12 +7603,18 @@ func (s *SystemSyncExpr) Accept(visitor ASTVisitor) error {
 	return visitor.VisitSystemSyncExpr(s)
 }
 
+// SystemCtrlExpr is `START|STOP <target> [ON CLUSTER c] [[db.]table]`.
 type SystemCtrlExpr struct {
 	CtrlPos      Pos
 	StatementEnd Pos
 	Command      string // START, STOP
-	Type         string // REPLICATED, DISTRIBUTED
-	Cluster      *TableIdentifier
+	// Type is the target, e.g. "MERGES", "TTL MERGES", "DISTRIBUTED SENDS",
+	// "REPLICATION QUEUES" or "VIEWS".
+	Type      string
+	OnCluster *ClusterClause `json:",omitempty"`
+	// Cluster is the table (or view) the command applies to. Despite its
+	// name it is not a cluster; ON CLUSTER is OnCluster.
+	Cluster *TableIdentifier
 }
 
 func (s *SystemCtrlExpr) Pos() Pos {
@@ -7624,6 +7630,10 @@ func (s *SystemCtrlExpr) String() string {
 	builder.WriteString(s.Command)
 	builder.WriteByte(' ')
 	builder.WriteString(s.Type)
+	if s.OnCluster != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(s.OnCluster.String())
+	}
 	if s.Cluster != nil {
 		builder.WriteByte(' ')
 		builder.WriteString(s.Cluster.String())

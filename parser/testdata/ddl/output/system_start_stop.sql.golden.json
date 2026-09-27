@@ -1,0 +1,400 @@
+[
+  {
+    "SystemPos": 0,
+    "Expr": {
+      "CtrlPos": 7,
+      "StatementEnd": 29,
+      "Command": "STOP",
+      "Type": "DISTRIBUTED SENDS",
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 31,
+    "Expr": {
+      "CtrlPos": 38,
+      "StatementEnd": 66,
+      "Command": "START",
+      "Type": "DISTRIBUTED SENDS",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 62,
+          "NameEnd": 64
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 65,
+          "NameEnd": 66
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 68,
+    "Expr": {
+      "CtrlPos": 75,
+      "StatementEnd": 115,
+      "Command": "STOP",
+      "Type": "DISTRIBUTED SENDS",
+      "OnCluster": {
+        "OnPos": 98,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 109,
+          "NameEnd": 110
+        }
+      },
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 111,
+          "NameEnd": 113
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 114,
+          "NameEnd": 115
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 117,
+    "Expr": {
+      "CtrlPos": 124,
+      "StatementEnd": 135,
+      "Command": "STOP",
+      "Type": "MERGES",
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 137,
+    "Expr": {
+      "CtrlPos": 144,
+      "StatementEnd": 166,
+      "Command": "START",
+      "Type": "MERGES",
+      "Cluster": {
+        "Database": {
+          "Name": "default",
+          "QuoteType": 1,
+          "NamePos": 157,
+          "NameEnd": 164
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 165,
+          "NameEnd": 166
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 168,
+    "Expr": {
+      "CtrlPos": 175,
+      "StatementEnd": 202,
+      "Command": "START",
+      "Type": "MERGES",
+      "OnCluster": {
+        "OnPos": 188,
+        "Expr": {
+          "LiteralPos": 200,
+          "LiteralEnd": 201,
+          "Literal": "c"
+        }
+      },
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 204,
+    "Expr": {
+      "CtrlPos": 211,
+      "StatementEnd": 231,
+      "Command": "STOP",
+      "Type": "TTL MERGES",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 227,
+          "NameEnd": 229
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 230,
+          "NameEnd": 231
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 233,
+    "Expr": {
+      "CtrlPos": 240,
+      "StatementEnd": 255,
+      "Command": "STOP",
+      "Type": "MOVES",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 251,
+          "NameEnd": 253
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 254,
+          "NameEnd": 255
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 257,
+    "Expr": {
+      "CtrlPos": 264,
+      "StatementEnd": 282,
+      "Command": "START",
+      "Type": "FETCHES",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 278,
+          "NameEnd": 280
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 281,
+          "NameEnd": 282
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 284,
+    "Expr": {
+      "CtrlPos": 291,
+      "StatementEnd": 312,
+      "Command": "STOP",
+      "Type": "REPLICATED SENDS",
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 314,
+    "Expr": {
+      "CtrlPos": 321,
+      "StatementEnd": 347,
+      "Command": "STOP",
+      "Type": "REPLICATED SENDS",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 343,
+          "NameEnd": 345
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 346,
+          "NameEnd": 347
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 349,
+    "Expr": {
+      "CtrlPos": 356,
+      "StatementEnd": 398,
+      "Command": "START",
+      "Type": "REPLICATION QUEUES",
+      "OnCluster": {
+        "OnPos": 381,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 392,
+          "NameEnd": 393
+        }
+      },
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 394,
+          "NameEnd": 396
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 397,
+          "NameEnd": 398
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 400,
+    "Expr": {
+      "CtrlPos": 407,
+      "StatementEnd": 440,
+      "Command": "STOP",
+      "Type": "PULLING REPLICATION LOG",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 436,
+          "NameEnd": 438
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 439,
+          "NameEnd": 440
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 442,
+    "Expr": {
+      "CtrlPos": 449,
+      "StatementEnd": 466,
+      "Command": "STOP",
+      "Type": "CLEANUP",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 462,
+          "NameEnd": 464
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 465,
+          "NameEnd": 466
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 468,
+    "Expr": {
+      "CtrlPos": 475,
+      "StatementEnd": 506,
+      "Command": "STOP",
+      "Type": "REDUCE BLOCKING PARTS",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 502,
+          "NameEnd": 504
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 505,
+          "NameEnd": 506
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 508,
+    "Expr": {
+      "CtrlPos": 515,
+      "StatementEnd": 546,
+      "Command": "START",
+      "Type": "VIRTUAL PARTS UPDATE",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 542,
+          "NameEnd": 544
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 545,
+          "NameEnd": 546
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 548,
+    "Expr": {
+      "CtrlPos": 555,
+      "StatementEnd": 565,
+      "Command": "STOP",
+      "Type": "VIEWS",
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 567,
+    "Expr": {
+      "CtrlPos": 574,
+      "StatementEnd": 589,
+      "Command": "START",
+      "Type": "VIEW",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 585,
+          "NameEnd": 587
+        },
+        "Table": {
+          "Name": "v",
+          "QuoteType": 1,
+          "NamePos": 588,
+          "NameEnd": 589
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 591,
+    "Expr": {
+      "CtrlPos": 598,
+      "StatementEnd": 623,
+      "Command": "STOP",
+      "Type": "REPLICATED VIEW",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 619,
+          "NameEnd": 621
+        },
+        "Table": {
+          "Name": "v",
+          "QuoteType": 1,
+          "NamePos": 622,
+          "NameEnd": 623
+        }
+      }
+    }
+  }
+]
