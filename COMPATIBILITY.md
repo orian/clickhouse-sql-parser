@@ -167,6 +167,10 @@ Entries are grouped as:
   used to be printed right after `FROM`, so a query with `WINDOW` and `WHERE`,
   `GROUP BY` or `HAVING` printed as SQL that ClickHouse rejects. This applies
   to `String()`, `PrintVisitor` and `BeautifyVisitor`.
+- `ALTER TABLE … DROP INDEX|PROJECTION IF EXISTS x` and `ADD INDEX IF NOT
+  EXISTS x …` print `IF [NOT] EXISTS` before the name, where ClickHouse
+  expects it (#64). They used to print `DROP INDEX x IF EXISTS` and
+  `ADD INDEX x … GRANULARITY 1IF NOT EXISTS `, which ClickHouse rejects.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
