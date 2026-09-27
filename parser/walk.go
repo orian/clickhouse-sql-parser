@@ -72,6 +72,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.UnionDistinct, fn) {
 			return false
 		}
+		if !Walk(n.Except, fn) {
+			return false
+		}
 		if !Walk(n.Format, fn) {
 			return false
 		}
@@ -327,6 +330,11 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Format, fn) {
 			return false
 		}
+		for _, values := range n.Values {
+			if !Walk(values, fn) {
+				return false
+			}
+		}
 		if !Walk(n.SelectExpr, fn) {
 			return false
 		}
@@ -438,6 +446,10 @@ func Walk(node Expr, fn WalkFunc) bool {
 		// Leaf node
 	case *WindowFrameNumber:
 		if !Walk(n.Number, fn) {
+			return false
+		}
+	case *WindowFrameParam:
+		if !Walk(n.Param, fn) {
 			return false
 		}
 	case *TopClause:
@@ -1194,6 +1206,28 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.ToDisk, fn) {
 			return false
 		}
+		if !Walk(n.Action, fn) {
+			return false
+		}
+	case *CreateNamedCollection:
+		if !Walk(n.Name, fn) {
+			return false
+		}
+		if !Walk(n.OnCluster, fn) {
+			return false
+		}
+		for _, param := range n.Params {
+			if !Walk(param, fn) {
+				return false
+			}
+		}
+	case *NamedCollectionParam:
+		if !Walk(n.Name, fn) {
+			return false
+		}
+		if !Walk(n.Value, fn) {
+			return false
+		}
 	case *TTLPolicyRuleAction:
 		if !Walk(n.Codec, fn) {
 			return false
@@ -1386,11 +1420,13 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *MapLiteral:
-		for _, kv := range n.KeyValues {
-			if !Walk(&kv.Key, fn) {
+		for i := range n.KeyValues {
+			// Index into the slice: &kv.Key of a range copy would hand out a
+			// pointer to a temporary, so Transform could not rewrite the key.
+			if !Walk(&n.KeyValues[i].Key, fn) {
 				return false
 			}
-			if !Walk(kv.Value, fn) {
+			if !Walk(n.KeyValues[i].Value, fn) {
 				return false
 			}
 		}
