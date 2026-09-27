@@ -27,7 +27,7 @@
     "SetPos": 18,
     "Settings": {
       "SettingsPos": 22,
-      "ListEnd": 36,
+      "ListEnd": 37,
       "Items": [
         {
           "SettingsPos": 22,
@@ -50,7 +50,7 @@
     "SetPos": 39,
     "Settings": {
       "SettingsPos": 43,
-      "ListEnd": 73,
+      "ListEnd": 74,
       "Items": [
         {
           "SettingsPos": 43,
@@ -73,7 +73,7 @@
     "SetPos": 76,
     "Settings": {
       "SettingsPos": 80,
-      "ListEnd": 121,
+      "ListEnd": 122,
       "Items": [
         {
           "SettingsPos": 80,
@@ -169,7 +169,7 @@
   },
   {
     "SelectPos": 125,
-    "StatementEnd": 218,
+    "StatementEnd": 219,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -316,7 +316,7 @@
   },
   {
     "SelectPos": 222,
-    "StatementEnd": 283,
+    "StatementEnd": 284,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -328,7 +328,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 229,
-          "NameEnd": 229
+          "NameEnd": 230
         },
         "Modifiers": [],
         "Alias": null

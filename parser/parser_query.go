@@ -170,6 +170,7 @@ func (p *Parser) tryParseJoinConstraints(pos Pos) (Expr, error) {
 		return &UsingClause{
 			UsingPos: pos,
 			Using:    columnExprList,
+			UsingEnd: p.prevEnd(),
 		}, nil
 	}
 	return nil, nil
@@ -462,7 +463,7 @@ func (p *Parser) parseTableExpr(pos Pos) (*TableExpr, error) {
 			return nil, errors.New("subquery doesn't support FINAL")
 		}
 		isFinalExist = true
-		tableEnd = expr.End()
+		tableEnd = p.prevEnd() // include FINAL
 	}
 
 	// `STREAM [BOUNDED] [UNORDERED]` turns the read into a streaming query.
@@ -619,7 +620,7 @@ func (p *Parser) parseGroupByClause(pos Pos) (*GroupByClause, error) {
 			return nil, fmt.Errorf("expected CUBE, ROLLUP or TOTALS, got %s", p.lastTokenKind())
 		}
 	}
-	groupBy.GroupByEnd = p.Pos()
+	groupBy.GroupByEnd = p.prevEnd()
 
 	return groupBy, nil
 }
@@ -1051,15 +1052,18 @@ func (p *Parser) parseSubQuery(_ Pos) (*SubQuery, error) {
 	if err != nil {
 		return nil, err
 	}
+	var rightParenPos Pos
 	if hasParen {
+		rightParenPos = p.Pos()
 		if err := p.expectTokenKind(TokenKindRParen); err != nil {
 			return nil, err
 		}
 	}
 
 	return &SubQuery{
-		HasParen: hasParen,
-		Select:   selectQuery,
+		HasParen:      hasParen,
+		Select:        selectQuery,
+		RightParenPos: rightParenPos,
 	}, nil
 }
 
@@ -1068,11 +1072,20 @@ func (p *Parser) parseSelectQuery(_ Pos) (*SelectQuery, error) {
 		return nil, fmt.Errorf("expected SELECT, WITH or (, got %s", p.lastTokenKind())
 	}
 
+	lParenPos := p.Pos()
 	hasParen := p.tryConsumeTokenKind(TokenKindLParen) != nil
 	selectStmt, err := p.parseSelectStmt(p.Pos())
 	if err != nil {
 		return nil, err
 	}
+	defer func() {
+		// The statement ends with the last query of its UNION/EXCEPT chain.
+		for _, next := range []*SelectQuery{selectStmt.UnionAll, selectStmt.UnionDistinct, selectStmt.Except} {
+			if next != nil && next.End() > selectStmt.StatementEnd {
+				selectStmt.StatementEnd = next.End()
+			}
+		}
+	}()
 	switch {
 	case p.tryConsumeKeywords(KeywordUnion):
 		switch {
@@ -1103,6 +1116,9 @@ func (p *Parser) parseSelectQuery(_ Pos) (*SelectQuery, error) {
 			return nil, err
 		}
 		selectStmt.HasParen = true
+		// A parenthesised operand spans its parentheses, which String() prints.
+		selectStmt.SelectPos = lParenPos
+		selectStmt.StatementEnd = p.prevEnd()
 	}
 	return selectStmt, nil
 }

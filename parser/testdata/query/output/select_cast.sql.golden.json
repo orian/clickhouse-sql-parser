@@ -26,7 +26,8 @@
               "NamePos": 17,
               "NameEnd": 24
             }
-          }
+          },
+          "RightParenPos": 24
         },
         "Modifiers": [],
         "Alias": {
@@ -78,7 +79,8 @@
             "LiteralPos": 52,
             "LiteralEnd": 59,
             "Literal": "Float64"
-          }
+          },
+          "RightParenPos": 60
         },
         "Modifiers": [],
         "Alias": {

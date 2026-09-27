@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 122,
-    "StatementEnd": 389,
+    "StatementEnd": 390,
     "OrReplace": true,
     "Name": {
       "Database": {
@@ -87,7 +87,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 209,
-            "RightParenPos": 223,
+            "RightParenPos": 222,
             "Type": null,
             "TypeLevel": null,
             "Name": {
@@ -109,7 +109,7 @@
         },
         {
           "NamePos": 229,
-          "ColumnEnd": 243,
+          "ColumnEnd": 244,
           "Name": {
             "Ident": {
               "Name": "f2",
@@ -155,7 +155,7 @@
     },
     "Engine": {
       "EnginePos": 248,
-      "EngineEnd": 361,
+      "EngineEnd": 362,
       "Name": "MergeTree",
       "Params": null,
       "PrimaryKey": {
@@ -205,7 +205,7 @@
         "PartitionPos": 292,
         "Expr": {
           "ListPos": 305,
-          "ListEnd": 318,
+          "ListEnd": 319,
           "HasDistinct": false,
           "Items": [
             {
@@ -285,7 +285,7 @@
       "Settings": null,
       "OrderBy": {
         "OrderPos": 346,
-        "ListEnd": 361,
+        "ListEnd": 362,
         "Items": [
           {
             "OrderPos": 346,
@@ -322,7 +322,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 362
           }
         ],
         "Interpolate": null

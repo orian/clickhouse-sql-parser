@@ -78,6 +78,9 @@ func (t *Token) ToString() string {
 type lexerState struct {
 	current   int
 	lastToken *Token
+	// prevEnd is the end of the most recently consumed token, including the
+	// closing quote of a quoted string or identifier.
+	prevEnd Pos
 }
 
 type Lexer struct {
@@ -352,6 +355,12 @@ func (l *Lexer) hasPrecedenceToken(last *Token) bool {
 func (l *Lexer) consumeToken() error {
 	// clear last token
 	lastToken := l.lastToken
+	if lastToken != nil {
+		l.prevEnd = lastToken.End
+		if lastToken.Kind == TokenKindString || lastToken.QuoteType == BackTicks || lastToken.QuoteType == DoubleQuote {
+			l.prevEnd++ // token End excludes the closing quote
+		}
+	}
 	l.lastToken = nil
 	if err := l.skipComments(); err != nil {
 		return err

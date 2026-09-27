@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 133,
+    "StatementEnd": 145,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -95,7 +95,7 @@
               "RightParenPos": 83,
               "Items": {
                 "ListPos": 55,
-                "ListEnd": 82,
+                "ListEnd": 83,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -112,7 +112,7 @@
                         "RightParenPos": 82,
                         "Items": {
                           "ListPos": 63,
-                          "ListEnd": 81,
+                          "ListEnd": 82,
                           "HasDistinct": false,
                           "Items": [
                             {
@@ -160,7 +160,7 @@
               "RightParenPos": 106,
               "Items": {
                 "ListPos": 92,
-                "ListEnd": 105,
+                "ListEnd": 106,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -192,7 +192,8 @@
           },
           "Operation": "AND",
           "RightExpr": {
-            "IsPos": 127,
+            "IsPos": 117,
+            "NullEnd": 124,
             "Expr": {
               "Name": "f2",
               "QuoteType": 1,
@@ -205,7 +206,8 @@
         },
         "Operation": "AND",
         "RightExpr": {
-          "IsPos": 145,
+          "IsPos": 134,
+          "NullEnd": 145,
           "Expr": {
             "Name": "f3",
             "QuoteType": 1,

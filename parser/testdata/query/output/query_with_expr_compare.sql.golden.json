@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 225,
+    "StatementEnd": 226,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -104,7 +104,7 @@
       "Expr": {
         "Table": {
           "TablePos": 59,
-          "TableEnd": 121,
+          "TableEnd": 127,
           "Alias": null,
           "Expr": {
             "HasParen": true,
@@ -162,12 +162,13 @@
               "UnionAll": null,
               "UnionDistinct": null,
               "Except": null
-            }
+            },
+            "RightParenPos": 126
           },
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 121,
+        "StatementEnd": 127,
         "SampleRatio": null,
         "HasFinal": false
       }

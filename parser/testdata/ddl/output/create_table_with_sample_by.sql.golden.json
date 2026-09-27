@@ -141,7 +141,7 @@
         "RightParenPos": 217,
         "Items": {
           "ListPos": 156,
-          "ListEnd": 216,
+          "ListEnd": 217,
           "HasDistinct": false,
           "Items": [
             {
@@ -170,7 +170,7 @@
         "PartitionPos": 219,
         "Expr": {
           "ListPos": 232,
-          "ListEnd": 250,
+          "ListEnd": 251,
           "HasDistinct": false,
           "Items": [
             {
@@ -243,7 +243,7 @@
       },
       "OrderBy": {
         "OrderPos": 252,
-        "ListEnd": 299,
+        "ListEnd": 300,
         "Items": [
           {
             "OrderPos": 252,
@@ -313,7 +313,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 300
           }
         ],
         "Interpolate": null

@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 112,
+    "StatementEnd": 120,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -94,7 +94,7 @@
             "RightParenPos": 83,
             "Items": {
               "ListPos": 55,
-              "ListEnd": 82,
+              "ListEnd": 83,
               "HasDistinct": false,
               "Items": [
                 {
@@ -111,7 +111,7 @@
                       "RightParenPos": 82,
                       "Items": {
                         "ListPos": 63,
-                        "ListEnd": 81,
+                        "ListEnd": 82,
                         "HasDistinct": false,
                         "Items": [
                           {
@@ -159,7 +159,7 @@
             "RightParenPos": 104,
             "Items": {
               "ListPos": 90,
-              "ListEnd": 103,
+              "ListEnd": 104,
               "HasDistinct": false,
               "Items": [
                 {
@@ -191,7 +191,8 @@
         },
         "Operation": "AND",
         "RightExpr": {
-          "IsPos": 120,
+          "IsPos": 113,
+          "NullEnd": 120,
           "Expr": {
             "Name": "f2",
             "QuoteType": 1,

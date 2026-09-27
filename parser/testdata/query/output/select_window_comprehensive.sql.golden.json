@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 167,
-    "StatementEnd": 4194,
+    "StatementEnd": 4195,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -60,7 +60,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 223
                 }
               ],
               "Interpolate": null
@@ -163,7 +164,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 382
                 }
               ],
               "Interpolate": null
@@ -734,7 +736,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 1734
                 }
               ],
               "Interpolate": null
@@ -811,7 +814,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 1858
                 }
               ],
               "Interpolate": null
@@ -888,7 +892,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 1995
                 }
               ],
               "Interpolate": null
@@ -975,7 +980,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 2150
                 }
               ],
               "Interpolate": null
@@ -1079,7 +1085,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 2299
                 }
               ],
               "Interpolate": null
@@ -1192,7 +1199,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 2429
                 }
               ],
               "Interpolate": null
@@ -1288,7 +1296,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 2559
                 }
               ],
               "Interpolate": null
@@ -1365,7 +1374,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 2692
                 }
               ],
               "Interpolate": null
@@ -1529,7 +1539,7 @@
               "RightParenPos": 3293,
               "Items": {
                 "ListPos": 3292,
-                "ListEnd": 3292,
+                "ListEnd": 3293,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -1537,7 +1547,7 @@
                       "Name": "*",
                       "QuoteType": 0,
                       "NamePos": 3292,
-                      "NameEnd": 3292
+                      "NameEnd": 3293
                     },
                     "Alias": null
                   }
@@ -1592,7 +1602,7 @@
             },
             "OrderBy": {
               "OrderPos": 3331,
-              "ListEnd": 3350,
+              "ListEnd": 3355,
               "Items": [
                 {
                   "OrderPos": 3331,
@@ -1604,7 +1614,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3344
                 },
                 {
                   "OrderPos": 3331,
@@ -1616,7 +1627,8 @@
                   },
                   "Alias": null,
                   "Direction": "DESC",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3355
                 }
               ],
               "Interpolate": null
@@ -1712,7 +1724,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3478
                 },
                 {
                   "OrderPos": 3465,
@@ -1724,7 +1737,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3484
                 }
               ],
               "Interpolate": null
@@ -1797,7 +1811,7 @@
               "PartitionPos": 3629,
               "Expr": {
                 "ListPos": 3643,
-                "ListEnd": 3670,
+                "ListEnd": 3671,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -1859,7 +1873,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3690
                 }
               ],
               "Interpolate": null
@@ -1936,7 +1951,7 @@
             "PartitionBy": null,
             "OrderBy": {
               "OrderPos": 3780,
-              "ListEnd": 3816,
+              "ListEnd": 3817,
               "Items": [
                 {
                   "OrderPos": 3780,
@@ -1963,7 +1978,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3817
                 }
               ],
               "Interpolate": null
@@ -2033,7 +2049,7 @@
     },
     "Window": {
       "WindowPos": 3905,
-      "EndPos": 4194,
+      "EndPos": 4195,
       "Windows": [
         {
           "Name": {
@@ -2062,7 +2078,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3928
                 }
               ],
               "Interpolate": null
@@ -2116,7 +2133,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 3970
                 }
               ],
               "Interpolate": null
@@ -2186,7 +2204,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 4061
                 }
               ],
               "Interpolate": null
@@ -2261,7 +2280,8 @@
                   },
                   "Alias": null,
                   "Direction": "",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 4144
                 }
               ],
               "Interpolate": null

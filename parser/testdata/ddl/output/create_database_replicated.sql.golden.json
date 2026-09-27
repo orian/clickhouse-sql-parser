@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 93,
+    "StatementEnd": 94,
     "Name": {
       "Name": "test",
       "QuoteType": 3,
@@ -14,14 +14,14 @@
     "OnCluster": null,
     "Engine": {
       "EnginePos": 37,
-      "EngineEnd": 93,
+      "EngineEnd": 94,
       "Name": "Replicated",
       "Params": {
         "LeftParenPos": 54,
         "RightParenPos": 93,
         "Items": {
           "ListPos": 56,
-          "ListEnd": 92,
+          "ListEnd": 93,
           "HasDistinct": false,
           "Items": [
             {

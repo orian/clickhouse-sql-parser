@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 635,
+    "StatementEnd": 636,
     "Name": {
       "Database": {
         "Name": "db",
@@ -56,7 +56,7 @@
       "HasParen": false,
       "Select": {
         "SelectPos": 107,
-        "StatementEnd": 635,
+        "StatementEnd": 636,
         "HasParen": false,
         "With": null,
         "Top": null,
@@ -96,7 +96,7 @@
                 "RightParenPos": 183,
                 "Items": {
                   "ListPos": 168,
-                  "ListEnd": 182,
+                  "ListEnd": 183,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -143,7 +143,7 @@
                 "RightParenPos": 234,
                 "Items": {
                   "ListPos": 219,
-                  "ListEnd": 233,
+                  "ListEnd": 234,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -190,7 +190,7 @@
                 "RightParenPos": 285,
                 "Items": {
                   "ListPos": 270,
-                  "ListEnd": 284,
+                  "ListEnd": 285,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -237,7 +237,7 @@
                 "RightParenPos": 336,
                 "Items": {
                   "ListPos": 321,
-                  "ListEnd": 335,
+                  "ListEnd": 336,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -284,7 +284,7 @@
                 "RightParenPos": 387,
                 "Items": {
                   "ListPos": 372,
-                  "ListEnd": 386,
+                  "ListEnd": 387,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -331,7 +331,7 @@
                 "RightParenPos": 438,
                 "Items": {
                   "ListPos": 423,
-                  "ListEnd": 437,
+                  "ListEnd": 438,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -378,7 +378,7 @@
                 "RightParenPos": 489,
                 "Items": {
                   "ListPos": 474,
-                  "ListEnd": 488,
+                  "ListEnd": 489,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -425,7 +425,7 @@
                 "RightParenPos": 537,
                 "Items": {
                   "ListPos": 522,
-                  "ListEnd": 536,
+                  "ListEnd": 537,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -472,7 +472,7 @@
                 "RightParenPos": 585,
                 "Items": {
                   "ListPos": 570,
-                  "ListEnd": 584,
+                  "ListEnd": 585,
                   "HasDistinct": false,
                   "Items": [
                     {

@@ -5,7 +5,7 @@
     "HasParen": false,
     "With": {
       "WithPos": 0,
-      "EndPos": 24,
+      "EndPos": 25,
       "CTEs": [
         {
           "CTEPos": 9,
@@ -58,8 +58,8 @@
             }
           },
           "Alias": {
-            "SelectPos": 30,
-            "StatementEnd": 58,
+            "SelectPos": 29,
+            "StatementEnd": 59,
             "HasParen": false,
             "With": null,
             "Top": null,

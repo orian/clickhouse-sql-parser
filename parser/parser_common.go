@@ -35,6 +35,13 @@ func (p *Parser) last() *Token {
 	return p.lexer.lastToken
 }
 
+// prevEnd returns the end of the most recently consumed token. Unlike End(),
+// which is the end of the current (not yet consumed) token, it is the right
+// end position for a statement after its last token has been consumed.
+func (p *Parser) prevEnd() Pos {
+	return p.lexer.prevEnd
+}
+
 func (p *Parser) End() Pos {
 	if p.last() == nil {
 		return Pos(p.lexer.current + 1)
@@ -302,14 +309,16 @@ func (p *Parser) parseNumber(pos Pos) (*NumberLiteral, error) {
 	return number, nil
 }
 
-func (p *Parser) parseString(pos Pos) (*StringLiteral, error) {
+func (p *Parser) parseString(_ Pos) (*StringLiteral, error) {
 	lastToken := p.last()
 	if err := p.expectTokenKind(TokenKindString); err != nil {
 		return nil, err
 	}
 
+	// LiteralPos/LiteralEnd are the content offsets taken from the token
+	// (some callers pass the position of a preceding keyword as pos).
 	str := &StringLiteral{
-		LiteralPos: pos,
+		LiteralPos: lastToken.Pos,
 		LiteralEnd: lastToken.End,
 		Literal:    lastToken.String,
 	}

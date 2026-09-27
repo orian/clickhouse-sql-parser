@@ -1,7 +1,7 @@
 [
   {
     "CreatePos": 0,
-    "StatementEnd": 145,
+    "StatementEnd": 146,
     "Name": {
       "Name": "test_collection",
       "QuoteType": 1,
@@ -25,7 +25,8 @@
           "Literal": "http://example.com"
         },
         "Overridable": true,
-        "NotOverridable": false
+        "NotOverridable": false,
+        "ParamEnd": 81
       },
       {
         "ParamPos": 83,
@@ -41,7 +42,8 @@
           "Literal": "key123"
         },
         "Overridable": false,
-        "NotOverridable": true
+        "NotOverridable": true,
+        "ParamEnd": 120
       },
       {
         "ParamPos": 122,

@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 206,
+    "StatementEnd": 207,
     "Name": {
       "Database": {
         "Name": "database_name",
@@ -68,7 +68,7 @@
       "HasParen": false,
       "Select": {
         "SelectPos": 119,
-        "StatementEnd": 206,
+        "StatementEnd": 207,
         "HasParen": false,
         "With": null,
         "Top": null,
@@ -80,7 +80,7 @@
               "Name": "*",
               "QuoteType": 0,
               "NamePos": 126,
-              "NameEnd": 126
+              "NameEnd": 127
             },
             "Modifiers": [],
             "Alias": null
@@ -91,7 +91,7 @@
           "Expr": {
             "Table": {
               "TablePos": 133,
-              "TableEnd": 206,
+              "TableEnd": 207,
               "Alias": null,
               "Expr": {
                 "Name": {
@@ -130,7 +130,7 @@
               "HasFinal": false,
               "Stream": null
             },
-            "StatementEnd": 206,
+            "StatementEnd": 207,
             "SampleRatio": null,
             "HasFinal": false
           }

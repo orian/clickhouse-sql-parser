@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 28,
+    "StatementEnd": 29,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -48,7 +48,7 @@
       "Expr": {
         "Table": {
           "TablePos": 23,
-          "TableEnd": 28,
+          "TableEnd": 29,
           "Alias": null,
           "Expr": {
             "Database": null,
@@ -62,7 +62,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 28,
+        "StatementEnd": 29,
         "SampleRatio": null,
         "HasFinal": false
       }

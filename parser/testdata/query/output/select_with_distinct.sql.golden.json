@@ -21,7 +21,7 @@
             "RightParenPos": 32,
             "Items": {
               "ListPos": 13,
-              "ListEnd": 31,
+              "ListEnd": 32,
               "HasDistinct": true,
               "Items": [
                 {

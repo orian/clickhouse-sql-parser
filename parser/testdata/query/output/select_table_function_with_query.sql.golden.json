@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 125,
+    "StatementEnd": 126,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -57,7 +57,8 @@
             "UnionAll": null,
             "UnionDistinct": null,
             "Except": null
-          }
+          },
+          "RightParenPos": 20
         },
         "Modifiers": [],
         "Alias": {
@@ -83,7 +84,7 @@
       "Expr": {
         "Table": {
           "TablePos": 46,
-          "TableEnd": 125,
+          "TableEnd": 126,
           "Alias": null,
           "Expr": {
             "Name": {
@@ -171,7 +172,8 @@
                                 "UnionAll": null,
                                 "UnionDistinct": null,
                                 "Except": null
-                              }
+                              },
+                              "RightParenPos": 105
                             },
                             {
                               "NumPos": 116,
@@ -191,7 +193,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 125,
+        "StatementEnd": 126,
         "SampleRatio": null,
         "HasFinal": false
       }

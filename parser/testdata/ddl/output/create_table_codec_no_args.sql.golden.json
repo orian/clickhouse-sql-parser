@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 0,
+    "StatementEnd": 73,
     "OrReplace": false,
     "Name": {
       "Database": null,
@@ -50,7 +50,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 52,
-            "RightParenPos": 70,
+            "RightParenPos": 69,
             "Type": null,
             "TypeLevel": null,
             "Name": {

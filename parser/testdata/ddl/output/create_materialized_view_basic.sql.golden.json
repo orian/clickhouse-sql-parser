@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 537,
+    "StatementEnd": 566,
     "Name": {
       "Database": {
         "Name": "infra_bm",
@@ -56,7 +56,7 @@
         "Columns": [
           {
             "NamePos": 106,
-            "ColumnEnd": 122,
+            "ColumnEnd": 123,
             "Name": {
               "Ident": {
                 "Name": "f1",
@@ -265,7 +265,7 @@
       "HasParen": false,
       "Select": {
         "SelectPos": 208,
-        "StatementEnd": 537,
+        "StatementEnd": 538,
         "HasParen": false,
         "With": null,
         "Top": null,
@@ -305,7 +305,7 @@
                 "RightParenPos": 277,
                 "Items": {
                   "ListPos": 261,
-                  "ListEnd": 276,
+                  "ListEnd": 277,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -352,7 +352,7 @@
                 "RightParenPos": 335,
                 "Items": {
                   "ListPos": 319,
-                  "ListEnd": 334,
+                  "ListEnd": 335,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -399,7 +399,7 @@
                 "RightParenPos": 396,
                 "Items": {
                   "ListPos": 380,
-                  "ListEnd": 395,
+                  "ListEnd": 396,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -446,7 +446,7 @@
                 "RightParenPos": 449,
                 "Items": {
                   "ListPos": 433,
-                  "ListEnd": 448,
+                  "ListEnd": 449,
                   "HasDistinct": false,
                   "Items": [
                     {

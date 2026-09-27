@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 86,
+    "StatementEnd": 87,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -13,7 +13,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 7,
-          "NameEnd": 7
+          "NameEnd": 8
         },
         "Modifiers": [],
         "Alias": null
@@ -54,7 +54,7 @@
     "Limit": null,
     "Settings": {
       "SettingsPos": 25,
-      "ListEnd": 86,
+      "ListEnd": 87,
       "Items": [
         {
           "SettingsPos": 34,
@@ -93,7 +93,7 @@
   },
   {
     "SelectPos": 90,
-    "StatementEnd": 182,
+    "StatementEnd": 183,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -105,7 +105,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 97,
-          "NameEnd": 97
+          "NameEnd": 98
         },
         "Modifiers": [],
         "Alias": null
@@ -146,7 +146,7 @@
     "Limit": null,
     "Settings": {
       "SettingsPos": 115,
-      "ListEnd": 182,
+      "ListEnd": 183,
       "Items": [
         {
           "SettingsPos": 124,
@@ -185,7 +185,7 @@
   },
   {
     "SelectPos": 186,
-    "StatementEnd": 278,
+    "StatementEnd": 279,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -197,7 +197,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 193,
-          "NameEnd": 193
+          "NameEnd": 194
         },
         "Modifiers": [],
         "Alias": null
@@ -238,7 +238,7 @@
     "Limit": null,
     "Settings": {
       "SettingsPos": 211,
-      "ListEnd": 278,
+      "ListEnd": 279,
       "Items": [
         {
           "SettingsPos": 220,
@@ -289,7 +289,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 289,
-          "NameEnd": 289
+          "NameEnd": 290
         },
         "Modifiers": [],
         "Alias": null
@@ -330,7 +330,7 @@
     "Limit": null,
     "Settings": {
       "SettingsPos": 307,
-      "ListEnd": 402,
+      "ListEnd": 403,
       "Items": [
         {
           "SettingsPos": 316,
@@ -377,7 +377,7 @@
   },
   {
     "SelectPos": 418,
-    "StatementEnd": 635,
+    "StatementEnd": 636,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -500,7 +500,8 @@
                   "UnionAll": null,
                   "UnionDistinct": null,
                   "Except": null
-                }
+                },
+                "RightParenPos": 485
               },
               "AliasPos": 487,
               "Alias": {
@@ -596,7 +597,8 @@
                     "UnionAll": null,
                     "UnionDistinct": null,
                     "Except": null
-                  }
+                  },
+                  "RightParenPos": 528
                 },
                 "AliasPos": 530,
                 "Alias": {
@@ -686,7 +688,7 @@
     "Limit": null,
     "Settings": {
       "SettingsPos": 550,
-      "ListEnd": 635,
+      "ListEnd": 636,
       "Items": [
         {
           "SettingsPos": 559,

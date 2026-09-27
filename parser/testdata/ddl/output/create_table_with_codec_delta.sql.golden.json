@@ -50,7 +50,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 53,
-            "RightParenPos": 74,
+            "RightParenPos": 73,
             "Type": {
               "Name": "Delta",
               "QuoteType": 1,
@@ -104,7 +104,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 93,
-            "RightParenPos": 107,
+            "RightParenPos": 106,
             "Type": null,
             "TypeLevel": null,
             "Name": {
@@ -153,7 +153,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 126,
-            "RightParenPos": 150,
+            "RightParenPos": 149,
             "Type": {
               "Name": "Delta",
               "QuoteType": 1,
@@ -212,7 +212,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 172,
-            "RightParenPos": 199,
+            "RightParenPos": 198,
             "Type": {
               "Name": "DoubleDelta",
               "QuoteType": 1,
@@ -266,7 +266,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 218,
-            "RightParenPos": 237,
+            "RightParenPos": 236,
             "Type": {
               "Name": "Gorilla",
               "QuoteType": 1,
@@ -315,7 +315,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 255,
-            "RightParenPos": 270,
+            "RightParenPos": 269,
             "Type": {
               "Name": "T64",
               "QuoteType": 1,
@@ -374,7 +374,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 299,
-            "RightParenPos": 313,
+            "RightParenPos": 312,
             "Type": null,
             "TypeLevel": null,
             "Name": {
@@ -458,7 +458,7 @@
         "RightParenPos": 437,
         "Items": {
           "ListPos": 407,
-          "ListEnd": 436,
+          "ListEnd": 437,
           "HasDistinct": false,
           "Items": [
             {
@@ -487,7 +487,7 @@
         "PartitionPos": 439,
         "Expr": {
           "ListPos": 452,
-          "ListEnd": 477,
+          "ListEnd": 478,
           "HasDistinct": false,
           "Items": [
             {
@@ -503,7 +503,7 @@
                   "RightParenPos": 477,
                   "Items": {
                     "ListPos": 467,
-                    "ListEnd": 476,
+                    "ListEnd": 477,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -547,7 +547,7 @@
                   "RightParenPos": 564,
                   "Items": {
                     "ListPos": 554,
-                    "ListEnd": 563,
+                    "ListEnd": 564,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -601,7 +601,7 @@
                   "RightParenPos": 608,
                   "Items": {
                     "ListPos": 598,
-                    "ListEnd": 607,
+                    "ListEnd": 608,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -724,7 +724,7 @@
       },
       "OrderBy": {
         "OrderPos": 479,
-        "ListEnd": 533,
+        "ListEnd": 534,
         "Items": [
           {
             "OrderPos": 479,
@@ -733,7 +733,7 @@
               "RightParenPos": 533,
               "Items": {
                 "ListPos": 489,
-                "ListEnd": 532,
+                "ListEnd": 533,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -749,7 +749,7 @@
                         "RightParenPos": 522,
                         "Items": {
                           "ListPos": 512,
-                          "ListEnd": 521,
+                          "ListEnd": 522,
                           "HasDistinct": false,
                           "Items": [
                             {

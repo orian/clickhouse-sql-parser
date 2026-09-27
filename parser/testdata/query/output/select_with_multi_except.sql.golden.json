@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 32,
+    "StatementEnd": 113,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -24,7 +24,7 @@
       "Expr": {
         "Table": {
           "TablePos": 19,
-          "TableEnd": 32,
+          "TableEnd": 33,
           "Alias": null,
           "Expr": {
             "Name": {
@@ -55,7 +55,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 32,
+        "StatementEnd": 33,
         "SampleRatio": null,
         "HasFinal": false
       }
@@ -76,7 +76,7 @@
     "UnionDistinct": null,
     "Except": {
       "SelectPos": 41,
-      "StatementEnd": 72,
+      "StatementEnd": 113,
       "HasParen": false,
       "With": null,
       "Top": null,
@@ -99,7 +99,7 @@
         "Expr": {
           "Table": {
             "TablePos": 60,
-            "TableEnd": 72,
+            "TableEnd": 73,
             "Alias": null,
             "Expr": {
               "Name": {
@@ -130,7 +130,7 @@
             "HasFinal": false,
             "Stream": null
           },
-          "StatementEnd": 72,
+          "StatementEnd": 73,
           "SampleRatio": null,
           "HasFinal": false
         }
@@ -151,7 +151,7 @@
       "UnionDistinct": null,
       "Except": {
         "SelectPos": 81,
-        "StatementEnd": 112,
+        "StatementEnd": 113,
         "HasParen": false,
         "With": null,
         "Top": null,
@@ -174,7 +174,7 @@
           "Expr": {
             "Table": {
               "TablePos": 100,
-              "TableEnd": 112,
+              "TableEnd": 113,
               "Alias": null,
               "Expr": {
                 "Name": {
@@ -205,7 +205,7 @@
               "HasFinal": false,
               "Stream": null
             },
-            "StatementEnd": 112,
+            "StatementEnd": 113,
             "SampleRatio": null,
             "HasFinal": false
           }

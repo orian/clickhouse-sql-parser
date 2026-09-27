@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 139,
+    "StatementEnd": 140,
     "OrReplace": false,
     "Name": {
       "Database": null,
@@ -23,7 +23,7 @@
       "Columns": [
         {
           "NamePos": 21,
-          "ColumnEnd": 101,
+          "ColumnEnd": 102,
           "Name": {
             "Ident": {
               "Name": "j",
@@ -162,7 +162,7 @@
     },
     "Engine": {
       "EnginePos": 105,
-      "EngineEnd": 139,
+      "EngineEnd": 140,
       "Name": "MergeTree",
       "Params": null,
       "PrimaryKey": null,
@@ -172,7 +172,7 @@
       "Settings": null,
       "OrderBy": {
         "OrderPos": 124,
-        "ListEnd": 139,
+        "ListEnd": 140,
         "Items": [
           {
             "OrderPos": 124,
@@ -198,7 +198,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 140
           }
         ],
         "Interpolate": null

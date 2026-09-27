@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 181,
+    "StatementEnd": 186,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -21,7 +21,7 @@
             "RightParenPos": 59,
             "Items": {
               "ListPos": 29,
-              "ListEnd": 58,
+              "ListEnd": 59,
               "HasDistinct": false,
               "Items": [
                 {
@@ -128,11 +128,11 @@
     },
     "GroupBy": {
       "GroupByPos": 112,
-      "GroupByEnd": 145,
+      "GroupByEnd": 144,
       "AggregateType": "",
       "Expr": {
         "ListPos": 121,
-        "ListEnd": 143,
+        "ListEnd": 144,
         "HasDistinct": false,
         "Items": [
           {
@@ -180,7 +180,7 @@
     "Having": null,
     "OrderBy": {
       "OrderPos": 145,
-      "ListEnd": 181,
+      "ListEnd": 186,
       "Items": [
         {
           "OrderPos": 145,
@@ -222,7 +222,8 @@
           },
           "Alias": null,
           "Direction": "ASC",
-          "Fill": null
+          "Fill": null,
+          "OrderEnd": 186
         }
       ],
       "Interpolate": null

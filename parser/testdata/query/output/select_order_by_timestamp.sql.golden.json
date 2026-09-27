@@ -63,7 +63,8 @@
           },
           "Alias": null,
           "Direction": "",
-          "Fill": null
+          "Fill": null,
+          "OrderEnd": 47
         }
       ],
       "Interpolate": null

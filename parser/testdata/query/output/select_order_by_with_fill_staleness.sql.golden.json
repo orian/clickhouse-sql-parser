@@ -69,7 +69,7 @@
       "Expr": {
         "Table": {
           "TablePos": 66,
-          "TableEnd": 76,
+          "TableEnd": 77,
           "Alias": null,
           "Expr": {
             "Name": {
@@ -94,7 +94,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 76,
+        "StatementEnd": 77,
         "SampleRatio": null,
         "HasFinal": false
       }
@@ -166,17 +166,18 @@
           "Alias": null,
           "Direction": "",
           "Fill": {
-            "FillPos": 125,
+            "FillPos": 120,
             "From": null,
             "To": null,
             "Step": null,
             "Staleness": {
-              "NumPos": 125,
+              "NumPos": 120,
               "NumEnd": 137,
               "Literal": "11",
               "Base": 10
             }
-          }
+          },
+          "OrderEnd": 137
         }
       ],
       "Interpolate": null

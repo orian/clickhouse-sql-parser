@@ -575,7 +575,7 @@ func (p *Parser) parseAlterTableFreezePartition(pos Pos) (AlterTableClause, erro
 	}
 	alterTable := &AlterTableFreezePartition{
 		FreezePos:    pos,
-		StatementEnd: p.Pos(),
+		StatementEnd: p.prevEnd(),
 	}
 	if p.matchKeyword(KeywordPartition) {
 		partition, err := p.parsePartitionClause(p.Pos())
@@ -600,7 +600,7 @@ func (p *Parser) parseAlterTableRemoveTTL(pos Pos) (AlterTableClause, error) {
 
 	return &AlterTableRemoveTTL{
 		RemovePos:    pos,
-		StatementEnd: p.Pos(),
+		StatementEnd: p.prevEnd(),
 	}, nil
 }
 
@@ -802,6 +802,9 @@ func (p *Parser) parseAlterTableModifyColumn(pos Pos) (AlterTableClause, error) 
 		return nil, err
 	}
 	alterTableModifyColumn.RemovePropertyType = removePropertyType
+	if removePropertyType != nil {
+		alterTableModifyColumn.StatementEnd = p.prevEnd()
+	}
 
 	return alterTableModifyColumn, nil
 }

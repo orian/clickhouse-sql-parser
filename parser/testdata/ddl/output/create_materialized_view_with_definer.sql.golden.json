@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 355,
+    "StatementEnd": 380,
     "Name": {
       "Database": null,
       "Table": {
@@ -72,7 +72,7 @@
         "Columns": [
           {
             "NamePos": 103,
-            "ColumnEnd": 126,
+            "ColumnEnd": 127,
             "Name": {
               "Ident": {
                 "Name": "timestamp",
@@ -185,7 +185,7 @@
       "HasParen": true,
       "Select": {
         "SelectPos": 218,
-        "StatementEnd": 355,
+        "StatementEnd": 356,
         "HasParen": false,
         "With": null,
         "Top": null,
@@ -295,7 +295,7 @@
                 "RightParenPos": 355,
                 "Items": {
                   "ListPos": 330,
-                  "ListEnd": 354,
+                  "ListEnd": 355,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -378,7 +378,8 @@
         "UnionAll": null,
         "UnionDistinct": null,
         "Except": null
-      }
+      },
+      "RightParenPos": 356
     },
     "Populate": false,
     "Comment": {

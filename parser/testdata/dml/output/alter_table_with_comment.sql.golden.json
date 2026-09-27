@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 106,
+    "StatementEnd": 107,
     "TableIdentifier": {
       "Database": {
         "Name": "test",
@@ -29,10 +29,10 @@
     "AlterExprs": [
       {
         "AddPos": 59,
-        "StatementEnd": 106,
+        "StatementEnd": 107,
         "Column": {
           "NamePos": 70,
-          "ColumnEnd": 106,
+          "ColumnEnd": 107,
           "Name": {
             "Ident": {
               "Name": "a",
@@ -69,7 +69,7 @@
           "Codec": null,
           "TTL": null,
           "Comment": {
-            "LiteralPos": 93,
+            "LiteralPos": 102,
             "LiteralEnd": 106,
             "Literal": "test"
           },
@@ -85,7 +85,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 110,
-    "StatementEnd": 202,
+    "StatementEnd": 203,
     "TableIdentifier": {
       "Database": {
         "Name": "test",
@@ -111,10 +111,10 @@
     "AlterExprs": [
       {
         "AddPos": 169,
-        "StatementEnd": 202,
+        "StatementEnd": 203,
         "Column": {
           "NamePos": 180,
-          "ColumnEnd": 202,
+          "ColumnEnd": 203,
           "Name": {
             "Ident": {
               "Name": "hello",

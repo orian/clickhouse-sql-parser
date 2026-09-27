@@ -108,7 +108,7 @@
         },
         {
           "NamePos": 84,
-          "ColumnEnd": 111,
+          "ColumnEnd": 112,
           "Name": {
             "Ident": {
               "Name": "other_name",
@@ -178,7 +178,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 146
           }
         ],
         "Interpolate": null

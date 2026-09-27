@@ -35,14 +35,14 @@
     "HasAppend": false,
     "Engine": {
       "EnginePos": 60,
-      "EngineEnd": 190,
+      "EngineEnd": 191,
       "Name": "ReplicatedAggregatingMergeTree",
       "Params": {
         "LeftParenPos": 99,
         "RightParenPos": 150,
         "Items": {
           "ListPos": 101,
-          "ListEnd": 149,
+          "ListEnd": 150,
           "HasDistinct": false,
           "Items": [
             {
@@ -71,7 +71,7 @@
         "PartitionPos": 152,
         "Expr": {
           "ListPos": 165,
-          "ListEnd": 176,
+          "ListEnd": 177,
           "HasDistinct": false,
           "Items": [
             {
@@ -116,7 +116,7 @@
       "Settings": null,
       "OrderBy": {
         "OrderPos": 178,
-        "ListEnd": 190,
+        "ListEnd": 191,
         "Items": [
           {
             "OrderPos": 178,
@@ -144,7 +144,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 191
           }
         ],
         "Interpolate": null
@@ -254,7 +255,7 @@
                   "HasParen": true,
                   "Select": {
                     "SelectPos": 254,
-                    "StatementEnd": 433,
+                    "StatementEnd": 434,
                     "HasParen": false,
                     "With": null,
                     "Top": null,
@@ -340,7 +341,7 @@
                             },
                             "OrderBy": {
                               "OrderPos": 323,
-                              "ListEnd": 346,
+                              "ListEnd": 347,
                               "Items": [
                                 {
                                   "OrderPos": 323,
@@ -385,7 +386,8 @@
                                   },
                                   "Alias": null,
                                   "Direction": "",
-                                  "Fill": null
+                                  "Fill": null,
+                                  "OrderEnd": 347
                                 }
                               ],
                               "Interpolate": null
@@ -449,7 +451,7 @@
                             "RightParenPos": 410,
                             "Items": {
                               "ListPos": 391,
-                              "ListEnd": 409,
+                              "ListEnd": 410,
                               "HasDistinct": false,
                               "Items": [
                                 {
@@ -517,7 +519,8 @@
                     "UnionAll": null,
                     "UnionDistinct": null,
                     "Except": null
-                  }
+                  },
+                  "RightParenPos": 439
                 },
                 "AliasPos": 444,
                 "Alias": {

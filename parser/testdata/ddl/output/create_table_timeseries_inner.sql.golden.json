@@ -60,7 +60,7 @@
         },
         {
           "NamePos": 31,
-          "ColumnEnd": 54,
+          "ColumnEnd": 55,
           "Name": {
             "Ident": {
               "Name": "timestamp",
@@ -155,7 +155,7 @@
     "TimeSeriesTargets": [
       {
         "KindPos": 94,
-        "KindEnd": 228,
+        "KindEnd": 229,
         "Kind": "samples",
         "Keyword": "SAMPLES",
         "External": null,
@@ -198,7 +198,7 @@
             },
             {
               "NamePos": 129,
-              "ColumnEnd": 152,
+              "ColumnEnd": 153,
               "Name": {
                 "Ident": {
                   "Name": "timestamp",
@@ -276,7 +276,7 @@
         },
         "InnerEngine": {
           "EnginePos": 186,
-          "EngineEnd": 228,
+          "EngineEnd": 229,
           "Name": "MergeTree",
           "Params": null,
           "PrimaryKey": null,
@@ -286,7 +286,7 @@
           "Settings": null,
           "OrderBy": {
             "OrderPos": 205,
-            "ListEnd": 228,
+            "ListEnd": 229,
             "Items": [
               {
                 "OrderPos": 205,
@@ -323,7 +323,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 229
               }
             ],
             "Interpolate": null
@@ -434,7 +435,8 @@
                 },
                 "Alias": null,
                 "Direction": "",
-                "Fill": null
+                "Fill": null,
+                "OrderEnd": 316
               }
             ],
             "Interpolate": null

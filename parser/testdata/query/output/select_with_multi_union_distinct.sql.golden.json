@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 14,
+    "StatementEnd": 74,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -40,7 +40,7 @@
     "UnionAll": null,
     "UnionDistinct": {
       "SelectPos": 30,
-      "StatementEnd": 44,
+      "StatementEnd": 74,
       "HasParen": false,
       "With": null,
       "Top": null,

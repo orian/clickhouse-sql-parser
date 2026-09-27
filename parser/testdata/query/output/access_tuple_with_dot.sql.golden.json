@@ -22,7 +22,7 @@
               "RightParenPos": 24,
               "Items": {
                 "ListPos": 14,
-                "ListEnd": 23,
+                "ListEnd": 24,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -96,7 +96,7 @@
   },
   {
     "SelectPos": 37,
-    "StatementEnd": 336,
+    "StatementEnd": 337,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -116,7 +116,7 @@
             "RightParenPos": 151,
             "Items": {
               "ListPos": 56,
-              "ListEnd": 150,
+              "ListEnd": 151,
               "HasDistinct": false,
               "Items": [
                 {
@@ -311,7 +311,7 @@
             "RightParenPos": 257,
             "Items": {
               "ListPos": 162,
-              "ListEnd": 256,
+              "ListEnd": 257,
               "HasDistinct": false,
               "Items": [
                 {
@@ -520,7 +520,7 @@
               "RightParenPos": 291,
               "Items": {
                 "ListPos": 281,
-                "ListEnd": 290,
+                "ListEnd": 291,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -593,7 +593,7 @@
                       "RightParenPos": 333,
                       "Items": {
                         "ListPos": 323,
-                        "ListEnd": 332,
+                        "ListEnd": 333,
                         "HasDistinct": false,
                         "Items": [
                           {

@@ -60,7 +60,7 @@
         },
         {
           "NamePos": 52,
-          "ColumnEnd": 71,
+          "ColumnEnd": 72,
           "Name": {
             "Ident": {
               "Name": "vec",

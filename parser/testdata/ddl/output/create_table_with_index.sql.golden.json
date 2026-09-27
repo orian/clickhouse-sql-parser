@@ -50,7 +50,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 60,
-            "RightParenPos": 74,
+            "RightParenPos": 73,
             "Type": null,
             "TypeLevel": null,
             "Name": {
@@ -99,7 +99,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 89,
-            "RightParenPos": 110,
+            "RightParenPos": 109,
             "Type": {
               "Name": "Delta",
               "QuoteType": 1,
@@ -153,7 +153,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 126,
-            "RightParenPos": 147,
+            "RightParenPos": 146,
             "Type": {
               "Name": "Delta",
               "QuoteType": 1,
@@ -207,7 +207,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 166,
-            "RightParenPos": 180,
+            "RightParenPos": 179,
             "Type": null,
             "TypeLevel": null,
             "Name": {
@@ -229,7 +229,7 @@
         },
         {
           "NamePos": 184,
-          "ColumnEnd": 200,
+          "ColumnEnd": 201,
           "Name": {
             "Ident": {
               "Name": "arr",
@@ -300,7 +300,7 @@
           "AliasExpr": null,
           "Codec": {
             "CodecPos": 221,
-            "RightParenPos": 235,
+            "RightParenPos": 234,
             "Type": null,
             "TypeLevel": null,
             "Name": {
@@ -818,7 +818,7 @@
         "RightParenPos": 871,
         "Items": {
           "ListPos": 841,
-          "ListEnd": 870,
+          "ListEnd": 871,
           "HasDistinct": false,
           "Items": [
             {
@@ -847,7 +847,7 @@
         "PartitionPos": 873,
         "Expr": {
           "ListPos": 886,
-          "ListEnd": 911,
+          "ListEnd": 912,
           "HasDistinct": false,
           "Items": [
             {
@@ -863,7 +863,7 @@
                   "RightParenPos": 911,
                   "Items": {
                     "ListPos": 901,
-                    "ListEnd": 910,
+                    "ListEnd": 911,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -907,7 +907,7 @@
                   "RightParenPos": 998,
                   "Items": {
                     "ListPos": 988,
-                    "ListEnd": 997,
+                    "ListEnd": 998,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -961,7 +961,7 @@
                   "RightParenPos": 1042,
                   "Items": {
                     "ListPos": 1032,
-                    "ListEnd": 1041,
+                    "ListEnd": 1042,
                     "HasDistinct": false,
                     "Items": [
                       {
@@ -1084,7 +1084,7 @@
       },
       "OrderBy": {
         "OrderPos": 913,
-        "ListEnd": 967,
+        "ListEnd": 968,
         "Items": [
           {
             "OrderPos": 913,
@@ -1093,7 +1093,7 @@
               "RightParenPos": 967,
               "Items": {
                 "ListPos": 923,
-                "ListEnd": 966,
+                "ListEnd": 967,
                 "HasDistinct": false,
                 "Items": [
                   {
@@ -1109,7 +1109,7 @@
                         "RightParenPos": 956,
                         "Items": {
                           "ListPos": 946,
-                          "ListEnd": 955,
+                          "ListEnd": 956,
                           "HasDistinct": false,
                           "Items": [
                             {

@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 508,
+    "StatementEnd": 509,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -172,7 +172,7 @@
             },
             "OrderBy": {
               "OrderPos": 255,
-              "ListEnd": 273,
+              "ListEnd": 278,
               "Items": [
                 {
                   "OrderPos": 255,
@@ -184,7 +184,8 @@
                   },
                   "Alias": null,
                   "Direction": "DESC",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 278
                 }
               ],
               "Interpolate": null
@@ -297,7 +298,7 @@
     },
     "Window": {
       "WindowPos": 387,
-      "EndPos": 508,
+      "EndPos": 509,
       "Windows": [
         {
           "Name": {
@@ -333,7 +334,7 @@
             },
             "OrderBy": {
               "OrderPos": 436,
-              "ListEnd": 454,
+              "ListEnd": 459,
               "Items": [
                 {
                   "OrderPos": 436,
@@ -345,7 +346,8 @@
                   },
                   "Alias": null,
                   "Direction": "DESC",
-                  "Fill": null
+                  "Fill": null,
+                  "OrderEnd": 459
                 }
               ],
               "Interpolate": null

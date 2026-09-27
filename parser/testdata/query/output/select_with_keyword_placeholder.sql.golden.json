@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 20,
+    "StatementEnd": 21,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -50,7 +50,7 @@
   },
   {
     "SelectPos": 23,
-    "StatementEnd": 53,
+    "StatementEnd": 54,
     "HasParen": false,
     "With": null,
     "Top": null,
@@ -70,7 +70,7 @@
             "RightParenPos": 53,
             "Items": {
               "ListPos": 39,
-              "ListEnd": 52,
+              "ListEnd": 53,
               "HasDistinct": false,
               "Items": [
                 {

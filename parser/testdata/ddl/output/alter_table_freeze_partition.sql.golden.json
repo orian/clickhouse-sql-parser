@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 81,
+    "StatementEnd": 82,
     "TableIdentifier": {
       "Database": {
         "Name": "test",
@@ -29,7 +29,7 @@
     "AlterExprs": [
       {
         "FreezePos": 53,
-        "StatementEnd": 81,
+        "StatementEnd": 82,
         "Partition": {
           "PartitionPos": 60,
           "Expr": {

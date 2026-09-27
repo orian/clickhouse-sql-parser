@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 399,
+    "StatementEnd": 400,
     "OrReplace": false,
     "Name": {
       "Database": {
@@ -195,7 +195,7 @@
         },
         {
           "NamePos": 159,
-          "ColumnEnd": 179,
+          "ColumnEnd": 180,
           "Name": {
             "Ident": {
               "Name": "f5",
@@ -279,7 +279,7 @@
         },
         {
           "NamePos": 201,
-          "ColumnEnd": 225,
+          "ColumnEnd": 226,
           "Name": {
             "Ident": {
               "Name": "f7",
@@ -334,14 +334,14 @@
     },
     "Engine": {
       "EnginePos": 229,
-      "EngineEnd": 399,
+      "EngineEnd": 400,
       "Name": "ReplicatedMergeTree",
       "Params": {
         "LeftParenPos": 257,
         "RightParenPos": 325,
         "Items": {
           "ListPos": 259,
-          "ListEnd": 324,
+          "ListEnd": 325,
           "HasDistinct": false,
           "Items": [
             {
@@ -370,7 +370,7 @@
         "PartitionPos": 353,
         "Expr": {
           "ListPos": 366,
-          "ListEnd": 379,
+          "ListEnd": 380,
           "HasDistinct": false,
           "Items": [
             {
@@ -450,7 +450,7 @@
       "Settings": null,
       "OrderBy": {
         "OrderPos": 381,
-        "ListEnd": 399,
+        "ListEnd": 400,
         "Items": [
           {
             "OrderPos": 381,
@@ -496,7 +496,8 @@
             },
             "Alias": null,
             "Direction": "",
-            "Fill": null
+            "Fill": null,
+            "OrderEnd": 400
           }
         ],
         "Interpolate": null

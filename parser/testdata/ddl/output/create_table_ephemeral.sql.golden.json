@@ -55,7 +55,7 @@
         },
         {
           "NamePos": 182,
-          "ColumnEnd": 310,
+          "ColumnEnd": 312,
           "Name": {
             "Ident": {
               "Name": "properties_map_ephemeral",
@@ -112,7 +112,7 @@
                 "RightParenPos": 287,
                 "Items": {
                   "ListPos": 267,
-                  "ListEnd": 286,
+                  "ListEnd": 287,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -144,7 +144,8 @@
               "LiteralPos": 291,
               "LiteralEnd": 310,
               "Literal": "Map(String, String)"
-            }
+            },
+            "RightParenPos": 311
           },
           "AliasExpr": null,
           "Codec": null,
@@ -154,7 +155,7 @@
         },
         {
           "NamePos": 318,
-          "ColumnEnd": 356,
+          "ColumnEnd": 357,
           "Name": {
             "Ident": {
               "Name": "hidden",
@@ -222,7 +223,7 @@
         },
         {
           "NamePos": 390,
-          "ColumnEnd": 447,
+          "ColumnEnd": 448,
           "Name": {
             "Ident": {
               "Name": "bare_with_comment",
@@ -250,7 +251,7 @@
           "Codec": null,
           "TTL": null,
           "Comment": {
-            "LiteralPos": 425,
+            "LiteralPos": 434,
             "LiteralEnd": 447,
             "Literal": "no expression"
           },
@@ -258,7 +259,7 @@
         },
         {
           "NamePos": 454,
-          "ColumnEnd": 575,
+          "ColumnEnd": 577,
           "Name": {
             "Ident": {
               "Name": "properties_map",
@@ -313,7 +314,7 @@
                 "RightParenPos": 552,
                 "Items": {
                   "ListPos": 532,
-                  "ListEnd": 551,
+                  "ListEnd": 552,
                   "HasDistinct": false,
                   "Items": [
                     {
@@ -345,7 +346,8 @@
               "LiteralPos": 556,
               "LiteralEnd": 575,
               "Literal": "Map(String, String)"
-            }
+            },
+            "RightParenPos": 576
           },
           "IsEphemeral": false,
           "EphemeralExpr": null,

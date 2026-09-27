@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "CreatePos": 0,
-    "StatementEnd": 295,
+    "StatementEnd": 296,
     "OrReplace": true,
     "Name": {
       "Database": null,
@@ -25,7 +25,7 @@
       "HasParen": false,
       "Select": {
         "SelectPos": 31,
-        "StatementEnd": 295,
+        "StatementEnd": 296,
         "HasParen": false,
         "With": null,
         "Top": null,
@@ -129,7 +129,8 @@
                       },
                       "Alias": null,
                       "Direction": "",
-                      "Fill": null
+                      "Fill": null,
+                      "OrderEnd": 170
                     }
                   ],
                   "Interpolate": null

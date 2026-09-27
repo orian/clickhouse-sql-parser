@@ -1,11 +1,11 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 48,
+    "StatementEnd": 49,
     "HasParen": false,
     "With": {
       "WithPos": 0,
-      "EndPos": 9,
+      "EndPos": 10,
       "CTEs": [
         {
           "CTEPos": 6,
@@ -16,8 +16,8 @@
             "NameEnd": 9
           },
           "Alias": {
-            "SelectPos": 15,
-            "StatementEnd": 28,
+            "SelectPos": 14,
+            "StatementEnd": 29,
             "HasParen": false,
             "With": null,
             "Top": null,
@@ -69,7 +69,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 37,
-          "NameEnd": 37
+          "NameEnd": 38
         },
         "Modifiers": [],
         "Alias": null
@@ -80,7 +80,7 @@
       "Expr": {
         "Table": {
           "TablePos": 45,
-          "TableEnd": 48,
+          "TableEnd": 49,
           "Alias": null,
           "Expr": {
             "Database": null,
@@ -94,7 +94,7 @@
           "HasFinal": false,
           "Stream": null
         },
-        "StatementEnd": 48,
+        "StatementEnd": 49,
         "SampleRatio": null,
         "HasFinal": false
       }

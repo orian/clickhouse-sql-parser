@@ -101,7 +101,7 @@ func (p *Parser) parseDropStmt(pos Pos) (*DropStmt, error) {
 		IsTemporary:  isTemporary,
 		Modifier:     modifier,
 		Permanently:  permanently,
-		StatementEnd: p.Pos(),
+		StatementEnd: p.prevEnd(),
 	}, nil
 }
 

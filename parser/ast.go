@@ -368,7 +368,7 @@ func (a *AlterTableDropPartition) Pos() Pos {
 
 func (a *AlterTableDropPartition) End() Pos {
 	if a.Settings != nil {
-		a.Settings.End()
+		return a.Settings.End()
 	}
 	return a.Partition.End()
 }
@@ -651,7 +651,7 @@ func (p *ProjectionSelectStmt) Pos() Pos {
 }
 
 func (p *ProjectionSelectStmt) End() Pos {
-	return p.RightParenPos
+	return p.RightParenPos + 1
 }
 
 func (p *ProjectionSelectStmt) String() string {
@@ -698,7 +698,7 @@ func (t *TableProjection) Pos() Pos {
 
 func (t *TableProjection) End() Pos {
 	if t.Settings != nil {
-		return t.RightParenPos
+		return t.RightParenPos + 1
 	}
 	return t.Select.End()
 }
@@ -1474,7 +1474,7 @@ type IndexTypeKwarg struct {
 }
 
 func (k *IndexTypeKwarg) Pos() Pos {
-	return k.Name.NamePos
+	return k.Name.Pos()
 }
 
 func (k *IndexTypeKwarg) End() Pos {
@@ -1503,11 +1503,11 @@ type IndexTypeKwargs struct {
 }
 
 func (s *IndexTypeKwargs) Pos() Pos {
-	return s.Name.NamePos
+	return s.Name.Pos()
 }
 
 func (s *IndexTypeKwargs) End() Pos {
-	return s.RightParenPos
+	return s.RightParenPos + 1
 }
 
 func (s *IndexTypeKwargs) String() string {
@@ -1541,12 +1541,26 @@ type Ident struct {
 	NameEnd   Pos
 }
 
+// Pos and End span the whole identifier, including the quotes of a quoted
+// one. NamePos and NameEnd are the offsets of the name between the quotes.
 func (i *Ident) Pos() Pos {
+	if i.isQuoted() {
+		return i.NamePos - 1
+	}
 	return i.NamePos
 }
 
 func (i *Ident) End() Pos {
+	if i.isQuoted() {
+		return i.NameEnd + 1
+	}
 	return i.NameEnd
+}
+
+// isQuoted reports whether the identifier was written in quotes: backticks,
+// double quotes, or single quotes (a string literal used as a name).
+func (i *Ident) isQuoted() bool {
+	return i.QuoteType == BackTicks || i.QuoteType == DoubleQuote || i.QuoteType == SingleQuote
 }
 
 func (i *Ident) String() string {
@@ -1572,11 +1586,11 @@ type UUID struct {
 }
 
 func (u *UUID) Pos() Pos {
-	return u.Value.LiteralPos
+	return u.Value.Pos()
 }
 
 func (u *UUID) End() Pos {
-	return u.Value.LiteralEnd
+	return u.Value.End()
 }
 
 func (u *UUID) String() string {
@@ -2144,7 +2158,7 @@ type SettingPair struct {
 }
 
 func (s *SettingPair) Pos() Pos {
-	return s.Name.NamePos
+	return s.Name.Pos()
 }
 
 func (s *SettingPair) End() Pos {
@@ -2184,12 +2198,12 @@ func (r *RoleSetting) Pos() Pos {
 	if len(r.SettingPairs) > 0 {
 		return r.SettingPairs[0].Pos()
 	}
-	return r.Modifier.NamePos
+	return r.Modifier.Pos()
 }
 
 func (r *RoleSetting) End() Pos {
 	if r.Modifier != nil {
-		return r.Modifier.NameEnd
+		return r.Modifier.End()
 	}
 	return r.SettingPairs[len(r.SettingPairs)-1].End()
 }
@@ -2842,6 +2856,9 @@ func (t *TableSchemaClause) Pos() Pos {
 }
 
 func (t *TableSchemaClause) End() Pos {
+	if len(t.Columns) > 0 {
+		return t.SchemaEnd + 1 // SchemaEnd is the position of the closing )
+	}
 	return t.SchemaEnd
 }
 
@@ -2887,7 +2904,7 @@ func (t *TableArgListExpr) Pos() Pos {
 }
 
 func (t *TableArgListExpr) End() Pos {
-	return t.RightParenPos
+	return t.RightParenPos + 1
 }
 
 func (t *TableArgListExpr) String() string {
@@ -2981,7 +2998,7 @@ func (p *PartitionClause) End() Pos {
 		return p.AllEnd
 	}
 	if p.ID != nil {
-		return p.ID.LiteralEnd
+		return p.ID.End()
 	}
 	return p.Expr.End()
 }
@@ -3179,9 +3196,9 @@ func (t *TTLPolicyRule) End() Pos {
 		return t.Action.End()
 	}
 	if t.ToDisk != nil {
-		return t.ToDisk.LiteralEnd
+		return t.ToDisk.End()
 	}
-	return t.ToVolume.LiteralEnd
+	return t.ToVolume.End()
 }
 
 func (t *TTLPolicyRule) String() string {
@@ -3281,6 +3298,9 @@ func (t *TTLExpr) Pos() Pos {
 }
 
 func (t *TTLExpr) End() Pos {
+	if t.Policy != nil {
+		return t.Policy.End()
+	}
 	return t.Expr.End()
 }
 
@@ -3395,6 +3415,9 @@ type OrderExpr struct {
 	Alias     *Ident
 	Direction OrderDirection
 	Fill      *Fill // optional WITH FILL clause
+	// OrderEnd is the end of the whole element, including a trailing
+	// ASC/DESC, NULLS FIRST/LAST or COLLATE that has no node of its own.
+	OrderEnd Pos `json:",omitempty"`
 }
 
 func (o *OrderExpr) Pos() Pos {
@@ -3402,6 +3425,9 @@ func (o *OrderExpr) Pos() Pos {
 }
 
 func (o *OrderExpr) End() Pos {
+	if o.OrderEnd > 0 {
+		return o.OrderEnd
+	}
 	if o.Fill != nil {
 		return o.Fill.End()
 	}
@@ -3618,7 +3644,10 @@ func (f *ParamExprList) Pos() Pos {
 }
 
 func (f *ParamExprList) End() Pos {
-	return f.RightParenPos
+	if f.ColumnArgList != nil {
+		return f.ColumnArgList.End()
+	}
+	return f.RightParenPos + 1
 }
 
 func (f *ParamExprList) String() string {
@@ -3655,7 +3684,7 @@ func (m *MapLiteral) Pos() Pos {
 }
 
 func (m *MapLiteral) End() Pos {
-	return m.RBracePos
+	return m.RBracePos + 1
 }
 
 func (m *MapLiteral) String() string {
@@ -3721,7 +3750,7 @@ func (q *QueryParam) Pos() Pos {
 }
 
 func (q *QueryParam) End() Pos {
-	return q.RBracePos
+	return q.RBracePos + 1
 }
 
 func (q *QueryParam) String() string {
@@ -3752,7 +3781,7 @@ func (a *ArrayParamList) Pos() Pos {
 }
 
 func (a *ArrayParamList) End() Pos {
-	return a.RightBracketPos
+	return a.RightBracketPos + 1
 }
 
 func (a *ArrayParamList) String() string {
@@ -3808,11 +3837,11 @@ type FunctionExpr struct {
 }
 
 func (f *FunctionExpr) Pos() Pos {
-	return f.Name.NamePos
+	return f.Name.Pos()
 }
 
 func (f *FunctionExpr) End() Pos {
-	return f.Params.RightParenPos
+	return f.Params.End()
 }
 
 func (f *FunctionExpr) String() string {
@@ -3870,7 +3899,7 @@ func (t *TypedPlaceholder) Pos() Pos {
 }
 
 func (t *TypedPlaceholder) End() Pos {
-	return t.RightBracePos
+	return t.RightBracePos + 1
 }
 
 func (t *TypedPlaceholder) String() string {
@@ -3900,7 +3929,7 @@ func (c *ColumnExpr) Pos() Pos {
 
 func (c *ColumnExpr) End() Pos {
 	if c.Alias != nil {
-		return c.Alias.NameEnd
+		return c.Alias.End()
 	}
 	return c.Expr.End()
 }
@@ -4016,11 +4045,11 @@ type ScalarType struct {
 }
 
 func (s *ScalarType) Pos() Pos {
-	return s.Name.NamePos
+	return s.Name.Pos()
 }
 
 func (s *ScalarType) End() Pos {
-	return s.Name.NameEnd
+	return s.Name.End()
 }
 
 func (s *ScalarType) String() string {
@@ -4162,14 +4191,14 @@ type JSONType struct {
 }
 
 func (j *JSONType) Pos() Pos {
-	return j.Name.NamePos
+	return j.Name.Pos()
 }
 
 func (j *JSONType) End() Pos {
 	if j.Options != nil {
-		return j.Options.RParen
+		return j.Options.RParen + 1 // RParen is the position of the closing )
 	}
-	return j.Name.NameEnd
+	return j.Name.End()
 }
 
 func (j *JSONType) String() string {
@@ -4197,11 +4226,11 @@ type PropertyType struct {
 }
 
 func (c *PropertyType) Pos() Pos {
-	return c.Name.NamePos
+	return c.Name.Pos()
 }
 
 func (c *PropertyType) End() Pos {
-	return c.Name.NameEnd
+	return c.Name.End()
 }
 
 func (c *PropertyType) String() string {
@@ -4227,11 +4256,11 @@ type TypeWithParams struct {
 }
 
 func (s *TypeWithParams) Pos() Pos {
-	return s.Name.NamePos
+	return s.Name.Pos()
 }
 
 func (s *TypeWithParams) End() Pos {
-	return s.RightParenPos
+	return s.RightParenPos + 1
 }
 
 func (s *TypeWithParams) String() string {
@@ -4267,11 +4296,11 @@ type ComplexType struct {
 }
 
 func (c *ComplexType) Pos() Pos {
-	return c.Name.NamePos
+	return c.Name.Pos()
 }
 
 func (c *ComplexType) End() Pos {
-	return c.RightParenPos
+	return c.RightParenPos + 1
 }
 
 func (c *ComplexType) String() string {
@@ -4307,11 +4336,11 @@ type NestedType struct {
 }
 
 func (n *NestedType) Pos() Pos {
-	return n.Name.NamePos
+	return n.Name.Pos()
 }
 
 func (n *NestedType) End() Pos {
-	return n.RightParenPos
+	return n.RightParenPos + 1
 }
 
 func (n *NestedType) String() string {
@@ -4355,7 +4384,7 @@ func (c *CompressionCodec) Pos() Pos {
 }
 
 func (c *CompressionCodec) End() Pos {
-	return c.RightParenPos
+	return c.RightParenPos + 1
 }
 
 func (c *CompressionCodec) String() string {
@@ -4424,12 +4453,14 @@ type StringLiteral struct {
 	Literal    string
 }
 
+// Pos and End span the whole literal including its quotes. LiteralPos and
+// LiteralEnd are the offsets of the content between the quotes.
 func (s *StringLiteral) Pos() Pos {
-	return s.LiteralPos
+	return s.LiteralPos - 1
 }
 
 func (s *StringLiteral) End() Pos {
-	return s.LiteralEnd
+	return s.LiteralEnd + 1
 }
 
 func (s *StringLiteral) String() string {
@@ -4698,11 +4729,11 @@ type ColumnTypeExpr struct {
 }
 
 func (c *ColumnTypeExpr) Pos() Pos {
-	return c.Name.NamePos
+	return c.Name.Pos()
 }
 
 func (c *ColumnTypeExpr) End() Pos {
-	return c.Name.NameEnd
+	return c.Name.End()
 }
 
 func (c *ColumnTypeExpr) String() string {
@@ -4728,7 +4759,7 @@ func (c *ColumnArgList) Pos() Pos {
 }
 
 func (c *ColumnArgList) End() Pos {
-	return c.RightParenPos
+	return c.RightParenPos + 1
 }
 
 func (c *ColumnArgList) String() string {
@@ -4888,6 +4919,9 @@ type CastExpr struct {
 	Separator string
 	AsPos     Pos
 	AsType    Expr
+	// RightParenPos is the closing ) of the CAST(...) function form; it is
+	// zero for the `expr::Type` form.
+	RightParenPos Pos `json:",omitempty"`
 }
 
 func (c *CastExpr) Pos() Pos {
@@ -4895,6 +4929,9 @@ func (c *CastExpr) Pos() Pos {
 }
 
 func (c *CastExpr) End() Pos {
+	if c.RightParenPos > 0 {
+		return c.RightParenPos + 1
+	}
 	return c.AsType.End()
 }
 
@@ -5205,6 +5242,9 @@ type NamedCollectionParam struct {
 	Value          Expr
 	Overridable    bool
 	NotOverridable bool
+	// ParamEnd is the end of the parameter including a trailing
+	// [NOT] OVERRIDABLE.
+	ParamEnd Pos `json:",omitempty"`
 }
 
 func (n *NamedCollectionParam) Pos() Pos {
@@ -5212,6 +5252,9 @@ func (n *NamedCollectionParam) Pos() Pos {
 }
 
 func (n *NamedCollectionParam) End() Pos {
+	if n.ParamEnd > 0 {
+		return n.ParamEnd
+	}
 	return n.Value.End()
 }
 
@@ -5353,25 +5396,27 @@ func (d *DictionaryEngineClause) Pos() Pos {
 }
 
 func (d *DictionaryEngineClause) End() Pos {
-	if d.Settings != nil {
-		return d.Settings.End()
+	// The clauses may appear in any order; the engine ends at the last one.
+	end := d.EnginePos
+	if d.PrimaryKey != nil && d.PrimaryKey.End() > end {
+		end = d.PrimaryKey.End()
 	}
-	if d.Range != nil {
-		return d.Range.End()
+	if d.Source != nil && d.Source.End() > end {
+		end = d.Source.End()
 	}
-	if d.Layout != nil {
-		return d.Layout.End()
+	if d.Lifetime != nil && d.Lifetime.End() > end {
+		end = d.Lifetime.End()
 	}
-	if d.Lifetime != nil {
-		return d.Lifetime.End()
+	if d.Layout != nil && d.Layout.End() > end {
+		end = d.Layout.End()
 	}
-	if d.Source != nil {
-		return d.Source.End()
+	if d.Range != nil && d.Range.End() > end {
+		end = d.Range.End()
 	}
-	if d.PrimaryKey != nil {
-		return d.PrimaryKey.End()
+	if d.Settings != nil && d.Settings.End() > end {
+		end = d.Settings.End()
 	}
-	return d.EnginePos
+	return end
 }
 
 func (d *DictionaryEngineClause) String() string {
@@ -5762,6 +5807,9 @@ func (o *OnClause) Accept(visitor ASTVisitor) error {
 type UsingClause struct {
 	UsingPos Pos
 	Using    *ColumnExprList
+	// UsingEnd is the end of the clause, after the closing ) when the
+	// column list is parenthesised.
+	UsingEnd Pos `json:",omitempty"`
 }
 
 func (u *UsingClause) Pos() Pos {
@@ -5769,6 +5817,9 @@ func (u *UsingClause) Pos() Pos {
 }
 
 func (u *UsingClause) End() Pos {
+	if u.UsingEnd > 0 {
+		return u.UsingEnd
+	}
 	return u.Using.End()
 }
 
@@ -5917,16 +5968,17 @@ func (f *FromClause) Accept(visitor ASTVisitor) error {
 }
 
 type IsNullExpr struct {
-	IsPos Pos
-	Expr  Expr
+	IsPos   Pos // position of the IS keyword
+	NullEnd Pos // end of the NULL keyword
+	Expr    Expr
 }
 
 func (n *IsNullExpr) Pos() Pos {
-	return n.IsPos
+	return n.Expr.Pos() // the node spans `expr IS [NOT] NULL`
 }
 
 func (n *IsNullExpr) End() Pos {
-	return n.Expr.End()
+	return n.NullEnd
 }
 
 func (n *IsNullExpr) String() string {
@@ -5944,16 +5996,17 @@ func (n *IsNullExpr) Accept(visitor ASTVisitor) error {
 }
 
 type IsNotNullExpr struct {
-	IsPos Pos
-	Expr  Expr
+	IsPos   Pos // position of the IS keyword
+	NullEnd Pos // end of the NULL keyword
+	Expr    Expr
 }
 
 func (n *IsNotNullExpr) Pos() Pos {
-	return n.Expr.Pos()
+	return n.Expr.Pos() // the node spans `expr IS [NOT] NULL`
 }
 
 func (n *IsNotNullExpr) End() Pos {
-	return n.Expr.End()
+	return n.NullEnd
 }
 
 func (n *IsNotNullExpr) String() string {
@@ -6231,7 +6284,7 @@ func (w *WindowExpr) Pos() Pos {
 }
 
 func (w *WindowExpr) End() Pos {
-	return w.RightParenPos
+	return w.RightParenPos + 1
 }
 
 func (w *WindowExpr) String() string {
@@ -6786,6 +6839,8 @@ func (o *OutputClauses) accept(visitor ASTVisitor) error {
 type SubQuery struct {
 	HasParen bool
 	Select   *SelectQuery
+	// RightParenPos is the position of the closing ) when HasParen is set.
+	RightParenPos Pos `json:",omitempty"`
 }
 
 func (s *SubQuery) Pos() Pos {
@@ -6793,6 +6848,9 @@ func (s *SubQuery) Pos() Pos {
 }
 
 func (s *SubQuery) End() Pos {
+	if s.HasParen && s.RightParenPos > 0 {
+		return s.RightParenPos + 1
+	}
 	return s.Select.End()
 }
 
@@ -6893,7 +6951,7 @@ type IntervalFrom struct {
 }
 
 func (i *IntervalFrom) Pos() Pos {
-	return i.Interval.NamePos
+	return i.Interval.Pos()
 }
 
 func (i *IntervalFrom) End() Pos {
@@ -6928,7 +6986,7 @@ func (e *ExtractExpr) Pos() Pos {
 }
 
 func (e *ExtractExpr) End() Pos {
-	return e.ExtractEnd
+	return e.ExtractEnd + 1 // ExtractEnd is the position of the closing )
 }
 
 func (e *ExtractExpr) String() string {
@@ -7324,10 +7382,11 @@ func (d *DeduplicateClause) Pos() Pos {
 }
 
 func (d *DeduplicateClause) End() Pos {
+	if d.Except != nil { // `DEDUPLICATE BY ... EXCEPT ...`: EXCEPT comes last
+		return d.Except.End()
+	}
 	if d.By != nil {
 		return d.By.End()
-	} else if d.Except != nil {
-		return d.Except.End()
 	}
 	return d.DeduplicatePos + Pos(len(KeywordDeduplicate))
 }
@@ -7667,7 +7726,7 @@ func (c *ColumnNamesExpr) Pos() Pos {
 }
 
 func (c *ColumnNamesExpr) End() Pos {
-	return c.RightParenPos
+	return c.RightParenPos + 1
 }
 
 func (c *ColumnNamesExpr) String() string {
@@ -7701,7 +7760,7 @@ func (v *AssignmentValues) Pos() Pos {
 }
 
 func (v *AssignmentValues) End() Pos {
-	return v.RightParenPos
+	return v.RightParenPos + 1
 }
 
 func (v *AssignmentValues) String() string {

@@ -16,8 +16,8 @@
             "NameEnd": 9
           },
           "Alias": {
-            "SelectPos": 14,
-            "StatementEnd": 27,
+            "SelectPos": 13,
+            "StatementEnd": 28,
             "HasParen": false,
             "With": null,
             "Top": null,
@@ -69,7 +69,7 @@
           "Name": "*",
           "QuoteType": 0,
           "NamePos": 36,
-          "NameEnd": 36
+          "NameEnd": 37
         },
         "Modifiers": [],
         "Alias": null

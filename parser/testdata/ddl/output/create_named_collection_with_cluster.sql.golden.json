@@ -1,7 +1,7 @@
 [
   {
     "CreatePos": 0,
-    "StatementEnd": 153,
+    "StatementEnd": 154,
     "Name": {
       "Name": "my_collection",
       "QuoteType": 1,
@@ -33,7 +33,8 @@
           "Literal": "value1"
         },
         "Overridable": true,
-        "NotOverridable": false
+        "NotOverridable": false,
+        "ParamEnd": 104
       },
       {
         "ParamPos": 106,
@@ -49,7 +50,8 @@
           "Literal": "value2"
         },
         "Overridable": false,
-        "NotOverridable": true
+        "NotOverridable": true,
+        "ParamEnd": 137
       },
       {
         "ParamPos": 139,
