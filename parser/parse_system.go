@@ -106,17 +106,79 @@ func (p *Parser) parseSystemSyncExpr(pos Pos) (*SystemSyncExpr, error) {
 	if err := p.expectKeyword(KeywordSync); err != nil {
 		return nil, err
 	}
-	if err := p.expectKeyword(KeywordReplica); err != nil {
-		return nil, err
+	sync := &SystemSyncExpr{SyncPos: pos}
+	var err error
+	switch {
+	case p.tryConsumeKeywords(KeywordReplica):
+		sync.Target = "REPLICA"
+		if sync.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+		if sync.Cluster, err = p.parseTableIdentifier(p.Pos()); err != nil {
+			return nil, err
+		}
+		sync.IfExists = p.tryConsumeKeywords(KeywordIf, KeywordExists)
+		switch {
+		case p.matchUnquotedIdent("STRICT"):
+			sync.Mode = "STRICT"
+			_ = p.lexer.consumeToken()
+		case p.matchUnquotedIdent("PULL"):
+			sync.Mode = "PULL"
+			_ = p.lexer.consumeToken()
+		case p.matchUnquotedIdent("LIGHTWEIGHT"):
+			sync.Mode = "LIGHTWEIGHT"
+			_ = p.lexer.consumeToken()
+			if p.tryConsumeKeywords(KeywordFrom) {
+				for {
+					from, err := p.parseString(p.Pos())
+					if err != nil {
+						return nil, err
+					}
+					sync.From = append(sync.From, from)
+					if p.tryConsumeTokenKind(TokenKindComma) == nil {
+						break
+					}
+				}
+			}
+		}
+	case p.tryConsumeKeywords(KeywordDatabase, KeywordReplica):
+		sync.Target = "DATABASE REPLICA"
+		if sync.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+		if sync.Database, err = p.parseIdent(); err != nil {
+			return nil, err
+		}
+	case p.matchUnquotedIdent("TRANSACTION"):
+		_ = p.lexer.consumeToken()
+		if !p.matchUnquotedIdent("LOG") {
+			return nil, fmt.Errorf("expected LOG after SYNC TRANSACTION, got %q", p.lastTokenText())
+		}
+		_ = p.lexer.consumeToken()
+		sync.Target = "TRANSACTION LOG"
+		if sync.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+	case p.matchUnquotedIdent("FILE"), p.matchKeyword(KeywordFileSystem):
+		target := strings.ToUpper(p.last().String)
+		_ = p.lexer.consumeToken()
+		if err := p.expectKeyword(KeywordCache); err != nil {
+			return nil, err
+		}
+		sync.Target = target + " CACHE"
+		if target == KeywordFileSystem && p.matchTokenKind(TokenKindString) {
+			if sync.CacheName, err = p.parseString(p.Pos()); err != nil {
+				return nil, err
+			}
+		}
+		if sync.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+	default:
+		return nil, fmt.Errorf("expected REPLICA|DATABASE REPLICA|TRANSACTION LOG|FILE CACHE|FILESYSTEM CACHE, got %q", p.lastTokenText())
 	}
-	cluster, err := p.parseTableIdentifier(p.Pos())
-	if err != nil {
-		return nil, err
-	}
-	return &SystemSyncExpr{
-		SyncPos: pos,
-		Cluster: cluster,
-	}, nil
+	sync.SyncEnd = p.prevEnd()
+	return sync, nil
 }
 
 func (p *Parser) parseSystemCtrlExpr(pos Pos) (*SystemCtrlExpr, error) {

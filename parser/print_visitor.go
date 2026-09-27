@@ -2836,7 +2836,48 @@ func (p *PrintVisitor) VisitSystemExpr(s *SystemStmt) error {
 func (p *PrintVisitor) VisitSystemSyncExpr(s *SystemSyncExpr) error {
 	builder := p.builder
 	builder.WriteString("SYNC ")
-	builder.WriteString(s.Cluster.String())
+	builder.WriteString(s.Target)
+	if s.CacheName != nil {
+		builder.WriteByte(' ')
+		if err := s.CacheName.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.OnCluster != nil {
+		builder.WriteByte(' ')
+		if err := s.OnCluster.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.Cluster != nil {
+		builder.WriteByte(' ')
+		if err := s.Cluster.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.Database != nil {
+		builder.WriteByte(' ')
+		if err := s.Database.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.IfExists {
+		builder.WriteString(" IF EXISTS")
+	}
+	if s.Mode != "" {
+		builder.WriteByte(' ')
+		builder.WriteString(s.Mode)
+	}
+	for i, from := range s.From {
+		if i == 0 {
+			builder.WriteString(" FROM ")
+		} else {
+			builder.WriteString(", ")
+		}
+		if err := from.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitTTLExprList(t *TTLClause) error {

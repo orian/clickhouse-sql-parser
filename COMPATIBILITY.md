@@ -134,6 +134,9 @@ Entries are grouped as:
   bound (#109). The CLI `-format` path printed
   `RANGE BETWEEN INTERVAL 1 DAY AND CURRENT ROW`, which ClickHouse reads as a
   different window.
+- `SYSTEM SYNC REPLICA t` keeps `REPLICA` (#62). It used to print as
+  `SYSTEM SYNC t`, which ClickHouse rejects. `SystemSyncExpr.End()` is now the
+  end of the whole command (`SyncEnd`), not the end of the table.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -197,6 +200,9 @@ Entries are grouped as:
   - `LimitClause.WithTies`, `WithTiesEnd` (#90);
   - `OrderExpr.Nulls` (`"FIRST"`/`"LAST"`) and `OrderExpr.Collate` (#47);
   - `WithTimeoutClause.WithTimeoutEnd` (#37);
+  - `SystemSyncExpr.SyncEnd`, `Target`, `OnCluster`, `Database`,
+    `IfExists`, `Mode`, `From`, `CacheName` (#62). `SystemSyncExpr.Cluster`
+    is unchanged and still holds the table of `SYNC REPLICA`.
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
@@ -221,3 +227,7 @@ Entries are grouped as:
     `(SELECT 1) UNION ALL SELECT 2`, a statement starting with `(`,
     `CREATE VIEW … AS (query) UNION …`, `INSERT INTO t (SELECT …) UNION …` and
     `INSERT INTO t WITH … SELECT` (#93).
+  - `SYSTEM SYNC REPLICA [ON CLUSTER c] t [IF EXISTS] [STRICT | LIGHTWEIGHT
+    [FROM 'r', …] | PULL]`, `SYSTEM SYNC DATABASE REPLICA`, `SYSTEM SYNC
+    TRANSACTION LOG`, `SYSTEM SYNC FILE CACHE` and `SYSTEM SYNC FILESYSTEM
+    CACHE ['name']`, each with `ON CLUSTER` (#62).
