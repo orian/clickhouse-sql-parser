@@ -3,6 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "ExplainPos": 0,
+    "ExplainEnd": 20,
     "Type": "AST",
     "Statement": {
       "SelectPos": 12,
@@ -47,6 +48,7 @@
     "Format": null,
     "OutputSettings": null,
     "ExplainPos": 22,
+    "ExplainEnd": 64,
     "Type": "SYNTAX",
     "Statement": {
       "SelectPos": 37,
@@ -133,6 +135,7 @@
     "Format": null,
     "OutputSettings": null,
     "ExplainPos": 66,
+    "ExplainEnd": 91,
     "Type": "PIPELINE",
     "Statement": {
       "SelectPos": 83,

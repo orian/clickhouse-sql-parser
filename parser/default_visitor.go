@@ -1536,8 +1536,15 @@ func (visitor DefaultASTVisitor) VisitEnumValue(e *EnumValue) error {
 func (visitor DefaultASTVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	visitor.Enter(e)
 	defer visitor.Leave(e)
-	if err := e.Statement.Accept(visitor.Self); err != nil {
-		return err
+	for _, setting := range e.Settings {
+		if err := setting.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if e.Statement != nil {
+		if err := e.Statement.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	return e.OutputClauses.accept(visitor.Self)
 }

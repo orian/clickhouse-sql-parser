@@ -1437,11 +1437,23 @@ func (b *BeautifyVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	b.Enter(e)
 	defer b.Leave(e)
 
-	b.writeString("EXPLAIN ")
-	b.writeString(e.Type)
-	b.newline()
-	if err := e.Statement.Accept(b.Self); err != nil {
-		return err
+	b.writeString("EXPLAIN")
+	if e.Type != "" {
+		b.writeString(" " + e.Type)
+	}
+	for i, setting := range e.Settings {
+		if i == 0 {
+			b.writeString(" ")
+		} else {
+			b.writeString(", ")
+		}
+		b.writeString(setting.String())
+	}
+	if e.Statement != nil {
+		b.newline()
+		if err := e.Statement.Accept(b.Self); err != nil {
+			return err
+		}
 	}
 	b.writeOutputClauses(&e.OutputClauses)
 	return nil
