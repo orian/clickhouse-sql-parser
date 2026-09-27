@@ -2468,8 +2468,23 @@ func (visitor DefaultASTVisitor) VisitSystemDropExpr(s *SystemDropExpr) error {
 func (visitor DefaultASTVisitor) VisitSystemFlushExpr(s *SystemFlushExpr) error {
 	visitor.Enter(s)
 	defer visitor.Leave(s)
+	if s.OnCluster != nil {
+		if err := s.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, table := range s.Tables {
+		if err := table.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if s.Distributed != nil {
 		if err := s.Distributed.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.Settings != nil {
+		if err := s.Settings.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}

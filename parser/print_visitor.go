@@ -2948,10 +2948,41 @@ func (p *PrintVisitor) VisitSystemDropExpr(s *SystemDropExpr) error {
 func (p *PrintVisitor) VisitSystemFlushExpr(s *SystemFlushExpr) error {
 	builder := p.builder
 	builder.WriteString("FLUSH ")
-	if s.Logs {
+	switch {
+	case s.Logs:
 		builder.WriteString("LOGS")
-	} else {
-		builder.WriteString(s.Distributed.String())
+	case s.AsyncInsertQueue:
+		builder.WriteString("ASYNC INSERT QUEUE")
+	default:
+		builder.WriteString("DISTRIBUTED")
+	}
+	if s.OnCluster != nil {
+		builder.WriteByte(' ')
+		if err := s.OnCluster.Accept(p); err != nil {
+			return err
+		}
+	}
+	for i, table := range s.Tables {
+		if i == 0 {
+			builder.WriteByte(' ')
+		} else {
+			builder.WriteString(", ")
+		}
+		if err := table.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.Distributed != nil {
+		builder.WriteByte(' ')
+		if err := s.Distributed.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.Settings != nil {
+		builder.WriteByte(' ')
+		if err := s.Settings.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }

@@ -542,7 +542,15 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *SystemFlushExpr:
-		if !Walk(n.Distributed, fn) {
+		if !Walk(n.OnCluster, fn) {
+			return false
+		}
+		for _, table := range n.Tables {
+			if !Walk(table, fn) {
+				return false
+			}
+		}
+		if !Walk(n.Distributed, fn) || !Walk(n.Settings, fn) {
 			return false
 		}
 	case *SystemReloadExpr:

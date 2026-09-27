@@ -7458,11 +7458,25 @@ func (s *SystemStmt) Accept(visitor ASTVisitor) error {
 	return visitor.VisitSystemExpr(s)
 }
 
+// SystemFlushExpr is one of
+//
+//	FLUSH LOGS [ON CLUSTER c] [log, ...]
+//	FLUSH DISTRIBUTED [ON CLUSTER c] [db.]table [SETTINGS ...]
+//	FLUSH ASYNC INSERT QUEUE [ON CLUSTER c] [[db.]table, ...]
 type SystemFlushExpr struct {
 	FlushPos     Pos
 	StatementEnd Pos
 	Logs         bool
-	Distributed  *TableIdentifier
+	// AsyncInsertQueue is set for FLUSH ASYNC INSERT QUEUE.
+	AsyncInsertQueue bool `json:",omitempty"`
+	OnCluster        *ClusterClause `json:",omitempty"`
+	// Tables lists the logs of FLUSH LOGS or the tables of FLUSH ASYNC
+	// INSERT QUEUE.
+	Tables []*TableIdentifier `json:",omitempty"`
+	// Distributed is the table of FLUSH DISTRIBUTED.
+	Distributed *TableIdentifier
+	// Settings are the settings of FLUSH DISTRIBUTED t SETTINGS ....
+	Settings *SettingsClause `json:",omitempty"`
 }
 
 func (s *SystemFlushExpr) Pos() Pos {
@@ -7476,10 +7490,33 @@ func (s *SystemFlushExpr) End() Pos {
 func (s *SystemFlushExpr) String() string {
 	var builder strings.Builder
 	builder.WriteString("FLUSH ")
-	if s.Logs {
+	switch {
+	case s.Logs:
 		builder.WriteString("LOGS")
-	} else {
+	case s.AsyncInsertQueue:
+		builder.WriteString("ASYNC INSERT QUEUE")
+	default:
+		builder.WriteString("DISTRIBUTED")
+	}
+	if s.OnCluster != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(s.OnCluster.String())
+	}
+	for i, table := range s.Tables {
+		if i == 0 {
+			builder.WriteByte(' ')
+		} else {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(table.String())
+	}
+	if s.Distributed != nil {
+		builder.WriteByte(' ')
 		builder.WriteString(s.Distributed.String())
+	}
+	if s.Settings != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(s.Settings.String())
 	}
 	return builder.String()
 }

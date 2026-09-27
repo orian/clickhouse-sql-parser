@@ -1,0 +1,321 @@
+[
+  {
+    "SystemPos": 0,
+    "Expr": {
+      "FlushPos": 7,
+      "StatementEnd": 17,
+      "Logs": true,
+      "Distributed": null
+    }
+  },
+  {
+    "SystemPos": 19,
+    "Expr": {
+      "FlushPos": 26,
+      "StatementEnd": 46,
+      "Logs": true,
+      "Tables": [
+        {
+          "Database": null,
+          "Table": {
+            "Name": "query_log",
+            "QuoteType": 1,
+            "NamePos": 37,
+            "NameEnd": 46
+          }
+        }
+      ],
+      "Distributed": null
+    }
+  },
+  {
+    "SystemPos": 48,
+    "Expr": {
+      "FlushPos": 55,
+      "StatementEnd": 92,
+      "Logs": true,
+      "Tables": [
+        {
+          "Database": null,
+          "Table": {
+            "Name": "query_log",
+            "QuoteType": 1,
+            "NamePos": 66,
+            "NameEnd": 75
+          }
+        },
+        {
+          "Database": {
+            "Name": "system",
+            "QuoteType": 1,
+            "NamePos": 77,
+            "NameEnd": 83
+          },
+          "Table": {
+            "Name": "part_log",
+            "QuoteType": 1,
+            "NamePos": 84,
+            "NameEnd": 92
+          }
+        }
+      ],
+      "Distributed": null
+    }
+  },
+  {
+    "SystemPos": 94,
+    "Expr": {
+      "FlushPos": 101,
+      "StatementEnd": 134,
+      "Logs": true,
+      "OnCluster": {
+        "OnPos": 112,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 123,
+          "NameEnd": 124
+        }
+      },
+      "Tables": [
+        {
+          "Database": null,
+          "Table": {
+            "Name": "query_log",
+            "QuoteType": 1,
+            "NamePos": 125,
+            "NameEnd": 134
+          }
+        }
+      ],
+      "Distributed": null
+    }
+  },
+  {
+    "SystemPos": 136,
+    "Expr": {
+      "FlushPos": 143,
+      "StatementEnd": 162,
+      "Logs": false,
+      "Distributed": {
+        "Database": null,
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 161,
+          "NameEnd": 162
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 164,
+    "Expr": {
+      "FlushPos": 171,
+      "StatementEnd": 193,
+      "Logs": false,
+      "Distributed": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 189,
+          "NameEnd": 191
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 192,
+          "NameEnd": 193
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 195,
+    "Expr": {
+      "FlushPos": 202,
+      "StatementEnd": 237,
+      "Logs": false,
+      "OnCluster": {
+        "OnPos": 220,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 231,
+          "NameEnd": 232
+        }
+      },
+      "Distributed": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 233,
+          "NameEnd": 235
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 236,
+          "NameEnd": 237
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 239,
+    "Expr": {
+      "FlushPos": 246,
+      "StatementEnd": 283,
+      "Logs": false,
+      "OnCluster": {
+        "OnPos": 269,
+        "Expr": {
+          "LiteralPos": 281,
+          "LiteralEnd": 282,
+          "Literal": "c"
+        }
+      },
+      "Distributed": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 264,
+          "NameEnd": 266
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 267,
+          "NameEnd": 268
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 285,
+    "Expr": {
+      "FlushPos": 292,
+      "StatementEnd": 336,
+      "Logs": false,
+      "Distributed": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 310,
+          "NameEnd": 312
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 313,
+          "NameEnd": 314
+        }
+      },
+      "Settings": {
+        "SettingsPos": 315,
+        "ListEnd": 336,
+        "Items": [
+          {
+            "SettingsPos": 324,
+            "Name": {
+              "Name": "a",
+              "QuoteType": 1,
+              "NamePos": 324,
+              "NameEnd": 325
+            },
+            "Expr": {
+              "NumPos": 328,
+              "NumEnd": 329,
+              "Literal": "1",
+              "Base": 10
+            }
+          },
+          {
+            "SettingsPos": 331,
+            "Name": {
+              "Name": "b",
+              "QuoteType": 1,
+              "NamePos": 331,
+              "NameEnd": 332
+            },
+            "Expr": {
+              "NumPos": 335,
+              "NumEnd": 336,
+              "Literal": "2",
+              "Base": 10
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "SystemPos": 338,
+    "Expr": {
+      "FlushPos": 345,
+      "StatementEnd": 369,
+      "Logs": false,
+      "AsyncInsertQueue": true,
+      "Distributed": null
+    }
+  },
+  {
+    "SystemPos": 371,
+    "Expr": {
+      "FlushPos": 378,
+      "StatementEnd": 415,
+      "Logs": false,
+      "AsyncInsertQueue": true,
+      "OnCluster": {
+        "OnPos": 403,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 414,
+          "NameEnd": 415
+        }
+      },
+      "Distributed": null
+    }
+  },
+  {
+    "SystemPos": 417,
+    "Expr": {
+      "FlushPos": 424,
+      "StatementEnd": 459,
+      "Logs": false,
+      "AsyncInsertQueue": true,
+      "Tables": [
+        {
+          "Database": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 449,
+            "NameEnd": 451
+          },
+          "Table": {
+            "Name": "t",
+            "QuoteType": 1,
+            "NamePos": 452,
+            "NameEnd": 453
+          }
+        },
+        {
+          "Database": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 455,
+            "NameEnd": 457
+          },
+          "Table": {
+            "Name": "u",
+            "QuoteType": 1,
+            "NamePos": 458,
+            "NameEnd": 459
+          }
+        }
+      ],
+      "Distributed": null
+    }
+  }
+]

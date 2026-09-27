@@ -171,6 +171,9 @@ Entries are grouped as:
   EXISTS x …` print `IF [NOT] EXISTS` before the name, where ClickHouse
   expects it (#64). They used to print `DROP INDEX x IF EXISTS` and
   `ADD INDEX x … GRANULARITY 1IF NOT EXISTS `, which ClickHouse rejects.
+- `SYSTEM FLUSH DISTRIBUTED t` keeps `DISTRIBUTED` (#114). It used to print as
+  `SYSTEM FLUSH t`, which ClickHouse rejects. `SystemFlushExpr.End()` now
+  includes a trailing `ON CLUSTER` or `SETTINGS`.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -241,6 +244,8 @@ Entries are grouped as:
     `IfExists`, `Mode`, `From`, `CacheName` (#62). `SystemSyncExpr.Cluster`
     is unchanged and still holds the table of `SYNC REPLICA`.
   - `SystemCtrlExpr.OnCluster` (#108);
+  - `SystemFlushExpr.AsyncInsertQueue`, `OnCluster`, `Tables`, `Settings`
+    (#114);
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
@@ -275,3 +280,6 @@ Entries are grouped as:
     `PULLING REPLICATION LOG`, `CLEANUP`, `REDUCE BLOCKING PARTS` and
     `VIRTUAL PARTS UPDATE`, each with an optional `ON CLUSTER` and table, and
     `VIEWS`, `VIEW v` and `REPLICATED VIEW v` (#108).
+  - `SYSTEM FLUSH LOGS [ON CLUSTER c] [log, …]`, `SYSTEM FLUSH DISTRIBUTED
+    [ON CLUSTER c] t [ON CLUSTER c] [SETTINGS …]` and `SYSTEM FLUSH ASYNC
+    INSERT QUEUE [ON CLUSTER c] [t, …]` (#114).
