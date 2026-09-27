@@ -34,6 +34,30 @@ func TestParser_StringReparsesAtEndOfInput(t *testing.T) {
 	}
 }
 
+// TestParser_KeywordCallAfterComma checks that after a comma only FROM ends
+// the select list; a keyword-named function is another column (#138).
+func TestParser_KeywordCallAfterComma(t *testing.T) {
+	for _, tc := range []struct{ sql, want string }{
+		{"SELECT 1, limit(1)", "SELECT 1, limit(1)"},
+		{"SELECT 1, where(1), settings(1), format('{}', 2)", "SELECT 1, where(1), settings(1), format('{}', 2)"},
+		{"SELECT a, LIMIT (1)", "SELECT a, LIMIT(1)"},
+		{"SELECT a, FROM t", "SELECT a FROM t"},
+		{"SELECT a, from, b FROM t", "SELECT a, from, b FROM t"},
+	} {
+		t.Run(tc.sql, func(t *testing.T) {
+			stmts, err := NewParser(tc.sql).ParseStmts()
+			require.NoError(t, err)
+			require.Equal(t, tc.want, stmts[0].String())
+		})
+	}
+	for _, sql := range []string{"SELECT a, ORDER BY a", "SELECT a, WHERE a = 1", "SELECT a, UNION ALL SELECT 1"} {
+		t.Run(sql, func(t *testing.T) {
+			_, err := NewParser(sql).ParseStmts()
+			require.Error(t, err)
+		})
+	}
+}
+
 // TestParser_EndOfInput pins statements whose last token used to be dropped
 // at end of input (#46), and inputs that used to parse to zero statements or
 // an empty select list instead of an error (#82).
