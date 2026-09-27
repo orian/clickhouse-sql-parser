@@ -663,7 +663,10 @@ func (p *Parser) parseSelectItems() ([]*SelectItem, error) {
 		if p.tryConsumeTokenKind(TokenKindComma) == nil {
 			break
 		}
-		if p.isSelectItemTerminatorKeyword() {
+		// A trailing comma is allowed only before FROM, as in ClickHouse.
+		// Any other keyword after a comma starts an item: `SELECT 1,
+		// limit(1)` is two columns, not `SELECT 1 LIMIT (1)` (#138).
+		if p.matchKeyword(KeywordFrom) && !p.keywordIsSelectItemIdentifier() {
 			break
 		}
 	}

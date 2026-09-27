@@ -182,6 +182,10 @@ Entries are grouped as:
   `INTERSECT` as an implicit table alias (#107). `AS intersect` still works.
 - `SELECT 1 EXCEPT (SELECT 2)` is a set operation; it used to be parsed as
   the column transformer `1 EXCEPT(…)` (#107).
+- After a comma in the select list only `FROM` ends the list, as in
+  ClickHouse (#138). `SELECT 1, limit(1)` used to print as
+  `SELECT 1 LIMIT (1)` (a LIMIT clause instead of a column); a
+  keyword-named function after a comma is now another column.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -223,6 +227,12 @@ Entries are grouped as:
 - `SYSTEM START|STOP DISTRIBUTED MERGES|FETCHES|TTL MERGES`, which ClickHouse
   rejects (#108). They used to be printed as `… MERGES MERGES`, a different
   statement. Use `SYSTEM START|STOP MERGES|FETCHES|TTL MERGES`.
+- A missing select list: `SELECT`, `SELECT --comment`, `SELECT FROM t`,
+  `SELECT DISTINCT` (#82). A lone `SELECT` or `EXPLAIN` used to parse to zero
+  statements, and `SELECT FROM t` to `SELECT FROM AS t`.
+- A comma before a clause other than `FROM`, e.g. `SELECT a, ORDER BY a` or
+  `SELECT a, WHERE a = 1` (#138). ClickHouse rejects them; they used to be
+  read as a trailing comma.
 
 ### Additive
 
@@ -301,3 +311,7 @@ Entries are grouped as:
   - `INTERSECT [DISTINCT|ALL]`, `EXCEPT DISTINCT|ALL`, bare `UNION`, and a set
     operation right after the select list (`SELECT 1 EXCEPT SELECT 2`) (#107,
     #125).
+  - a statement whose last clause is a single token, at end of input
+    without `;`, e.g. `ALTER TABLE t FREEZE` (#46);
+  - a keyword-named function after a comma in the select list,
+    e.g. `SELECT 1, format('{}', 2)` (#138).
