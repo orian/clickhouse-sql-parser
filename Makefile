@@ -23,6 +23,17 @@ lint:
 	@printf $(CCCOLOR)"GolangCI Lint...\n"$(ENDCOLOR)
 	@golangci-lint run --timeout 20m0s
 
+.PHONY: hooks fmt-check
+
+# hooks enables the repository's git hooks (.githooks), e.g. the gofmt
+# pre-commit check.
+hooks:
+	git config core.hooksPath .githooks
+
+# fmt-check fails if any Go file is not gofmt-formatted.
+fmt-check:
+	@test -z "$$(gofmt -l $$(git ls-files '*.go'))" || { gofmt -l $$(git ls-files '*.go'); exit 1; }
+
 .PHONY: docs-sql-extract docs-sql-test docs-sql-update docs-sql-strict
 
 docs-sql-extract:
