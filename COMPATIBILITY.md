@@ -315,3 +315,8 @@ Entries are grouped as:
     without `;`, e.g. `ALTER TABLE t FREEZE` (#46);
   - a keyword-named function after a comma in the select list,
     e.g. `SELECT 1, format('{}', 2)` (#138).
+  - any expression as a table-function argument: a call with no arguments
+    (`remote('h', currentDatabase(), 't')`), operators (`numbers(n + 1)`,
+    `file(a || 'b', 'CSV')`) and negative numbers (#129). Arguments that
+    parsed before keep their AST; the new forms are ordinary expressions
+    (e.g. `*FunctionExpr`, `*BinaryOperation`) inside `TableArgListExpr.Args`.
