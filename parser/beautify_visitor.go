@@ -575,25 +575,11 @@ func (b *BeautifyVisitor) beautifySelectTail(s *SelectQuery) error {
 		b.beautifySettings(s.OutputSettings)
 	}
 
-	if s.UnionAll != nil {
+	if keyword, next := s.setOperation(); next != nil {
 		b.newline()
-		b.writeString("UNION ALL")
+		b.writeString(keyword)
 		b.newline()
-		if err := s.UnionAll.Accept(b.Self); err != nil {
-			return err
-		}
-	} else if s.UnionDistinct != nil {
-		b.newline()
-		b.writeString("UNION DISTINCT")
-		b.newline()
-		if err := s.UnionDistinct.Accept(b.Self); err != nil {
-			return err
-		}
-	} else if s.Except != nil {
-		b.newline()
-		b.writeString("EXCEPT")
-		b.newline()
-		if err := s.Except.Accept(b.Self); err != nil {
+		if err := next.Accept(b.Self); err != nil {
 			return err
 		}
 	}

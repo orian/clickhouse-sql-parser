@@ -178,6 +178,10 @@ Entries are grouped as:
   `*SelectQuery`, and is nil for `EXPLAIN CURRENT TRANSACTION` (#86).
   `ExplainStmt.Type` is empty when the kind is omitted. `ExplainStmt.End()` is
   based on the new `ExplainEnd`.
+- `INTERSECT` is now a keyword, so `FROM t INTERSECT …` no longer reads
+  `INTERSECT` as an implicit table alias (#107). `AS intersect` still works.
+- `SELECT 1 EXCEPT (SELECT 2)` is a set operation; it used to be parsed as
+  the column transformer `1 EXCEPT(…)` (#107).
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -251,6 +255,8 @@ Entries are grouped as:
   - `SystemFlushExpr.AsyncInsertQueue`, `OnCluster`, `Tables`, `Settings`
     (#114);
   - `ExplainStmt.Settings`, `ExplainEnd` (#86);
+  - `SelectQuery.Union`, `Intersect`, `IntersectModifier`,
+    `ExceptModifier` (#107, #125);
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
@@ -292,3 +298,6 @@ Entries are grouped as:
     TRANSACTION`, EXPLAIN settings (`EXPLAIN PLAN header = 1 …`), and any
     explained statement (`EXPLAIN AST CREATE TABLE …`, `EXPLAIN INSERT …`,
     `EXPLAIN (SELECT …)`, nested `EXPLAIN`) (#86).
+  - `INTERSECT [DISTINCT|ALL]`, `EXCEPT DISTINCT|ALL`, bare `UNION`, and a set
+    operation right after the select list (`SELECT 1 EXCEPT SELECT 2`) (#107,
+    #125).

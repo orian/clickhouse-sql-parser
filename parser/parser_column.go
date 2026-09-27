@@ -393,7 +393,7 @@ var clauseStarterKeywords = []string{
 	KeywordFrom, KeywordWhere, KeywordPrewhere, KeywordGroup,
 	KeywordHaving, KeywordWindow, KeywordOrder, KeywordLimit,
 	KeywordOffset, KeywordSettings, KeywordFormat, KeywordUnion,
-	KeywordExcept, KeywordComment,
+	KeywordExcept, KeywordIntersect, KeywordComment,
 }
 
 // matchClauseStarterKeyword reports whether the current token is one of the
@@ -886,6 +886,22 @@ func (p *Parser) parseColumnsExpr(pos Pos) (*ColumnExpr, error) {
 	}, nil
 }
 
+// matchExceptSetOperation reports whether the current EXCEPT starts a set
+// operation (`EXCEPT [DISTINCT|ALL] SELECT ...`, `EXCEPT (SELECT ...)`) rather
+// than the column transformer `* EXCEPT (columns)`.
+func (p *Parser) matchExceptSetOperation() bool {
+	state := p.lexer.saveState()
+	defer p.lexer.restoreState(state)
+	_ = p.lexer.consumeToken() // EXCEPT
+	if p.matchOneOfKeywords(KeywordSelect, KeywordWith, KeywordDistinct, KeywordAll) {
+		return true
+	}
+	if p.tryConsumeTokenKind(TokenKindLParen) == nil {
+		return false
+	}
+	return p.matchOneOfKeywords(KeywordSelect, KeywordWith)
+}
+
 func (p *Parser) parseSelectItem() (*SelectItem, error) {
 	expr, err := p.parseExpr(p.Pos())
 	if err != nil {
@@ -894,7 +910,7 @@ func (p *Parser) parseSelectItem() (*SelectItem, error) {
 
 	modifiers := make([]*FunctionExpr, 0)
 	for {
-		if p.matchKeyword(KeywordExcept) || p.matchKeyword(KeywordApply) || p.matchKeyword(KeywordReplace) {
+		if (p.matchKeyword(KeywordExcept) && !p.matchExceptSetOperation()) || p.matchKeyword(KeywordApply) || p.matchKeyword(KeywordReplace) {
 			modifier, err := p.parseFunctionExpr(p.Pos())
 			if err != nil {
 				return nil, err

@@ -6635,7 +6635,40 @@ type SelectQuery struct {
 	OutputSettings *SettingsClause
 	UnionAll       *SelectQuery
 	UnionDistinct  *SelectQuery
-	Except         *SelectQuery
+	// Union is a bare `UNION query`, whose mode comes from the
+	// union_default_mode setting.
+	Union  *SelectQuery `json:",omitempty"`
+	Except *SelectQuery
+	// ExceptModifier is "DISTINCT" or "ALL" for `EXCEPT DISTINCT|ALL`.
+	ExceptModifier string       `json:",omitempty"`
+	Intersect      *SelectQuery `json:",omitempty"`
+	// IntersectModifier is "DISTINCT" or "ALL" for `INTERSECT DISTINCT|ALL`.
+	IntersectModifier string `json:",omitempty"`
+}
+
+// setOperation returns the set operation that continues s, such as
+// "UNION ALL" or "INTERSECT DISTINCT", and its right-hand query; next is nil
+// when s is not continued. At most one of the continuation fields is set.
+func (s *SelectQuery) setOperation() (keyword string, next *SelectQuery) {
+	withModifier := func(keyword, modifier string) string {
+		if modifier == "" {
+			return keyword
+		}
+		return keyword + " " + modifier
+	}
+	switch {
+	case s.UnionAll != nil:
+		return "UNION ALL", s.UnionAll
+	case s.UnionDistinct != nil:
+		return "UNION DISTINCT", s.UnionDistinct
+	case s.Union != nil:
+		return "UNION", s.Union
+	case s.Except != nil:
+		return withModifier("EXCEPT", s.ExceptModifier), s.Except
+	case s.Intersect != nil:
+		return withModifier("INTERSECT", s.IntersectModifier), s.Intersect
+	}
+	return "", nil
 }
 
 func (s *SelectQuery) Pos() Pos {
@@ -6748,15 +6781,11 @@ func (s *SelectQuery) writeTail(builder *strings.Builder) {
 		builder.WriteString(" ")
 		builder.WriteString(s.OutputSettings.String())
 	}
-	if s.UnionAll != nil {
-		builder.WriteString(" UNION ALL ")
-		builder.WriteString(s.UnionAll.String())
-	} else if s.UnionDistinct != nil {
-		builder.WriteString(" UNION DISTINCT ")
-		builder.WriteString(s.UnionDistinct.String())
-	} else if s.Except != nil {
-		builder.WriteString(" EXCEPT ")
-		builder.WriteString(s.Except.String())
+	if keyword, next := s.setOperation(); next != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(keyword)
+		builder.WriteByte(' ')
+		builder.WriteString(next.String())
 	}
 }
 
