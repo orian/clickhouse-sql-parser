@@ -972,13 +972,28 @@ func (p *Parser) parseTableArgExpr(pos Pos) (Expr, error) {
 	}
 }
 
+// parseTableArg parses one table-function argument. The common forms
+// (a name, db.table, a nested table function, a subquery or a literal) keep
+// their table-argument AST; anything else, such as `currentDatabase() || 'x'`,
+// `n + 1` or `-1`, is parsed as a general expression (#129).
+func (p *Parser) parseTableArg(pos Pos) (Expr, error) {
+	state := p.lexer.saveState()
+	arg, err := p.parseTableArgExpr(pos)
+	if err == nil && (p.matchTokenKind(TokenKindComma) || p.matchTokenKind(TokenKindRParen)) {
+		return arg, nil
+	}
+	p.lexer.restoreState(state)
+	return p.parseExpr(pos)
+}
+
 func (p *Parser) parseTableArgList(pos Pos) (*TableArgListExpr, error) {
 	if err := p.expectTokenKind(TokenKindLParen); err != nil {
 		return nil, err
 	}
 
 	args := make([]Expr, 0)
-	for !p.atEOF() {
+	// A table function may take no arguments, e.g. currentDatabase().
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRParen) {
 		// Check if this is a named parameter (identifier followed by =)
 		var arg Expr
 		var err error
@@ -1011,7 +1026,7 @@ func (p *Parser) parseTableArgList(pos Pos) (*TableArgListExpr, error) {
 				return nil, err
 			}
 			// Parse the value
-			value, err := p.parseTableArgExpr(p.Pos())
+			value, err := p.parseTableArg(p.Pos())
 			if err != nil {
 				return nil, err
 			}
@@ -1022,7 +1037,7 @@ func (p *Parser) parseTableArgList(pos Pos) (*TableArgListExpr, error) {
 			}
 		} else {
 			// Parse as regular table arg expression
-			arg, err = p.parseTableArgExpr(p.Pos())
+			arg, err = p.parseTableArg(p.Pos())
 		}
 
 		if err != nil {
