@@ -134,6 +134,7 @@ type ASTVisitor interface {
 	VisitDictionaryRangeClause(expr *DictionaryRangeClause) error
 	VisitWithTimeoutExpr(expr *WithTimeoutClause) error
 	VisitTableExpr(expr *TableExpr) error
+	VisitStreamClause(expr *StreamClause) error
 	VisitOnExpr(expr *OnClause) error
 	VisitUsingExpr(expr *UsingClause) error
 	VisitJoinExpr(expr *JoinExpr) error

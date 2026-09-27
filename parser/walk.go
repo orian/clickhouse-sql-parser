@@ -104,6 +104,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Alias, fn) {
 			return false
 		}
+		if !Walk(n.Stream, fn) {
+			return false
+		}
 	case *AliasExpr:
 		if !Walk(n.Expr, fn) {
 			return false
@@ -596,10 +599,7 @@ func Walk(node Expr, fn WalkFunc) bool {
 		}
 	case *RenameStmt:
 		for _, pair := range n.TargetPairList {
-			if !Walk(pair.Old, fn) {
-				return false
-			}
-			if !Walk(pair.New, fn) {
+			if !Walk(pair, fn) {
 				return false
 			}
 		}

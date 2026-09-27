@@ -5754,7 +5754,7 @@ func (s *StreamClause) String() string {
 func (s *StreamClause) Accept(visitor ASTVisitor) error {
 	visitor.Enter(s)
 	defer visitor.Leave(s)
-	return nil
+	return visitor.VisitStreamClause(s)
 }
 
 func (t *TableExpr) Pos() Pos {

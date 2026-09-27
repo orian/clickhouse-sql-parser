@@ -98,13 +98,24 @@ func FuzzAST(f *testing.F) {
 				}
 				return true
 			})
-			// Walk reaches every node the visitor recursion reaches (#105).
+			// Walk reaches every node the visitor recursion reaches (#105)...
 			entered := &enteredNodes{seen: map[Expr]bool{}}
 			entered.Self = entered
 			if err := stmt.Accept(entered); err == nil {
 				for _, node := range entered.list {
 					if !walked[node] {
 						t.Fatalf("Walk misses %T %q in %q", node, node.String(), stmt.String())
+					}
+				}
+				// ...and both reach every AST node held in a field (#106).
+				for node := range walked {
+					if !entered.seen[node] {
+						t.Fatalf("visitor misses %T %q in %q", node, node.String(), stmt.String())
+					}
+					for _, child := range childFields(node) {
+						if !walked[child] || !entered.seen[child] {
+							t.Fatalf("%T child %T %q not reached in %q", node, child, child.String(), stmt.String())
+						}
 					}
 				}
 			}

@@ -194,6 +194,11 @@ func (visitor DefaultASTVisitor) VisitAlterTableDropPartition(a *AlterTableDropP
 	if err := a.Partition.Accept(visitor.Self); err != nil {
 		return err
 	}
+	if a.Settings != nil {
+		if err := a.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -683,6 +688,11 @@ func (visitor DefaultASTVisitor) VisitConstraintExpr(c *ConstraintClause) error 
 func (visitor DefaultASTVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 	visitor.Enter(c)
 	defer visitor.Leave(c)
+	if c.Name != nil {
+		if err := c.Name.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if c.OnCluster != nil {
 		if err := c.OnCluster.Accept(visitor.Self); err != nil {
 			return err
@@ -1296,6 +1306,11 @@ func (visitor DefaultASTVisitor) VisitCreateTable(c *CreateTable) error {
 	}
 	if c.Settings != nil {
 		if err := c.Settings.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Comment != nil {
+		if err := c.Comment.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
@@ -2074,6 +2089,11 @@ func (visitor DefaultASTVisitor) VisitPrivilegeExpr(p *PrivilegeClause) error {
 func (visitor DefaultASTVisitor) VisitProjectionOrderBy(p *ProjectionOrderByClause) error {
 	visitor.Enter(p)
 	defer visitor.Leave(p)
+	if p.Columns != nil {
+		if err := p.Columns.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -2147,10 +2167,7 @@ func (visitor DefaultASTVisitor) VisitRenameStmt(r *RenameStmt) error {
 	visitor.Enter(r)
 	defer visitor.Leave(r)
 	for _, pair := range r.TargetPairList {
-		if err := pair.Old.Accept(visitor.Self); err != nil {
-			return err
-		}
-		if err := pair.New.Accept(visitor.Self); err != nil {
+		if err := pair.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
@@ -2268,6 +2285,11 @@ func (visitor DefaultASTVisitor) VisitSelectQuery(s *SelectQuery) error {
 	}
 	if s.With != nil {
 		if err := s.With.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.DistinctOn != nil {
+		if err := s.DistinctOn.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
@@ -2595,6 +2617,12 @@ func (visitor DefaultASTVisitor) VisitTableArgListExpr(t *TableArgListExpr) erro
 	return nil
 }
 
+func (visitor DefaultASTVisitor) VisitStreamClause(s *StreamClause) error {
+	visitor.Enter(s)
+	defer visitor.Leave(s)
+	return nil
+}
+
 func (visitor DefaultASTVisitor) VisitTableExpr(t *TableExpr) error {
 	visitor.Enter(t)
 	defer visitor.Leave(t)
@@ -2603,6 +2631,11 @@ func (visitor DefaultASTVisitor) VisitTableExpr(t *TableExpr) error {
 	}
 	if t.Alias != nil {
 		if err := t.Alias.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if t.Stream != nil {
+		if err := t.Stream.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
@@ -2767,6 +2800,11 @@ func (visitor DefaultASTVisitor) VisitIndexTypeKwarg(k *IndexTypeKwarg) error {
 func (visitor DefaultASTVisitor) VisitUUID(u *UUID) error {
 	visitor.Enter(u)
 	defer visitor.Leave(u)
+	if u.Value != nil {
+		if err := u.Value.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
