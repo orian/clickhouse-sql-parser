@@ -320,6 +320,14 @@ func (b *BeautifyVisitor) emitOrderExprMultiLine(o *OrderExpr) {
 		b.writeSpace()
 		b.writeString(string(o.Direction))
 	}
+	if o.Nulls != "" {
+		b.writeString(" NULLS ")
+		b.writeString(o.Nulls)
+	}
+	if o.Collate != nil {
+		b.writeString(" COLLATE ")
+		b.writeString(o.Collate.String())
+	}
 	if o.Fill != nil {
 		b.writeSpace()
 		b.writeString(o.Fill.String())

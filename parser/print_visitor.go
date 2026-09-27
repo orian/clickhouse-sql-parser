@@ -1594,16 +1594,9 @@ func (p *PrintVisitor) VisitOrderByListExpr(o *OrderByClause) error {
 	return nil
 }
 func (p *PrintVisitor) VisitOrderByExpr(o *OrderExpr) error {
-	builder := p.builder
-	builder.WriteString(o.Expr.String())
-	if o.Alias != nil {
-		builder.WriteString(" AS ")
-		builder.WriteString(o.Alias.String())
-	}
-	if o.Direction != OrderDirectionNone {
-		builder.WriteByte(' ')
-		builder.WriteString(string(o.Direction))
-	}
+	// String() covers NULLS, COLLATE and WITH FILL (WITH FILL used to be
+	// dropped here).
+	p.builder.WriteString(o.String())
 	return nil
 }
 
