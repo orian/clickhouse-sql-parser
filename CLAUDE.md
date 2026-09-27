@@ -133,3 +133,15 @@ The project uses a comprehensive testing approach:
 ** Walking the AST**
 
 - For a new expression type, it should be also added to the `Walk` function in `walk.go`.
+
+## Public API changes
+
+Any change to the public API of the `parser` package must be recorded. That
+covers exported types, fields and methods, the `ASTVisitor` interface, the
+AST shape returned for an input, `Pos()`/`End()` semantics, printed SQL, and
+input that is newly rejected or accepted.
+
+- Add an entry under **Unreleased** in `COMPATIBILITY.md`, in the matching
+  group (Breaking, Changed behavior, Newly rejected input, Additive).
+- State the change as a **⚠️ WARNING** in the pull request description, with
+  how API consumers should adapt.
