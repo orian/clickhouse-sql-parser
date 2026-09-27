@@ -18,7 +18,9 @@ go build -o clickhouse-sql-parser main.go
 ### Run tests
 ```bash
 make test
-# Runs tests with coverage, race detection, and compatible flag
+# Runs tests with race detection and the compatible flag (what CI runs)
+make cover
+# Same, plus a coverage profile in coverage.out (much slower)
 ```
 
 ### Run compatible tests (for ClickHouse compatibility)
