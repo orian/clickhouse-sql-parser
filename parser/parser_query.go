@@ -1045,6 +1045,7 @@ func (p *Parser) parseHavingClause(pos Pos) (*HavingClause, error) {
 }
 
 func (p *Parser) parseSubQuery(_ Pos) (*SubQuery, error) {
+	pos := p.Pos()
 
 	hasParen := p.tryConsumeTokenKind(TokenKindLParen) != nil
 
@@ -1057,6 +1058,20 @@ func (p *Parser) parseSubQuery(_ Pos) (*SubQuery, error) {
 		rightParenPos = p.Pos()
 		if err := p.expectTokenKind(TokenKindRParen); err != nil {
 			return nil, err
+		}
+		// `(query) UNION ALL ...`: the parentheses group only the first
+		// operand, so they become a group node and the chain continues.
+		if p.matchKeyword(KeywordUnion) || p.matchKeyword(KeywordExcept) {
+			group := &SelectQuery{
+				SelectPos:    pos,
+				StatementEnd: p.prevEnd(),
+				HasParen:     true,
+				Group:        selectQuery,
+			}
+			if err := p.parseSetOperation(group); err != nil {
+				return nil, err
+			}
+			return &SubQuery{Select: group}, nil
 		}
 	}
 
@@ -1072,12 +1087,26 @@ func (p *Parser) parseSelectQuery(_ Pos) (*SelectQuery, error) {
 		return nil, fmt.Errorf("expected SELECT, WITH or (, got %s", p.lastTokenKind())
 	}
 
-	lParenPos := p.Pos()
-	hasParen := p.tryConsumeTokenKind(TokenKindLParen) != nil
-	selectStmt, err := p.parseSelectStmt(p.Pos())
+	var selectStmt *SelectQuery
+	var err error
+	if p.matchTokenKind(TokenKindLParen) {
+		selectStmt, err = p.parseSelectGroup()
+	} else {
+		selectStmt, err = p.parseSelectStmt(p.Pos())
+	}
 	if err != nil {
 		return nil, err
 	}
+	if err := p.parseSetOperation(selectStmt); err != nil {
+		return nil, err
+	}
+	return selectStmt, nil
+}
+
+// parseSetOperation parses an optional `UNION ALL|DISTINCT query` or
+// `EXCEPT query` continuation of selectStmt, or the clauses after a final
+// parenthesised group, and extends selectStmt's end to cover them.
+func (p *Parser) parseSetOperation(selectStmt *SelectQuery) error {
 	defer func() {
 		// The statement ends with the last query of its UNION/EXCEPT chain.
 		for _, next := range []*SelectQuery{selectStmt.UnionAll, selectStmt.UnionDistinct, selectStmt.Except} {
@@ -1092,35 +1121,86 @@ func (p *Parser) parseSelectQuery(_ Pos) (*SelectQuery, error) {
 		case p.tryConsumeKeywords(KeywordAll):
 			unionAllExpr, err := p.parseSelectQuery(p.Pos())
 			if err != nil {
-				return nil, err
+				return err
 			}
 			selectStmt.UnionAll = unionAllExpr
 		case p.tryConsumeKeywords(KeywordDistinct):
 			unionDistinctExpr, err := p.parseSelectQuery(p.Pos())
 			if err != nil {
-				return nil, err
+				return err
 			}
 			selectStmt.UnionDistinct = unionDistinctExpr
 		default:
-			return nil, fmt.Errorf("expected ALL or DISTINCT, got %s", p.lastTokenKind())
+			return fmt.Errorf("expected ALL or DISTINCT, got %s", p.lastTokenKind())
 		}
 	case p.tryConsumeKeywords(KeywordExcept):
 		exceptExpr, err := p.parseSelectQuery(p.Pos())
 		if err != nil {
-			return nil, err
+			return err
 		}
 		selectStmt.Except = exceptExpr
-	}
-	if hasParen {
-		if err := p.expectTokenKind(TokenKindRParen); err != nil {
-			return nil, err
+	default:
+		if selectStmt.Group != nil {
+			return p.parseGroupTail(selectStmt)
 		}
-		selectStmt.HasParen = true
-		// A parenthesised operand spans its parentheses, which String() prints.
-		selectStmt.SelectPos = lParenPos
-		selectStmt.StatementEnd = p.prevEnd()
 	}
-	return selectStmt, nil
+	return nil
+}
+
+// parseSelectGroup parses a parenthesised set-operation operand `( query )`
+// into a group node: the query inside the parentheses goes to Group, and the
+// caller attaches any UNION/EXCEPT that follows the closing parenthesis to
+// the group node itself (#78).
+func (p *Parser) parseSelectGroup() (*SelectQuery, error) {
+	lParenPos := p.Pos()
+	if err := p.expectTokenKind(TokenKindLParen); err != nil {
+		return nil, err
+	}
+	inner, err := p.parseSelectQuery(p.Pos())
+	if err != nil {
+		return nil, err
+	}
+	if err := p.expectTokenKind(TokenKindRParen); err != nil {
+		return nil, err
+	}
+	return &SelectQuery{
+		SelectPos:    lParenPos,
+		StatementEnd: p.prevEnd(),
+		HasParen:     true,
+		Group:        inner,
+	}, nil
+}
+
+// parseGroupTail parses the clauses ClickHouse accepts after a final
+// parenthesised group: `[SETTINGS ...]` or `FORMAT fmt [SETTINGS ...]`. The
+// SETTINGS before and after FORMAT are the same query-level clause here, so
+// only one of them may be given.
+func (p *Parser) parseGroupTail(group *SelectQuery) error {
+	settings, err := p.tryParseSettingsClause(p.Pos())
+	if err != nil {
+		return err
+	}
+	format, err := p.tryParseFormat(p.Pos())
+	if err != nil {
+		return err
+	}
+	var outputSettings *SettingsClause
+	if format != nil {
+		outputSettings, err = p.tryParseSettingsClause(p.Pos())
+		if err != nil {
+			return err
+		}
+	}
+	if settings != nil && outputSettings != nil {
+		return errors.New("duplicate query-level SETTINGS clause")
+	}
+	group.Settings = settings
+	group.Format = format
+	group.OutputSettings = outputSettings
+	if settings != nil || format != nil {
+		group.StatementEnd = p.prevEnd()
+	}
+	return nil
 }
 
 func (p *Parser) parseSelectStmt(pos Pos) (*SelectQuery, error) { // nolint: funlen
@@ -1305,8 +1385,12 @@ func (p *Parser) parseCTEStmt(pos Pos) (*CTEStmt, error) {
 		if err != nil {
 			return nil, err
 		}
-		// CTEStmt prints the parentheses of `name AS (SELECT ...)` itself.
-		selectQuery.HasParen = false
+		// CTEStmt prints the parentheses of `name AS (SELECT ...)` itself, so
+		// unwrap the group they formed.
+		if selectQuery.Group != nil && selectQuery.UnionAll == nil && selectQuery.UnionDistinct == nil &&
+			selectQuery.Except == nil && selectQuery.Settings == nil && selectQuery.Format == nil {
+			selectQuery = selectQuery.Group
+		}
 		return &CTEStmt{
 			CTEPos: pos,
 			Expr:   expr,
