@@ -1441,29 +1441,51 @@ func (p *Parser) parseSampleClause(pos Pos) (*SampleClause, error) {
 	}, nil
 }
 
+// explainKinds are the EXPLAIN kinds, matched as keywords or unquoted words.
+var explainKinds = [][]string{
+	{"AST"}, {"SYNTAX"}, {"QUERY", "TREE"}, {"PLAN"}, {"PIPELINE"}, {"ESTIMATE"},
+	{"CURRENT", "TRANSACTION"},
+}
+
 func (p *Parser) parseExplainStmt(pos Pos) (*ExplainStmt, error) {
 	if err := p.expectKeyword(KeywordExplain); err != nil {
 		return nil, err
 	}
-
-	var explainType string
-	switch {
-	case p.matchKeyword(KeywordSyntax),
-		p.matchKeyword(KeywordPipeline),
-		p.matchKeyword(KeywordEstimate),
-		p.matchKeyword(KeywordAst):
-		explainType = p.last().String
-		_ = p.lexer.consumeToken()
-	default:
-		return nil, fmt.Errorf("expected SYNTAX, PIPELINE, ESTIMATE or AST, got %s", p.lastTokenKind())
+	explain := &ExplainStmt{ExplainPos: pos}
+	for _, kind := range explainKinds {
+		if p.tryConsumeWords(kind...) {
+			explain.Type = strings.Join(kind, " ")
+			break
+		}
 	}
-	stmt, err := p.parseSelectQuery(p.Pos())
+	if explain.Type == "CURRENT TRANSACTION" {
+		explain.ExplainEnd = p.prevEnd()
+		return explain, nil
+	}
+	if p.matchExplainSetting() {
+		settings, err := p.parseSettingsList(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		explain.Settings = settings
+	}
+	stmt, err := p.parseStmtBody(p.Pos())
 	if err != nil {
 		return nil, err
 	}
-	return &ExplainStmt{
-		ExplainPos: pos,
-		Type:       explainType,
-		Statement:  stmt,
-	}, nil
+	explain.Statement = stmt
+	explain.ExplainEnd = stmt.End()
+	return explain, nil
+}
+
+// matchExplainSetting reports whether the current tokens start an EXPLAIN
+// setting (`name = value`) rather than the explained statement.
+func (p *Parser) matchExplainSetting() bool {
+	if !p.matchTokenKind(TokenKindIdent) {
+		return false
+	}
+	state := p.lexer.saveState()
+	defer p.lexer.restoreState(state)
+	_ = p.lexer.consumeToken()
+	return p.matchTokenKind(TokenKindSingleEQ)
 }

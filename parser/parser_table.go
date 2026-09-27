@@ -1868,6 +1868,21 @@ func (p *Parser) parseTimeSeriesTargets() ([]*TimeSeriesTargetClause, error) {
 }
 
 func (p *Parser) parseStmt(pos Pos) (Expr, error) {
+	expr, err := p.parseStmtBody(pos)
+	if err != nil {
+		return nil, err
+	}
+	// Statement can be terminated by ';' or EOF
+	if p.last() != nil && !p.matchTokenKind(";") {
+		return nil, fmt.Errorf("<EOF> or ';' was expected, but got: %q", p.lastTokenText())
+	}
+	return expr, nil
+}
+
+// parseStmtBody parses one statement with its trailing output clauses, but not
+// the terminating ';' or end of input. EXPLAIN uses it for the explained
+// statement.
+func (p *Parser) parseStmtBody(pos Pos) (Expr, error) {
 	var err error
 	var expr Expr
 	switch {
@@ -1916,11 +1931,6 @@ func (p *Parser) parseStmt(pos Pos) (Expr, error) {
 	}
 	if err := p.tryParseQueryOutput(expr); err != nil {
 		return nil, err
-	}
-
-	// Statement can be terminated by ';' or EOF
-	if p.last() != nil && !p.matchTokenKind(";") {
-		return nil, fmt.Errorf("<EOF> or ';' was expected, but got: %q", p.lastTokenText())
 	}
 	return expr, nil
 }

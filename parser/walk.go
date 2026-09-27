@@ -581,6 +581,11 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *ExplainStmt:
+		for _, setting := range n.Settings {
+			if !Walk(setting, fn) {
+				return false
+			}
+		}
 		if !Walk(n.Statement, fn) {
 			return false
 		}

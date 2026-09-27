@@ -1930,10 +1930,27 @@ func (p *PrintVisitor) VisitEnumValue(e *EnumValue) error {
 
 func (p *PrintVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	builder := p.builder
-	builder.WriteString("EXPLAIN ")
-	builder.WriteString(e.Type)
-	builder.WriteByte(' ')
-	builder.WriteString(e.Statement.String())
+	builder.WriteString("EXPLAIN")
+	if e.Type != "" {
+		builder.WriteByte(' ')
+		builder.WriteString(e.Type)
+	}
+	for i, setting := range e.Settings {
+		if i == 0 {
+			builder.WriteByte(' ')
+		} else {
+			builder.WriteString(", ")
+		}
+		if err := setting.Accept(p); err != nil {
+			return err
+		}
+	}
+	if e.Statement != nil {
+		builder.WriteByte(' ')
+		if err := e.Statement.Accept(p); err != nil {
+			return err
+		}
+	}
 	builder.WriteString(e.outputString())
 	return nil
 }

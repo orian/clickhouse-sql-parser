@@ -174,6 +174,10 @@ Entries are grouped as:
 - `SYSTEM FLUSH DISTRIBUTED t` keeps `DISTRIBUTED` (#114). It used to print as
   `SYSTEM FLUSH t`, which ClickHouse rejects. `SystemFlushExpr.End()` now
   includes a trailing `ON CLUSTER` or `SETTINGS`.
+- `ExplainStmt.Statement` can now be any statement, not only a
+  `*SelectQuery`, and is nil for `EXPLAIN CURRENT TRANSACTION` (#86).
+  `ExplainStmt.Type` is empty when the kind is omitted. `ExplainStmt.End()` is
+  based on the new `ExplainEnd`.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -246,6 +250,7 @@ Entries are grouped as:
   - `SystemCtrlExpr.OnCluster` (#108);
   - `SystemFlushExpr.AsyncInsertQueue`, `OnCluster`, `Tables`, `Settings`
     (#114);
+  - `ExplainStmt.Settings`, `ExplainEnd` (#86);
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
@@ -283,3 +288,7 @@ Entries are grouped as:
   - `SYSTEM FLUSH LOGS [ON CLUSTER c] [log, …]`, `SYSTEM FLUSH DISTRIBUTED
     [ON CLUSTER c] t [ON CLUSTER c] [SETTINGS …]` and `SYSTEM FLUSH ASYNC
     INSERT QUEUE [ON CLUSTER c] [t, …]` (#114).
+  - `EXPLAIN` without a kind, the kinds `PLAN`, `QUERY TREE` and `CURRENT
+    TRANSACTION`, EXPLAIN settings (`EXPLAIN PLAN header = 1 …`), and any
+    explained statement (`EXPLAIN AST CREATE TABLE …`, `EXPLAIN INSERT …`,
+    `EXPLAIN (SELECT …)`, nested `EXPLAIN`) (#86).

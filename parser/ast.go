@@ -7468,7 +7468,7 @@ type SystemFlushExpr struct {
 	StatementEnd Pos
 	Logs         bool
 	// AsyncInsertQueue is set for FLUSH ASYNC INSERT QUEUE.
-	AsyncInsertQueue bool `json:",omitempty"`
+	AsyncInsertQueue bool           `json:",omitempty"`
 	OnCluster        *ClusterClause `json:",omitempty"`
 	// Tables lists the logs of FLUSH LOGS or the tables of FLUSH ASYNC
 	// INSERT QUEUE.
@@ -7574,7 +7574,7 @@ type SystemSyncExpr struct {
 	SyncEnd Pos `json:",omitempty"`
 	// Target is the normalised target: "REPLICA", "DATABASE REPLICA",
 	// "TRANSACTION LOG", "FILE CACHE" or "FILESYSTEM CACHE".
-	Target    string        `json:",omitempty"`
+	Target    string         `json:",omitempty"`
 	OnCluster *ClusterClause `json:",omitempty"`
 	// Cluster is the table of SYNC REPLICA. Despite its name it is not a
 	// cluster; ON CLUSTER is OnCluster.
@@ -8150,11 +8150,23 @@ func (t *TargetPair) Accept(visitor ASTVisitor) error {
 	return visitor.VisitTargetPairExpr(t)
 }
 
+// ExplainStmt is `EXPLAIN [kind] [setting = value, ...] statement`, or
+// `EXPLAIN CURRENT TRANSACTION`.
 type ExplainStmt struct {
 	OutputClauses
 	ExplainPos Pos
-	Type       string
-	Statement  Expr
+	// ExplainEnd is the end of the explained statement (or of CURRENT
+	// TRANSACTION), before any trailing FORMAT/SETTINGS.
+	ExplainEnd Pos `json:",omitempty"`
+	// Type is the kind as written: "AST", "SYNTAX", "QUERY TREE", "PLAN",
+	// "PIPELINE", "ESTIMATE" or "CURRENT TRANSACTION"; empty when omitted
+	// (ClickHouse then uses PLAN).
+	Type string
+	// Settings are the EXPLAIN settings, e.g. `header = 1` in
+	// `EXPLAIN PLAN header = 1 SELECT ...`.
+	Settings []*SettingExpr `json:",omitempty"`
+	// Statement is the explained statement; nil for CURRENT TRANSACTION.
+	Statement Expr
 }
 
 func (e *ExplainStmt) Pos() Pos {
@@ -8166,7 +8178,7 @@ func (e *ExplainStmt) End() Pos {
 }
 
 func (e *ExplainStmt) baseEnd() Pos {
-	return e.Statement.End()
+	return e.ExplainEnd
 }
 
 func (e *ExplainStmt) String() string {
@@ -8175,10 +8187,23 @@ func (e *ExplainStmt) String() string {
 
 func (e *ExplainStmt) baseString() string {
 	var builder strings.Builder
-	builder.WriteString("EXPLAIN ")
-	builder.WriteString(e.Type)
-	builder.WriteByte(' ')
-	builder.WriteString(e.Statement.String())
+	builder.WriteString("EXPLAIN")
+	if e.Type != "" {
+		builder.WriteByte(' ')
+		builder.WriteString(e.Type)
+	}
+	for i, setting := range e.Settings {
+		if i == 0 {
+			builder.WriteByte(' ')
+		} else {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(setting.String())
+	}
+	if e.Statement != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(e.Statement.String())
+	}
 	return builder.String()
 }
 
