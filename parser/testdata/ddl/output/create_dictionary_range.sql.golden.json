@@ -1,0 +1,271 @@
+[
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "CreatePos": 0,
+    "StatementEnd": 396,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "test",
+        "QuoteType": 1,
+        "NamePos": 18,
+        "NameEnd": 22
+      },
+      "Table": {
+        "Name": "discounts",
+        "QuoteType": 1,
+        "NamePos": 23,
+        "NameEnd": 32
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "Schema": {
+      "SchemaPos": 33,
+      "Attributes": [
+        {
+          "NamePos": 39,
+          "Name": {
+            "Name": "advertiser_id",
+            "QuoteType": 1,
+            "NamePos": 39,
+            "NameEnd": 52
+          },
+          "Type": {
+            "Name": {
+              "Name": "UInt64",
+              "QuoteType": 1,
+              "NamePos": 53,
+              "NameEnd": 59
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        },
+        {
+          "NamePos": 65,
+          "Name": {
+            "Name": "discount_start_date",
+            "QuoteType": 1,
+            "NamePos": 65,
+            "NameEnd": 84
+          },
+          "Type": {
+            "Name": {
+              "Name": "Date",
+              "QuoteType": 1,
+              "NamePos": 85,
+              "NameEnd": 89
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        },
+        {
+          "NamePos": 95,
+          "Name": {
+            "Name": "discount_end_date",
+            "QuoteType": 1,
+            "NamePos": 95,
+            "NameEnd": 112
+          },
+          "Type": {
+            "Name": {
+              "Name": "Date",
+              "QuoteType": 1,
+              "NamePos": 113,
+              "NameEnd": 117
+            }
+          },
+          "Default": null,
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        },
+        {
+          "NamePos": 123,
+          "Name": {
+            "Name": "amount",
+            "QuoteType": 1,
+            "NamePos": 123,
+            "NameEnd": 129
+          },
+          "Type": {
+            "Name": {
+              "Name": "Float64",
+              "QuoteType": 1,
+              "NamePos": 130,
+              "NameEnd": 137
+            }
+          },
+          "Default": {
+            "NumPos": 146,
+            "NumEnd": 147,
+            "Literal": "0",
+            "Base": 10
+          },
+          "Expression": null,
+          "Hierarchical": false,
+          "Injective": false,
+          "IsObjectId": false
+        }
+      ],
+      "RParenPos": 148
+    },
+    "Engine": {
+      "EnginePos": 150,
+      "PrimaryKey": {
+        "PrimaryKeyPos": 150,
+        "Keys": {
+          "ListPos": 162,
+          "ListEnd": 175,
+          "HasDistinct": false,
+          "Items": [
+            {
+              "Expr": {
+                "Name": "advertiser_id",
+                "QuoteType": 1,
+                "NamePos": 162,
+                "NameEnd": 175
+              },
+              "Alias": null
+            }
+          ],
+          "HasTrailingComma": false
+        },
+        "RParenPos": 174
+      },
+      "Source": {
+        "SourcePos": 176,
+        "Source": {
+          "Name": "CLICKHOUSE",
+          "QuoteType": 1,
+          "NamePos": 183,
+          "NameEnd": 193
+        },
+        "Args": [
+          {
+            "ArgPos": 194,
+            "Name": {
+              "Name": "TABLE",
+              "QuoteType": 1,
+              "NamePos": 194,
+              "NameEnd": 199
+            },
+            "Value": {
+              "LiteralPos": 201,
+              "LiteralEnd": 210,
+              "Literal": "discounts"
+            }
+          },
+          {
+            "ArgPos": 212,
+            "Name": {
+              "Name": "DB",
+              "QuoteType": 1,
+              "NamePos": 212,
+              "NameEnd": 214
+            },
+            "Value": {
+              "LiteralPos": 216,
+              "LiteralEnd": 220,
+              "Literal": "test"
+            }
+          }
+        ],
+        "RParenPos": 222
+      },
+      "Lifetime": {
+        "LifetimePos": 224,
+        "Min": {
+          "NumPos": 237,
+          "NumEnd": 238,
+          "Literal": "1",
+          "Base": 10
+        },
+        "Max": {
+          "NumPos": 243,
+          "NumEnd": 247,
+          "Literal": "1000",
+          "Base": 10
+        },
+        "Value": null,
+        "RParenPos": 247
+      },
+      "Layout": {
+        "LayoutPos": 249,
+        "Layout": {
+          "Name": "RANGE_HASHED",
+          "QuoteType": 1,
+          "NamePos": 256,
+          "NameEnd": 268
+        },
+        "Args": [
+          {
+            "ArgPos": 269,
+            "Name": {
+              "Name": "range_lookup_strategy",
+              "QuoteType": 1,
+              "NamePos": 269,
+              "NameEnd": 290
+            },
+            "Value": {
+              "LiteralPos": 292,
+              "LiteralEnd": 295,
+              "Literal": "max"
+            }
+          }
+        ],
+        "RParenPos": 297
+      },
+      "Range": {
+        "RangePos": 299,
+        "Min": {
+          "Name": "discount_start_date",
+          "QuoteType": 1,
+          "NamePos": 309,
+          "NameEnd": 328
+        },
+        "Max": {
+          "Name": "discount_end_date",
+          "QuoteType": 1,
+          "NamePos": 333,
+          "NameEnd": 350
+        },
+        "RParenPos": 350
+      },
+      "Settings": {
+        "SettingsPos": 352,
+        "ListEnd": 396,
+        "Items": [
+          {
+            "SettingsPos": 361,
+            "Name": {
+              "Name": "format_csv_allow_single_quotes",
+              "QuoteType": 1,
+              "NamePos": 361,
+              "NameEnd": 391
+            },
+            "Expr": {
+              "NumPos": 394,
+              "NumEnd": 395,
+              "Literal": "0",
+              "Base": 10
+            }
+          }
+        ]
+      }
+    },
+    "Comment": null,
+    "IsAttach": false
+  }
+]
