@@ -15,9 +15,8 @@ func beautifyRoundTrip(t *testing.T, stmt Expr) string {
 	beautify := NewBeautifyVisitor()
 	require.NoError(t, stmt.Accept(beautify))
 	out := beautify.String()
-	// The trailing ';' works around #46 (a final single-token clause such as
-	// `ALTER TABLE t FREEZE` fails to parse at end of input).
-	reparsed, err := NewParser(out + ";").ParseStmts()
+	// No trailing ';': a statement must parse at end of input (#46).
+	reparsed, err := NewParser(out).ParseStmts()
 	require.NoError(t, err, "beautified output does not parse:\n%s", out)
 	require.Len(t, reparsed, 1)
 	require.Equal(t, stmt.String(), reparsed[0].String(), "beautified output:\n%s", out)

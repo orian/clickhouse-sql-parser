@@ -233,7 +233,7 @@ func (p *Parser) parseSubExpr(pos Pos, precedence int) (Expr, error) {
 	if err != nil {
 		return nil, err
 	}
-	for !p.lexer.isEOF() {
+	for !p.atEOF() {
 		nextPrecedence := p.getNextPrecedence()
 		if nextPrecedence <= precedence {
 			return expr, nil
@@ -295,7 +295,7 @@ func (p *Parser) parseColumnExtractExpr(pos Pos) (*ExtractExpr, error) {
 	}
 
 	parameters := make([]Expr, 0)
-	for !p.lexer.isEOF() {
+	for !p.atEOF() {
 		expr, err := p.parseExpr(p.Pos())
 		if err != nil {
 			return nil, err
@@ -361,7 +361,7 @@ func (p *Parser) parseUnaryExpr(pos Pos) (Expr, error) {
 }
 
 func (p *Parser) peekTokenKind(kind TokenKind) bool {
-	if p.lexer.isEOF() {
+	if p.atEOF() {
 		return false
 	}
 	token, err := p.lexer.peekToken()
@@ -372,7 +372,7 @@ func (p *Parser) peekTokenKind(kind TokenKind) bool {
 }
 
 func (p *Parser) peekKeyword(keyword string) bool {
-	if p.lexer.isEOF() {
+	if p.atEOF() {
 		return false
 	}
 	token, err := p.lexer.peekToken()
@@ -614,7 +614,7 @@ func (p *Parser) parseColumnExprListWithTerm(term TokenKind, pos Pos) (*ColumnEx
 	}
 	columnExprList.HasDistinct = p.tryConsumeKeywords(KeywordDistinct)
 	columnList := make([]Expr, 0)
-	for !p.lexer.isEOF() || p.last() != nil {
+	for !p.atEOF() {
 		if term != "" && p.matchTokenKind(term) {
 			break
 		}
@@ -642,8 +642,16 @@ func (p *Parser) parseColumnExprListWithTerm(term TokenKind, pos Pos) (*ColumnEx
 }
 
 func (p *Parser) parseSelectItems() ([]*SelectItem, error) {
+	// The select list needs at least one item (#82). A clause keyword is the
+	// first item only when it is a function call (`SELECT format(...)`) or a
+	// bare column name (`SELECT from FROM t`, `SELECT limit`); otherwise
+	// `SELECT FROM t` would read FROM as a column.
+	if p.atEOF() || (p.matchClauseStarterKeyword() && !p.peekTokenKind(TokenKindLParen) &&
+		!p.keywordIsSelectItemIdentifier() && !p.peekIsEndOfStatement()) {
+		return nil, fmt.Errorf("expected a select list, got %q", p.lastTokenText())
+	}
 	selectItems := make([]*SelectItem, 0)
-	for !p.lexer.isEOF() || p.last() != nil {
+	for !p.atEOF() {
 		selectItem, err := p.parseSelectItem()
 		if err != nil {
 			return nil, err
@@ -658,6 +666,9 @@ func (p *Parser) parseSelectItems() ([]*SelectItem, error) {
 		if p.isSelectItemTerminatorKeyword() {
 			break
 		}
+	}
+	if len(selectItems) == 0 {
+		return nil, fmt.Errorf("expected a select list, got %q", p.lastTokenText())
 	}
 	return selectItems, nil
 }
@@ -713,7 +724,7 @@ func (p *Parser) parseColumnArgList(pos Pos) (*ColumnArgList, error) {
 	distinct := p.tryConsumeKeywords(KeywordDistinct)
 
 	var items []Expr
-	for !p.lexer.isEOF() && !p.matchTokenKind(TokenKindRParen) {
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRParen) {
 		item, err := p.parseExpr(p.Pos())
 		if err != nil {
 			return nil, err
@@ -786,7 +797,7 @@ func (p *Parser) parseMapLiteral(pos Pos) (*MapLiteral, error) {
 	}
 
 	keyValues := make([]KeyValue, 0)
-	for !p.lexer.isEOF() && !p.matchTokenKind(TokenKindRBrace) {
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRBrace) {
 		key, err := p.parseString(p.Pos())
 		if err != nil {
 			return nil, err
@@ -1077,7 +1088,7 @@ func (p *Parser) parseColumnPropertyType(_ Pos) (Expr, error) {
 
 func (p *Parser) parseComplexType(name *Ident, pos Pos) (*ComplexType, error) {
 	subTypes := make([]ColumnType, 0)
-	for !p.lexer.isEOF() && !p.matchTokenKind(TokenKindRParen) {
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRParen) {
 		subExpr, err := p.parseColumnType(p.Pos())
 		if err != nil {
 			return nil, err
@@ -1105,7 +1116,7 @@ func (p *Parser) parseEnumType(name *Ident, pos Pos) (*EnumType, error) {
 		ListPos: pos,
 		Values:  make([]EnumValue, 0),
 	}
-	for !p.lexer.isEOF() && !p.matchTokenKind(TokenKindRParen) {
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRParen) {
 		enumValue, err := p.parseEnumValueExpr(p.Pos())
 		if err != nil {
 			return nil, err
@@ -1135,7 +1146,7 @@ func (p *Parser) parseColumnTypeWithParams(name *Ident, pos Pos) (*TypeWithParam
 		return nil, err
 	}
 	params = append(params, param)
-	for !p.lexer.isEOF() && p.tryConsumeTokenKind(TokenKindComma) != nil {
+	for !p.atEOF() && p.tryConsumeTokenKind(TokenKindComma) != nil {
 		size, err := p.parseLiteral(p.Pos())
 		if err != nil {
 			return nil, err
@@ -1163,7 +1174,7 @@ func (p *Parser) parseJSONPath() (*JSONPath, error) {
 	}
 	idents = append(idents, ident)
 
-	for !p.lexer.isEOF() && p.tryConsumeTokenKind(TokenKindDot) != nil {
+	for !p.atEOF() && p.tryConsumeTokenKind(TokenKindDot) != nil {
 		ident, err := p.parseIdent()
 		if err != nil {
 			return nil, err
@@ -1279,7 +1290,7 @@ func (p *Parser) parseJSONType(name *Ident, pos Pos) (*JSONType, error) {
 	}
 
 	options := make([]*JSONOption, 0)
-	for !p.lexer.isEOF() && !p.matchTokenKind(TokenKindRParen) {
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRParen) {
 		option, err := p.parseJSONOption()
 		if err != nil {
 			return nil, err
@@ -1324,7 +1335,7 @@ func (p *Parser) parseNestedType(name *Ident, pos Pos) (*NestedType, error) {
 
 func (p *Parser) parseNestedTypeFields() ([]Expr, error) {
 	switch {
-	case p.lexer.isEOF() || p.matchTokenKind(TokenKindRParen):
+	case p.atEOF() || p.matchTokenKind(TokenKindRParen):
 		// Cases like `Tuple()`
 		return []Expr{}, nil
 	case p.matchTokenKind(TokenKindIdent):
@@ -1366,7 +1377,7 @@ func (p *Parser) parseNestedTypeFieldsWithNames(columnName *Ident) ([]Expr, erro
 		return columns, nil
 	}
 
-	for !p.lexer.isEOF() && !p.matchTokenKind(TokenKindRParen) {
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRParen) {
 		column, err := p.parseNestedTypeFieldWithName()
 		if err != nil {
 			return nil, err
@@ -1398,7 +1409,7 @@ func (p *Parser) parseNestedTypeFieldsWithoutNames(columnType *Ident) ([]Expr, e
 		return columns, nil
 	}
 
-	for !p.lexer.isEOF() && !p.matchTokenKind(TokenKindRParen) {
+	for !p.atEOF() && !p.matchTokenKind(TokenKindRParen) {
 		column, err := p.parseColumnType(p.Pos())
 		if err != nil {
 			return nil, err

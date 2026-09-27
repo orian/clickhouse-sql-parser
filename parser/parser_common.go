@@ -42,6 +42,14 @@ func (p *Parser) prevEnd() Pos {
 	return p.lexer.prevEnd
 }
 
+// atEOF reports whether the input is exhausted: there is no current token
+// left to parse. Unlike lexer.isEOF, which is already true while the last
+// token of the input is still the current token, it does not skip a final
+// single-token clause (#46).
+func (p *Parser) atEOF() bool {
+	return p.last() == nil
+}
+
 func (p *Parser) End() Pos {
 	if p.last() == nil {
 		return Pos(p.lexer.current + 1)
