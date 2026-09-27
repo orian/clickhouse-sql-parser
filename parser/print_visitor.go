@@ -25,13 +25,19 @@ func (v *PrintVisitor) String() string {
 func (p *PrintVisitor) VisitAliasExpr(a *AliasExpr) error {
 	if _, isSelect := a.Expr.(*SelectQuery); isSelect {
 		p.builder.WriteByte('(')
-		p.builder.WriteString(a.Expr.String())
+		if err := a.Expr.Accept(p); err != nil {
+			return err
+		}
 		p.builder.WriteByte(')')
 	} else {
-		p.builder.WriteString(a.Expr.String())
+		if err := a.Expr.Accept(p); err != nil {
+			return err
+		}
 	}
 	p.builder.WriteString(" AS ")
-	p.builder.WriteString(a.Alias.String())
+	if err := a.Alias.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitAlterRole(a *AlterRole) error {
@@ -352,7 +358,9 @@ func (p *PrintVisitor) VisitArrayParamList(a *ArrayParamList) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(item.String())
+		if err := item.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString("]")
 	return nil
@@ -365,7 +373,9 @@ func (p *PrintVisitor) VisitValuesExpr(v *AssignmentValues) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(value.String())
+		if err := value.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteByte(')')
 	return nil
@@ -387,7 +397,9 @@ func (p *PrintVisitor) VisitBetweenClause(f *BetweenClause) error {
 }
 func (pv *PrintVisitor) VisitBinaryExpr(p *BinaryOperation) error {
 	builder := pv.builder
-	builder.WriteString(p.LeftExpr.String())
+	if err := p.LeftExpr.Accept(pv); err != nil {
+		return err
+	}
 	if p.Operation != TokenKindDash {
 		builder.WriteByte(' ')
 	}
@@ -400,7 +412,9 @@ func (pv *PrintVisitor) VisitBinaryExpr(p *BinaryOperation) error {
 	if p.Operation != TokenKindDash {
 		builder.WriteByte(' ')
 	}
-	builder.WriteString(p.RightExpr.String())
+	if err := p.RightExpr.Accept(pv); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -421,18 +435,24 @@ func (p *PrintVisitor) VisitCaseExpr(c *CaseExpr) error {
 	builder := p.builder
 	builder.WriteString("CASE ")
 	if c.Expr != nil {
-		builder.WriteString(c.Expr.String())
+		if err := c.Expr.Accept(p); err != nil {
+			return err
+		}
 		builder.WriteByte(' ')
 	}
 	for i, when := range c.Whens {
 		if i > 0 {
 			builder.WriteByte(' ')
 		}
-		builder.WriteString(when.String())
+		if err := when.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Else != nil {
 		builder.WriteString(" ELSE ")
-		builder.WriteString(c.Else.String())
+		if err := c.Else.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(" END")
 	return nil
@@ -441,13 +461,17 @@ func (p *PrintVisitor) VisitCaseExpr(c *CaseExpr) error {
 func (p *PrintVisitor) VisitCastExpr(c *CastExpr) error {
 	builder := p.builder
 	builder.WriteString("CAST(")
-	builder.WriteString(c.Expr.String())
+	if err := c.Expr.Accept(p); err != nil {
+		return err
+	}
 	if c.Separator == "," {
 		builder.WriteString(", ")
 	} else {
 		builder.WriteString(" AS ")
 	}
-	builder.WriteString(c.AsType.String())
+	if err := c.AsType.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteByte(')')
 	return nil
 }
@@ -541,7 +565,15 @@ func (p *PrintVisitor) VisitColumnExpr(c *ColumnExpr) error {
 }
 
 func (p *PrintVisitor) VisitTypedPlaceholder(t *TypedPlaceholder) error {
-	p.builder.WriteString(t.String())
+	p.builder.WriteString("{")
+	if err := t.Name.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteByte(':')
+	if err := t.Type.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString("}")
 	return nil
 }
 
@@ -579,13 +611,17 @@ func (p *PrintVisitor) VisitColumnTypeExpr(c *ColumnTypeExpr) error {
 }
 func (p *PrintVisitor) VisitComplexType(c *ComplexType) error {
 	builder := p.builder
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteByte('(')
 	for i, param := range c.Params {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(param.String())
+		if err := param.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteByte(')')
 	return nil
@@ -888,17 +924,27 @@ func (p *PrintVisitor) VisitNamedCollectionParam(n *NamedCollectionParam) error 
 }
 
 func (p *PrintVisitor) VisitNamedParameterExpr(n *NamedParameterExpr) error {
-	p.builder.WriteString(n.String())
-	return nil
+	if err := n.Name.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteByte('=')
+	return n.Value.Accept(p)
 }
 
 func (p *PrintVisitor) VisitBoolLiteral(b *BoolLiteral) error {
-	p.builder.WriteString(b.String())
+	p.builder.WriteString(b.Literal)
 	return nil
 }
 
 func (p *PrintVisitor) VisitPath(path *Path) error {
-	p.builder.WriteString(path.String())
+	for i, ident := range path.Fields {
+		if i > 0 {
+			p.builder.WriteByte('.')
+		}
+		if err := ident.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -908,8 +954,11 @@ func (p *PrintVisitor) VisitDistinctOn(s *DistinctOn) error {
 }
 
 func (p *PrintVisitor) VisitTargetPairExpr(t *TargetPair) error {
-	p.builder.WriteString(t.String())
-	return nil
+	if err := t.Old.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(" TO ")
+	return t.New.Accept(p)
 }
 
 func (p *PrintVisitor) VisitAuthenticationClause(a *AuthenticationClause) error {
@@ -1191,22 +1240,30 @@ func (p *PrintVisitor) VisitEngineExpr(e *EngineExpr) error {
 }
 func (p *PrintVisitor) VisitEnumType(e *EnumType) error {
 	builder := p.builder
-	builder.WriteString(e.Name.String())
+	if err := e.Name.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteByte('(')
 	for i, enum := range e.Values {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(enum.String())
+		if err := enum.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteByte(')')
 	return nil
 }
 func (p *PrintVisitor) VisitEnumValue(e *EnumValue) error {
 	builder := p.builder
-	builder.WriteString(e.Name.String())
+	if err := e.Name.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteByte('=')
-	builder.WriteString(e.Value.String())
+	if err := e.Value.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1220,7 +1277,16 @@ func (p *PrintVisitor) VisitExplainExpr(e *ExplainStmt) error {
 	return nil
 }
 func (p *PrintVisitor) VisitExtractExpr(e *ExtractExpr) error {
-	p.builder.WriteString(e.String())
+	p.builder.WriteString("EXTRACT(")
+	for i, param := range e.Parameters {
+		if i > 0 {
+			p.builder.WriteString(", ")
+		}
+		if err := param.Accept(p); err != nil {
+			return err
+		}
+	}
+	p.builder.WriteByte(')')
 	return nil
 }
 
@@ -1245,15 +1311,18 @@ func (p *PrintVisitor) VisitFromExpr(f *FromClause) error {
 }
 
 func (p *PrintVisitor) VisitFunctionExpr(f *FunctionExpr) error {
-	builder := p.builder
-	builder.WriteString(f.Name.String())
-	builder.WriteString(f.Params.String())
+	if err := f.Name.Accept(p); err != nil {
+		return err
+	}
+	if err := f.Params.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitGlobalInExpr(g *GlobalInOperation) error {
-	p.builder.WriteString("GLOBAL " + g.Expr.String())
-	return nil
+	p.builder.WriteString("GLOBAL ")
+	return g.Expr.Accept(p)
 }
 
 func (p *PrintVisitor) VisitGrantPrivilegeExpr(g *GrantPrivilegeStmt) error {
@@ -1330,9 +1399,13 @@ func (p *PrintVisitor) VisitIdent(i *Ident) error {
 }
 func (p *PrintVisitor) VisitIndexOperation(i *IndexOperation) error {
 	builder := p.builder
-	builder.WriteString(i.Object.String())
+	if err := i.Object.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(string(i.Operation))
-	builder.WriteString(i.Index.String())
+	if err := i.Index.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1384,13 +1457,17 @@ func (p *PrintVisitor) VisitIntervalExpr(i *IntervalExpr) error {
 
 func (p *PrintVisitor) VisitIsNotNullExpr(n *IsNotNullExpr) error {
 	builder := p.builder
-	builder.WriteString(n.Expr.String())
+	if err := n.Expr.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" IS NOT NULL")
 	return nil
 }
 func (p *PrintVisitor) VisitIsNullExpr(n *IsNullExpr) error {
 	builder := p.builder
-	builder.WriteString(n.Expr.String())
+	if err := n.Expr.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" IS NULL")
 	return nil
 }
@@ -1398,19 +1475,40 @@ func (p *PrintVisitor) VisitJSONOption(j *JSONOption) error {
 	builder := p.builder
 	if j.SkipPath != nil {
 		builder.WriteString("SKIP ")
-		builder.WriteString(j.SkipPath.String())
+		if err := p.VisitJSONPath(j.SkipPath); err != nil {
+			return err
+		}
 	}
 	if j.SkipRegex != nil {
 		builder.WriteString(" SKIP REGEXP ")
-		builder.WriteString(j.SkipRegex.String())
+		if err := j.SkipRegex.Accept(p); err != nil {
+			return err
+		}
 	}
 	if j.MaxDynamicPaths != nil {
 		builder.WriteString("max_dynamic_paths=")
-		builder.WriteString(j.MaxDynamicPaths.String())
+		if err := j.MaxDynamicPaths.Accept(p); err != nil {
+			return err
+		}
 	}
 	if j.MaxDynamicTypes != nil {
 		builder.WriteString("max_dynamic_types=")
-		builder.WriteString(j.MaxDynamicTypes.String())
+		if err := j.MaxDynamicTypes.Accept(p); err != nil {
+			return err
+		}
+	}
+	// A type hint for a subcolumn path, e.g. `message String`.
+	if j.Column != nil && j.Column.Path != nil && j.Column.Type != nil {
+		if j.SkipPath != nil || j.SkipRegex != nil || j.MaxDynamicPaths != nil || j.MaxDynamicTypes != nil {
+			builder.WriteByte(' ')
+		}
+		if err := p.VisitJSONPath(j.Column.Path); err != nil {
+			return err
+		}
+		builder.WriteByte(' ')
+		if err := j.Column.Type.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -1418,11 +1516,34 @@ func (p *PrintVisitor) VisitJSONOption(j *JSONOption) error {
 func (p *PrintVisitor) VisitJSONOptions(j *JSONOptions) error {
 	builder := p.builder
 	builder.WriteByte('(')
-	for i, item := range j.Items {
-		if i > 0 {
-			builder.WriteString(", ")
+	// Same ordering as JSONOptions.String(): numeric options, then type-hint
+	// items, then skip options, preserving relative order within each group.
+	numericOptionItems := make([]*JSONOption, 0, len(j.Items))
+	columnItems := make([]*JSONOption, 0, len(j.Items))
+	skipOptionItems := make([]*JSONOption, 0, len(j.Items))
+	for _, item := range j.Items {
+		switch {
+		case item.MaxDynamicPaths != nil || item.MaxDynamicTypes != nil:
+			numericOptionItems = append(numericOptionItems, item)
+		case item.Column != nil:
+			columnItems = append(columnItems, item)
+		case item.SkipPath != nil || item.SkipRegex != nil:
+			skipOptionItems = append(skipOptionItems, item)
+		default:
+			numericOptionItems = append(numericOptionItems, item)
 		}
-		builder.WriteString(item.String())
+	}
+	first := true
+	for _, items := range [][]*JSONOption{numericOptionItems, columnItems, skipOptionItems} {
+		for _, item := range items {
+			if !first {
+				builder.WriteString(", ")
+			}
+			first = false
+			if err := p.VisitJSONOption(item); err != nil {
+				return err
+			}
+		}
 	}
 	builder.WriteByte(')')
 	return nil
@@ -1433,16 +1554,21 @@ func (p *PrintVisitor) VisitJSONPath(j *JSONPath) error {
 		if i > 0 {
 			builder.WriteString(".")
 		}
-		builder.WriteString(ident.String())
+		if err := ident.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitJSONType(j *JSONType) error {
-	builder := p.builder
-	builder.WriteString(j.Name.String())
+	if err := j.Name.Accept(p); err != nil {
+		return err
+	}
 	if j.Options != nil {
-		builder.WriteString(j.Options.String())
+		if err := p.VisitJSONOptions(j.Options); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -1503,17 +1629,21 @@ func (p *PrintVisitor) VisitMapLiteral(m *MapLiteral) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(value.Key.String())
+		if err := value.Key.Accept(p); err != nil {
+			return err
+		}
 		builder.WriteString(": ")
-		builder.WriteString(value.Value.String())
+		if err := value.Value.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString("}")
 	return nil
 }
 
 func (p *PrintVisitor) VisitNegateExpr(n *NegateExpr) error {
-	p.builder.WriteString("-" + n.Expr.String())
-	return nil
+	p.builder.WriteString("-")
+	return n.Expr.Accept(p)
 }
 
 func (p *PrintVisitor) VisitNestedIdentifier(n *NestedIdentifier) error {
@@ -1528,10 +1658,16 @@ func (p *PrintVisitor) VisitNestedIdentifier(n *NestedIdentifier) error {
 func (p *PrintVisitor) VisitNestedType(n *NestedType) error {
 	builder := p.builder
 
-	builder.WriteString(n.Name.String())
+	if err := n.Name.Accept(p); err != nil {
+
+		return err
+
+	}
 	builder.WriteByte('(')
 	for i, column := range n.Columns {
-		builder.WriteString(column.String())
+		if err := column.Accept(p); err != nil {
+			return err
+		}
 		if i != len(n.Columns)-1 {
 			builder.WriteString(", ")
 		}
@@ -1645,9 +1781,14 @@ func (p *PrintVisitor) VisitOrderByExpr(o *OrderExpr) error {
 }
 
 func (p *PrintVisitor) VisitParamExprList(f *ParamExprList) error {
-	// String() also covers the trailing comma of `(x,)` and a parametric
-	// argument list such as `quantiles(0.5)(x)`.
-	p.builder.WriteString(f.String())
+	p.builder.WriteString("(")
+	if err := f.Items.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(")")
+	if f.ColumnArgList != nil {
+		return f.ColumnArgList.Accept(p)
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitPartitionByExpr(part *PartitionByClause) error {
@@ -1745,10 +1886,14 @@ func (p *PrintVisitor) VisitQueryParam(q *QueryParam) error {
 }
 
 func (p *PrintVisitor) VisitRatioExpr(r *RatioExpr) error {
-	p.builder.WriteString(r.Numerator.String())
+	if err := r.Numerator.Accept(p); err != nil {
+		return err
+	}
 	if r.Denominator != nil {
 		p.builder.WriteString("/")
-		p.builder.WriteString(r.Denominator.String())
+		if err := r.Denominator.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -2212,11 +2357,17 @@ func (p *PrintVisitor) VisitTargetPair(t *TargetPair) error {
 }
 func (p *PrintVisitor) VisitTernaryExpr(t *TernaryOperation) error {
 	builder := p.builder
-	builder.WriteString(t.Condition.String())
+	if err := t.Condition.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" ? ")
-	builder.WriteString(t.TrueExpr.String())
+	if err := t.TrueExpr.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" : ")
-	builder.WriteString(t.FalseExpr.String())
+	if err := t.FalseExpr.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -2252,13 +2403,17 @@ func (p *PrintVisitor) VisitTruncateTable(t *TruncateTable) error {
 
 func (p *PrintVisitor) VisitTypeWithParams(s *TypeWithParams) error {
 	builder := p.builder
-	builder.WriteString(s.Name.String())
+	if err := s.Name.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteByte('(')
 	for i, size := range s.Params {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(size.String())
+		if err := size.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteByte(')')
 	return nil
@@ -2298,12 +2453,18 @@ func (p *PrintVisitor) VisitUsingExpr(u *UsingClause) error {
 func (p *PrintVisitor) VisitWhenExpr(w *WhenClause) error {
 	builder := p.builder
 	builder.WriteString("WHEN ")
-	builder.WriteString(w.When.String())
+	if err := w.When.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" THEN ")
-	builder.WriteString(w.Then.String())
+	if err := w.Then.Accept(p); err != nil {
+		return err
+	}
 	if w.Else != nil {
 		builder.WriteString(" ELSE ")
-		builder.WriteString(w.Else.String())
+		if err := w.Else.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
