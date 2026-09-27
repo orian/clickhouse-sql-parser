@@ -1,0 +1,452 @@
+[
+  {
+    "SelectPos": 0,
+    "StatementEnd": 93,
+    "HasParen": false,
+    "Group": null,
+    "With": null,
+    "Top": null,
+    "HasDistinct": false,
+    "DistinctOn": null,
+    "SelectItems": [
+      {
+        "Expr": {
+          "Function": {
+            "Name": {
+              "Name": "sum",
+              "QuoteType": 1,
+              "NamePos": 7,
+              "NameEnd": 10
+            },
+            "Params": {
+              "LeftParenPos": 10,
+              "RightParenPos": 12,
+              "Items": {
+                "ListPos": 11,
+                "ListEnd": 12,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "x",
+                      "QuoteType": 1,
+                      "NamePos": 11,
+                      "NameEnd": 12
+                    },
+                    "Alias": null
+                  }
+                ],
+                "HasTrailingComma": false
+              },
+              "ColumnArgList": null
+            }
+          },
+          "OverPos": 14,
+          "OverExpr": {
+            "LeftParenPos": 19,
+            "RightParenPos": 85,
+            "WindowName": null,
+            "PartitionBy": null,
+            "OrderBy": {
+              "OrderPos": 20,
+              "ListEnd": 30,
+              "Items": [
+                {
+                  "OrderPos": 20,
+                  "Expr": {
+                    "Name": "d",
+                    "QuoteType": 1,
+                    "NamePos": 29,
+                    "NameEnd": 30
+                  },
+                  "Alias": null,
+                  "Direction": "",
+                  "Fill": null,
+                  "OrderEnd": 30
+                }
+              ],
+              "Interpolate": null
+            },
+            "Frame": {
+              "FramePos": 31,
+              "Type": "RANGE",
+              "Extend": {
+                "Expr": null,
+                "Between": {
+                  "Expr": {
+                    "IntervalPos": 45,
+                    "Expr": {
+                      "NumPos": 54,
+                      "NumEnd": 55,
+                      "Literal": "1",
+                      "Base": 10
+                    },
+                    "Unit": {
+                      "Name": "DAY",
+                      "QuoteType": 1,
+                      "NamePos": 56,
+                      "NameEnd": 59
+                    }
+                  },
+                  "Direction": "PRECEDING",
+                  "EndPos": 69
+                },
+                "AndPos": 70,
+                "And": {
+                  "CurrentPos": 74,
+                  "RowEnd": 86
+                }
+              }
+            }
+          }
+        },
+        "Modifiers": [],
+        "Alias": null
+      }
+    ],
+    "From": {
+      "FromPos": 87,
+      "Expr": {
+        "Table": {
+          "TablePos": 92,
+          "TableEnd": 93,
+          "Alias": null,
+          "Expr": {
+            "Database": null,
+            "Table": {
+              "Name": "t",
+              "QuoteType": 1,
+              "NamePos": 92,
+              "NameEnd": 93
+            }
+          },
+          "HasFinal": false,
+          "Stream": null
+        },
+        "StatementEnd": 93,
+        "SampleRatio": null,
+        "HasFinal": false
+      }
+    },
+    "Window": null,
+    "Prewhere": null,
+    "Where": null,
+    "GroupBy": null,
+    "WithTotal": false,
+    "Having": null,
+    "OrderBy": null,
+    "LimitBy": null,
+    "Limit": null,
+    "Settings": null,
+    "Format": null,
+    "OutputSettings": null,
+    "UnionAll": null,
+    "UnionDistinct": null,
+    "Except": null
+  },
+  {
+    "SelectPos": 95,
+    "StatementEnd": 201,
+    "HasParen": false,
+    "Group": null,
+    "With": null,
+    "Top": null,
+    "HasDistinct": false,
+    "DistinctOn": null,
+    "SelectItems": [
+      {
+        "Expr": {
+          "Function": {
+            "Name": {
+              "Name": "sum",
+              "QuoteType": 1,
+              "NamePos": 102,
+              "NameEnd": 105
+            },
+            "Params": {
+              "LeftParenPos": 105,
+              "RightParenPos": 107,
+              "Items": {
+                "ListPos": 106,
+                "ListEnd": 107,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "x",
+                      "QuoteType": 1,
+                      "NamePos": 106,
+                      "NameEnd": 107
+                    },
+                    "Alias": null
+                  }
+                ],
+                "HasTrailingComma": false
+              },
+              "ColumnArgList": null
+            }
+          },
+          "OverPos": 109,
+          "OverExpr": {
+            "LeftParenPos": 114,
+            "RightParenPos": 193,
+            "WindowName": null,
+            "PartitionBy": null,
+            "OrderBy": {
+              "OrderPos": 115,
+              "ListEnd": 125,
+              "Items": [
+                {
+                  "OrderPos": 115,
+                  "Expr": {
+                    "Name": "d",
+                    "QuoteType": 1,
+                    "NamePos": 124,
+                    "NameEnd": 125
+                  },
+                  "Alias": null,
+                  "Direction": "",
+                  "Fill": null,
+                  "OrderEnd": 125
+                }
+              ],
+              "Interpolate": null
+            },
+            "Frame": {
+              "FramePos": 126,
+              "Type": "RANGE",
+              "Extend": {
+                "Expr": null,
+                "Between": {
+                  "Expr": {
+                    "IntervalPos": 140,
+                    "Expr": {
+                      "NumPos": 149,
+                      "NumEnd": 150,
+                      "Literal": "1",
+                      "Base": 10
+                    },
+                    "Unit": {
+                      "Name": "DAY",
+                      "QuoteType": 1,
+                      "NamePos": 151,
+                      "NameEnd": 154
+                    }
+                  },
+                  "Direction": "PRECEDING",
+                  "EndPos": 164
+                },
+                "AndPos": 165,
+                "And": {
+                  "Expr": {
+                    "IntervalPos": 169,
+                    "Expr": {
+                      "NumPos": 178,
+                      "NumEnd": 179,
+                      "Literal": "2",
+                      "Base": 10
+                    },
+                    "Unit": {
+                      "Name": "DAY",
+                      "QuoteType": 1,
+                      "NamePos": 180,
+                      "NameEnd": 183
+                    }
+                  },
+                  "Direction": "FOLLOWING",
+                  "EndPos": 193
+                }
+              }
+            }
+          }
+        },
+        "Modifiers": [],
+        "Alias": null
+      }
+    ],
+    "From": {
+      "FromPos": 195,
+      "Expr": {
+        "Table": {
+          "TablePos": 200,
+          "TableEnd": 201,
+          "Alias": null,
+          "Expr": {
+            "Database": null,
+            "Table": {
+              "Name": "t",
+              "QuoteType": 1,
+              "NamePos": 200,
+              "NameEnd": 201
+            }
+          },
+          "HasFinal": false,
+          "Stream": null
+        },
+        "StatementEnd": 201,
+        "SampleRatio": null,
+        "HasFinal": false
+      }
+    },
+    "Window": null,
+    "Prewhere": null,
+    "Where": null,
+    "GroupBy": null,
+    "WithTotal": false,
+    "Having": null,
+    "OrderBy": null,
+    "LimitBy": null,
+    "Limit": null,
+    "Settings": null,
+    "Format": null,
+    "OutputSettings": null,
+    "UnionAll": null,
+    "UnionDistinct": null,
+    "Except": null
+  },
+  {
+    "SelectPos": 203,
+    "StatementEnd": 297,
+    "HasParen": false,
+    "Group": null,
+    "With": null,
+    "Top": null,
+    "HasDistinct": false,
+    "DistinctOn": null,
+    "SelectItems": [
+      {
+        "Expr": {
+          "Function": {
+            "Name": {
+              "Name": "sum",
+              "QuoteType": 1,
+              "NamePos": 210,
+              "NameEnd": 213
+            },
+            "Params": {
+              "LeftParenPos": 213,
+              "RightParenPos": 215,
+              "Items": {
+                "ListPos": 214,
+                "ListEnd": 215,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "x",
+                      "QuoteType": 1,
+                      "NamePos": 214,
+                      "NameEnd": 215
+                    },
+                    "Alias": null
+                  }
+                ],
+                "HasTrailingComma": false
+              },
+              "ColumnArgList": null
+            }
+          },
+          "OverPos": 217,
+          "OverExpr": {
+            "LeftParenPos": 222,
+            "RightParenPos": 289,
+            "WindowName": null,
+            "PartitionBy": null,
+            "OrderBy": {
+              "OrderPos": 223,
+              "ListEnd": 233,
+              "Items": [
+                {
+                  "OrderPos": 223,
+                  "Expr": {
+                    "Name": "d",
+                    "QuoteType": 1,
+                    "NamePos": 232,
+                    "NameEnd": 233
+                  },
+                  "Alias": null,
+                  "Direction": "",
+                  "Fill": null,
+                  "OrderEnd": 233
+                }
+              ],
+              "Interpolate": null
+            },
+            "Frame": {
+              "FramePos": 234,
+              "Type": "RANGE",
+              "Extend": {
+                "Expr": null,
+                "Between": {
+                  "CurrentPos": 248,
+                  "RowEnd": 263
+                },
+                "AndPos": 260,
+                "And": {
+                  "Expr": {
+                    "IntervalPos": 264,
+                    "Expr": {
+                      "NumPos": 273,
+                      "NumEnd": 274,
+                      "Literal": "3",
+                      "Base": 10
+                    },
+                    "Unit": {
+                      "Name": "HOUR",
+                      "QuoteType": 1,
+                      "NamePos": 275,
+                      "NameEnd": 279
+                    }
+                  },
+                  "Direction": "FOLLOWING",
+                  "EndPos": 289
+                }
+              }
+            }
+          }
+        },
+        "Modifiers": [],
+        "Alias": null
+      }
+    ],
+    "From": {
+      "FromPos": 291,
+      "Expr": {
+        "Table": {
+          "TablePos": 296,
+          "TableEnd": 297,
+          "Alias": null,
+          "Expr": {
+            "Database": null,
+            "Table": {
+              "Name": "t",
+              "QuoteType": 1,
+              "NamePos": 296,
+              "NameEnd": 297
+            }
+          },
+          "HasFinal": false,
+          "Stream": null
+        },
+        "StatementEnd": 297,
+        "SampleRatio": null,
+        "HasFinal": false
+      }
+    },
+    "Window": null,
+    "Prewhere": null,
+    "Where": null,
+    "GroupBy": null,
+    "WithTotal": false,
+    "Having": null,
+    "OrderBy": null,
+    "LimitBy": null,
+    "Limit": null,
+    "Settings": null,
+    "Format": null,
+    "OutputSettings": null,
+    "UnionAll": null,
+    "UnionDistinct": null,
+    "Except": null
+  }
+]

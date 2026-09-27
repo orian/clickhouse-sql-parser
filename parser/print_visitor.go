@@ -3399,7 +3399,14 @@ func (p *PrintVisitor) VisitWindowFrameCurrentRow(f *WindowFrameCurrentRow) erro
 }
 
 func (p *PrintVisitor) VisitWindowFrameExtendExpr(f *WindowFrameExtendExpr) error {
-	return f.Expr.Accept(p)
+	if err := f.Expr.Accept(p); err != nil {
+		return err
+	}
+	if f.Direction != "" {
+		p.builder.WriteByte(' ')
+		p.builder.WriteString(f.Direction)
+	}
+	return nil
 }
 
 func (p *PrintVisitor) VisitWindowFrameNumber(f *WindowFrameNumber) error {
