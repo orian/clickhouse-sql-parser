@@ -39,6 +39,14 @@ make lint
 # Uses golangci-lint with 20 minute timeout
 ```
 
+### Formatting
+```bash
+make hooks      # once per clone: enable .githooks (gofmt pre-commit check)
+make fmt-check  # fail if any Go file is not gofmt-formatted (also run in CI)
+```
+The pre-commit hook rejects a commit whose staged Go files are not
+gofmt-formatted. Run `gofmt -w` on the reported files and stage them again.
+
 ### Run benchmarks
 ```bash
 go test -bench=. -benchmem ./parser
