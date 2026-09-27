@@ -3,6 +3,7 @@
     "SelectPos": 0,
     "StatementEnd": 49,
     "HasParen": false,
+    "Group": null,
     "With": {
       "WithPos": 0,
       "EndPos": 10,
@@ -16,9 +17,10 @@
             "NameEnd": 9
           },
           "Alias": {
-            "SelectPos": 14,
-            "StatementEnd": 29,
+            "SelectPos": 15,
+            "StatementEnd": 28,
             "HasParen": false,
+            "Group": null,
             "With": null,
             "Top": null,
             "HasDistinct": false,

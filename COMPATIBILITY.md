@@ -77,9 +77,14 @@ Entries are grouped as:
   (#74). It used to be dropped as a join keyword.
 - `FROM t STREAM` parses into `TableExpr.Stream` (#81). `STREAM` used to become
   the implicit alias `AS STREAM`.
-- `SelectQuery.HasParen` (new since v1.0.4, #79): a parenthesised UNION/EXCEPT
-  operand keeps its parentheses in `String()`/`PrintVisitor`/`BeautifyVisitor`,
-  and its `SelectPos` is the `(`.
+- A parenthesised UNION/EXCEPT operand is a **group node** (#79, #93):
+  a `SelectQuery` with `HasParen` set, the query inside the parentheses in the
+  new `Group` field, no SELECT list of its own, and whatever follows the
+  closing `)` in its `UnionAll`/`UnionDistinct`/`Except`. Its `SelectPos` and
+  `End()` span the parentheses. `HasParen` is set exactly when `Group` is.
+  Code that looked for SELECT items on a `HasParen` node must read them from
+  `Group`. The #79 shape (the operand's first SELECT with `HasParen` and its
+  inner chain in its own union fields) was never released.
 - Statements ending with `FORMAT …` and/or a query-level `SETTINGS …` keep
   those clauses in the embedded `OutputClauses` (#87). The parser used to
   silently drop `FORMAT` on every non-SELECT statement. A `SETTINGS` after
@@ -159,7 +164,8 @@ Entries are grouped as:
     (#68);
   - `ColumnExprList.HasTrailingComma` (#70);
   - `AlterTableDelete.InPartition` (#76);
-  - `SelectQuery.HasParen` (#79) and `SelectQuery.OutputSettings` (#87);
+  - `SelectQuery.HasParen` (#79), `SelectQuery.Group` (#93) and
+    `SelectQuery.OutputSettings` (#87);
   - `TableExpr.Stream` (#81);
   - `LimitClause.WithTies`, `WithTiesEnd` (#90);
   - `WithTimeoutClause.WithTimeoutEnd` (#37);
@@ -180,4 +186,8 @@ Entries are grouped as:
   - `FROM t STREAM [BOUNDED] [UNORDERED]` (#81);
   - `FORMAT … SETTINGS` and a trailing `SETTINGS` on non-SELECT statements
     (#87);
-  - `LIMIT n [OFFSET m] WITH TIES` (#90).
+  - `LIMIT n [OFFSET m] WITH TIES` (#90);
+  - a UNION/EXCEPT that continues after a parenthesised operand, e.g.
+    `(SELECT 1) UNION ALL SELECT 2`, a statement starting with `(`,
+    `CREATE VIEW … AS (query) UNION …`, `INSERT INTO t (SELECT …) UNION …` and
+    `INSERT INTO t WITH … SELECT` (#93).
