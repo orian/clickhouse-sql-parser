@@ -87,6 +87,13 @@ func FuzzAST(f *testing.F) {
 			Walk(stmt, func(node Expr) bool {
 				_ = node.Pos()
 				_ = node.End()
+				// PrintVisitor applied to any subtree prints the same SQL as
+				// the node's String() (#98).
+				if got, err := printNode(node); err == nil && got != node.String() {
+					t.Fatalf("PrintVisitor(%T) = %q, String() = %q", node, got, node.String())
+				} else if err != nil && strings.HasPrefix(err.Error(), "panic") {
+					t.Fatalf("PrintVisitor(%T) %v", node, err)
+				}
 				return true
 			})
 			_ = stmt.String()
@@ -132,6 +139,7 @@ func addSQLFuzzSeeds(f *testing.F) {
 		"SELECT -1::Int32, - -1, 2 - -1, -x::Int8, +1e-5::Float64", "SELECT - -",
 		"SELECT groupArraySample(5, 1)(DISTINCT x), quantilesTimingIf(0.1)(DISTINCT x, y) FROM t",
 		"WITH x AS (SELECT 1) SELECT * FROM x", "SYSTEM STOP MERGES t",
+		"GRANT SELECT(x, y) ON db.t TO u", "SELECT sum(x) OVER (ROWS BETWEEN UNBOUNDED PRECEDING AND {n:UInt32} FOLLOWING) FROM t GROUP BY ALL",
 		"SELECT a FROM t ORDER BY a DESC NULLS LAST COLLATE 'en' WITH FILL, b NULLS FIRST", "SELECT 1 ORDER BY a NULLS",
 		"((SELECT 1 UNION ALL SELECT 2) EXCEPT (SELECT 3)) UNION DISTINCT SELECT 4 FORMAT JSON", "(SELECT 1", "(SELECT 1))",
 		"SELECT CAST(x AS Enum('a' = 1)), `q`, 'x' IS NOT NULL FROM 't' FINAL GROUP BY a ORDER BY a DESC", "SELECT CASE WHEN 1 THEN 2 END",

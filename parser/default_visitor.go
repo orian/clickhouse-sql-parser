@@ -2817,7 +2817,7 @@ func (visitor DefaultASTVisitor) VisitWindowExpr(w *WindowClause) error {
 func (visitor DefaultASTVisitor) VisitWindowFrameParam(p *WindowFrameParam) error {
 	visitor.Enter(p)
 	defer visitor.Leave(p)
-	return nil
+	return p.Param.Accept(visitor.Self)
 }
 func (visitor DefaultASTVisitor) VisitWindowConditionExpr(w *WindowExpr) error {
 	visitor.Enter(w)

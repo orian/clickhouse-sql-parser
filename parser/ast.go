@@ -6594,9 +6594,6 @@ func (f *WindowFrameParam) String() string {
 func (f *WindowFrameParam) Accept(visitor ASTVisitor) error {
 	visitor.Enter(f)
 	defer visitor.Leave(f)
-	if err := f.Param.Accept(visitor); err != nil {
-		return err
-	}
 	return visitor.VisitWindowFrameParam(f)
 }
 
@@ -6994,9 +6991,6 @@ func (i *IntervalFrom) String() string {
 func (i *IntervalFrom) Accept(visitor ASTVisitor) error {
 	visitor.Enter(i)
 	defer visitor.Leave(i)
-	if err := i.FromExpr.Accept(visitor); err != nil {
-		return err
-	}
 	return visitor.VisitIntervalFrom(i)
 }
 

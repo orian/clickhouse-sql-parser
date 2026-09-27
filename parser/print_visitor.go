@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"reflect"
 	"strings"
 )
 
@@ -76,15 +77,22 @@ func (p *PrintVisitor) VisitAlterTable(a *AlterTable) error {
 }
 
 func (p *PrintVisitor) VisitAlterTableAddColumn(a *AlterTableAddColumn) error {
-	builder := p.builder
-	builder.WriteString("ADD COLUMN ")
-	builder.WriteString(a.Column.String())
+	p.builder.WriteString("ADD COLUMN ")
 	if a.IfNotExists {
-		builder.WriteString("IF NOT EXISTS ")
+		p.builder.WriteString("IF NOT EXISTS ")
+	}
+	if err := a.Column.Accept(p); err != nil {
+		return err
 	}
 	if a.After != nil {
-		builder.WriteString(" AFTER ")
-		builder.WriteString(a.After.String())
+		p.builder.WriteString(" AFTER ")
+		if err := a.After.Accept(p); err != nil {
+			return err
+		}
+	}
+	if a.Settings != nil {
+		p.builder.WriteByte(' ')
+		return a.Settings.Accept(p)
 	}
 	return nil
 }
@@ -307,11 +315,9 @@ func (p *PrintVisitor) VisitAlterTableResetSetting(a *AlterTableResetSetting) er
 }
 
 func (p *PrintVisitor) VisitAlterTableModifyTTL(a *AlterTableModifyTTL) error {
-	builder := p.builder
-	builder.WriteString("MODIFY ")
-	builder.WriteString("TTL ")
-	builder.WriteString(a.TTL.String())
-	return nil
+	// The TTL clause prints its own TTL keyword.
+	p.builder.WriteString("MODIFY ")
+	return a.TTL.Accept(p)
 }
 func (p *PrintVisitor) VisitAlterTableRemoveTTL(a *AlterTableRemoveTTL) error {
 	p.builder.WriteString("REMOVE TTL")
@@ -365,13 +371,19 @@ func (p *PrintVisitor) VisitValuesExpr(v *AssignmentValues) error {
 	return nil
 }
 func (p *PrintVisitor) VisitBetweenClause(f *BetweenClause) error {
-	builder := p.builder
-	builder.WriteString(f.Expr.String())
-	builder.WriteString(" BETWEEN ")
-	builder.WriteString(f.Between.String())
-	builder.WriteString(" AND ")
-	builder.WriteString(f.And.String())
-	return nil
+	// Expr is nil in a window frame (`ROWS BETWEEN ... AND ...`).
+	if f.Expr != nil {
+		if err := f.Expr.Accept(p); err != nil {
+			return err
+		}
+		p.builder.WriteByte(' ')
+	}
+	p.builder.WriteString("BETWEEN ")
+	if err := f.Between.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(" AND ")
+	return f.And.Accept(p)
 }
 func (pv *PrintVisitor) VisitBinaryExpr(p *BinaryOperation) error {
 	builder := pv.builder
@@ -1158,36 +1170,22 @@ func (p *PrintVisitor) VisitDropUserOrRole(d *DropUserOrRole) error {
 	return nil
 }
 func (p *PrintVisitor) VisitEngineExpr(e *EngineExpr) error {
-
-	builder := p.builder
-	builder.WriteString(" ENGINE = ")
-	builder.WriteString(e.Name)
+	p.builder.WriteString(" ENGINE = ")
+	p.builder.WriteString(e.Name)
 	if e.Params != nil {
-		builder.WriteString(e.Params.String())
+		if err := e.Params.Accept(p); err != nil {
+			return err
+		}
 	}
-	if e.PrimaryKey != nil {
-		builder.WriteString(" ")
-		builder.WriteString(e.PrimaryKey.String())
-	}
-	if e.PartitionBy != nil {
-		builder.WriteString(" ")
-		builder.WriteString(e.PartitionBy.String())
-	}
-	if e.SampleBy != nil {
-		builder.WriteString(" ")
-		builder.WriteString(e.SampleBy.String())
-	}
-	if e.TTL != nil {
-		builder.WriteString(" ")
-		builder.WriteString(e.TTL.String())
-	}
-	if e.Settings != nil {
-		builder.WriteString(" ")
-		builder.WriteString(e.Settings.String())
-	}
-	if e.OrderBy != nil {
-		builder.WriteString(" ")
-		builder.WriteString(e.OrderBy.String())
+	// Same clause order as EngineExpr.String().
+	for _, clause := range []Expr{e.OrderBy, e.PartitionBy, e.PrimaryKey, e.SampleBy, e.TTL, e.Settings} {
+		if isNilExpr(clause) {
+			continue
+		}
+		p.builder.WriteByte(' ')
+		if err := clause.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -1227,8 +1225,11 @@ func (p *PrintVisitor) VisitExtractExpr(e *ExtractExpr) error {
 }
 
 func (p *PrintVisitor) VisitIntervalFrom(i *IntervalFrom) error {
-	p.builder.WriteString(i.String())
-	return nil
+	if err := i.Interval.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(" FROM ")
+	return i.FromExpr.Accept(p)
 }
 
 func (p *PrintVisitor) VisitFormatExpr(f *FormatClause) error {
@@ -1284,20 +1285,22 @@ func (p *PrintVisitor) VisitGrantPrivilegeExpr(g *GrantPrivilegeStmt) error {
 	return nil
 }
 func (p *PrintVisitor) VisitGroupByExpr(g *GroupByClause) error {
-	builder := p.builder
-	builder.WriteString("GROUP BY ")
-	if g.AggregateType != "" {
-		builder.WriteString(g.AggregateType)
+	p.builder.WriteString("GROUP BY ")
+	p.builder.WriteString(g.AggregateType)
+	// Expr is nil for `GROUP BY ALL`.
+	if g.Expr != nil {
+		if err := g.Expr.Accept(p); err != nil {
+			return err
+		}
 	}
-	builder.WriteString(g.Expr.String())
 	if g.WithCube {
-		builder.WriteString(" WITH CUBE")
+		p.builder.WriteString(" WITH CUBE")
 	}
 	if g.WithRollup {
-		builder.WriteString(" WITH ROLLUP")
+		p.builder.WriteString(" WITH ROLLUP")
 	}
 	if g.WithTotals {
-		builder.WriteString(" WITH TOTALS")
+		p.builder.WriteString(" WITH TOTALS")
 	}
 	return nil
 }
@@ -1307,11 +1310,20 @@ func (p *PrintVisitor) VisitHavingExpr(h *HavingClause) error {
 	return nil
 }
 func (p *PrintVisitor) VisitIdent(i *Ident) error {
-	if i.QuoteType == BackTicks {
-		p.builder.WriteString("`" + i.Name + "`")
-	} else if i.QuoteType == DoubleQuote {
-		p.builder.WriteString(`"` + i.Name + `"`)
-	} else {
+	switch i.QuoteType {
+	case BackTicks:
+		p.builder.WriteByte('`')
+		p.builder.WriteString(i.Name)
+		p.builder.WriteByte('`')
+	case DoubleQuote:
+		p.builder.WriteByte('"')
+		p.builder.WriteString(i.Name)
+		p.builder.WriteByte('"')
+	case SingleQuote:
+		p.builder.WriteByte('\'')
+		p.builder.WriteString(i.Name)
+		p.builder.WriteByte('\'')
+	default:
 		p.builder.WriteString(i.Name)
 	}
 	return nil
@@ -1358,12 +1370,16 @@ func (p *PrintVisitor) VisitInsertExpr(i *InsertStmt) error {
 	return nil
 }
 func (p *PrintVisitor) VisitIntervalExpr(i *IntervalExpr) error {
-	builder := p.builder
-	builder.WriteString("INTERVAL ")
-	builder.WriteString(i.Expr.String())
-	builder.WriteByte(' ')
-	builder.WriteString(i.Unit.String())
-	return nil
+	// The INTERVAL keyword is absent when the interval comes from a form such
+	// as `toIntervalHour(1)` rewritten to `1 HOUR` (IntervalPos is zero).
+	if i.IntervalPos != 0 {
+		p.builder.WriteString("INTERVAL ")
+	}
+	if err := i.Expr.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteByte(' ')
+	return i.Unit.Accept(p)
 }
 
 func (p *PrintVisitor) VisitIsNotNullExpr(n *IsNotNullExpr) error {
@@ -1582,14 +1598,18 @@ func (p *PrintVisitor) VisitOptimizeExpr(o *OptimizeStmt) error {
 	return nil
 }
 func (p *PrintVisitor) VisitOrderByListExpr(o *OrderByClause) error {
-	builder := p.builder
-	builder.WriteString("ORDER BY ")
+	p.builder.WriteString("ORDER BY ")
 	for i, item := range o.Items {
-		builder.WriteString(item.String())
-		if i != len(o.Items)-1 {
-			builder.WriteByte(',')
-			builder.WriteByte(' ')
+		if i > 0 {
+			p.builder.WriteString(", ")
 		}
+		if err := item.Accept(p); err != nil {
+			return err
+		}
+	}
+	if o.Interpolate != nil {
+		p.builder.WriteByte(' ')
+		return o.Interpolate.Accept(p)
 	}
 	return nil
 }
@@ -1670,7 +1690,7 @@ func (p *PrintVisitor) VisitPrivilegeExpr(pc *PrivilegeClause) error {
 		builder.WriteString(keyword)
 	}
 	if pc.Params != nil {
-		return pc.Accept(p)
+		return pc.Params.Accept(p)
 	}
 	return nil
 }
@@ -1975,7 +1995,6 @@ func (p *PrintVisitor) VisitSubQueryExpr(s *SubQuery) error {
 		if err := s.Select.Accept(p); err != nil {
 			return err
 		}
-		p.builder.WriteString(s.Select.String())
 		p.builder.WriteString(")")
 		return nil
 	}
@@ -2032,13 +2051,14 @@ func (p *PrintVisitor) VisitSystemSyncExpr(s *SystemSyncExpr) error {
 	return nil
 }
 func (p *PrintVisitor) VisitTTLExprList(t *TTLClause) error {
-	builder := p.builder
-	builder.WriteString("TTL ")
+	p.builder.WriteString("TTL ")
 	for i, item := range t.Items {
 		if i > 0 {
-			builder.WriteString(", ")
+			p.builder.WriteString(", ")
 		}
-		builder.WriteString(item.String())
+		if err := item.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -2112,24 +2132,23 @@ func (p *PrintVisitor) VisitTableIdentifier(t *TableIdentifier) error {
 }
 
 func (p *PrintVisitor) VisitTableIndex(a *TableIndex) error {
-	builder := p.builder
-	builder.WriteString("INDEX")
-	builder.WriteByte(' ')
-	builder.WriteString(a.Name.String())
-
-	if _, ok := a.ColumnExpr.Expr.(*Ident); ok {
-		builder.WriteByte(' ')
+	p.builder.WriteString("INDEX ")
+	if err := a.Name.Accept(p); err != nil {
+		return err
 	}
-	builder.WriteString(a.ColumnExpr.String())
-	builder.WriteByte(' ')
-	builder.WriteString("TYPE")
-	builder.WriteByte(' ')
-	builder.WriteString(a.ColumnType.String())
-	builder.WriteByte(' ')
-	builder.WriteString("GRANULARITY")
-	builder.WriteByte(' ')
-	builder.WriteString(a.Granularity.String())
-	return nil
+	// As in String(): no space before a parenthesised column expression.
+	if _, parenthesised := a.ColumnExpr.Expr.(*ParamExprList); !parenthesised {
+		p.builder.WriteByte(' ')
+	}
+	if err := a.ColumnExpr.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(" TYPE ")
+	if err := a.ColumnType.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(" GRANULARITY ")
+	return a.Granularity.Accept(p)
 }
 func (p *PrintVisitor) VisitTableProjection(t *TableProjection) error {
 	builder := p.builder
@@ -2153,24 +2172,28 @@ func (p *PrintVisitor) VisitTableProjection(t *TableProjection) error {
 }
 
 func (p *PrintVisitor) VisitTableSchemaExpr(t *TableSchemaClause) error {
-	builder := p.builder
 	if len(t.Columns) > 0 {
-		builder.WriteString("(")
+		p.builder.WriteString("(")
 		for i, column := range t.Columns {
 			if i > 0 {
-				builder.WriteString(", ")
+				p.builder.WriteString(", ")
 			}
-			builder.WriteString(column.String())
+			if err := column.Accept(p); err != nil {
+				return err
+			}
 		}
-		builder.WriteByte(')')
+		p.builder.WriteByte(')')
 	}
+	// Callers write the separating space, so the AS forms start without one.
 	if t.AliasTable != nil {
-		builder.WriteString(" AS ")
-		builder.WriteString(t.AliasTable.String())
+		p.builder.WriteString("AS ")
+		if err := t.AliasTable.Accept(p); err != nil {
+			return err
+		}
 	}
 	if t.TableFunction != nil {
-		builder.WriteByte(' ')
-		builder.WriteString(t.TableFunction.String())
+		p.builder.WriteString("AS ")
+		return t.TableFunction.Accept(p)
 	}
 	return nil
 }
@@ -2298,7 +2321,11 @@ func (p *PrintVisitor) VisitWindowExpr(w *WindowClause) error {
 }
 
 func (p *PrintVisitor) VisitWindowFrameParam(f *WindowFrameParam) error {
-	p.builder.WriteString(f.String())
+	if err := f.Param.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteByte(' ')
+	p.builder.WriteString(f.Direction)
 	return nil
 }
 
@@ -2360,8 +2387,8 @@ func (p *PrintVisitor) VisitWindowFrameNumber(f *WindowFrameNumber) error {
 }
 
 func (p *PrintVisitor) VisitWindowFrameUnbounded(f *WindowFrameUnbounded) error {
+	p.builder.WriteString("UNBOUNDED ")
 	p.builder.WriteString(f.Direction)
-	p.builder.WriteString(" UNBOUNDED")
 	return nil
 }
 
@@ -2397,3 +2424,12 @@ func (p *PrintVisitor) VisitWithTimeoutExpr(w *WithTimeoutClause) error {
 func (p *PrintVisitor) enter(expr Expr) {}
 
 func (p *PrintVisitor) leave(expr Expr) {}
+
+// isNilExpr reports whether expr is nil or a typed nil pointer.
+func isNilExpr(expr Expr) bool {
+	if expr == nil {
+		return true
+	}
+	v := reflect.ValueOf(expr)
+	return v.Kind() == reflect.Ptr && v.IsNil()
+}
