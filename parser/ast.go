@@ -6689,10 +6689,6 @@ func (s *SelectQuery) String() string { // nolint: funlen
 		builder.WriteString(" ")
 		builder.WriteString(s.From.String())
 	}
-	if s.Window != nil {
-		builder.WriteString(" ")
-		builder.WriteString(s.Window.String())
-	}
 	if s.Prewhere != nil {
 		builder.WriteString(" ")
 		builder.WriteString(s.Prewhere.String())
@@ -6713,6 +6709,10 @@ func (s *SelectQuery) String() string { // nolint: funlen
 	if s.Having != nil {
 		builder.WriteString(" ")
 		builder.WriteString(s.Having.String())
+	}
+	if s.Window != nil {
+		builder.WriteString(" ")
+		builder.WriteString(s.Window.String())
 	}
 	if s.OrderBy != nil {
 		builder.WriteString(" ")
