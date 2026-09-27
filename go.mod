@@ -1,6 +1,6 @@
 module github.com/orian/clickhouse-sql-parser
 
-go 1.21.0
+go 1.27.0
 
 require (
 	github.com/sebdah/goldie/v2 v2.5.3
