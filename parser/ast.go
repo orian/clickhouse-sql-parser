@@ -6598,8 +6598,8 @@ type SelectQuery struct {
 	// hold what follows the closing parenthesis. Settings, Format and
 	// OutputSettings may hold the clauses after a final group. HasParen is set
 	// exactly when Group is.
-	HasParen bool
-	Group    *SelectQuery
+	HasParen    bool
+	Group       *SelectQuery
 	With        *WithClause
 	Top         *TopClause
 	HasDistinct bool
