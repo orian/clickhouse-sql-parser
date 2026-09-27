@@ -27,6 +27,11 @@ Entries are grouped as:
 
 ### Breaking
 
+- `ASTVisitor` has a new method, `VisitStreamClause(*StreamClause) error`
+  (#102, #106). `StreamClause.Accept` now dispatches to it; it used to call
+  only `Enter`/`Leave`. A visitor that embeds `DefaultASTVisitor` or
+  `PrintVisitor` gets it for free; a type implementing `ASTVisitor` directly
+  must add it.
 - `ShowStmt.Format` changed type from `*StringLiteral` to `*FormatClause`
   (#87, #49). The field now comes from the embedded `OutputClauses`. The format
   name is `Format.Format.Name` (previously `Format.Literal`) and prints
@@ -113,6 +118,13 @@ Entries are grouped as:
   so a custom visitor that overrides it no longer gets the parameter visited
   first.
 
+- `DefaultASTVisitor` now recurses into every child that `Walk` reaches, so a
+  visitor embedding it sees them (#106). It used to skip the `DISTINCT ON`
+  columns, the `ORDER BY` columns of a projection, the string of a `UUID`, the
+  name of `CREATE DATABASE`, the `COMMENT` of `CREATE TABLE` and the
+  `SETTINGS` of `ALTER … DROP PARTITION`. Both `Walk` and `DefaultASTVisitor`
+  now visit the `TargetPair` nodes of `RENAME` (they used to jump to the
+  tables inside) and the `StreamClause` of a table expression.
 - `Walk`, and so `Find`, `FindAll`, `WalkWithBreak` and `Transform`, now
   visits every node that `Accept` with `DefaultASTVisitor` reaches (#105). It
   used to skip the operands of `EXCEPT`, the rows of `INSERT … VALUES`, TTL
@@ -226,6 +238,7 @@ Entries are grouped as:
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
     `IsNotNullExpr.NullEnd`.
 - **New methods**:
+  - `VisitStreamClause` on `DefaultASTVisitor` and `PrintVisitor` (#102);
   - `InsertStmt.IsTableFunction()` (#72);
   - `BeautifyVisitor` overrides for the statement types listed above (#51).
 - **Newly accepted input**:

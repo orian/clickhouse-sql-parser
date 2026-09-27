@@ -3128,6 +3128,15 @@ func (p *PrintVisitor) VisitTableArgListExpr(t *TableArgListExpr) error {
 	return nil
 }
 
+func (p *PrintVisitor) VisitStreamClause(s *StreamClause) error {
+	p.builder.WriteString("STREAM")
+	for _, modifier := range s.Modifiers {
+		p.builder.WriteByte(' ')
+		p.builder.WriteString(modifier)
+	}
+	return nil
+}
+
 func (p *PrintVisitor) VisitTableExpr(t *TableExpr) error {
 	builder := p.builder
 	if err := t.Expr.Accept(p); err != nil {
@@ -3143,12 +3152,9 @@ func (p *PrintVisitor) VisitTableExpr(t *TableExpr) error {
 		builder.WriteString(" FINAL")
 	}
 	if t.Stream != nil {
-		// StreamClause has no Visit method (#102; its Accept only calls
-		// Enter/Leave), so print its keywords here.
-		builder.WriteString(" STREAM")
-		for _, modifier := range t.Stream.Modifiers {
-			builder.WriteByte(' ')
-			builder.WriteString(modifier)
+		builder.WriteByte(' ')
+		if err := t.Stream.Accept(p); err != nil {
+			return err
 		}
 	}
 	return nil
