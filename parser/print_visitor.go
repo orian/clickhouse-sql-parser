@@ -67,6 +67,25 @@ func (p *PrintVisitor) VisitAlterRole(a *AlterRole) error {
 	}
 	return nil
 }
+
+// printOutputClauses prints the trailing `FORMAT fmt` and `SETTINGS ...` of a
+// statement embedding OutputClauses.
+func (p *PrintVisitor) printOutputClauses(o *OutputClauses) error {
+	if o.Format != nil {
+		p.builder.WriteByte(' ')
+		if err := o.Format.Accept(p); err != nil {
+			return err
+		}
+	}
+	if o.OutputSettings != nil {
+		p.builder.WriteByte(' ')
+		if err := o.OutputSettings.Accept(p); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (p *PrintVisitor) VisitAlterTable(a *AlterTable) error {
 	builder := p.builder
 	builder.WriteString("ALTER TABLE ")
@@ -88,7 +107,9 @@ func (p *PrintVisitor) VisitAlterTable(a *AlterTable) error {
 			builder.WriteString(",")
 		}
 	}
-	builder.WriteString(a.outputString())
+	if err := p.printOutputClauses(&a.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -615,12 +636,18 @@ func (p *PrintVisitor) VisitCastExpr(c *CastExpr) error {
 func (p *PrintVisitor) VisitCheckExpr(c *CheckStmt) error {
 	builder := p.builder
 	builder.WriteString("CHECK TABLE ")
-	builder.WriteString(c.Table.String())
+	if err := c.Table.Accept(p); err != nil {
+		return err
+	}
 	if c.Partition != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Partition.String())
+		if err := c.Partition.Accept(p); err != nil {
+			return err
+		}
 	}
-	builder.WriteString(c.outputString())
+	if err := p.printOutputClauses(&c.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitOnClusterExpr(o *ClusterClause) error {
@@ -870,7 +897,9 @@ func (p *PrintVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 			return err
 		}
 	}
-	builder.WriteString(c.outputString())
+	if err := p.printOutputClauses(&c.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -955,7 +984,11 @@ func (p *PrintVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 		}
 	}
 
-	builder.WriteString(c.outputString())
+	if err := p.printOutputClauses(&c.OutputClauses); err != nil {
+
+		return err
+
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) error {
@@ -1050,7 +1083,9 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 			return err
 		}
 	}
-	builder.WriteString(c.outputString())
+	if err := p.printOutputClauses(&c.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1116,7 +1151,9 @@ func (p *PrintVisitor) VisitCreateDictionary(c *CreateDictionary) error {
 			return err
 		}
 	}
-	builder.WriteString(c.outputString())
+	if err := p.printOutputClauses(&c.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1321,13 +1358,53 @@ func (p *PrintVisitor) VisitDictionaryRangeClause(d *DictionaryRangeClause) erro
 }
 
 func (p *PrintVisitor) VisitShowExpr(s *ShowStmt) error {
-	p.builder.WriteString(s.String())
-	return nil
+	builder := p.builder
+	builder.WriteString("SHOW ")
+	builder.WriteString(s.ShowType)
+	if s.Target != nil {
+		builder.WriteByte(' ')
+		if err := s.Target.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.LikeType != "" && s.LikePattern != nil {
+		if s.NotLike {
+			builder.WriteString(" NOT ")
+		} else {
+			builder.WriteByte(' ')
+		}
+		builder.WriteString(s.LikeType)
+		builder.WriteByte(' ')
+		if err := s.LikePattern.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.Limit != nil {
+		builder.WriteString(" LIMIT ")
+		if err := s.Limit.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.OutFile != nil {
+		builder.WriteString(" INTO OUTFILE ")
+		if err := s.OutFile.Accept(p); err != nil {
+			return err
+		}
+	}
+	return p.printOutputClauses(&s.OutputClauses)
 }
 
 func (p *PrintVisitor) VisitDescribeExpr(d *DescribeStmt) error {
-	p.builder.WriteString(d.String())
-	return nil
+	builder := p.builder
+	builder.WriteString("DESCRIBE ")
+	if d.DescribeType != "" {
+		builder.WriteString(d.DescribeType)
+		builder.WriteByte(' ')
+	}
+	if err := d.Target.Accept(p); err != nil {
+		return err
+	}
+	return p.printOutputClauses(&d.OutputClauses)
 }
 
 func (p *PrintVisitor) VisitCreateNamedCollection(c *CreateNamedCollection) error {
@@ -1697,7 +1774,9 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 			return err
 		}
 	}
-	builder.WriteString(c.outputString())
+	if err := p.printOutputClauses(&c.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1759,7 +1838,9 @@ func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 			return err
 		}
 	}
-	builder.WriteString(c.outputString())
+	if err := p.printOutputClauses(&c.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1768,11 +1849,15 @@ func (p *PrintVisitor) VisitDeduplicateExpr(d *DeduplicateClause) error {
 	builder.WriteString(" DEDUPLICATE")
 	if d.By != nil {
 		builder.WriteString(" BY ")
-		builder.WriteString(d.By.String())
+		if err := d.By.Accept(p); err != nil {
+			return err
+		}
 	}
 	if d.Except != nil {
 		builder.WriteString(" EXCEPT ")
-		builder.WriteString(d.Except.String())
+		if err := d.Except.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -1780,14 +1865,20 @@ func (p *PrintVisitor) VisitDeduplicateExpr(d *DeduplicateClause) error {
 func (p *PrintVisitor) VisitDeleteFromExpr(d *DeleteClause) error {
 	builder := p.builder
 	builder.WriteString("DELETE FROM ")
-	builder.WriteString(d.Table.String())
+	if err := d.Table.Accept(p); err != nil {
+		return err
+	}
 	if d.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(d.OnCluster.String())
+		if err := d.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if d.WhereExpr != nil {
 		builder.WriteString(" WHERE ")
-		builder.WriteString(d.WhereExpr.String())
+		if err := d.WhereExpr.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -1821,7 +1912,9 @@ func (p *PrintVisitor) VisitDropDatabase(d *DropDatabase) error {
 	if d.Modifier != "" {
 		builder.WriteString(" " + d.Modifier)
 	}
-	builder.WriteString(d.outputString())
+	if err := p.printOutputClauses(&d.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1850,7 +1943,9 @@ func (p *PrintVisitor) VisitDropStmt(d *DropStmt) error {
 	if len(d.Modifier) != 0 {
 		builder.WriteString(" " + d.Modifier)
 	}
-	builder.WriteString(d.outputString())
+	if err := p.printOutputClauses(&d.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1951,7 +2046,9 @@ func (p *PrintVisitor) VisitExplainExpr(e *ExplainStmt) error {
 			return err
 		}
 	}
-	builder.WriteString(e.outputString())
+	if err := p.printOutputClauses(&e.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitExtractExpr(e *ExtractExpr) error {
@@ -2013,22 +2110,30 @@ func (p *PrintVisitor) VisitGrantPrivilegeExpr(g *GrantPrivilegeStmt) error {
 	builder.WriteString("GRANT ")
 	if g.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(g.OnCluster.String())
+		if err := g.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	for i, privilege := range g.Privileges {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(privilege.String())
+		if err := privilege.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(" ON ")
-	builder.WriteString(g.On.String())
+	if err := g.On.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" TO ")
 	for i, role := range g.To {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(role.String())
+		if err := role.Accept(p); err != nil {
+			return err
+		}
 	}
 	for _, option := range g.WithOptions {
 		builder.WriteString(" WITH " + option + " OPTION")
@@ -2104,26 +2209,36 @@ func (p *PrintVisitor) VisitInsertExpr(i *InsertStmt) error {
 	if i.IsTableFunction() {
 		builder.WriteString("FUNCTION ")
 	}
-	builder.WriteString(i.Table.String())
+	if err := i.Table.Accept(p); err != nil {
+		return err
+	}
 	if i.ColumnNames != nil {
 		builder.WriteString(" ")
-		builder.WriteString(i.ColumnNames.String())
+		if err := i.ColumnNames.Accept(p); err != nil {
+			return err
+		}
 	}
 	if i.Format != nil {
 		builder.WriteString(" ")
-		builder.WriteString(i.Format.String())
+		if err := i.Format.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if i.SelectExpr != nil {
 		builder.WriteString(" ")
-		builder.WriteString(i.SelectExpr.String())
+		if err := i.SelectExpr.Accept(p); err != nil {
+			return err
+		}
 	} else if len(i.Values) > 0 {
 		builder.WriteString(" VALUES ")
 		for j, value := range i.Values {
 			if j > 0 {
 				builder.WriteString(", ")
 			}
-			builder.WriteString(value.String())
+			if err := value.Accept(p); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
@@ -2438,22 +2553,32 @@ func (p *PrintVisitor) VisitOperationExpr(o *OperationExpr) error {
 func (p *PrintVisitor) VisitOptimizeExpr(o *OptimizeStmt) error {
 	builder := p.builder
 	builder.WriteString("OPTIMIZE TABLE ")
-	builder.WriteString(o.Table.String())
+	if err := o.Table.Accept(p); err != nil {
+		return err
+	}
 	if o.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(o.OnCluster.String())
+		if err := o.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if o.Partition != nil {
 		builder.WriteString(" ")
-		builder.WriteString(o.Partition.String())
+		if err := o.Partition.Accept(p); err != nil {
+			return err
+		}
 	}
 	if o.HasFinal {
 		builder.WriteString(" FINAL")
 	}
 	if o.Deduplicate != nil {
-		builder.WriteString(o.Deduplicate.String())
+		if err := o.Deduplicate.Accept(p); err != nil {
+			return err
+		}
 	}
-	builder.WriteString(o.outputString())
+	if err := p.printOutputClauses(&o.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitOrderByListExpr(o *OrderByClause) error {
@@ -2647,7 +2772,9 @@ func (p *PrintVisitor) VisitRenameStmt(r *RenameStmt) error {
 			return err
 		}
 	}
-	builder.WriteString(r.outputString())
+	if err := p.printOutputClauses(&r.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitRoleName(r *RoleName) error {
@@ -2891,7 +3018,9 @@ func (p *PrintVisitor) VisitSetExpr(s *SetStmt) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(item.String())
+		if err := item.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -3030,7 +3159,9 @@ func (p *PrintVisitor) VisitSystemReloadExpr(s *SystemReloadExpr) error {
 	builder.WriteString(s.Type)
 	if s.Dictionary != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(s.Dictionary.String())
+		if err := s.Dictionary.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -3421,7 +3552,9 @@ func (p *PrintVisitor) VisitTruncateTable(t *TruncateTable) error {
 			return err
 		}
 	}
-	builder.WriteString(t.outputString())
+	if err := p.printOutputClauses(&t.OutputClauses); err != nil {
+		return err
+	}
 	return nil
 }
 

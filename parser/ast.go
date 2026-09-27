@@ -6685,7 +6685,7 @@ func (s *SelectQuery) String() string { // nolint: funlen
 		builder.WriteString("(")
 		builder.WriteString(s.Group.String())
 		builder.WriteString(")")
-		s.writeTail(&builder)
+		builder.WriteString(s.tailString())
 		return builder.String()
 	}
 	if s.With != nil {
@@ -6762,13 +6762,14 @@ func (s *SelectQuery) String() string { // nolint: funlen
 		builder.WriteString(" ")
 		builder.WriteString(s.Limit.String())
 	}
-	s.writeTail(&builder)
+	builder.WriteString(s.tailString())
 	return builder.String()
 }
 
-// writeTail writes the clauses shared by a SELECT and a parenthesised group:
-// SETTINGS, FORMAT, output SETTINGS and the UNION/EXCEPT continuation.
-func (s *SelectQuery) writeTail(builder *strings.Builder) {
+// tailString returns the clauses shared by a SELECT and a parenthesised group:
+// SETTINGS, FORMAT, output SETTINGS and the set-operation continuation.
+func (s *SelectQuery) tailString() string {
+	var builder strings.Builder
 	if s.Settings != nil {
 		builder.WriteString(" ")
 		builder.WriteString(s.Settings.String())
@@ -6787,6 +6788,7 @@ func (s *SelectQuery) writeTail(builder *strings.Builder) {
 		builder.WriteByte(' ')
 		builder.WriteString(next.String())
 	}
+	return builder.String()
 }
 
 func (s *SelectQuery) Accept(visitor ASTVisitor) error {
