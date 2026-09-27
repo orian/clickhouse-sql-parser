@@ -9,6 +9,9 @@ func TestParser_FixturePrefixes(t *testing.T) {
 	for _, dir := range sqlFixtureDirs {
 		for _, seed := range readSQLSeeds(t, dir, 0) {
 			t.Run(seed.name, func(t *testing.T) {
+				// Fixtures are independent; parsing every prefix is the
+				// slowest test, so spread it over the available CPUs.
+				t.Parallel()
 				check := func(end int) {
 					t.Helper()
 					defer func() {

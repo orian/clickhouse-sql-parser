@@ -14,7 +14,12 @@ $(PROGRAM):
 	go build -o $(PROGRAM) main.go
 
 test:
-	@go test -v ./... -covermode=atomic -coverprofile=coverage.out -race -compatible
+	@go test ./... -race -compatible
+
+# cover writes coverage.out. It is kept out of `test` (and so CI): atomic
+# coverage counters make the race-enabled run several times slower.
+cover:
+	@go test ./... -covermode=atomic -coverprofile=coverage.out -race -compatible
 
 update_test:
 	@go test -v ./... -update -race -compatible
