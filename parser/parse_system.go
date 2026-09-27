@@ -37,28 +37,64 @@ func (p *Parser) parseSystemFlushExpr(pos Pos) (*SystemFlushExpr, error) {
 	if err := p.expectKeyword(KeywordFlush); err != nil {
 		return nil, err
 	}
-
+	flush := &SystemFlushExpr{FlushPos: pos}
+	var err error
 	switch {
-	case p.matchKeyword(KeywordLogs):
-		lastToken := p.last()
-		_ = p.lexer.consumeToken()
-		return &SystemFlushExpr{
-			FlushPos:     pos,
-			StatementEnd: lastToken.End,
-			Logs:         true,
-		}, nil
+	case p.tryConsumeKeywords(KeywordLogs):
+		flush.Logs = true
+		if flush.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+		if flush.Tables, err = p.parseSystemFlushTables(); err != nil {
+			return nil, err
+		}
+	case p.tryConsumeWords("ASYNC", "INSERT", "QUEUE"):
+		flush.AsyncInsertQueue = true
+		if flush.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+		if flush.Tables, err = p.parseSystemFlushTables(); err != nil {
+			return nil, err
+		}
 	case p.tryConsumeKeywords(KeywordDistributed):
-		distributed, err := p.parseTableIdentifier(p.Pos())
+		if flush.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+			return nil, err
+		}
+		if flush.Distributed, err = p.parseTableIdentifier(p.Pos()); err != nil {
+			return nil, err
+		}
+		// ClickHouse also accepts ON CLUSTER after the table.
+		if flush.OnCluster == nil {
+			if flush.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+				return nil, err
+			}
+		}
+		if flush.Settings, err = p.tryParseSettingsClause(p.Pos()); err != nil {
+			return nil, err
+		}
+	default:
+		return nil, fmt.Errorf("expected LOGS|DISTRIBUTED|ASYNC INSERT QUEUE, got %q", p.lastTokenText())
+	}
+	flush.StatementEnd = p.prevEnd()
+	return flush, nil
+}
+
+// parseSystemFlushTables parses the optional comma-separated table (or log)
+// list of FLUSH LOGS and FLUSH ASYNC INSERT QUEUE.
+func (p *Parser) parseSystemFlushTables() ([]*TableIdentifier, error) {
+	if !p.matchTokenKind(TokenKindIdent) {
+		return nil, nil
+	}
+	var tables []*TableIdentifier
+	for {
+		table, err := p.parseTableIdentifier(p.Pos())
 		if err != nil {
 			return nil, err
 		}
-		return &SystemFlushExpr{
-			FlushPos:     pos,
-			StatementEnd: distributed.End(),
-			Distributed:  distributed,
-		}, nil
-	default:
-		return nil, fmt.Errorf("expected LOGS|DISTRIBUTED")
+		tables = append(tables, table)
+		if p.tryConsumeTokenKind(TokenKindComma) == nil {
+			return tables, nil
+		}
 	}
 }
 
