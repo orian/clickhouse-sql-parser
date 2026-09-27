@@ -535,8 +535,13 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *SystemSyncExpr:
-		if !Walk(n.Cluster, fn) {
+		if !Walk(n.CacheName, fn) || !Walk(n.OnCluster, fn) || !Walk(n.Cluster, fn) || !Walk(n.Database, fn) {
 			return false
+		}
+		for _, from := range n.From {
+			if !Walk(from, fn) {
+				return false
+			}
 		}
 	case *SystemCtrlExpr:
 		if !Walk(n.Cluster, fn) {

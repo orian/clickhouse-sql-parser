@@ -7521,9 +7521,33 @@ func (s *SystemReloadExpr) Accept(visitor ASTVisitor) error {
 	return visitor.VisitSystemReloadExpr(s)
 }
 
+// SystemSyncExpr is one of
+//
+//	SYNC REPLICA [ON CLUSTER c] [db.]table [IF EXISTS] [STRICT | LIGHTWEIGHT [FROM 'r', ...] | PULL]
+//	SYNC DATABASE REPLICA [ON CLUSTER c] db
+//	SYNC TRANSACTION LOG [ON CLUSTER c]
+//	SYNC FILE CACHE [ON CLUSTER c]
+//	SYNC FILESYSTEM CACHE ['name'] [ON CLUSTER c]
 type SystemSyncExpr struct {
 	SyncPos Pos
+	// SyncEnd is the end of the last token of the command.
+	SyncEnd Pos `json:",omitempty"`
+	// Target is the normalised target: "REPLICA", "DATABASE REPLICA",
+	// "TRANSACTION LOG", "FILE CACHE" or "FILESYSTEM CACHE".
+	Target    string        `json:",omitempty"`
+	OnCluster *ClusterClause `json:",omitempty"`
+	// Cluster is the table of SYNC REPLICA. Despite its name it is not a
+	// cluster; ON CLUSTER is OnCluster.
 	Cluster *TableIdentifier
+	// Database is the database of SYNC DATABASE REPLICA.
+	Database *Ident `json:",omitempty"`
+	IfExists bool   `json:",omitempty"`
+	// Mode is the SYNC REPLICA mode: "STRICT", "LIGHTWEIGHT" or "PULL".
+	Mode string `json:",omitempty"`
+	// From lists the source replicas of LIGHTWEIGHT FROM 'r1', 'r2'.
+	From []*StringLiteral `json:",omitempty"`
+	// CacheName is the cache of SYNC FILESYSTEM CACHE 'name'.
+	CacheName *StringLiteral `json:",omitempty"`
 }
 
 func (s *SystemSyncExpr) Pos() Pos {
@@ -7531,13 +7555,44 @@ func (s *SystemSyncExpr) Pos() Pos {
 }
 
 func (s *SystemSyncExpr) End() Pos {
-	return s.Cluster.End()
+	return s.SyncEnd
 }
 
 func (s *SystemSyncExpr) String() string {
 	var builder strings.Builder
 	builder.WriteString("SYNC ")
-	builder.WriteString(s.Cluster.String())
+	builder.WriteString(s.Target)
+	if s.CacheName != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(s.CacheName.String())
+	}
+	if s.OnCluster != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(s.OnCluster.String())
+	}
+	if s.Cluster != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(s.Cluster.String())
+	}
+	if s.Database != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(s.Database.String())
+	}
+	if s.IfExists {
+		builder.WriteString(" IF EXISTS")
+	}
+	if s.Mode != "" {
+		builder.WriteByte(' ')
+		builder.WriteString(s.Mode)
+	}
+	for i, from := range s.From {
+		if i == 0 {
+			builder.WriteString(" FROM ")
+		} else {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(from.String())
+	}
 	return builder.String()
 }
 
