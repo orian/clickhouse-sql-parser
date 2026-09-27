@@ -1,0 +1,315 @@
+[
+  {
+    "SystemPos": 0,
+    "Expr": {
+      "SyncPos": 7,
+      "SyncEnd": 21,
+      "Target": "REPLICA",
+      "Cluster": {
+        "Database": null,
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 20,
+          "NameEnd": 21
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 23,
+    "Expr": {
+      "SyncPos": 30,
+      "SyncEnd": 47,
+      "Target": "REPLICA",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 43,
+          "NameEnd": 45
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 46,
+          "NameEnd": 47
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 49,
+    "Expr": {
+      "SyncPos": 56,
+      "SyncEnd": 86,
+      "Target": "REPLICA",
+      "OnCluster": {
+        "OnPos": 69,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 80,
+          "NameEnd": 81
+        }
+      },
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 82,
+          "NameEnd": 84
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 85,
+          "NameEnd": 86
+        }
+      }
+    }
+  },
+  {
+    "SystemPos": 88,
+    "Expr": {
+      "SyncPos": 95,
+      "SyncEnd": 122,
+      "Target": "REPLICA",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 108,
+          "NameEnd": 110
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 111,
+          "NameEnd": 112
+        }
+      },
+      "IfExists": true
+    }
+  },
+  {
+    "SystemPos": 124,
+    "Expr": {
+      "SyncPos": 131,
+      "SyncEnd": 155,
+      "Target": "REPLICA",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 144,
+          "NameEnd": 146
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 147,
+          "NameEnd": 148
+        }
+      },
+      "Mode": "STRICT"
+    }
+  },
+  {
+    "SystemPos": 157,
+    "Expr": {
+      "SyncPos": 164,
+      "SyncEnd": 196,
+      "Target": "REPLICA",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 177,
+          "NameEnd": 179
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 180,
+          "NameEnd": 181
+        }
+      },
+      "IfExists": true,
+      "Mode": "PULL"
+    }
+  },
+  {
+    "SystemPos": 198,
+    "Expr": {
+      "SyncPos": 205,
+      "SyncEnd": 234,
+      "Target": "REPLICA",
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 218,
+          "NameEnd": 220
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 221,
+          "NameEnd": 222
+        }
+      },
+      "Mode": "LIGHTWEIGHT"
+    }
+  },
+  {
+    "SystemPos": 236,
+    "Expr": {
+      "SyncPos": 243,
+      "SyncEnd": 303,
+      "Target": "REPLICA",
+      "OnCluster": {
+        "OnPos": 256,
+        "Expr": {
+          "LiteralPos": 268,
+          "LiteralEnd": 269,
+          "Literal": "c"
+        }
+      },
+      "Cluster": {
+        "Database": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 271,
+          "NameEnd": 273
+        },
+        "Table": {
+          "Name": "t",
+          "QuoteType": 1,
+          "NamePos": 274,
+          "NameEnd": 275
+        }
+      },
+      "Mode": "LIGHTWEIGHT",
+      "From": [
+        {
+          "LiteralPos": 294,
+          "LiteralEnd": 296,
+          "Literal": "r1"
+        },
+        {
+          "LiteralPos": 300,
+          "LiteralEnd": 302,
+          "Literal": "r2"
+        }
+      ]
+    }
+  },
+  {
+    "SystemPos": 305,
+    "Expr": {
+      "SyncPos": 312,
+      "SyncEnd": 336,
+      "Target": "DATABASE REPLICA",
+      "Cluster": null,
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 334,
+        "NameEnd": 336
+      }
+    }
+  },
+  {
+    "SystemPos": 338,
+    "Expr": {
+      "SyncPos": 345,
+      "SyncEnd": 382,
+      "Target": "DATABASE REPLICA",
+      "OnCluster": {
+        "OnPos": 367,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 378,
+          "NameEnd": 379
+        }
+      },
+      "Cluster": null,
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 380,
+        "NameEnd": 382
+      }
+    }
+  },
+  {
+    "SystemPos": 384,
+    "Expr": {
+      "SyncPos": 391,
+      "SyncEnd": 411,
+      "Target": "TRANSACTION LOG",
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 413,
+    "Expr": {
+      "SyncPos": 420,
+      "SyncEnd": 453,
+      "Target": "TRANSACTION LOG",
+      "OnCluster": {
+        "OnPos": 441,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 452,
+          "NameEnd": 453
+        }
+      },
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 455,
+    "Expr": {
+      "SyncPos": 462,
+      "SyncEnd": 477,
+      "Target": "FILE CACHE",
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 479,
+    "Expr": {
+      "SyncPos": 486,
+      "SyncEnd": 507,
+      "Target": "FILESYSTEM CACHE",
+      "Cluster": null
+    }
+  },
+  {
+    "SystemPos": 509,
+    "Expr": {
+      "SyncPos": 516,
+      "SyncEnd": 555,
+      "Target": "FILESYSTEM CACHE",
+      "OnCluster": {
+        "OnPos": 543,
+        "Expr": {
+          "Name": "c",
+          "QuoteType": 1,
+          "NamePos": 554,
+          "NameEnd": 555
+        }
+      },
+      "Cluster": null,
+      "CacheName": {
+        "LiteralPos": 539,
+        "LiteralEnd": 541,
+        "Literal": "c1"
+      }
+    }
+  }
+]

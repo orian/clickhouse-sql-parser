@@ -2471,8 +2471,30 @@ func (visitor DefaultASTVisitor) VisitSystemExpr(s *SystemStmt) error {
 func (visitor DefaultASTVisitor) VisitSystemSyncExpr(s *SystemSyncExpr) error {
 	visitor.Enter(s)
 	defer visitor.Leave(s)
-	if err := s.Cluster.Accept(visitor.Self); err != nil {
-		return err
+	if s.CacheName != nil {
+		if err := s.CacheName.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.OnCluster != nil {
+		if err := s.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.Cluster != nil {
+		if err := s.Cluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.Database != nil {
+		if err := s.Database.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, from := range s.From {
+		if err := from.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	return nil
 }
