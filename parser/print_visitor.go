@@ -521,10 +521,14 @@ func (p *PrintVisitor) VisitColumnArgList(c *ColumnArgList) error {
 }
 func (p *PrintVisitor) VisitColumnDef(c *ColumnDef) error {
 	builder := p.builder
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.Type != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(c.Type.String())
+		if err := c.Type.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.NotNull != nil {
 		builder.WriteString(" NOT NULL")
@@ -533,34 +537,48 @@ func (p *PrintVisitor) VisitColumnDef(c *ColumnDef) error {
 	}
 	if c.DefaultExpr != nil {
 		builder.WriteString(" DEFAULT ")
-		builder.WriteString(c.DefaultExpr.String())
+		if err := c.DefaultExpr.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.MaterializedExpr != nil {
 		builder.WriteString(" MATERIALIZED ")
-		builder.WriteString(c.MaterializedExpr.String())
+		if err := c.MaterializedExpr.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.IsEphemeral {
 		builder.WriteString(" EPHEMERAL")
 		if c.EphemeralExpr != nil {
 			builder.WriteByte(' ')
-			builder.WriteString(c.EphemeralExpr.String())
+			if err := c.EphemeralExpr.Accept(p); err != nil {
+				return err
+			}
 		}
 	}
 	if c.AliasExpr != nil {
 		builder.WriteString(" ALIAS ")
-		builder.WriteString(c.AliasExpr.String())
+		if err := c.AliasExpr.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Codec != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(c.Codec.String())
+		if err := c.Codec.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.TTL != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(c.TTL.String())
+		if err := c.TTL.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
-		builder.WriteString(c.Comment.String())
+		if err := c.Comment.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -651,19 +669,27 @@ func (p *PrintVisitor) VisitCompressionCodec(c *CompressionCodec) error {
 	builder := p.builder
 	builder.WriteString("CODEC(")
 	if c.Type != nil {
-		builder.WriteString(c.Type.String())
+		if err := c.Type.Accept(p); err != nil {
+			return err
+		}
 		if c.TypeLevel != nil {
 			builder.WriteByte('(')
-			builder.WriteString(c.TypeLevel.String())
+			if err := c.TypeLevel.Accept(p); err != nil {
+				return err
+			}
 			builder.WriteByte(')')
 		}
 		builder.WriteByte(',')
 		builder.WriteByte(' ')
 	}
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.Level != nil {
 		builder.WriteByte('(')
-		builder.WriteString(c.Level.String())
+		if err := c.Level.Accept(p); err != nil {
+			return err
+		}
 		builder.WriteByte(')')
 	}
 	builder.WriteByte(')')
@@ -672,13 +698,19 @@ func (p *PrintVisitor) VisitCompressionCodec(c *CompressionCodec) error {
 func (p *PrintVisitor) VisitConstraintExpr(c *ConstraintClause) error {
 	builder := p.builder
 	builder.WriteString("CONSTRAINT ")
-	builder.WriteString(c.Constraint.String())
+	if err := c.Constraint.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteByte(' ')
 	if c.Type != nil {
-		builder.WriteString(c.Type.String())
+		if err := c.Type.Accept(p); err != nil {
+			return err
+		}
 		builder.WriteByte(' ')
 	}
-	builder.WriteString(c.Expr.String())
+	if err := c.Expr.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitCreateDatabase(c *CreateDatabase) error {
@@ -687,18 +719,26 @@ func (p *PrintVisitor) VisitCreateDatabase(c *CreateDatabase) error {
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.OnCluster.String())
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Engine != nil {
 		// EngineExpr.String() already emits a leading " ENGINE = ...".
-		builder.WriteString(c.Engine.String())
+		if err := c.Engine.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
-		builder.WriteString(c.Comment.String())
+		if err := c.Comment.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(c.outputString())
 	return nil
@@ -714,15 +754,23 @@ func (p *PrintVisitor) VisitCreateFunction(c *CreateFunction) error {
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(c.FunctionName.String())
+	if err := c.FunctionName.Accept(p); err != nil {
+		return err
+	}
 	if c.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.OnCluster.String())
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(" AS ")
-	builder.WriteString(c.Params.String())
+	if err := c.Params.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" -> ")
-	builder.WriteString(c.Expr.String())
+	if err := c.Expr.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -732,35 +780,49 @@ func (p *PrintVisitor) VisitCreateLiveView(c *CreateLiveView) error {
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.UUID != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.UUID.String())
+		if err := c.UUID.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.OnCluster.String())
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.WithTimeout != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.WithTimeout.String())
+		if err := c.WithTimeout.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.Destination != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Destination.String())
+		if err := c.Destination.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.TableSchema != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.TableSchema.String())
+		if err := c.TableSchema.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
-		builder.WriteString(c.SubQuery.String())
+		if err := c.SubQuery.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	builder.WriteString(c.outputString())
@@ -772,18 +834,26 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.OnCluster.String())
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Refresh != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Refresh.String())
+		if err := c.Refresh.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.RandomizeFor != nil {
 		builder.WriteString(" RANDOMIZE FOR ")
-		builder.WriteString(c.RandomizeFor.String())
+		if err := c.RandomizeFor.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.DependsOn != nil {
 		builder.WriteString(" DEPENDS ON ")
@@ -791,25 +861,35 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 			if i > 0 {
 				builder.WriteString(", ")
 			}
-			builder.WriteString(dep.String())
+			if err := dep.Accept(p); err != nil {
+				return err
+			}
 		}
 	}
 	if c.Settings != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Settings.String())
+		if err := c.Settings.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.HasAppend {
 		builder.WriteString(" APPEND")
 	}
 	if c.Engine != nil {
-		builder.WriteString(c.Engine.String())
+		if err := c.Engine.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Destination != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Destination.String())
+		if err := c.Destination.Accept(p); err != nil {
+			return err
+		}
 		if c.Destination.TableSchema != nil {
 			builder.WriteString(" ")
-			builder.WriteString(c.Destination.TableSchema.String())
+			if err := c.Destination.TableSchema.Accept(p); err != nil {
+				return err
+			}
 		}
 	}
 	if c.HasEmpty {
@@ -817,7 +897,9 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 	}
 	if c.Definer != nil {
 		builder.WriteString(" DEFINER = ")
-		builder.WriteString(c.Definer.String())
+		if err := c.Definer.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.SQLSecurity != "" {
 		builder.WriteString(" SQL SECURITY ")
@@ -828,18 +910,36 @@ func (p *PrintVisitor) VisitCreateMaterializedView(c *CreateMaterializedView) er
 	}
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
-		builder.WriteString(c.SubQuery.String())
+		if err := c.SubQuery.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
-		builder.WriteString(c.Comment.String())
+		if err := c.Comment.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(c.outputString())
 	return nil
 }
 
 func (p *PrintVisitor) VisitRefreshExpr(r *RefreshExpr) error {
-	p.builder.WriteString(r.String())
+	builder := p.builder
+	builder.WriteString("REFRESH ")
+	builder.WriteString(r.Frequency)
+	if r.Interval != nil {
+		builder.WriteString(" ")
+		if err := r.Interval.Accept(p); err != nil {
+			return err
+		}
+	}
+	if r.Offset != nil {
+		builder.WriteString(" OFFSET ")
+		if err := r.Offset.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -853,73 +953,240 @@ func (p *PrintVisitor) VisitCreateDictionary(c *CreateDictionary) error {
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.UUID != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.UUID.String())
+		if err := c.UUID.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.OnCluster.String())
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Schema != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Schema.String())
+		if err := c.Schema.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Engine != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Engine.String())
+		if err := c.Engine.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
-		builder.WriteString(c.Comment.String())
+		if err := c.Comment.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(c.outputString())
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionarySchemaClause(d *DictionarySchemaClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	builder.WriteString("(")
+	for i, attr := range d.Attributes {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := attr.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteString(")")
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionaryAttribute(d *DictionaryAttribute) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	if err := d.Name.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString(" ")
+	if err := d.Type.Accept(p); err != nil {
+		return err
+	}
+	if d.Default != nil {
+		builder.WriteString(" DEFAULT ")
+		if err := d.Default.Accept(p); err != nil {
+			return err
+		}
+	}
+	if d.Expression != nil {
+		builder.WriteString(" EXPRESSION ")
+		if err := d.Expression.Accept(p); err != nil {
+			return err
+		}
+	}
+	if d.Hierarchical {
+		builder.WriteString(" HIERARCHICAL")
+	}
+	if d.Injective {
+		builder.WriteString(" INJECTIVE")
+	}
+	if d.IsObjectId {
+		builder.WriteString(" IS_OBJECT_ID")
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionaryEngineClause(d *DictionaryEngineClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	start := builder.Len()
+	if d.PrimaryKey != nil {
+		if err := d.PrimaryKey.Accept(p); err != nil {
+			return err
+		}
+	}
+	if d.Source != nil {
+		if builder.Len()-start > 0 {
+			builder.WriteString(" ")
+		}
+		if err := d.Source.Accept(p); err != nil {
+			return err
+		}
+	}
+	if d.Lifetime != nil {
+		if builder.Len()-start > 0 {
+			builder.WriteString(" ")
+		}
+		if err := d.Lifetime.Accept(p); err != nil {
+			return err
+		}
+	}
+	if d.Layout != nil {
+		if builder.Len()-start > 0 {
+			builder.WriteString(" ")
+		}
+		if err := d.Layout.Accept(p); err != nil {
+			return err
+		}
+	}
+	if d.Range != nil {
+		if builder.Len()-start > 0 {
+			builder.WriteString(" ")
+		}
+		if err := d.Range.Accept(p); err != nil {
+			return err
+		}
+	}
+	if d.Settings != nil {
+		if builder.Len()-start > 0 {
+			builder.WriteString(" ")
+		}
+		builder.WriteString("SETTINGS(")
+		for i, item := range d.Settings.Items {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			if err := item.Accept(p); err != nil {
+				return err
+			}
+		}
+		builder.WriteString(")")
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionaryPrimaryKeyClause(d *DictionaryPrimaryKeyClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	builder.WriteString("PRIMARY KEY ")
+	if err := d.Keys.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionarySourceClause(d *DictionarySourceClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	builder.WriteString("SOURCE(")
+	if err := d.Source.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString("(")
+	for i, arg := range d.Args {
+		if i > 0 {
+			builder.WriteString(" ")
+		}
+		if err := arg.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteString("))")
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionaryArgExpr(d *DictionaryArgExpr) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	if err := d.Name.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString(" ")
+	if err := d.Value.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionaryLifetimeClause(d *DictionaryLifetimeClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	builder.WriteString("LIFETIME(")
+	if d.Value != nil {
+		if err := d.Value.Accept(p); err != nil {
+			return err
+		}
+	} else if d.Min != nil && d.Max != nil {
+		builder.WriteString("MIN ")
+		if err := d.Min.Accept(p); err != nil {
+			return err
+		}
+		builder.WriteString(" MAX ")
+		if err := d.Max.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteString(")")
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionaryLayoutClause(d *DictionaryLayoutClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	builder.WriteString("LAYOUT(")
+	if err := d.Layout.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString("(")
+	for i, arg := range d.Args {
+		if i > 0 {
+			builder.WriteString(" ")
+		}
+		if err := arg.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteString("))")
 	return nil
 }
 
 func (p *PrintVisitor) VisitDictionaryRangeClause(d *DictionaryRangeClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	builder.WriteString("RANGE(MIN ")
+	if err := d.Min.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString(" MAX ")
+	if err := d.Max.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString(")")
 	return nil
 }
 
@@ -934,7 +1201,29 @@ func (p *PrintVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 }
 
 func (p *PrintVisitor) VisitCreateNamedCollection(c *CreateNamedCollection) error {
-	p.builder.WriteString(c.String())
+	builder := p.builder
+	builder.WriteString("CREATE NAMED COLLECTION ")
+	if c.IfNotExists {
+		builder.WriteString("IF NOT EXISTS ")
+	}
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
+	if c.OnCluster != nil {
+		builder.WriteString(" ")
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteString(" AS ")
+	for i, param := range c.Params {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := param.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -1004,27 +1293,173 @@ func (p *PrintVisitor) VisitTargetPairExpr(t *TargetPair) error {
 }
 
 func (p *PrintVisitor) VisitAuthenticationClause(a *AuthenticationClause) error {
-	p.builder.WriteString(a.String())
+	builder := p.builder
+	if a.NotIdentified {
+		builder.WriteString("NOT IDENTIFIED")
+		return nil
+	}
+	builder.WriteString("IDENTIFIED")
+	if a.AuthType != "" {
+		builder.WriteString(" WITH ")
+		builder.WriteString(a.AuthType)
+	}
+	if a.AuthValue != nil {
+		builder.WriteString(" BY ")
+		if err := a.AuthValue.Accept(p); err != nil {
+			return err
+		}
+	}
+	if a.LdapServer != nil {
+		builder.WriteString(" WITH ldap SERVER ")
+		if err := a.LdapServer.Accept(p); err != nil {
+			return err
+		}
+	}
+	if a.IsKerberos {
+		builder.WriteString(" WITH kerberos")
+		if a.KerberosRealm != nil && a.KerberosRealm.Literal != "" {
+			builder.WriteString(" REALM ")
+			if err := a.KerberosRealm.Accept(p); err != nil {
+				return err
+			}
+		}
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitHostClause(h *HostClause) error {
-	p.builder.WriteString(h.String())
+	builder := p.builder
+	builder.WriteString("HOST ")
+	builder.WriteString(h.HostType)
+	if h.HostValue != nil {
+		builder.WriteString(" ")
+		if err := h.HostValue.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitDefaultRoleClause(d *DefaultRoleClause) error {
-	p.builder.WriteString(d.String())
+	builder := p.builder
+	builder.WriteString("DEFAULT ROLE ")
+	if d.None {
+		builder.WriteString("NONE")
+	} else {
+		for i, role := range d.Roles {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			if err := role.Accept(p); err != nil {
+				return err
+			}
+		}
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitGranteesClause(g *GranteesClause) error {
-	p.builder.WriteString(g.String())
+	builder := p.builder
+	builder.WriteString("GRANTEES ")
+	if g.Any {
+		builder.WriteString("ANY")
+	} else if g.None {
+		builder.WriteString("NONE")
+	} else {
+		for i, grantee := range g.Grantees {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			if err := grantee.Accept(p); err != nil {
+				return err
+			}
+		}
+	}
+	if len(g.ExceptUsers) > 0 {
+		builder.WriteString(" EXCEPT ")
+		for i, except := range g.ExceptUsers {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			if err := except.Accept(p); err != nil {
+				return err
+			}
+		}
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitCreateUser(c *CreateUser) error {
-	p.builder.WriteString(c.String())
+	builder := p.builder
+	builder.WriteString("CREATE USER ")
+	if c.IfNotExists {
+		builder.WriteString("IF NOT EXISTS ")
+	}
+	if c.OrReplace {
+		builder.WriteString("OR REPLACE ")
+	}
+	for i, userName := range c.UserNames {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := userName.Accept(p); err != nil {
+			return err
+		}
+	}
+	if c.Authentication != nil {
+		builder.WriteString(" ")
+		if err := c.Authentication.Accept(p); err != nil {
+			return err
+		}
+	}
+	if c.ValidUntil != nil {
+		builder.WriteString(" VALID UNTIL ")
+		if err := c.ValidUntil.Accept(p); err != nil {
+			return err
+		}
+	}
+	if len(c.Hosts) > 0 {
+		builder.WriteString(" ")
+		for i, host := range c.Hosts {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			if err := host.Accept(p); err != nil {
+				return err
+			}
+		}
+	}
+	if c.DefaultRole != nil {
+		builder.WriteString(" ")
+		if err := c.DefaultRole.Accept(p); err != nil {
+			return err
+		}
+	}
+	if c.DefaultDatabase != nil {
+		builder.WriteString(" DEFAULT DATABASE ")
+		if err := c.DefaultDatabase.Accept(p); err != nil {
+			return err
+		}
+	} else if c.DefaultDbNone {
+		builder.WriteString(" DEFAULT DATABASE NONE")
+	}
+	if c.Grantees != nil {
+		builder.WriteString(" ")
+		if err := c.Grantees.Accept(p); err != nil {
+			return err
+		}
+	}
+	if len(c.Settings) > 0 {
+		builder.WriteString(" SETTINGS ")
+		for i, setting := range c.Settings {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			if err := setting.Accept(p); err != nil {
+				return err
+			}
+		}
+	}
 	return nil
 }
 
@@ -1041,11 +1476,15 @@ func (p *PrintVisitor) VisitCreateRole(c *CreateRole) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(roleName.String())
+		if err := roleName.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.AccessStorageType != nil {
 		builder.WriteString(" IN ")
-		builder.WriteString(c.AccessStorageType.String())
+		if err := c.AccessStorageType.Accept(p); err != nil {
+			return err
+		}
 	}
 	if len(c.Settings) > 0 {
 		builder.WriteString(" SETTINGS ")
@@ -1053,7 +1492,9 @@ func (p *PrintVisitor) VisitCreateRole(c *CreateRole) error {
 			if i > 0 {
 				builder.WriteString(", ")
 			}
-			builder.WriteString(setting.String())
+			if err := setting.Accept(p); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
@@ -1071,40 +1512,60 @@ func (p *PrintVisitor) VisitCreateTable(c *CreateTable) error {
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.UUID != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.UUID.String())
+		if err := c.UUID.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.OnCluster.String())
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.TableSchema != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.TableSchema.String())
+		if err := c.TableSchema.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Engine != nil {
-		builder.WriteString(c.Engine.String())
+		if err := c.Engine.Accept(p); err != nil {
+			return err
+		}
 	}
 	for _, target := range c.TimeSeriesTargets {
-		builder.WriteString(target.String())
+		if err := target.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
-		builder.WriteString(c.SubQuery.String())
+		if err := c.SubQuery.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.TableFunction != nil {
 		builder.WriteString(" AS ")
-		builder.WriteString(c.TableFunction.String())
+		if err := c.TableFunction.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
-		builder.WriteString(c.Comment.String())
+		if err := c.Comment.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.Settings != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.Settings.String())
+		if err := c.Settings.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(c.outputString())
 	return nil
@@ -1120,25 +1581,35 @@ func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 	if c.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(c.Name.String())
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
 	if c.UUID != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.UUID.String())
+		if err := c.UUID.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.OnCluster.String())
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.TableSchema != nil {
 		builder.WriteString(" ")
-		builder.WriteString(c.TableSchema.String())
+		if err := c.TableSchema.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.Definer != nil {
 		builder.WriteString(" DEFINER = ")
-		builder.WriteString(c.Definer.String())
+		if err := c.Definer.Accept(p); err != nil {
+			return err
+		}
 	}
 	if c.SQLSecurity != "" {
 		builder.WriteString(" SQL SECURITY ")
@@ -1147,12 +1618,16 @@ func (p *PrintVisitor) VisitCreateView(c *CreateView) error {
 
 	if c.Comment != nil {
 		builder.WriteString(" COMMENT ")
-		builder.WriteString(c.Comment.String())
+		if err := c.Comment.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	if c.SubQuery != nil {
 		builder.WriteString(" AS ")
-		builder.WriteString(c.SubQuery.String())
+		if err := c.SubQuery.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(c.outputString())
 	return nil
@@ -1189,7 +1664,9 @@ func (p *PrintVisitor) VisitDeleteFromExpr(d *DeleteClause) error {
 func (p *PrintVisitor) VisitDestinationExpr(d *DestinationClause) error {
 	builder := p.builder
 	builder.WriteString("TO ")
-	builder.WriteString(d.TableIdentifier.String())
+	if err := d.TableIdentifier.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1199,10 +1676,14 @@ func (p *PrintVisitor) VisitDropDatabase(d *DropDatabase) error {
 	if d.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(d.Name.String())
+	if err := d.Name.Accept(p); err != nil {
+		return err
+	}
 	if d.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(d.OnCluster.String())
+		if err := d.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if d.Permanently {
 		builder.WriteString(" PERMANENTLY")
@@ -1224,10 +1705,14 @@ func (p *PrintVisitor) VisitDropStmt(d *DropStmt) error {
 	if d.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(d.Name.String())
+	if err := d.Name.Accept(p); err != nil {
+		return err
+	}
 	if d.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(d.OnCluster.String())
+		if err := d.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	if d.Permanently {
 		builder.WriteString(" PERMANENTLY")
@@ -1249,14 +1734,18 @@ func (p *PrintVisitor) VisitDropUserOrRole(d *DropUserOrRole) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(name.String())
+		if err := name.Accept(p); err != nil {
+			return err
+		}
 	}
 	if len(d.Modifier) != 0 {
 		builder.WriteString(" " + d.Modifier)
 	}
 	if d.From != nil {
 		builder.WriteString(" FROM ")
-		builder.WriteString(d.From.String())
+		if err := d.From.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -1341,7 +1830,10 @@ func (p *PrintVisitor) VisitIntervalFrom(i *IntervalFrom) error {
 }
 
 func (p *PrintVisitor) VisitFormatExpr(f *FormatClause) error {
-	p.builder.WriteString("FORMAT " + f.Format.String())
+	p.builder.WriteString("FORMAT ")
+	if err := f.Format.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1419,7 +1911,10 @@ func (p *PrintVisitor) VisitGroupByExpr(g *GroupByClause) error {
 }
 
 func (p *PrintVisitor) VisitHavingExpr(h *HavingClause) error {
-	p.builder.WriteString("HAVING " + h.Expr.String())
+	p.builder.WriteString("HAVING ")
+	if err := h.Expr.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitIdent(i *Ident) error {
@@ -1991,37 +2486,53 @@ func (p *PrintVisitor) VisitRenameStmt(r *RenameStmt) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(pair.Old.String())
+		if err := pair.Old.Accept(p); err != nil {
+			return err
+		}
 		builder.WriteString(" TO ")
-		builder.WriteString(pair.New.String())
+		if err := pair.New.Accept(p); err != nil {
+			return err
+		}
 	}
 	if r.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(r.OnCluster.String())
+		if err := r.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(r.outputString())
 	return nil
 }
 func (p *PrintVisitor) VisitRoleName(r *RoleName) error {
 	builder := p.builder
-	builder.WriteString(r.Name.String())
+	if err := r.Name.Accept(p); err != nil {
+		return err
+	}
 	if r.Scope != nil {
 		builder.WriteString("@")
-		builder.WriteString(r.Scope.String())
+		if err := r.Scope.Accept(p); err != nil {
+			return err
+		}
 	}
 	if r.OnCluster != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(r.OnCluster.String())
+		if err := r.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitRoleRenamePair(r *RoleRenamePair) error {
 	builder := p.builder
-	builder.WriteString(r.RoleName.String())
+	if err := r.RoleName.Accept(p); err != nil {
+		return err
+	}
 	if r.NewName != nil {
 		builder.WriteString(" RENAME TO ")
-		builder.WriteString(r.NewName.String())
+		if err := r.NewName.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -2031,13 +2542,17 @@ func (p *PrintVisitor) VisitRoleSetting(r *RoleSetting) error {
 		if i > 0 {
 			builder.WriteString(" ")
 		}
-		builder.WriteString(settingPair.String())
+		if err := settingPair.Accept(p); err != nil {
+			return err
+		}
 	}
 	if r.Modifier != nil {
 		if len(r.SettingPairs) > 0 {
 			builder.WriteString(" ")
 		}
-		builder.WriteString(r.Modifier.String())
+		if err := r.Modifier.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -2338,26 +2853,86 @@ func (p *PrintVisitor) VisitTTLExprList(t *TTLClause) error {
 }
 func (p *PrintVisitor) VisitTTLExpr(t *TTLExpr) error {
 	builder := p.builder
-	builder.WriteString(t.Expr.String())
+	if err := t.Expr.Accept(p); err != nil {
+		return err
+	}
 	if t.Policy != nil {
 		builder.WriteString(" ")
-		builder.WriteString(t.Policy.String())
+		if err := t.Policy.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitTTLPolicy(t *TTLPolicy) error {
-	p.builder.WriteString(t.String())
+	builder := p.builder
+	start := builder.Len()
+	writeSep := func() {
+		if builder.Len()-start > 0 {
+			builder.WriteString(" ")
+		}
+	}
+	if t.Item != nil {
+		if err := t.Item.Accept(p); err != nil {
+			return err
+		}
+	}
+	if t.Where != nil {
+		writeSep()
+		if err := t.Where.Accept(p); err != nil {
+			return err
+		}
+	}
+	if t.GroupBy != nil {
+		writeSep()
+		if err := t.GroupBy.Accept(p); err != nil {
+			return err
+		}
+	}
+	if len(t.Assignments) > 0 {
+		builder.WriteString(" SET ")
+		for i, assignment := range t.Assignments {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			if err := assignment.Accept(p); err != nil {
+				return err
+			}
+		}
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitTTLPolicyRule(t *TTLPolicyRule) error {
-	p.builder.WriteString(t.String())
+	builder := p.builder
+	if t.ToVolume != nil {
+		builder.WriteString("TO VOLUME ")
+		if err := t.ToVolume.Accept(p); err != nil {
+			return err
+		}
+	} else if t.ToDisk != nil {
+		builder.WriteString("TO DISK ")
+		if err := t.ToDisk.Accept(p); err != nil {
+			return err
+		}
+	} else if t.Action != nil {
+		if err := t.Action.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitTTLPolicyItemAction(t *TTLPolicyRuleAction) error {
-	p.builder.WriteString(t.String())
+	builder := p.builder
+	builder.WriteString(t.Action)
+	if t.Codec != nil {
+		builder.WriteString(" ")
+		if err := t.Codec.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (p *PrintVisitor) VisitTableArgListExpr(t *TableArgListExpr) error {
@@ -2443,16 +3018,22 @@ func (p *PrintVisitor) VisitTableProjection(t *TableProjection) error {
 	if t.IncludeProjectionKeyword {
 		builder.WriteString("PROJECTION ")
 	}
-	builder.WriteString(t.Identifier.String())
+	if err := t.Identifier.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" ")
-	builder.WriteString(t.Select.String())
+	if err := t.Select.Accept(p); err != nil {
+		return err
+	}
 	if t.Settings != nil {
 		builder.WriteString(" WITH SETTINGS (")
 		for i, item := range t.Settings.Items {
 			if i > 0 {
 				builder.WriteString(", ")
 			}
-			builder.WriteString(item.String())
+			if err := item.Accept(p); err != nil {
+				return err
+			}
 		}
 		builder.WriteString(")")
 	}
@@ -2487,7 +3068,44 @@ func (p *PrintVisitor) VisitTableSchemaExpr(t *TableSchemaClause) error {
 }
 
 func (p *PrintVisitor) VisitTimeSeriesTargetClause(t *TimeSeriesTargetClause) error {
-	p.builder.WriteString(t.String())
+	builder := p.builder
+	// Every part repeats the target keyword, e.g.
+	// ` SAMPLES INNER COLUMNS (...) SAMPLES INNER ENGINE = ...`.
+	writeKeyword := func() {
+		builder.WriteString(" ")
+		builder.WriteString(t.Keyword)
+	}
+	if t.External != nil {
+		writeKeyword()
+		builder.WriteString(" ")
+		if err := t.External.Accept(p); err != nil {
+			return err
+		}
+	}
+	if t.InnerUUID != nil {
+		writeKeyword()
+		builder.WriteString(" INNER ")
+		if err := t.InnerUUID.Accept(p); err != nil {
+			return err
+		}
+	}
+	if t.InnerColumns != nil {
+		writeKeyword()
+		builder.WriteString(" INNER COLUMNS ")
+		if err := t.InnerColumns.Accept(p); err != nil {
+			return err
+		}
+	}
+	if t.InnerEngine != nil {
+		writeKeyword()
+		if !t.EngineShorthand {
+			builder.WriteString(" INNER")
+		}
+		// EngineExpr.String() already emits a leading " ENGINE = ...".
+		if err := t.InnerEngine.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -2535,10 +3153,14 @@ func (p *PrintVisitor) VisitTruncateTable(t *TruncateTable) error {
 	if t.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(t.Name.String())
+	if err := t.Name.Accept(p); err != nil {
+		return err
+	}
 	if t.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(t.OnCluster.String())
+		if err := t.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	builder.WriteString(t.outputString())
 	return nil
@@ -2563,12 +3185,31 @@ func (p *PrintVisitor) VisitTypeWithParams(s *TypeWithParams) error {
 }
 
 func (p *PrintVisitor) VisitIndexTypeKwargs(s *IndexTypeKwargs) error {
-	p.builder.WriteString(s.String())
+	builder := p.builder
+	if err := s.Name.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteByte('(')
+	for i, kw := range s.Kwargs {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := kw.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteByte(')')
 	return nil
 }
 
 func (p *PrintVisitor) VisitIndexTypeKwarg(k *IndexTypeKwarg) error {
-	p.builder.WriteString(k.String())
+	if err := k.Name.Accept(p); err != nil {
+		return err
+	}
+	p.builder.WriteString(" = ")
+	if err := k.Value.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
