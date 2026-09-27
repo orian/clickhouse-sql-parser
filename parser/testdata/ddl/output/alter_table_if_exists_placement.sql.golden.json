@@ -1,0 +1,272 @@
+[
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "AlterPos": 0,
+    "StatementEnd": 36,
+    "TableIdentifier": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 12,
+        "NameEnd": 13
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "DropPos": 14,
+        "IndexName": {
+          "Ident": {
+            "Name": "i",
+            "QuoteType": 1,
+            "NamePos": 35,
+            "NameEnd": 36
+          },
+          "DotIdent": null
+        },
+        "IfExists": true
+      }
+    ]
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "AlterPos": 38,
+    "StatementEnd": 79,
+    "TableIdentifier": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 50,
+        "NameEnd": 51
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "DropPos": 52,
+        "ProjectionName": {
+          "Ident": {
+            "Name": "p",
+            "QuoteType": 1,
+            "NamePos": 78,
+            "NameEnd": 79
+          },
+          "DotIdent": null
+        },
+        "IfExists": true
+      }
+    ]
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "AlterPos": 81,
+    "StatementEnd": 148,
+    "TableIdentifier": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 93,
+        "NameEnd": 94
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "AddPos": 95,
+        "StatementEnd": 148,
+        "Index": {
+          "IndexPos": 99,
+          "Name": {
+            "Ident": {
+              "Name": "i",
+              "QuoteType": 1,
+              "NamePos": 119,
+              "NameEnd": 120
+            },
+            "DotIdent": null
+          },
+          "ColumnExpr": {
+            "Expr": {
+              "Name": "a",
+              "QuoteType": 1,
+              "NamePos": 121,
+              "NameEnd": 122
+            },
+            "Alias": null
+          },
+          "ColumnType": {
+            "Name": {
+              "Name": "minmax",
+              "QuoteType": 1,
+              "NamePos": 128,
+              "NameEnd": 134
+            }
+          },
+          "Granularity": {
+            "NumPos": 147,
+            "NumEnd": 148,
+            "Literal": "1",
+            "Base": 10
+          }
+        },
+        "IfNotExists": true,
+        "After": null
+      }
+    ]
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "AlterPos": 150,
+    "StatementEnd": 230,
+    "TableIdentifier": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 162,
+        "NameEnd": 163
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "AddPos": 164,
+        "StatementEnd": 230,
+        "Index": {
+          "IndexPos": 168,
+          "Name": {
+            "Ident": {
+              "Name": "i",
+              "QuoteType": 1,
+              "NamePos": 188,
+              "NameEnd": 189
+            },
+            "DotIdent": null
+          },
+          "ColumnExpr": {
+            "Expr": {
+              "LeftParenPos": 190,
+              "RightParenPos": 195,
+              "Items": {
+                "ListPos": 191,
+                "ListEnd": 195,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "a",
+                      "QuoteType": 1,
+                      "NamePos": 191,
+                      "NameEnd": 192
+                    },
+                    "Alias": null
+                  },
+                  {
+                    "Expr": {
+                      "Name": "b",
+                      "QuoteType": 1,
+                      "NamePos": 194,
+                      "NameEnd": 195
+                    },
+                    "Alias": null
+                  }
+                ],
+                "HasTrailingComma": false
+              },
+              "ColumnArgList": null
+            },
+            "Alias": null
+          },
+          "ColumnType": {
+            "Name": {
+              "Name": "minmax",
+              "QuoteType": 1,
+              "NamePos": 202,
+              "NameEnd": 208
+            }
+          },
+          "Granularity": {
+            "NumPos": 221,
+            "NumEnd": 222,
+            "Literal": "1",
+            "Base": 10
+          }
+        },
+        "IfNotExists": true,
+        "After": {
+          "Ident": {
+            "Name": "j",
+            "QuoteType": 1,
+            "NamePos": 229,
+            "NameEnd": 230
+          },
+          "DotIdent": null
+        }
+      }
+    ]
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "AlterPos": 232,
+    "StatementEnd": 322,
+    "TableIdentifier": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 244,
+        "NameEnd": 245
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "DropPos": 246,
+        "IndexName": {
+          "Ident": {
+            "Name": "i",
+            "QuoteType": 1,
+            "NamePos": 267,
+            "NameEnd": 268
+          },
+          "DotIdent": null
+        },
+        "IfExists": true
+      },
+      {
+        "DropPos": 270,
+        "ProjectionName": {
+          "Ident": {
+            "Name": "p",
+            "QuoteType": 1,
+            "NamePos": 296,
+            "NameEnd": 297
+          },
+          "DotIdent": null
+        },
+        "IfExists": true
+      },
+      {
+        "DropPos": 299,
+        "ColumnName": {
+          "Ident": {
+            "Name": "c",
+            "QuoteType": 1,
+            "NamePos": 321,
+            "NameEnd": 322
+          },
+          "DotIdent": null
+        },
+        "IfExists": true
+      }
+    ]
+  }
+]

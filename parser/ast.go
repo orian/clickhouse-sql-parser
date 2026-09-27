@@ -591,10 +591,13 @@ func (a *AlterTableAddIndex) AlterType() string {
 
 func (a *AlterTableAddIndex) String() string {
 	var builder strings.Builder
-	builder.WriteString("ADD ")
-	builder.WriteString(a.Index.String())
 	if a.IfNotExists {
-		builder.WriteString("IF NOT EXISTS ")
+		// IF NOT EXISTS goes between INDEX and the index name.
+		builder.WriteString("ADD INDEX IF NOT EXISTS ")
+		builder.WriteString(strings.TrimPrefix(a.Index.String(), "INDEX "))
+	} else {
+		builder.WriteString("ADD ")
+		builder.WriteString(a.Index.String())
 	}
 	if a.After != nil {
 		builder.WriteString(" AFTER ")
@@ -829,10 +832,10 @@ func (a *AlterTableDropIndex) AlterType() string {
 func (a *AlterTableDropIndex) String() string {
 	var builder strings.Builder
 	builder.WriteString("DROP INDEX ")
-	builder.WriteString(a.IndexName.String())
 	if a.IfExists {
-		builder.WriteString(" IF EXISTS")
+		builder.WriteString("IF EXISTS ")
 	}
+	builder.WriteString(a.IndexName.String())
 	return builder.String()
 }
 
@@ -864,10 +867,10 @@ func (a *AlterTableDropProjection) AlterType() string {
 func (a *AlterTableDropProjection) String() string {
 	var builder strings.Builder
 	builder.WriteString("DROP PROJECTION ")
-	builder.WriteString(a.ProjectionName.String())
 	if a.IfExists {
-		builder.WriteString(" IF EXISTS")
+		builder.WriteString("IF EXISTS ")
 	}
+	builder.WriteString(a.ProjectionName.String())
 	return builder.String()
 }
 

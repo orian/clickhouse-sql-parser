@@ -115,12 +115,13 @@ func (p *PrintVisitor) VisitAlterTableAddColumn(a *AlterTableAddColumn) error {
 
 func (p *PrintVisitor) VisitAlterTableAddIndex(a *AlterTableAddIndex) error {
 	builder := p.builder
-	builder.WriteString("ADD ")
-	if err := a.Index.Accept(p); err != nil {
-		return err
-	}
+	builder.WriteString("ADD INDEX ")
+	// IF NOT EXISTS goes between INDEX and the index name.
 	if a.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
+	}
+	if err := p.printTableIndexBody(a.Index); err != nil {
+		return err
 	}
 	if a.After != nil {
 		builder.WriteString(" AFTER ")
@@ -249,11 +250,11 @@ func (p *PrintVisitor) VisitAlterTableDropColumn(a *AlterTableDropColumn) error 
 func (p *PrintVisitor) VisitAlterTableDropIndex(a *AlterTableDropIndex) error {
 	builder := p.builder
 	builder.WriteString("DROP INDEX ")
+	if a.IfExists {
+		builder.WriteString("IF EXISTS ")
+	}
 	if err := a.IndexName.Accept(p); err != nil {
 		return err
-	}
-	if a.IfExists {
-		builder.WriteString(" IF EXISTS")
 	}
 	return nil
 }
@@ -278,11 +279,11 @@ func (p *PrintVisitor) VisitAlterTableDropPartition(a *AlterTableDropPartition) 
 func (p *PrintVisitor) VisitAlterTableDropProjection(a *AlterTableDropProjection) error {
 	builder := p.builder
 	builder.WriteString("DROP PROJECTION ")
+	if a.IfExists {
+		builder.WriteString("IF EXISTS ")
+	}
 	if err := a.ProjectionName.Accept(p); err != nil {
 		return err
-	}
-	if a.IfExists {
-		builder.WriteString(" IF EXISTS")
 	}
 	return nil
 }
@@ -3180,6 +3181,12 @@ func (p *PrintVisitor) VisitTableIdentifier(t *TableIdentifier) error {
 
 func (p *PrintVisitor) VisitTableIndex(a *TableIndex) error {
 	p.builder.WriteString("INDEX ")
+	return p.printTableIndexBody(a)
+}
+
+// printTableIndexBody prints an index definition after its INDEX keyword:
+// `name expr TYPE type GRANULARITY n`.
+func (p *PrintVisitor) printTableIndexBody(a *TableIndex) error {
 	if err := a.Name.Accept(p); err != nil {
 		return err
 	}
