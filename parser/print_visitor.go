@@ -50,7 +50,9 @@ func (p *PrintVisitor) VisitAlterRole(a *AlterRole) error {
 		if i > 0 {
 			builder.WriteString(", ")
 		}
-		builder.WriteString(roleRenamePair.String())
+		if err := roleRenamePair.Accept(p); err != nil {
+			return err
+		}
 	}
 	if len(a.Settings) > 0 {
 		builder.WriteString(" SETTINGS ")
@@ -58,7 +60,9 @@ func (p *PrintVisitor) VisitAlterRole(a *AlterRole) error {
 			if i > 0 {
 				builder.WriteString(", ")
 			}
-			builder.WriteString(setting.String())
+			if err := setting.Accept(p); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
@@ -66,14 +70,20 @@ func (p *PrintVisitor) VisitAlterRole(a *AlterRole) error {
 func (p *PrintVisitor) VisitAlterTable(a *AlterTable) error {
 	builder := p.builder
 	builder.WriteString("ALTER TABLE ")
-	builder.WriteString(a.TableIdentifier.String())
+	if err := a.TableIdentifier.Accept(p); err != nil {
+		return err
+	}
 	if a.OnCluster != nil {
 		builder.WriteString(" ")
-		builder.WriteString(a.OnCluster.String())
+		if err := a.OnCluster.Accept(p); err != nil {
+			return err
+		}
 	}
 	for i, expr := range a.AlterExprs {
 		builder.WriteString(" ")
-		builder.WriteString(expr.String())
+		if err := expr.Accept(p); err != nil {
+			return err
+		}
 		if i != len(a.AlterExprs)-1 {
 			builder.WriteString(",")
 		}
@@ -106,13 +116,17 @@ func (p *PrintVisitor) VisitAlterTableAddColumn(a *AlterTableAddColumn) error {
 func (p *PrintVisitor) VisitAlterTableAddIndex(a *AlterTableAddIndex) error {
 	builder := p.builder
 	builder.WriteString("ADD ")
-	builder.WriteString(a.Index.String())
+	if err := a.Index.Accept(p); err != nil {
+		return err
+	}
 	if a.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
 	if a.After != nil {
 		builder.WriteString(" AFTER ")
-		builder.WriteString(a.After.String())
+		if err := a.After.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -123,20 +137,28 @@ func (p *PrintVisitor) VisitAlterTableAddProjection(a *AlterTableAddProjection) 
 	if a.IfNotExists {
 		builder.WriteString("IF NOT EXISTS ")
 	}
-	builder.WriteString(a.TableProjection.String())
+	if err := a.TableProjection.Accept(p); err != nil {
+		return err
+	}
 	if a.After != nil {
 		builder.WriteString(" AFTER ")
-		builder.WriteString(a.After.String())
+		if err := a.After.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
 func (p *PrintVisitor) VisitAlterTableAttachPartition(a *AlterTableAttachPartition) error {
 	builder := p.builder
 	builder.WriteString("ATTACH ")
-	builder.WriteString(a.Partition.String())
+	if err := a.Partition.Accept(p); err != nil {
+		return err
+	}
 	if a.From != nil {
 		builder.WriteString(" FROM ")
-		builder.WriteString(a.From.String())
+		if err := a.From.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -147,10 +169,14 @@ func (p *PrintVisitor) VisitAlterTableClearColumn(a *AlterTableClearColumn) erro
 	if a.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(a.ColumnName.String())
+	if err := a.ColumnName.Accept(p); err != nil {
+		return err
+	}
 	if a.PartitionExpr != nil {
 		builder.WriteString(" IN ")
-		builder.WriteString(a.PartitionExpr.String())
+		if err := a.PartitionExpr.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -162,10 +188,14 @@ func (p *PrintVisitor) VisitAlterTableClearIndex(a *AlterTableClearIndex) error 
 	if a.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(a.IndexName.String())
+	if err := a.IndexName.Accept(p); err != nil {
+		return err
+	}
 	if a.PartitionExpr != nil {
 		builder.WriteString(" IN ")
-		builder.WriteString(a.PartitionExpr.String())
+		if err := a.PartitionExpr.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -177,10 +207,14 @@ func (p *PrintVisitor) VisitAlterTableClearProjection(a *AlterTableClearProjecti
 	if a.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(a.ProjectionName.String())
+	if err := a.ProjectionName.Accept(p); err != nil {
+		return err
+	}
 	if a.PartitionExpr != nil {
 		builder.WriteString(" IN ")
-		builder.WriteString(a.PartitionExpr.String())
+		if err := a.PartitionExpr.Accept(p); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -188,10 +222,14 @@ func (p *PrintVisitor) VisitAlterTableClearProjection(a *AlterTableClearProjecti
 func (p *PrintVisitor) VisitAlterTableDetachPartition(a *AlterTableDetachPartition) error {
 	builder := p.builder
 	builder.WriteString("DETACH ")
-	builder.WriteString(a.Partition.String())
+	if err := a.Partition.Accept(p); err != nil {
+		return err
+	}
 	if a.Settings != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(a.Settings.String())
+		if err := a.Settings.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -202,14 +240,18 @@ func (p *PrintVisitor) VisitAlterTableDropColumn(a *AlterTableDropColumn) error 
 	if a.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(a.ColumnName.String())
+	if err := a.ColumnName.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitAlterTableDropIndex(a *AlterTableDropIndex) error {
 	builder := p.builder
 	builder.WriteString("DROP INDEX ")
-	builder.WriteString(a.IndexName.String())
+	if err := a.IndexName.Accept(p); err != nil {
+		return err
+	}
 	if a.IfExists {
 		builder.WriteString(" IF EXISTS")
 	}
@@ -221,10 +263,14 @@ func (p *PrintVisitor) VisitAlterTableDropPartition(a *AlterTableDropPartition) 
 	if a.HasDetached {
 		builder.WriteString("DETACHED ")
 	}
-	builder.WriteString(a.Partition.String())
+	if err := a.Partition.Accept(p); err != nil {
+		return err
+	}
 	if a.Settings != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(a.Settings.String())
+		if err := a.Settings.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -232,7 +278,9 @@ func (p *PrintVisitor) VisitAlterTableDropPartition(a *AlterTableDropPartition) 
 func (p *PrintVisitor) VisitAlterTableDropProjection(a *AlterTableDropProjection) error {
 	builder := p.builder
 	builder.WriteString("DROP PROJECTION ")
-	builder.WriteString(a.ProjectionName.String())
+	if err := a.ProjectionName.Accept(p); err != nil {
+		return err
+	}
 	if a.IfExists {
 		builder.WriteString(" IF EXISTS")
 	}
@@ -243,7 +291,9 @@ func (p *PrintVisitor) VisitAlterTableFreezePartition(a *AlterTableFreezePartiti
 	builder.WriteString("FREEZE")
 	if a.Partition != nil {
 		builder.WriteByte(' ')
-		builder.WriteString(a.Partition.String())
+		if err := a.Partition.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -255,10 +305,14 @@ func (p *PrintVisitor) VisitAlterTableMaterializeIndex(a *AlterTableMaterializeI
 		builder.WriteString(" IF EXISTS")
 	}
 	builder.WriteString(" ")
-	builder.WriteString(a.IndexName.String())
+	if err := a.IndexName.Accept(p); err != nil {
+		return err
+	}
 	if a.Partition != nil {
 		builder.WriteString(" IN ")
-		builder.WriteString(a.Partition.String())
+		if err := a.Partition.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -270,10 +324,14 @@ func (p *PrintVisitor) VisitAlterTableMaterializeProjection(a *AlterTableMateria
 		builder.WriteString(" IF EXISTS")
 	}
 	builder.WriteString(" ")
-	builder.WriteString(a.ProjectionName.String())
+	if err := a.ProjectionName.Accept(p); err != nil {
+		return err
+	}
 	if a.Partition != nil {
 		builder.WriteString(" IN ")
-		builder.WriteString(a.Partition.String())
+		if err := a.Partition.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -284,39 +342,102 @@ func (p *PrintVisitor) VisitAlterTableModifyColumn(a *AlterTableModifyColumn) er
 	if a.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(a.Column.String())
+	if err := a.Column.Accept(p); err != nil {
+		return err
+	}
 	if a.RemovePropertyType != nil {
-		builder.WriteString(a.RemovePropertyType.String())
+		if err := a.RemovePropertyType.Accept(p); err != nil {
+			return err
+		}
 	}
 	return nil
 }
 func (p *PrintVisitor) VisitAlterTableModifyQuery(a *AlterTableModifyQuery) error {
-	p.builder.WriteString(a.String())
+	builder := p.builder
+	builder.WriteString("MODIFY QUERY ")
+	if err := a.SelectExpr.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitAlterTableDelete(a *AlterTableDelete) error {
-	p.builder.WriteString(a.String())
+	builder := p.builder
+	builder.WriteString("DELETE")
+	if a.InPartition != nil {
+		builder.WriteString(" IN ")
+		if err := a.InPartition.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteString(" WHERE ")
+	if err := a.WhereClause.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitAlterTableUpdate(a *AlterTableUpdate) error {
-	p.builder.WriteString(a.String())
+	builder := p.builder
+	builder.WriteString("UPDATE ")
+	for i, assignment := range a.Assignments {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := assignment.Accept(p); err != nil {
+			return err
+		}
+	}
+	if a.InPartition != nil {
+		builder.WriteString(" IN ")
+		if err := a.InPartition.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteString(" WHERE ")
+	if err := a.WhereClause.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitUpdateAssignment(u *UpdateAssignment) error {
-	p.builder.WriteString(u.String())
+	builder := p.builder
+	if err := u.Column.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString(" = ")
+	if err := u.Expr.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitAlterTableModifySetting(a *AlterTableModifySetting) error {
-	p.builder.WriteString(a.String())
+	builder := p.builder
+	builder.WriteString("MODIFY SETTING ")
+	for i, setting := range a.Settings {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := setting.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitAlterTableResetSetting(a *AlterTableResetSetting) error {
-	p.builder.WriteString(a.String())
+	builder := p.builder
+	builder.WriteString("RESET SETTING ")
+	for i, setting := range a.Settings {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := setting.Accept(p); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -336,18 +457,26 @@ func (p *PrintVisitor) VisitAlterTableRenameColumn(a *AlterTableRenameColumn) er
 	if a.IfExists {
 		builder.WriteString("IF EXISTS ")
 	}
-	builder.WriteString(a.OldColumnName.String())
+	if err := a.OldColumnName.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" TO ")
-	builder.WriteString(a.NewColumnName.String())
+	if err := a.NewColumnName.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
 func (p *PrintVisitor) VisitAlterTableReplacePartition(a *AlterTableReplacePartition) error {
 	builder := p.builder
 	builder.WriteString("REPLACE ")
-	builder.WriteString(a.Partition.String())
+	if err := a.Partition.Accept(p); err != nil {
+		return err
+	}
 	builder.WriteString(" FROM ")
-	builder.WriteString(a.Table.String())
+	if err := a.Table.Accept(p); err != nil {
+		return err
+	}
 	return nil
 }
 
