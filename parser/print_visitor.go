@@ -2789,12 +2789,6 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 			return err
 		}
 	}
-	if s.Window != nil {
-		builder.WriteString(" ")
-		if err := s.Window.Accept(p); err != nil {
-			return err
-		}
-	}
 	if s.Prewhere != nil {
 		builder.WriteString(" ")
 		if err := s.Prewhere.Accept(p); err != nil {
@@ -2821,6 +2815,12 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 	if s.Having != nil {
 		builder.WriteString(" ")
 		if err := s.Having.Accept(p); err != nil {
+			return err
+		}
+	}
+	if s.Window != nil {
+		builder.WriteString(" ")
+		if err := s.Window.Accept(p); err != nil {
 			return err
 		}
 	}

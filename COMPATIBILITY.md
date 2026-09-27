@@ -163,6 +163,10 @@ Entries are grouped as:
   (#108). `SystemCtrlExpr.Type` is now the whole target, e.g. `"MERGES"` or
   `"REPLICATION QUEUES"`, and `SystemCtrlExpr.Cluster` is nil when no table
   is given.
+- `WINDOW` is printed after `HAVING`, where ClickHouse expects it (#88). It
+  used to be printed right after `FROM`, so a query with `WINDOW` and `WHERE`,
+  `GROUP BY` or `HAVING` printed as SQL that ClickHouse rejects. This applies
+  to `String()`, `PrintVisitor` and `BeautifyVisitor`.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.

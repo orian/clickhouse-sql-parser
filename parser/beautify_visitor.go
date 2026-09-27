@@ -511,10 +511,6 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.newline()
 		b.beautifyFrom(s.From)
 	}
-	if s.Window != nil {
-		b.newline()
-		b.writeString(s.Window.String())
-	}
 	if s.Prewhere != nil {
 		b.newline()
 		b.writeString("PREWHERE")
@@ -542,6 +538,10 @@ func (b *BeautifyVisitor) VisitSelectQuery(s *SelectQuery) error {
 		b.newline()
 		b.writeString(s.Having.Expr.String())
 		b.indentOut()
+	}
+	if s.Window != nil {
+		b.newline()
+		b.writeString(s.Window.String())
 	}
 	if s.OrderBy != nil {
 		b.newline()
