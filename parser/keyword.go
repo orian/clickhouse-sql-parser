@@ -113,6 +113,7 @@ const (
 	KeywordInjective    = "INJECTIVE"
 	KeywordInner        = "INNER"
 	KeywordInsert       = "INSERT"
+	KeywordIntersect    = "INTERSECT"
 	KeywordInterval     = "INTERVAL"
 	KeywordInterpolate  = "INTERPOLATE"
 	KeywordInto         = "INTO"
@@ -376,6 +377,7 @@ var keywords = NewSet(
 	KeywordInjective,
 	KeywordInner,
 	KeywordInsert,
+	KeywordIntersect,
 	KeywordInterval,
 	KeywordInterpolate,
 	KeywordInto,

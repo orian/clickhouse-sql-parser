@@ -1061,7 +1061,7 @@ func (p *Parser) parseSubQuery(_ Pos) (*SubQuery, error) {
 		}
 		// `(query) UNION ALL ...`: the parentheses group only the first
 		// operand, so they become a group node and the chain continues.
-		if p.matchKeyword(KeywordUnion) || p.matchKeyword(KeywordExcept) {
+		if p.matchOneOfKeywords(KeywordUnion, KeywordExcept, KeywordIntersect) {
 			group := &SelectQuery{
 				SelectPos:    pos,
 				StatementEnd: p.prevEnd(),
@@ -1108,11 +1108,9 @@ func (p *Parser) parseSelectQuery(_ Pos) (*SelectQuery, error) {
 // parenthesised group, and extends selectStmt's end to cover them.
 func (p *Parser) parseSetOperation(selectStmt *SelectQuery) error {
 	defer func() {
-		// The statement ends with the last query of its UNION/EXCEPT chain.
-		for _, next := range []*SelectQuery{selectStmt.UnionAll, selectStmt.UnionDistinct, selectStmt.Except} {
-			if next != nil && next.End() > selectStmt.StatementEnd {
-				selectStmt.StatementEnd = next.End()
-			}
+		// The statement ends with the last query of its set-operation chain.
+		if _, next := selectStmt.setOperation(); next != nil && next.End() > selectStmt.StatementEnd {
+			selectStmt.StatementEnd = next.End()
 		}
 	}()
 	switch {
@@ -1131,20 +1129,43 @@ func (p *Parser) parseSetOperation(selectStmt *SelectQuery) error {
 			}
 			selectStmt.UnionDistinct = unionDistinctExpr
 		default:
-			return fmt.Errorf("expected ALL or DISTINCT, got %s", p.lastTokenKind())
+			unionExpr, err := p.parseSelectQuery(p.Pos())
+			if err != nil {
+				return err
+			}
+			selectStmt.Union = unionExpr
 		}
 	case p.tryConsumeKeywords(KeywordExcept):
+		selectStmt.ExceptModifier = p.tryConsumeSetModifier()
 		exceptExpr, err := p.parseSelectQuery(p.Pos())
 		if err != nil {
 			return err
 		}
 		selectStmt.Except = exceptExpr
+	case p.tryConsumeKeywords(KeywordIntersect):
+		selectStmt.IntersectModifier = p.tryConsumeSetModifier()
+		intersectExpr, err := p.parseSelectQuery(p.Pos())
+		if err != nil {
+			return err
+		}
+		selectStmt.Intersect = intersectExpr
 	default:
 		if selectStmt.Group != nil {
 			return p.parseGroupTail(selectStmt)
 		}
 	}
 	return nil
+}
+
+// tryConsumeSetModifier consumes the optional DISTINCT or ALL after EXCEPT or
+// INTERSECT and returns it, or "" when there is none.
+func (p *Parser) tryConsumeSetModifier() string {
+	for _, modifier := range []string{KeywordDistinct, KeywordAll} {
+		if p.tryConsumeKeywords(modifier) {
+			return modifier
+		}
+	}
+	return ""
 }
 
 // parseSelectGroup parses a parenthesised set-operation operand `( query )`
@@ -1387,8 +1408,8 @@ func (p *Parser) parseCTEStmt(pos Pos) (*CTEStmt, error) {
 		}
 		// CTEStmt prints the parentheses of `name AS (SELECT ...)` itself, so
 		// unwrap the group they formed.
-		if selectQuery.Group != nil && selectQuery.UnionAll == nil && selectQuery.UnionDistinct == nil &&
-			selectQuery.Except == nil && selectQuery.Settings == nil && selectQuery.Format == nil {
+		if _, next := selectQuery.setOperation(); selectQuery.Group != nil && next == nil &&
+			selectQuery.Settings == nil && selectQuery.Format == nil {
 			selectQuery = selectQuery.Group
 		}
 		return &CTEStmt{

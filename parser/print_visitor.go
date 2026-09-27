@@ -2757,8 +2757,7 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 			return err
 		}
 		p.builder.WriteString(")")
-		s.writeTail(p.builder)
-		return nil
+		return p.printSelectTail(s)
 	}
 	builder := p.builder
 	if s.With != nil {
@@ -2860,7 +2859,28 @@ func (p *PrintVisitor) VisitSelectQuery(s *SelectQuery) error {
 			return err
 		}
 	}
-	s.writeTail(builder)
+	return p.printSelectTail(s)
+}
+
+// printSelectTail prints the clauses shared by a SELECT and a parenthesised
+// group: SETTINGS, FORMAT, output SETTINGS and the set-operation
+// continuation (UNION, EXCEPT, INTERSECT).
+func (p *PrintVisitor) printSelectTail(s *SelectQuery) error {
+	for _, clause := range []Expr{s.Settings, s.Format, s.OutputSettings} {
+		if isNilExpr(clause) {
+			continue
+		}
+		p.builder.WriteByte(' ')
+		if err := clause.Accept(p); err != nil {
+			return err
+		}
+	}
+	if keyword, next := s.setOperation(); next != nil {
+		p.builder.WriteByte(' ')
+		p.builder.WriteString(keyword)
+		p.builder.WriteByte(' ')
+		return next.Accept(p)
+	}
 	return nil
 }
 

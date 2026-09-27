@@ -2382,8 +2382,18 @@ func (visitor DefaultASTVisitor) VisitSelectQuery(s *SelectQuery) error {
 			return err
 		}
 	}
+	if s.Union != nil {
+		if err := s.Union.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if s.Except != nil {
 		if err := s.Except.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if s.Intersect != nil {
+		if err := s.Intersect.Accept(visitor.Self); err != nil {
 			return err
 		}
 	}
