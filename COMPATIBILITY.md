@@ -110,6 +110,9 @@ Entries are grouped as:
   `- 1::Int32` (#83).
 - `TOP n WITH TIES` prints `TOP n` (#90). `String()` used to print only
   `WITH TIES`.
+- `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
+  clause when an ORDER BY element was printed directly; it now matches
+  `OrderExpr.String()`.
 - `CREATE TABLE t AS other` and `CREATE DATABASE db ENGINE = …` no longer
   contain a double space (#45, #68).
 - `CREATE TABLE` keeps its second, query-level `SETTINGS` clause (#37). It
@@ -168,6 +171,7 @@ Entries are grouped as:
     `SelectQuery.OutputSettings` (#87);
   - `TableExpr.Stream` (#81);
   - `LimitClause.WithTies`, `WithTiesEnd` (#90);
+  - `OrderExpr.Nulls` (`"FIRST"`/`"LAST"`) and `OrderExpr.Collate` (#47);
   - `WithTimeoutClause.WithTimeoutEnd` (#37);
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
@@ -187,6 +191,8 @@ Entries are grouped as:
   - `FORMAT … SETTINGS` and a trailing `SETTINGS` on non-SELECT statements
     (#87);
   - `LIMIT n [OFFSET m] WITH TIES` (#90);
+  - ORDER BY elements with `NULLS FIRST|LAST` and `COLLATE 'locale'`, in
+    `SELECT` and window specifications (#47);
   - a UNION/EXCEPT that continues after a parenthesised operand, e.g.
     `(SELECT 1) UNION ALL SELECT 2`, a statement starting with `(`,
     `CREATE VIEW … AS (query) UNION …`, `INSERT INTO t (SELECT …) UNION …` and

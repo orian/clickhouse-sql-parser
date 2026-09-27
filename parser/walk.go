@@ -254,6 +254,9 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Alias, fn) {
 			return false
 		}
+		if !Walk(n.Collate, fn) {
+			return false
+		}
 		if !Walk(n.Fill, fn) {
 			return false
 		}

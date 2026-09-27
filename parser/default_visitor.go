@@ -1937,6 +1937,11 @@ func (visitor DefaultASTVisitor) VisitOrderByExpr(o *OrderExpr) error {
 			return err
 		}
 	}
+	if o.Collate != nil {
+		if err := o.Collate.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	if o.Fill != nil {
 		if err := o.Fill.Accept(visitor.Self); err != nil {
 			return err

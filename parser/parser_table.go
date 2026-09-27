@@ -1204,6 +1204,26 @@ func (p *Parser) parseOrderExpr(pos Pos) (*OrderExpr, error) {
 		_ = p.lexer.consumeToken()
 	}
 
+	// [NULLS FIRST|LAST] [COLLATE 'locale'], in this order as in ClickHouse.
+	nulls := ""
+	if p.tryConsumeKeywords(KeywordNulls) {
+		switch {
+		case p.tryConsumeKeywords(KeywordFirst):
+			nulls = KeywordFirst
+		case p.tryConsumeKeywords(KeywordLast):
+			nulls = KeywordLast
+		default:
+			return nil, fmt.Errorf("expected FIRST or LAST after NULLS, got %s", p.lastTokenKind())
+		}
+	}
+	var collate *StringLiteral
+	if p.tryConsumeKeywords(KeywordCollate) {
+		collate, err = p.parseString(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	// Parse optional WITH FILL clause
 	var fill *Fill
 	if p.matchKeyword(KeywordWith) && p.peekKeyword(KeywordFill) {
@@ -1221,6 +1241,8 @@ func (p *Parser) parseOrderExpr(pos Pos) (*OrderExpr, error) {
 		Alias:     alias,
 		Expr:      columnExpr,
 		Direction: direction,
+		Nulls:     nulls,
+		Collate:   collate,
 		Fill:      fill,
 		OrderEnd:  p.prevEnd(),
 	}, nil

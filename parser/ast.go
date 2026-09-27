@@ -3414,7 +3414,11 @@ type OrderExpr struct {
 	Expr      Expr
 	Alias     *Ident
 	Direction OrderDirection
-	Fill      *Fill // optional WITH FILL clause
+	// Nulls is "FIRST" or "LAST" for `NULLS FIRST|LAST`, empty when absent.
+	Nulls string `json:",omitempty"`
+	// Collate holds `COLLATE 'locale'`.
+	Collate *StringLiteral `json:",omitempty"`
+	Fill    *Fill          // optional WITH FILL clause
 	// OrderEnd is the end of the whole element, including a trailing
 	// ASC/DESC, NULLS FIRST/LAST or COLLATE that has no node of its own.
 	OrderEnd Pos `json:",omitempty"`
@@ -3447,6 +3451,14 @@ func (o *OrderExpr) String() string {
 	if o.Direction != OrderDirectionNone {
 		builder.WriteByte(' ')
 		builder.WriteString(string(o.Direction))
+	}
+	if o.Nulls != "" {
+		builder.WriteString(" NULLS ")
+		builder.WriteString(o.Nulls)
+	}
+	if o.Collate != nil {
+		builder.WriteString(" COLLATE ")
+		builder.WriteString(o.Collate.String())
 	}
 	if o.Fill != nil {
 		builder.WriteByte(' ')
