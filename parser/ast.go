@@ -1542,6 +1542,10 @@ type Ident struct {
 	QuoteType int
 	NamePos   Pos
 	NameEnd   Pos
+	// Param is set when the name is a query parameter of type Identifier,
+	// `{name:Identifier}`, e.g. `SELECT * FROM {db:Identifier}.t` (#131).
+	// Name then holds the parameter as written, and NamePos/NameEnd span it.
+	Param *QueryParam `json:",omitempty"`
 }
 
 // Pos and End span the whole identifier, including the quotes of a quoted
@@ -1567,6 +1571,9 @@ func (i *Ident) isQuoted() bool {
 }
 
 func (i *Ident) String() string {
+	if i.Param != nil {
+		return i.Param.String()
+	}
 	switch i.QuoteType {
 	case BackTicks:
 		return "`" + i.Name + "`"

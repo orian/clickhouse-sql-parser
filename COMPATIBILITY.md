@@ -269,6 +269,9 @@ Entries are grouped as:
   - `ExplainStmt.Settings`, `ExplainEnd` (#86);
   - `SelectQuery.Union`, `Intersect`, `IntersectModifier`,
     `ExceptModifier` (#107, #125);
+  - `Ident.Param` (#131): set when a name is a `{name:Identifier}` query
+    parameter; `Ident.Name` then holds the parameter text, e.g.
+    `{db:Identifier}`. `DefaultASTVisitor` and `Walk` visit it.
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
@@ -322,3 +325,7 @@ Entries are grouped as:
     `file(a || 'b', 'CSV')`) and negative numbers (#129). Arguments that
     parsed before keep their AST; the new forms are ordinary expressions
     (e.g. `*FunctionExpr`, `*BinaryOperation`) inside `TableArgListExpr.Args`.
+  - `{name:Identifier}` query parameters wherever a table, database or other
+    name is expected: `SELECT * FROM {db:Identifier}.{t:Identifier}`,
+    `CREATE TABLE {db:Identifier}.t …`, `DROP DATABASE {db:Identifier}`,
+    `USE {db:Identifier}` (#131).

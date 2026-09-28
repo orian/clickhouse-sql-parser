@@ -2170,6 +2170,9 @@ func (p *PrintVisitor) VisitHavingExpr(h *HavingClause) error {
 	return nil
 }
 func (p *PrintVisitor) VisitIdent(i *Ident) error {
+	if i.Param != nil {
+		return i.Param.Accept(p)
+	}
 	switch i.QuoteType {
 	case BackTicks:
 		p.builder.WriteByte('`')

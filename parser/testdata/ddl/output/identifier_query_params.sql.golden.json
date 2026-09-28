@@ -1,0 +1,334 @@
+[
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "CreatePos": 0,
+    "StatementEnd": 31,
+    "Name": {
+      "Name": "{db: Identifier}",
+      "QuoteType": 0,
+      "NamePos": 16,
+      "NameEnd": 31,
+      "Param": {
+        "LBracePos": 16,
+        "RBracePos": 30,
+        "Name": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 17,
+          "NameEnd": 19
+        },
+        "Type": {
+          "Name": {
+            "Name": "Identifier",
+            "QuoteType": 1,
+            "NamePos": 20,
+            "NameEnd": 30
+          }
+        }
+      }
+    },
+    "IfNotExists": false,
+    "OnCluster": null,
+    "Engine": null,
+    "Comment": null,
+    "IsAttach": false
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "CreatePos": 33,
+    "StatementEnd": 88,
+    "OrReplace": false,
+    "Name": {
+      "Database": {
+        "Name": "{db: Identifier}",
+        "QuoteType": 0,
+        "NamePos": 46,
+        "NameEnd": 61,
+        "Param": {
+          "LBracePos": 46,
+          "RBracePos": 60,
+          "Name": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 47,
+            "NameEnd": 49
+          },
+          "Type": {
+            "Name": {
+              "Name": "Identifier",
+              "QuoteType": 1,
+              "NamePos": 50,
+              "NameEnd": 60
+            }
+          }
+        }
+      },
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 62,
+        "NameEnd": 63
+      }
+    },
+    "IfNotExists": false,
+    "UUID": null,
+    "OnCluster": null,
+    "TableSchema": {
+      "SchemaPos": 64,
+      "SchemaEnd": 71,
+      "Columns": [
+        {
+          "NamePos": 65,
+          "ColumnEnd": 71,
+          "Name": {
+            "Ident": {
+              "Name": "x",
+              "QuoteType": 1,
+              "NamePos": 65,
+              "NameEnd": 66
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Int8",
+              "QuoteType": 1,
+              "NamePos": 67,
+              "NameEnd": 71
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        }
+      ],
+      "AliasTable": null,
+      "TableFunction": null
+    },
+    "Engine": {
+      "EnginePos": 73,
+      "EngineEnd": 88,
+      "Name": "Memory",
+      "Params": null,
+      "PrimaryKey": null,
+      "PartitionBy": null,
+      "SampleBy": null,
+      "TTL": null,
+      "Settings": null,
+      "OrderBy": null
+    },
+    "SubQuery": null,
+    "TableFunction": null,
+    "HasTemporary": false,
+    "Comment": null,
+    "TimeSeriesTargets": null,
+    "Settings": null,
+    "IsAttach": false
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "AlterPos": 90,
+    "StatementEnd": 137,
+    "TableIdentifier": {
+      "Database": {
+        "Name": "{db: Identifier}",
+        "QuoteType": 0,
+        "NamePos": 102,
+        "NameEnd": 117,
+        "Param": {
+          "LBracePos": 102,
+          "RBracePos": 116,
+          "Name": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 103,
+            "NameEnd": 105
+          },
+          "Type": {
+            "Name": {
+              "Name": "Identifier",
+              "QuoteType": 1,
+              "NamePos": 106,
+              "NameEnd": 116
+            }
+          }
+        }
+      },
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 118,
+        "NameEnd": 119
+      }
+    },
+    "OnCluster": null,
+    "AlterExprs": [
+      {
+        "AddPos": 120,
+        "StatementEnd": 137,
+        "Column": {
+          "NamePos": 131,
+          "ColumnEnd": 137,
+          "Name": {
+            "Ident": {
+              "Name": "y",
+              "QuoteType": 1,
+              "NamePos": 131,
+              "NameEnd": 132
+            },
+            "DotIdent": null
+          },
+          "Type": {
+            "Name": {
+              "Name": "Int8",
+              "QuoteType": 1,
+              "NamePos": 133,
+              "NameEnd": 137
+            }
+          },
+          "NotNull": null,
+          "Nullable": null,
+          "DefaultExpr": null,
+          "MaterializedExpr": null,
+          "IsEphemeral": false,
+          "EphemeralExpr": null,
+          "AliasExpr": null,
+          "Codec": null,
+          "TTL": null,
+          "Comment": null,
+          "CompressionCodec": null
+        },
+        "IfNotExists": false,
+        "After": null,
+        "Settings": null
+      }
+    ]
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "TruncatePos": 139,
+    "StatementEnd": 168,
+    "IsTemporary": false,
+    "IfExists": false,
+    "Name": {
+      "Database": null,
+      "Table": {
+        "Name": "{t: Identifier}",
+        "QuoteType": 0,
+        "NamePos": 154,
+        "NameEnd": 168,
+        "Param": {
+          "LBracePos": 154,
+          "RBracePos": 167,
+          "Name": {
+            "Name": "t",
+            "QuoteType": 1,
+            "NamePos": 155,
+            "NameEnd": 156
+          },
+          "Type": {
+            "Name": {
+              "Name": "Identifier",
+              "QuoteType": 1,
+              "NamePos": 157,
+              "NameEnd": 167
+            }
+          }
+        }
+      }
+    },
+    "OnCluster": null
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "DropPos": 170,
+    "StatementEnd": 198,
+    "DropTarget": "TABLE",
+    "Name": {
+      "Database": {
+        "Name": "{db: Identifier}",
+        "QuoteType": 0,
+        "NamePos": 181,
+        "NameEnd": 196,
+        "Param": {
+          "LBracePos": 181,
+          "RBracePos": 195,
+          "Name": {
+            "Name": "db",
+            "QuoteType": 1,
+            "NamePos": 182,
+            "NameEnd": 184
+          },
+          "Type": {
+            "Name": {
+              "Name": "Identifier",
+              "QuoteType": 1,
+              "NamePos": 185,
+              "NameEnd": 195
+            }
+          }
+        }
+      },
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 197,
+        "NameEnd": 198
+      }
+    },
+    "IfExists": false,
+    "OnCluster": null,
+    "IsTemporary": false,
+    "Modifier": "",
+    "IsDetach": false,
+    "Permanently": false
+  },
+  {
+    "Format": null,
+    "OutputSettings": null,
+    "DropPos": 200,
+    "StatementEnd": 239,
+    "Name": {
+      "Name": "{db: Identifier}",
+      "QuoteType": 0,
+      "NamePos": 224,
+      "NameEnd": 239,
+      "Param": {
+        "LBracePos": 224,
+        "RBracePos": 238,
+        "Name": {
+          "Name": "db",
+          "QuoteType": 1,
+          "NamePos": 225,
+          "NameEnd": 227
+        },
+        "Type": {
+          "Name": {
+            "Name": "Identifier",
+            "QuoteType": 1,
+            "NamePos": 228,
+            "NameEnd": 238
+          }
+        }
+      }
+    },
+    "IfExists": true,
+    "OnCluster": null,
+    "IsDetach": false,
+    "Permanently": false,
+    "Modifier": ""
+  }
+]
