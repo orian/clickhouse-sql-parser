@@ -8487,3 +8487,113 @@ func (d *DescribeStmt) Accept(visitor ASTVisitor) error {
 	defer visitor.Leave(d)
 	return visitor.VisitDescribeExpr(d)
 }
+
+// CreateIndex is `CREATE [UNIQUE] INDEX [IF NOT EXISTS] name ON [db.]table
+// [ON CLUSTER c] columns [TYPE type] [GRANULARITY n]` (#135). ClickHouse
+// turns it into `ALTER TABLE … ADD INDEX`.
+type CreateIndex struct {
+	CreatePos    Pos
+	StatementEnd Pos
+	Unique       bool `json:",omitempty"`
+	IfNotExists  bool
+	Name         *Ident
+	Table        *TableIdentifier
+	OnCluster    *ClusterClause
+	// HasParen records a parenthesised column list, `(a DESC, b)`, whose
+	// elements may carry ASC/DESC. Without parentheses Columns holds the one
+	// indexed expression.
+	HasParen bool
+	Columns  []*OrderExpr
+	// IndexType is the TYPE expression; nil when omitted.
+	IndexType Expr
+	// Granularity is nil when GRANULARITY is omitted.
+	Granularity *NumberLiteral
+}
+
+func (c *CreateIndex) Pos() Pos     { return c.CreatePos }
+func (c *CreateIndex) End() Pos     { return c.StatementEnd }
+func (c *CreateIndex) Type() string { return "INDEX" }
+
+func (c *CreateIndex) String() string {
+	var builder strings.Builder
+	builder.WriteString("CREATE ")
+	if c.Unique {
+		builder.WriteString("UNIQUE ")
+	}
+	builder.WriteString("INDEX ")
+	if c.IfNotExists {
+		builder.WriteString("IF NOT EXISTS ")
+	}
+	builder.WriteString(c.Name.String())
+	builder.WriteString(" ON ")
+	builder.WriteString(c.Table.String())
+	if c.OnCluster != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(c.OnCluster.String())
+	}
+	builder.WriteByte(' ')
+	if c.HasParen {
+		builder.WriteByte('(')
+	}
+	for i, column := range c.Columns {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(column.String())
+	}
+	if c.HasParen {
+		builder.WriteByte(')')
+	}
+	if c.IndexType != nil {
+		builder.WriteString(" TYPE ")
+		builder.WriteString(c.IndexType.String())
+	}
+	if c.Granularity != nil {
+		builder.WriteString(" GRANULARITY ")
+		builder.WriteString(c.Granularity.String())
+	}
+	return builder.String()
+}
+
+func (c *CreateIndex) Accept(visitor ASTVisitor) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	return visitor.VisitCreateIndex(c)
+}
+
+// DropIndex is `DROP INDEX [IF EXISTS] name ON [db.]table [ON CLUSTER c]`
+// (#135).
+type DropIndex struct {
+	DropPos      Pos
+	StatementEnd Pos
+	IfExists     bool
+	Name         *Ident
+	Table        *TableIdentifier
+	OnCluster    *ClusterClause
+}
+
+func (d *DropIndex) Pos() Pos     { return d.DropPos }
+func (d *DropIndex) End() Pos     { return d.StatementEnd }
+func (d *DropIndex) Type() string { return "INDEX" }
+
+func (d *DropIndex) String() string {
+	var builder strings.Builder
+	builder.WriteString("DROP INDEX ")
+	if d.IfExists {
+		builder.WriteString("IF EXISTS ")
+	}
+	builder.WriteString(d.Name.String())
+	builder.WriteString(" ON ")
+	builder.WriteString(d.Table.String())
+	if d.OnCluster != nil {
+		builder.WriteByte(' ')
+		builder.WriteString(d.OnCluster.String())
+	}
+	return builder.String()
+}
+
+func (d *DropIndex) Accept(visitor ASTVisitor) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	return visitor.VisitDropIndex(d)
+}

@@ -3025,3 +3025,52 @@ func (visitor DefaultASTVisitor) VisitWithTimeoutExpr(w *WithTimeoutClause) erro
 func (visitor DefaultASTVisitor) Enter(_ Expr) {}
 
 func (visitor DefaultASTVisitor) Leave(_ Expr) {}
+
+func (visitor DefaultASTVisitor) VisitCreateIndex(c *CreateIndex) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	if err := c.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := c.Table.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if c.OnCluster != nil {
+		if err := c.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	for _, column := range c.Columns {
+		if err := column.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.IndexType != nil {
+		if err := c.IndexType.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	if c.Granularity != nil {
+		if err := c.Granularity.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (visitor DefaultASTVisitor) VisitDropIndex(d *DropIndex) error {
+	visitor.Enter(d)
+	defer visitor.Leave(d)
+	if err := d.Name.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if err := d.Table.Accept(visitor.Self); err != nil {
+		return err
+	}
+	if d.OnCluster != nil {
+		if err := d.OnCluster.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}

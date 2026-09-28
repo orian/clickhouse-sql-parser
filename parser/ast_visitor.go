@@ -168,6 +168,8 @@ type ASTVisitor interface {
 	VisitIntervalFrom(expr *IntervalFrom) error
 	VisitDropDatabase(expr *DropDatabase) error
 	VisitDropStmt(expr *DropStmt) error
+	VisitCreateIndex(expr *CreateIndex) error
+	VisitDropIndex(expr *DropIndex) error
 	VisitDropUserOrRole(expr *DropUserOrRole) error
 	VisitUseExpr(expr *UseStmt) error
 	VisitCTEExpr(expr *CTEStmt) error

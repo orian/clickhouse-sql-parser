@@ -1641,6 +1641,22 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Target, fn) {
 			return false
 		}
+	case *CreateIndex:
+		if !Walk(n.Name, fn) || !Walk(n.Table, fn) || !Walk(n.OnCluster, fn) {
+			return false
+		}
+		for _, column := range n.Columns {
+			if !Walk(column, fn) {
+				return false
+			}
+		}
+		if !Walk(n.IndexType, fn) || !Walk(n.Granularity, fn) {
+			return false
+		}
+	case *DropIndex:
+		if !Walk(n.Name, fn) || !Walk(n.Table, fn) || !Walk(n.OnCluster, fn) {
+			return false
+		}
 	case *DistinctOn:
 		for _, ident := range n.Idents {
 			if !Walk(ident, fn) {
