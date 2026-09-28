@@ -187,7 +187,8 @@ changing the meaning (for example `LAYOUT(FLAT)` is printed as
 ```bash
 $ go test ./...                 # full suite
 $ go test -v ./parser/...       # with test names
-$ make test                     # full suite with -race and -cover
+$ make test                     # full suite with -race (what CI runs)
+$ make cover                    # same, with a coverage profile
 ```
 
 The beautifier has two test layers:
@@ -211,27 +212,20 @@ $ make update_test
 ## Benchmarks
 
 ```bash
-$ go test -bench=. -benchmem ./parser
+$ make bench                       # parse, String() and PrintVisitor benchmarks
+$ make bench-compare BASE=v1.0.4   # compare BASE with HEAD on identical inputs
 ```
 
-Run on Apple M3 Pro (`darwin/arm64`):
+`make bench` covers parsing every `testdata/query` fixture and the large
+PostHog queries, and printing them with `String()` and `PrintVisitor` (the
+formatter behind `-format`). `make bench-compare` (`scripts/bench_compare.sh`)
+checks both refs out into temporary worktrees, runs the current benchmarks in
+both on the fixtures they both parse, alternating rounds, and prints a
+`benchstat` table.
 
-```
-BenchmarkParseSQLFiles/select_simple_field_alias.sql-11        763078    1604 ns/op    1712 B/op     39 allocs/op
-BenchmarkParseSQLFiles/select_simple.sql-11                    135597    9313 ns/op   10016 B/op    217 allocs/op
-BenchmarkParseSQLFiles/select_with_left_join.sql-11            291553    4149 ns/op    4960 B/op    105 allocs/op
-BenchmarkParseSQLFiles/select_with_multi_join.sql-11           118046    9677 ns/op   10616 B/op    258 allocs/op
-BenchmarkParseSQLFiles/select_with_window_function.sql-11      101140   12171 ns/op   16408 B/op    301 allocs/op
-BenchmarkParseSQLFiles/select_window_comprehensive.sql-11       23100   53741 ns/op   63800 B/op   1229 allocs/op
-BenchmarkParseSQLFiles/select_with_query_parameter.sql-11      145464    8241 ns/op   11088 B/op    237 allocs/op
-BenchmarkParseSQLFiles/access_tuple_with_dot.sql-11            125758    9512 ns/op   13432 B/op    292 allocs/op
-BenchmarkParseComplexQueries/.../posthog_huge_0.sql-11             873 1390018 ns/op 1746369 B/op  35011 allocs/op
-BenchmarkParseComplexQueries/.../posthog_huge_1.sql-11            1033 1189623 ns/op 1476902 B/op  29827 allocs/op
-```
-
-A typical small SELECT (single field, alias) parses in ~1.6 µs and ~40 allocations; multi-join and window-function queries land in the 4–12 µs range; the largest PostHog-shape fixtures (≈40 KB of SQL) parse in ~1.2–1.4 ms.
-
-Full output via `go test -bench=. -benchmem ./parser` (≈90 cases).
+v1.1.0 against v1.0.4 (AMD Ryzen AI 9 HX 370, 90 fixtures, 10 rounds):
+`PrintVisitor` is about twice as fast with ~60% less memory; parsing
+allocates ~5% less, and the large PostHog queries parse 6–11% faster.
 
 ## Contact
 
