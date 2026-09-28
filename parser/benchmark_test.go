@@ -3,6 +3,7 @@ package parser
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -58,5 +59,126 @@ func BenchmarkParseComplexQueries(b *testing.B) {
 				}
 			}
 		})
+	}
+}
+
+// benchInputs returns the SQL inputs of the corpus benchmarks: the files
+// listed one per line in the file named by BENCH_INPUTS, or by default every
+// testdata/query/*.sql and testdata/benchdata/*.sql fixture. huge holds the
+// large PostHog queries among them. scripts/bench_compare.sh sets
+// BENCH_INPUTS so that two versions are measured on identical inputs.
+func benchInputs(b *testing.B) (all, huge []string) {
+	b.Helper()
+	var paths []string
+	if list := os.Getenv("BENCH_INPUTS"); list != "" {
+		data, err := os.ReadFile(list)
+		if err != nil {
+			b.Fatalf("read BENCH_INPUTS: %v", err)
+		}
+		paths = strings.Fields(string(data))
+	} else {
+		for _, pattern := range []string{"testdata/query/*.sql", "testdata/benchdata/*.sql"} {
+			matches, err := filepath.Glob(pattern)
+			if err != nil {
+				b.Fatal(err)
+			}
+			paths = append(paths, matches...)
+		}
+	}
+	for _, path := range paths {
+		src, err := os.ReadFile(path)
+		if err != nil {
+			b.Fatal(err)
+		}
+		all = append(all, string(src))
+		if strings.HasPrefix(filepath.Base(path), "posthog_huge") {
+			huge = append(huge, string(src))
+		}
+	}
+	if len(all) == 0 || len(huge) == 0 {
+		b.Fatal("no benchmark inputs")
+	}
+	return all, huge
+}
+
+func benchParseAll(b *testing.B, inputs []string) [][]Expr {
+	b.Helper()
+	parsed := make([][]Expr, len(inputs))
+	for i, src := range inputs {
+		stmts, err := NewParser(src).ParseStmts()
+		if err != nil {
+			b.Fatalf("parse: %v", err)
+		}
+		parsed[i] = stmts
+	}
+	return parsed
+}
+
+func benchPrintVisitor(parsed [][]Expr) {
+	for _, stmts := range parsed {
+		for _, stmt := range stmts {
+			printer := NewPrintVisitor()
+			_ = stmt.Accept(printer)
+			_ = printer.String()
+		}
+	}
+}
+
+// BenchmarkParseCorpus parses every benchmark input once per iteration.
+func BenchmarkParseCorpus(b *testing.B) {
+	all, _ := benchInputs(b)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		benchParseAll(b, all)
+	}
+}
+
+// BenchmarkParseHuge parses the large PostHog queries.
+func BenchmarkParseHuge(b *testing.B) {
+	_, huge := benchInputs(b)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		benchParseAll(b, huge)
+	}
+}
+
+// BenchmarkStringCorpus prints every parsed input with String().
+func BenchmarkStringCorpus(b *testing.B) {
+	all, _ := benchInputs(b)
+	parsed := benchParseAll(b, all)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		for _, stmts := range parsed {
+			for _, stmt := range stmts {
+				_ = stmt.String()
+			}
+		}
+	}
+}
+
+// BenchmarkPrintVisitorCorpus prints every parsed input with PrintVisitor,
+// the formatter behind the CLI's -format.
+func BenchmarkPrintVisitorCorpus(b *testing.B) {
+	all, _ := benchInputs(b)
+	parsed := benchParseAll(b, all)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		benchPrintVisitor(parsed)
+	}
+}
+
+// BenchmarkPrintVisitorHuge prints the large PostHog queries with
+// PrintVisitor.
+func BenchmarkPrintVisitorHuge(b *testing.B) {
+	_, huge := benchInputs(b)
+	parsed := benchParseAll(b, huge)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		benchPrintVisitor(parsed)
 	}
 }
