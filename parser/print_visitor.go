@@ -3080,13 +3080,13 @@ func (p *PrintVisitor) VisitStringLiteral(s *StringLiteral) error {
 func (p *PrintVisitor) VisitSubQueryExpr(s *SubQuery) error {
 	if s.HasParen {
 		p.builder.WriteString("(")
-		if err := s.Select.Accept(p); err != nil {
+		if err := s.query().Accept(p); err != nil {
 			return err
 		}
 		p.builder.WriteString(")")
 		return nil
 	}
-	return s.Select.Accept(p)
+	return s.query().Accept(p)
 }
 
 func (p *PrintVisitor) VisitSystemCtrlExpr(s *SystemCtrlExpr) error {

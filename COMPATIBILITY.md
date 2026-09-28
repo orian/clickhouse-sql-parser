@@ -190,6 +190,8 @@ Entries are grouped as:
   keyword-named function after a comma is now another column.
 - `TableIndex.Granularity` is nil when an index omits `GRANULARITY`
   (#134); `TableIndex.End()` is then the end of the `TYPE`.
+- `SubQuery.Select` is nil when the subquery is an `EXPLAIN` (#133); the
+  statement is in the new `SubQuery.Explain`.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -274,6 +276,7 @@ Entries are grouped as:
   - `Ident.Param` (#131): set when a name is a `{name:Identifier}` query
     parameter; `Ident.Name` then holds the parameter text, e.g.
     `{db:Identifier}`. `DefaultASTVisitor` and `Walk` visit it.
+  - `SubQuery.Explain` (#133);
   - position fields for the #92 span fixes: `CastExpr.RightParenPos`,
     `SubQuery.RightParenPos`, `UsingClause.UsingEnd`, `OrderExpr.OrderEnd`,
     `NamedCollectionParam.ParamEnd`, `IsNullExpr.NullEnd`,
@@ -333,3 +336,5 @@ Entries are grouped as:
     `USE {db:Identifier}` (#131).
   - an index without `GRANULARITY` (`INDEX i a TYPE minmax`), in `CREATE
     TABLE` and `ALTER TABLE … ADD INDEX` (#134).
+  - `EXPLAIN` as a subquery: `SELECT count() FROM (EXPLAIN actions = 1 SELECT …)`
+    (#133).

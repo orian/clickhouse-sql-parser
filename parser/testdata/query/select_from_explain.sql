@@ -1,0 +1,5 @@
+SELECT count() FROM (EXPLAIN SELECT 1);
+SELECT count() FROM (EXPLAIN actions = 1 SELECT number FROM numbers(10) WHERE number > 5);
+SELECT trimLeft(explain) FROM (EXPLAIN indexes = 1 SELECT * FROM t WHERE x = 1);
+SELECT explain FROM (EXPLAIN PIPELINE SELECT 1) AS e WHERE explain LIKE '%Expression%';
+SELECT * FROM (EXPLAIN SYNTAX SELECT 1 UNION ALL SELECT 2);
