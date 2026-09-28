@@ -643,6 +643,15 @@ func (p *Parser) parseIdentOrFunction(_ Pos) (Expr, error) {
 				if p.tryConsumeTokenKind(TokenKindDot) == nil {
 					break
 				}
+				// `db.t.*`: a star qualified by database and table (#152).
+				if p.matchTokenKind("*") {
+					star, err := p.parseColumnStar(p.Pos())
+					if err != nil {
+						return nil, err
+					}
+					fields = append(fields, star)
+					break
+				}
 			}
 			return &Path{Fields: fields}, nil
 		case p.matchTokenKind("*"):
