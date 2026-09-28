@@ -1653,6 +1653,9 @@ func (visitor DefaultASTVisitor) VisitHavingExpr(h *HavingClause) error {
 func (visitor DefaultASTVisitor) VisitIdent(i *Ident) error {
 	visitor.Enter(i)
 	defer visitor.Leave(i)
+	if i.Param != nil {
+		return i.Param.Accept(visitor.Self)
+	}
 	return nil
 }
 func (visitor DefaultASTVisitor) VisitIndexOperation(i *IndexOperation) error {

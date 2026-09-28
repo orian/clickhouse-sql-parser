@@ -135,7 +135,10 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *Ident:
-		// Leaf node
+		// A leaf, unless it is a {name:Identifier} query parameter.
+		if !Walk(n.Param, fn) {
+			return false
+		}
 	case *NumberLiteral:
 		// Leaf node
 	case *StringLiteral:

@@ -133,7 +133,46 @@ func (p *Parser) tryParseIdent() *Ident {
 	}
 }
 
+// matchIdentifierParam reports whether the current tokens are a query
+// parameter of type Identifier, `{name:Identifier}`, which ClickHouse accepts
+// wherever a name is expected (#131). Nothing is consumed.
+func (p *Parser) matchIdentifierParam() bool {
+	if !p.matchTokenKind(TokenKindLBrace) {
+		return false
+	}
+	state := p.lexer.saveState()
+	defer p.lexer.restoreState(state)
+	for _, kind := range []TokenKind{TokenKindLBrace, TokenKindIdent, TokenKindColon} {
+		if p.tryConsumeTokenKind(kind) == nil {
+			return false
+		}
+	}
+	if !p.matchTokenKind(TokenKindIdent) || p.last().String != "Identifier" || p.last().QuoteType != Unquoted {
+		return false
+	}
+	_ = p.lexer.consumeToken()
+	return p.matchTokenKind(TokenKindRBrace)
+}
+
+// parseIdentifierParam parses `{name:Identifier}` into an Ident whose Param
+// holds the query parameter.
+func (p *Parser) parseIdentifierParam() (*Ident, error) {
+	param, err := p.parseQueryParam(p.Pos())
+	if err != nil {
+		return nil, err
+	}
+	return &Ident{
+		Name:    param.String(),
+		NamePos: param.Pos(),
+		NameEnd: param.End(),
+		Param:   param,
+	}, nil
+}
+
 func (p *Parser) parseIdent() (*Ident, error) {
+	if p.matchIdentifierParam() {
+		return p.parseIdentifierParam()
+	}
 	lastToken := p.last()
 	if err := p.expectTokenKind(TokenKindIdent); err != nil {
 		return nil, err
@@ -166,6 +205,8 @@ func (p *Parser) parseIdentOrStar() (*Ident, error) {
 
 func (p *Parser) parseIdentOrString() (*Ident, error) {
 	switch {
+	case p.matchIdentifierParam():
+		return p.parseIdentifierParam()
 	case p.matchTokenKind(TokenKindIdent):
 		return p.parseIdent()
 	case p.matchTokenKind(TokenKindString):
