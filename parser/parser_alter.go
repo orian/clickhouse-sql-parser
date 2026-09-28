@@ -320,12 +320,12 @@ func (p *Parser) parseTableIndex(pos Pos) (*TableIndex, error) {
 		return nil, err
 	}
 
-	if err := p.expectKeyword(KeywordGranularity); err != nil {
-		return nil, err
-	}
-	granularity, err := p.parseDecimal(p.Pos())
-	if err != nil {
-		return nil, err
+	// GRANULARITY is optional; ClickHouse then uses its default (#134).
+	var granularity *NumberLiteral
+	if p.tryConsumeKeywords(KeywordGranularity) {
+		if granularity, err = p.parseDecimal(p.Pos()); err != nil {
+			return nil, err
+		}
 	}
 
 	return &TableIndex{

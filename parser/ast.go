@@ -1426,9 +1426,11 @@ func (a *RemovePropertyType) Accept(visitor ASTVisitor) error {
 type TableIndex struct {
 	IndexPos Pos
 
-	Name        *NestedIdentifier
-	ColumnExpr  *ColumnExpr
-	ColumnType  Expr
+	Name       *NestedIdentifier
+	ColumnExpr *ColumnExpr
+	ColumnType Expr
+	// Granularity is nil when GRANULARITY is omitted (ClickHouse then uses its
+	// default).
 	Granularity *NumberLiteral
 }
 
@@ -1437,6 +1439,9 @@ func (a *TableIndex) Pos() Pos {
 }
 
 func (a *TableIndex) End() Pos {
+	if a.Granularity == nil {
+		return a.ColumnType.End()
+	}
 	return a.Granularity.End()
 }
 
@@ -1455,10 +1460,10 @@ func (a *TableIndex) String() string {
 	builder.WriteString("TYPE")
 	builder.WriteByte(' ')
 	builder.WriteString(a.ColumnType.String())
-	builder.WriteByte(' ')
-	builder.WriteString("GRANULARITY")
-	builder.WriteByte(' ')
-	builder.WriteString(a.Granularity.String())
+	if a.Granularity != nil {
+		builder.WriteString(" GRANULARITY ")
+		builder.WriteString(a.Granularity.String())
+	}
 	return builder.String()
 }
 
