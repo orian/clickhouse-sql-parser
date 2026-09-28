@@ -868,7 +868,7 @@ func (b *BeautifyVisitor) beautifyTableExpr(t *TableExpr) {
 	b.newline()
 	// Recurse through the visitor so VisitSelectQuery formats the inner
 	// SELECT (and any nested subqueries) the same way as the outer one.
-	_ = sub.Select.Accept(b.Self)
+	_ = sub.query().Accept(b.Self)
 	b.indentOut()
 	b.newline()
 	b.writeString(")")
@@ -1564,14 +1564,14 @@ func (b *BeautifyVisitor) VisitSubQueryExpr(s *SubQuery) error {
 		b.writeString("(")
 		b.indentIn()
 		b.newline()
-		if err := s.Select.Accept(b.Self); err != nil {
+		if err := s.query().Accept(b.Self); err != nil {
 			return err
 		}
 		b.indentOut()
 		b.newline()
 		b.writeString(")")
 	} else {
-		return s.Select.Accept(b.Self)
+		return s.query().Accept(b.Self)
 	}
 	return nil
 }

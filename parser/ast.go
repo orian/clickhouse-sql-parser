@@ -6906,31 +6906,43 @@ func (o *OutputClauses) accept(visitor ASTVisitor) error {
 
 type SubQuery struct {
 	HasParen bool
-	Select   *SelectQuery
+	// Select is the query; nil when the subquery is an EXPLAIN.
+	Select *SelectQuery
+	// Explain is set for `(EXPLAIN ...)` used as a table, e.g.
+	// `SELECT * FROM (EXPLAIN SELECT 1)` (#133). Select is then nil.
+	Explain *ExplainStmt `json:",omitempty"`
 	// RightParenPos is the position of the closing ) when HasParen is set.
 	RightParenPos Pos `json:",omitempty"`
 }
 
+// query returns the subquery's statement: Explain when set, else Select.
+func (s *SubQuery) query() Expr {
+	if s.Explain != nil {
+		return s.Explain
+	}
+	return s.Select
+}
+
 func (s *SubQuery) Pos() Pos {
-	return s.Select.Pos()
+	return s.query().Pos()
 }
 
 func (s *SubQuery) End() Pos {
 	if s.HasParen && s.RightParenPos > 0 {
 		return s.RightParenPos + 1
 	}
-	return s.Select.End()
+	return s.query().End()
 }
 
 func (s *SubQuery) String() string {
 	if s.HasParen {
 		var builder strings.Builder
 		builder.WriteString("(")
-		builder.WriteString(s.Select.String())
+		builder.WriteString(s.query().String())
 		builder.WriteString(")")
 		return builder.String()
 	}
-	return s.Select.String()
+	return s.query().String()
 }
 
 func (s *SubQuery) Accept(visitor ASTVisitor) error {

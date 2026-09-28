@@ -1050,6 +1050,19 @@ func (p *Parser) parseSubQuery(_ Pos) (*SubQuery, error) {
 
 	hasParen := p.tryConsumeTokenKind(TokenKindLParen) != nil
 
+	// `(EXPLAIN ...)` used as a table (#133).
+	if hasParen && p.matchKeyword(KeywordExplain) {
+		explain, err := p.parseExplainStmt(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		rightParenPos := p.Pos()
+		if err := p.expectTokenKind(TokenKindRParen); err != nil {
+			return nil, err
+		}
+		return &SubQuery{HasParen: true, Explain: explain, RightParenPos: rightParenPos}, nil
+	}
+
 	selectQuery, err := p.parseSelectQuery(p.Pos())
 	if err != nil {
 		return nil, err

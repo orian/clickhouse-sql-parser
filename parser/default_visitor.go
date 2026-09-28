@@ -2461,6 +2461,11 @@ func (visitor DefaultASTVisitor) VisitSubQueryExpr(s *SubQuery) error {
 			return err
 		}
 	}
+	if s.Explain != nil {
+		if err := s.Explain.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
