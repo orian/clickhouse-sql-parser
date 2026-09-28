@@ -192,6 +192,10 @@ Entries are grouped as:
   (#134); `TableIndex.End()` is then the end of the `TYPE`.
 - `SubQuery.Select` is nil when the subquery is an `EXPLAIN` (#133); the
   statement is in the new `SubQuery.Explain`.
+- `PASTE JOIN` and `NATURAL [LEFT|RIGHT|FULL|INNER] [OUTER] JOIN` are joins
+  (#89). `FROM a PASTE JOIN b` used to print as `FROM a AS PASTE JOIN b`
+  (PASTE taken as an alias of `a`), which ClickHouse rejects. The kinds are
+  in `JoinExpr.Modifiers` (`"NATURAL"`, `"PASTE"`).
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -239,6 +243,10 @@ Entries are grouped as:
 - A comma before a clause other than `FROM`, e.g. `SELECT a, ORDER BY a` or
   `SELECT a, WHERE a = 1` (#138). ClickHouse rejects them; they used to be
   read as a trailing comma.
+- `PASTE` or `NATURAL` as an implicit table alias (`FROM a paste`), and
+  `NATURAL`/`PASTE` joins with `ON`/`USING`, a strictness (`ANY`, `ALL`,
+  `ASOF`, `SEMI`, `ANTI`), `CROSS` or `ARRAY` (#89). ClickHouse rejects them;
+  `AS paste` still works.
 
 ### Additive
 
@@ -330,6 +338,8 @@ Entries are grouped as:
     `file(a || 'b', 'CSV')`) and negative numbers (#129). Arguments that
     parsed before keep their AST; the new forms are ordinary expressions
     (e.g. `*FunctionExpr`, `*BinaryOperation`) inside `TableArgListExpr.Args`.
+  - `PASTE JOIN` and `NATURAL [LEFT|RIGHT|FULL|INNER] [OUTER] JOIN`, with an
+    optional `GLOBAL` (#89).
   - `{name:Identifier}` query parameters wherever a table, database or other
     name is expected: `SELECT * FROM {db:Identifier}.{t:Identifier}`,
     `CREATE TABLE {db:Identifier}.t …`, `DROP DATABASE {db:Identifier}`,
