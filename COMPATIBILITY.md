@@ -279,6 +279,14 @@ Entries are grouped as:
     `PARTITION toDate('2020-01-01')`, `PARTITION 1 + 1`;
   - a `UUID '…'` that is not 32 hex digits, plain or as 8-4-4-4-12
     (ClickHouse: `CANNOT_PARSE_UUID`).
+- Role and GRANT statements that ClickHouse rejects (#50):
+  - more than one role in `ALTER ROLE … RENAME TO`;
+  - `ON CLUSTER` after any role name but the last in `CREATE ROLE`/`ALTER
+    ROLE` (`CREATE ROLE r1 ON CLUSTER c, r2`; write `CREATE ROLE r1, r2 ON
+    CLUSTER c`);
+  - `WITH ADMIN OPTION` when granting privileges (it is for granting roles);
+  - a column list with a wildcard target (`GRANT SELECT(x) ON db.* …`), the
+    target `*.table`, and the pseudo-privilege `GRANT ADMIN OPTION ON …`.
 
 ### Additive
 
