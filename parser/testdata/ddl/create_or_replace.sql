@@ -3,7 +3,7 @@
     * @name Short link events
     * @description It's a short link events table
  */
-CREATE OR REPLACE TABLE IF NOT EXISTS test.events_local (
+CREATE OR REPLACE TABLE test.events_local (
     f0 String,
     f1 String CODEC(ZSTD(1)),
     f2 VARCHAR(255),
@@ -14,7 +14,7 @@ TTL f1 + INTERVAL 6 MONTH
 ORDER BY (f1,f2)
 COMMENT 'Comment for table';
 
-CREATE OR REPLACE VIEW IF NOT EXISTS my_view(col1 String, col2 String)
+CREATE OR REPLACE VIEW my_view(col1 String, col2 String)
 AS
 SELECT
     id,
@@ -22,4 +22,4 @@ SELECT
 FROM
     my_table;
 
-CREATE OR REPLACE FUNCTION IF NOT EXISTS my_function AS (x, y) -> x + y;
+CREATE OR REPLACE FUNCTION my_function AS (x, y) -> x + y;

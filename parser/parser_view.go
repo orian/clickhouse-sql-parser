@@ -1,6 +1,9 @@
 package parser
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // parseCreateMaterializedView parses a CREATE MATERIALIZED VIEW statement.
 //
@@ -215,6 +218,9 @@ func (p *Parser) parseCreateView(pos Pos, orReplace bool) (*CreateView, error) {
 	createView.IfNotExists, err = p.tryParseIfNotExists()
 	if err != nil {
 		return nil, err
+	}
+	if orReplace && createView.IfNotExists {
+		return nil, errors.New("OR REPLACE cannot be combined with IF NOT EXISTS")
 	}
 
 	tableIdentifier, err := p.parseTableIdentifier(p.Pos())

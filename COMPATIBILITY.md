@@ -268,6 +268,17 @@ Entries are grouped as:
   `NATURAL`/`PASTE` joins with `ON`/`USING`, a strictness (`ANY`, `ALL`,
   `ASOF`, `SEMI`, `ANTI`), `CROSS` or `ARRAY` (#89). ClickHouse rejects them;
   `AS paste` still works.
+- DDL that ClickHouse rejects (#50):
+  - `OR REPLACE` together with `IF NOT EXISTS` in `CREATE TABLE` and
+    `CREATE VIEW` (as already for `CREATE FUNCTION`; `CREATE OR REPLACE
+    DICTIONARY IF NOT EXISTS` stays valid);
+  - more than one pair in `RENAME DATABASE`;
+  - a `PARTITION` value that is not a literal (number, string, `NULL`,
+    `true`/`false`, array of literals), a query parameter, a tuple, or a CAST
+    of one of these: e.g. `DROP PARTITION p`, `IN PARTITION partition_name`,
+    `PARTITION toDate('2020-01-01')`, `PARTITION 1 + 1`;
+  - a `UUID '…'` that is not 32 hex digits, plain or as 8-4-4-4-12
+    (ClickHouse: `CANNOT_PARSE_UUID`).
 
 ### Additive
 
