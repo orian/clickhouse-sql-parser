@@ -294,6 +294,40 @@ func (p *Parser) parseJoinTableExpr(_ Pos) (Expr, error) {
 	}
 }
 
+// matchJoinKindWord reports whether the current token is PASTE or NATURAL,
+// which ClickHouse reads as a join kind, never as an implicit alias (#89).
+func (p *Parser) matchJoinKindWord() bool {
+	return p.matchUnquotedIdent("PASTE") || p.matchUnquotedIdent("NATURAL")
+}
+
+// parseJoinKind parses the join kind before JOIN: `PASTE`,
+// `NATURAL [LEFT|RIGHT|FULL|INNER] [OUTER]` or the ordinary kinds of
+// parseJoinOp. ClickHouse rejects NATURAL with a strictness (ANY, ALL,
+// ASOF, SEMI, ANTI), CROSS or ARRAY.
+func (p *Parser) parseJoinKind() ([]string, error) {
+	switch {
+	case p.matchUnquotedIdent("PASTE"):
+		_ = p.lexer.consumeToken()
+		return []string{"PASTE"}, nil
+	case p.matchUnquotedIdent("NATURAL"):
+		_ = p.lexer.consumeToken()
+		modifiers := []string{"NATURAL"}
+		if p.matchOneOfKeywords(KeywordLeft, KeywordRight, KeywordFull, KeywordInner) {
+			modifiers = append(modifiers, p.last().String)
+			_ = p.lexer.consumeToken()
+			if p.matchKeyword(KeywordOuter) {
+				modifiers = append(modifiers, p.last().String)
+				_ = p.lexer.consumeToken()
+			}
+		}
+		if !p.matchKeyword(KeywordJoin) {
+			return nil, fmt.Errorf("NATURAL JOIN supports only LEFT, RIGHT, FULL, INNER and OUTER, got %q", p.lastTokenText())
+		}
+		return modifiers, nil
+	}
+	return p.parseJoinOp(p.Pos()), nil
+}
+
 func (p *Parser) parseJoinRightExpr(pos Pos) (expr Expr, err error) {
 	var rightExpr Expr
 	var modifiers []string
@@ -310,14 +344,17 @@ func (p *Parser) parseJoinRightExpr(pos Pos) (expr Expr, err error) {
 			return nil, errors.New("GLOBAL cannot be used with ARRAY JOIN")
 		}
 		if !p.matchKeyword(KeywordJoin) {
-			op := p.parseJoinOp(p.Pos())
+			op, err := p.parseJoinKind()
+			if err != nil {
+				return nil, err
+			}
 			if len(op) == 0 {
 				return nil, fmt.Errorf("expected JOIN after GLOBAL, got %s", p.lastTokenKind())
 			}
 			modifiers = append(modifiers, op...)
 		}
-	} else {
-		modifiers = p.parseJoinOp(p.Pos())
+	} else if modifiers, err = p.parseJoinKind(); err != nil {
+		return nil, err
 	}
 
 	if len(modifiers) != 0 && !p.matchKeyword(KeywordJoin) {
@@ -356,9 +393,12 @@ func (p *Parser) parseJoinRightExpr(pos Pos) (expr Expr, err error) {
 	if err != nil {
 		return nil, err
 	}
-	constrains, err := p.tryParseJoinConstraints(p.Pos())
-	if err != nil {
-		return nil, err
+	// NATURAL and PASTE joins take no ON/USING in ClickHouse.
+	var constrains Expr
+	if !slices.Contains(modifiers, "NATURAL") && !slices.Contains(modifiers, "PASTE") {
+		if constrains, err = p.tryParseJoinConstraints(p.Pos()); err != nil {
+			return nil, err
+		}
 	}
 
 	// try parse next join
@@ -438,7 +478,8 @@ func (p *Parser) parseTableExpr(pos Pos) (*TableExpr, error) {
 			Alias:    alias,
 		}
 		tableEnd = expr.End()
-	} else if p.matchTokenKind(TokenKindIdent) && p.lastTokenKind() != TokenKindKeyword && !p.matchStreamKeyword() ||
+	} else if p.matchTokenKind(TokenKindIdent) && p.lastTokenKind() != TokenKindKeyword && !p.matchStreamKeyword() &&
+		!p.matchJoinKindWord() ||
 		p.matchKeyword(KeywordLocal) {
 		// LOCAL is not a join keyword in ClickHouse; like an identifier it
 		// aliases the table (`FROM a LOCAL JOIN b` is `FROM a AS LOCAL JOIN b`).
