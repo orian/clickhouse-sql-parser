@@ -1471,6 +1471,8 @@ func (b *BeautifyVisitor) VisitDeleteFromExpr(s *DeleteClause) error   { return 
 func (b *BeautifyVisitor) VisitDescribeExpr(s *DescribeStmt) error     { return b.writeCompact(s) }
 func (b *BeautifyVisitor) VisitDropDatabase(s *DropDatabase) error     { return b.writeCompact(s) }
 func (b *BeautifyVisitor) VisitDropStmt(s *DropStmt) error             { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitCreateIndex(s *CreateIndex) error       { return b.writeCompact(s) }
+func (b *BeautifyVisitor) VisitDropIndex(s *DropIndex) error           { return b.writeCompact(s) }
 func (b *BeautifyVisitor) VisitDropUserOrRole(s *DropUserOrRole) error { return b.writeCompact(s) }
 func (b *BeautifyVisitor) VisitGrantPrivilegeExpr(s *GrantPrivilegeStmt) error {
 	return b.writeCompact(s)

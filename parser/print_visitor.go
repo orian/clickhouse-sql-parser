@@ -3876,3 +3876,78 @@ func isNilExpr(expr Expr) bool {
 	v := reflect.ValueOf(expr)
 	return v.Kind() == reflect.Ptr && v.IsNil()
 }
+
+func (p *PrintVisitor) VisitCreateIndex(c *CreateIndex) error {
+	builder := p.builder
+	builder.WriteString("CREATE ")
+	if c.Unique {
+		builder.WriteString("UNIQUE ")
+	}
+	builder.WriteString("INDEX ")
+	if c.IfNotExists {
+		builder.WriteString("IF NOT EXISTS ")
+	}
+	if err := c.Name.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString(" ON ")
+	if err := c.Table.Accept(p); err != nil {
+		return err
+	}
+	if c.OnCluster != nil {
+		builder.WriteByte(' ')
+		if err := c.OnCluster.Accept(p); err != nil {
+			return err
+		}
+	}
+	builder.WriteByte(' ')
+	if c.HasParen {
+		builder.WriteByte('(')
+	}
+	for i, column := range c.Columns {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		if err := column.Accept(p); err != nil {
+			return err
+		}
+	}
+	if c.HasParen {
+		builder.WriteByte(')')
+	}
+	if c.IndexType != nil {
+		builder.WriteString(" TYPE ")
+		if err := c.IndexType.Accept(p); err != nil {
+			return err
+		}
+	}
+	if c.Granularity != nil {
+		builder.WriteString(" GRANULARITY ")
+		if err := c.Granularity.Accept(p); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (p *PrintVisitor) VisitDropIndex(d *DropIndex) error {
+	builder := p.builder
+	builder.WriteString("DROP INDEX ")
+	if d.IfExists {
+		builder.WriteString("IF EXISTS ")
+	}
+	if err := d.Name.Accept(p); err != nil {
+		return err
+	}
+	builder.WriteString(" ON ")
+	if err := d.Table.Accept(p); err != nil {
+		return err
+	}
+	if d.OnCluster != nil {
+		builder.WriteByte(' ')
+		if err := d.OnCluster.Accept(p); err != nil {
+			return err
+		}
+	}
+	return nil
+}

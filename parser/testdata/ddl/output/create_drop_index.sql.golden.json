@@ -1,0 +1,428 @@
+[
+  {
+    "CreatePos": 0,
+    "StatementEnd": 35,
+    "IfNotExists": false,
+    "Name": {
+      "Name": "idx",
+      "QuoteType": 1,
+      "NamePos": 13,
+      "NameEnd": 16
+    },
+    "Table": {
+      "Database": null,
+      "Table": {
+        "Name": "tab",
+        "QuoteType": 1,
+        "NamePos": 20,
+        "NameEnd": 23
+      }
+    },
+    "OnCluster": null,
+    "HasParen": true,
+    "Columns": [
+      {
+        "OrderPos": 25,
+        "Expr": {
+          "Name": "col0",
+          "QuoteType": 1,
+          "NamePos": 25,
+          "NameEnd": 29
+        },
+        "Alias": null,
+        "Direction": "DESC",
+        "Fill": null,
+        "OrderEnd": 34
+      }
+    ],
+    "IndexType": null,
+    "Granularity": null
+  },
+  {
+    "CreatePos": 37,
+    "StatementEnd": 65,
+    "IfNotExists": false,
+    "Name": {
+      "Name": "idx",
+      "QuoteType": 1,
+      "NamePos": 50,
+      "NameEnd": 53
+    },
+    "Table": {
+      "Database": null,
+      "Table": {
+        "Name": "tab",
+        "QuoteType": 1,
+        "NamePos": 57,
+        "NameEnd": 60
+      }
+    },
+    "OnCluster": null,
+    "HasParen": false,
+    "Columns": [
+      {
+        "OrderPos": 61,
+        "Expr": {
+          "Name": "col0",
+          "QuoteType": 1,
+          "NamePos": 61,
+          "NameEnd": 65
+        },
+        "Alias": null,
+        "Direction": "",
+        "Fill": null,
+        "OrderEnd": 65
+      }
+    ],
+    "IndexType": null,
+    "Granularity": null
+  },
+  {
+    "CreatePos": 67,
+    "StatementEnd": 145,
+    "IfNotExists": true,
+    "Name": {
+      "Name": "i",
+      "QuoteType": 1,
+      "NamePos": 94,
+      "NameEnd": 95
+    },
+    "Table": {
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 99,
+        "NameEnd": 101
+      },
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 102,
+        "NameEnd": 103
+      }
+    },
+    "OnCluster": null,
+    "HasParen": true,
+    "Columns": [
+      {
+        "OrderPos": 105,
+        "Expr": {
+          "Name": "a",
+          "QuoteType": 1,
+          "NamePos": 105,
+          "NameEnd": 106
+        },
+        "Alias": null,
+        "Direction": "",
+        "Fill": null,
+        "OrderEnd": 106
+      }
+    ],
+    "IndexType": {
+      "LeftParenPos": 126,
+      "RightParenPos": 130,
+      "Name": {
+        "Name": "bloom_filter",
+        "QuoteType": 1,
+        "NamePos": 113,
+        "NameEnd": 125
+      },
+      "Params": [
+        {
+          "NumPos": 126,
+          "NumEnd": 130,
+          "Literal": "0.01",
+          "Base": 10
+        }
+      ]
+    },
+    "Granularity": {
+      "NumPos": 144,
+      "NumEnd": 145,
+      "Literal": "3",
+      "Base": 10
+    }
+  },
+  {
+    "CreatePos": 147,
+    "StatementEnd": 184,
+    "IfNotExists": false,
+    "Name": {
+      "Name": "i",
+      "QuoteType": 1,
+      "NamePos": 160,
+      "NameEnd": 161
+    },
+    "Table": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 165,
+        "NameEnd": 166
+      }
+    },
+    "OnCluster": null,
+    "HasParen": false,
+    "Columns": [
+      {
+        "OrderPos": 167,
+        "Expr": {
+          "LeftExpr": {
+            "Name": "a",
+            "QuoteType": 1,
+            "NamePos": 167,
+            "NameEnd": 168
+          },
+          "Operation": "+",
+          "RightExpr": {
+            "Name": "b",
+            "QuoteType": 1,
+            "NamePos": 171,
+            "NameEnd": 172
+          },
+          "HasGlobal": false,
+          "HasNot": false
+        },
+        "Alias": null,
+        "Direction": "",
+        "Fill": null,
+        "OrderEnd": 172
+      }
+    ],
+    "IndexType": {
+      "Name": {
+        "Name": "minmax",
+        "QuoteType": 1,
+        "NamePos": 178,
+        "NameEnd": 184
+      }
+    },
+    "Granularity": null
+  },
+  {
+    "CreatePos": 186,
+    "StatementEnd": 246,
+    "IfNotExists": false,
+    "Name": {
+      "Name": "i",
+      "QuoteType": 1,
+      "NamePos": 199,
+      "NameEnd": 200
+    },
+    "Table": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 204,
+        "NameEnd": 205
+      }
+    },
+    "OnCluster": {
+      "OnPos": 206,
+      "Expr": {
+        "Name": "c",
+        "QuoteType": 1,
+        "NamePos": 217,
+        "NameEnd": 218
+      }
+    },
+    "HasParen": true,
+    "Columns": [
+      {
+        "OrderPos": 220,
+        "Expr": {
+          "Name": "a",
+          "QuoteType": 1,
+          "NamePos": 220,
+          "NameEnd": 221
+        },
+        "Alias": null,
+        "Direction": "DESC",
+        "Fill": null,
+        "OrderEnd": 226
+      },
+      {
+        "OrderPos": 228,
+        "Expr": {
+          "Name": "b",
+          "QuoteType": 1,
+          "NamePos": 228,
+          "NameEnd": 229
+        },
+        "Alias": null,
+        "Direction": "ASC",
+        "Fill": null,
+        "OrderEnd": 233
+      }
+    ],
+    "IndexType": {
+      "Name": {
+        "Name": "minmax",
+        "QuoteType": 1,
+        "NamePos": 240,
+        "NameEnd": 246
+      }
+    },
+    "Granularity": null
+  },
+  {
+    "CreatePos": 248,
+    "StatementEnd": 278,
+    "Unique": true,
+    "IfNotExists": false,
+    "Name": {
+      "Name": "i",
+      "QuoteType": 1,
+      "NamePos": 268,
+      "NameEnd": 269
+    },
+    "Table": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 273,
+        "NameEnd": 274
+      }
+    },
+    "OnCluster": null,
+    "HasParen": true,
+    "Columns": [
+      {
+        "OrderPos": 276,
+        "Expr": {
+          "Name": "a",
+          "QuoteType": 1,
+          "NamePos": 276,
+          "NameEnd": 277
+        },
+        "Alias": null,
+        "Direction": "",
+        "Fill": null,
+        "OrderEnd": 277
+      }
+    ],
+    "IndexType": null,
+    "Granularity": null
+  },
+  {
+    "CreatePos": 280,
+    "StatementEnd": 344,
+    "IfNotExists": false,
+    "Name": {
+      "Name": "i",
+      "QuoteType": 1,
+      "NamePos": 293,
+      "NameEnd": 294
+    },
+    "Table": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 298,
+        "NameEnd": 299
+      }
+    },
+    "OnCluster": null,
+    "HasParen": true,
+    "Columns": [
+      {
+        "OrderPos": 301,
+        "Expr": {
+          "Name": "s",
+          "QuoteType": 1,
+          "NamePos": 301,
+          "NameEnd": 302
+        },
+        "Alias": null,
+        "Direction": "",
+        "Fill": null,
+        "OrderEnd": 302
+      }
+    ],
+    "IndexType": {
+      "Name": {
+        "Name": "text",
+        "QuoteType": 1,
+        "NamePos": 309,
+        "NameEnd": 313
+      },
+      "LeftParenPos": 313,
+      "RightParenPos": 343,
+      "Kwargs": [
+        {
+          "Name": {
+            "Name": "tokenizer",
+            "QuoteType": 1,
+            "NamePos": 314,
+            "NameEnd": 323
+          },
+          "Value": {
+            "LiteralPos": 327,
+            "LiteralEnd": 342,
+            "Literal": "splitByNonAlpha"
+          }
+        }
+      ]
+    },
+    "Granularity": null
+  },
+  {
+    "DropPos": 346,
+    "StatementEnd": 363,
+    "IfExists": false,
+    "Name": {
+      "Name": "i",
+      "QuoteType": 1,
+      "NamePos": 357,
+      "NameEnd": 358
+    },
+    "Table": {
+      "Database": null,
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 362,
+        "NameEnd": 363
+      }
+    },
+    "OnCluster": null
+  },
+  {
+    "DropPos": 365,
+    "StatementEnd": 408,
+    "IfExists": true,
+    "Name": {
+      "Name": "i",
+      "QuoteType": 1,
+      "NamePos": 386,
+      "NameEnd": 387
+    },
+    "Table": {
+      "Database": {
+        "Name": "db",
+        "QuoteType": 1,
+        "NamePos": 391,
+        "NameEnd": 393
+      },
+      "Table": {
+        "Name": "t",
+        "QuoteType": 1,
+        "NamePos": 394,
+        "NameEnd": 395
+      }
+    },
+    "OnCluster": {
+      "OnPos": 396,
+      "Expr": {
+        "Name": "c",
+        "QuoteType": 1,
+        "NamePos": 407,
+        "NameEnd": 408
+      }
+    }
+  }
+]

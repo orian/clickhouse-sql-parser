@@ -48,8 +48,10 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 			return p.parseCreateRole(pos)
 		case p.matchKeyword(KeywordUser):
 			return p.parseCreateUser(pos)
+		case p.matchKeyword(KeywordIndex), p.matchUnquotedIdent("UNIQUE"):
+			return p.parseCreateIndex(pos)
 		default:
-			return nil, fmt.Errorf("expected keyword: NAMED|DATABASE|DICTIONARY|TABLE|VIEW|ROLE|USER|FUNCTION|MATERIALIZED, but got %q",
+			return nil, fmt.Errorf("expected keyword: NAMED|DATABASE|DICTIONARY|TABLE|VIEW|ROLE|USER|FUNCTION|MATERIALIZED|INDEX, but got %q",
 				p.lastTokenKind())
 		}
 	case p.matchKeyword(KeywordAlter):
@@ -92,8 +94,10 @@ func (p *Parser) parseDDL(pos Pos) (DDL, error) {
 		case p.matchKeyword(KeywordUser),
 			p.matchKeyword(KeywordRole):
 			return p.parserDropUserOrRole(pos)
+		case p.matchKeyword(KeywordIndex):
+			return p.parseDropIndex(pos)
 		default:
-			return nil, fmt.Errorf("expected keyword: DATABASE|TABLE, but got %q", p.lastTokenText())
+			return nil, fmt.Errorf("expected keyword: DATABASE|TABLE|INDEX, but got %q", p.lastTokenText())
 		}
 	case p.matchKeyword(KeywordTruncate):
 		return p.parseTruncateTable(pos)
@@ -3036,4 +3040,67 @@ func (p *Parser) parseDictionarySettingsClause(pos Pos) (*SettingsClause, error)
 	settings.ListEnd = p.prevEnd() // include the closing )
 
 	return settings, nil
+}
+
+// parseCreateIndex parses `[UNIQUE] INDEX [IF NOT EXISTS] name ON [db.]table
+// [ON CLUSTER c] columns [TYPE type] [GRANULARITY n]` after CREATE (#135).
+func (p *Parser) parseCreateIndex(pos Pos) (*CreateIndex, error) {
+	create := &CreateIndex{CreatePos: pos}
+	if p.matchUnquotedIdent("UNIQUE") {
+		create.Unique = true
+		_ = p.lexer.consumeToken()
+	}
+	if err := p.expectKeyword(KeywordIndex); err != nil {
+		return nil, err
+	}
+	var err error
+	if create.IfNotExists, err = p.tryParseIfNotExists(); err != nil {
+		return nil, err
+	}
+	if create.Name, err = p.parseIdent(); err != nil {
+		return nil, err
+	}
+	if err := p.expectKeyword(KeywordOn); err != nil {
+		return nil, err
+	}
+	if create.Table, err = p.parseTableIdentifier(p.Pos()); err != nil {
+		return nil, err
+	}
+	if create.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+		return nil, err
+	}
+	if p.tryConsumeTokenKind(TokenKindLParen) != nil {
+		create.HasParen = true
+		for {
+			column, err := p.parseOrderExpr(p.Pos())
+			if err != nil {
+				return nil, err
+			}
+			create.Columns = append(create.Columns, column)
+			if p.tryConsumeTokenKind(TokenKindComma) == nil {
+				break
+			}
+		}
+		if err := p.expectTokenKind(TokenKindRParen); err != nil {
+			return nil, err
+		}
+	} else {
+		expr, err := p.parseExpr(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		create.Columns = []*OrderExpr{{OrderPos: expr.Pos(), Expr: expr, OrderEnd: expr.End()}}
+	}
+	if p.tryConsumeKeywords(KeywordType) {
+		if create.IndexType, err = p.parseIndexType(); err != nil {
+			return nil, err
+		}
+	}
+	if p.tryConsumeKeywords(KeywordGranularity) {
+		if create.Granularity, err = p.parseDecimal(p.Pos()); err != nil {
+			return nil, err
+		}
+	}
+	create.StatementEnd = p.prevEnd()
+	return create, nil
 }

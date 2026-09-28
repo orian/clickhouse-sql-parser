@@ -117,3 +117,30 @@ func (p *Parser) tryParseModifier() (string, error) {
 	}
 	return "", nil
 }
+
+// parseDropIndex parses `INDEX [IF EXISTS] name ON [db.]table [ON CLUSTER c]`
+// after DROP (#135).
+func (p *Parser) parseDropIndex(pos Pos) (*DropIndex, error) {
+	if err := p.expectKeyword(KeywordIndex); err != nil {
+		return nil, err
+	}
+	drop := &DropIndex{DropPos: pos}
+	var err error
+	if drop.IfExists, err = p.tryParseIfExists(); err != nil {
+		return nil, err
+	}
+	if drop.Name, err = p.parseIdent(); err != nil {
+		return nil, err
+	}
+	if err := p.expectKeyword(KeywordOn); err != nil {
+		return nil, err
+	}
+	if drop.Table, err = p.parseTableIdentifier(p.Pos()); err != nil {
+		return nil, err
+	}
+	if drop.OnCluster, err = p.tryParseClusterClause(p.Pos()); err != nil {
+		return nil, err
+	}
+	drop.StatementEnd = p.prevEnd()
+	return drop, nil
+}

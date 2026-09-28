@@ -27,6 +27,10 @@ Entries are grouped as:
 
 ### Breaking
 
+- `ASTVisitor` has two new methods, `VisitCreateIndex(*CreateIndex) error`
+  and `VisitDropIndex(*DropIndex) error` (#135). A visitor that embeds
+  `DefaultASTVisitor` or `PrintVisitor` gets them; a type implementing
+  `ASTVisitor` directly must add them.
 - The module requires Go 1.27 (`go.mod` said `go 1.21.0`). Consumers on an
   older toolchain must upgrade or let Go download the toolchain.
 - `ASTVisitor` has a new method, `VisitStreamClause(*StreamClause) error`
@@ -251,6 +255,8 @@ Entries are grouped as:
 ### Additive
 
 - **New types**:
+  - `CreateIndex` and `DropIndex` for `CREATE [UNIQUE] INDEX` and
+    `DROP INDEX` (#135);
   - `OutputClauses`, embedded in `ShowStmt`, `DescribeStmt`, `CheckStmt`,
     `ExplainStmt`, `CreateTable`, `CreateView`, `CreateMaterializedView`,
     `CreateLiveView`, `CreateDictionary`, `CreateDatabase`, `AlterTable`,
@@ -340,6 +346,9 @@ Entries are grouped as:
     (e.g. `*FunctionExpr`, `*BinaryOperation`) inside `TableArgListExpr.Args`.
   - `PASTE JOIN` and `NATURAL [LEFT|RIGHT|FULL|INNER] [OUTER] JOIN`, with an
     optional `GLOBAL` (#89).
+  - `CREATE [UNIQUE] INDEX [IF NOT EXISTS] i ON [db.]t [ON CLUSTER c]
+    <expr | (expr [ASC|DESC], …)> [TYPE t] [GRANULARITY n]` and
+    `DROP INDEX [IF EXISTS] i ON [db.]t [ON CLUSTER c]` (#135).
   - `{name:Identifier}` query parameters wherever a table, database or other
     name is expected: `SELECT * FROM {db:Identifier}.{t:Identifier}`,
     `CREATE TABLE {db:Identifier}.t …`, `DROP DATABASE {db:Identifier}`,
