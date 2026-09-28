@@ -88,7 +88,7 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *SubQuery:
-		if !Walk(n.Select, fn) {
+		if !Walk(n.Select, fn) || !Walk(n.Explain, fn) {
 			return false
 		}
 	case *SelectItem:
