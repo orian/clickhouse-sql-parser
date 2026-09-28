@@ -188,6 +188,8 @@ Entries are grouped as:
   ClickHouse (#138). `SELECT 1, limit(1)` used to print as
   `SELECT 1 LIMIT (1)` (a LIMIT clause instead of a column); a
   keyword-named function after a comma is now another column.
+- `TableIndex.Granularity` is nil when an index omits `GRANULARITY`
+  (#134); `TableIndex.End()` is then the end of the `TYPE`.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -329,3 +331,5 @@ Entries are grouped as:
     name is expected: `SELECT * FROM {db:Identifier}.{t:Identifier}`,
     `CREATE TABLE {db:Identifier}.t …`, `DROP DATABASE {db:Identifier}`,
     `USE {db:Identifier}` (#131).
+  - an index without `GRANULARITY` (`INDEX i a TYPE minmax`), in `CREATE
+    TABLE` and `ALTER TABLE … ADD INDEX` (#134).

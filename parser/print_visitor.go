@@ -3403,6 +3403,9 @@ func (p *PrintVisitor) printTableIndexBody(a *TableIndex) error {
 	if err := a.ColumnType.Accept(p); err != nil {
 		return err
 	}
+	if a.Granularity == nil {
+		return nil
+	}
 	p.builder.WriteString(" GRANULARITY ")
 	return a.Granularity.Accept(p)
 }

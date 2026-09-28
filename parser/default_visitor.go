@@ -2712,8 +2712,10 @@ func (visitor DefaultASTVisitor) VisitTableIndex(a *TableIndex) error {
 	if err := a.ColumnType.Accept(visitor.Self); err != nil {
 		return err
 	}
-	if err := a.Granularity.Accept(visitor.Self); err != nil {
-		return err
+	if a.Granularity != nil {
+		if err := a.Granularity.Accept(visitor.Self); err != nil {
+			return err
+		}
 	}
 	return nil
 }
