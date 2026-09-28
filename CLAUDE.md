@@ -18,7 +18,9 @@ go build -o clickhouse-sql-parser main.go
 ### Run tests
 ```bash
 make test
-# Runs tests with coverage, race detection, and compatible flag
+# Runs tests with race detection and the compatible flag (what CI runs)
+make cover
+# Same, plus a coverage profile in coverage.out (much slower)
 ```
 
 ### Run compatible tests (for ClickHouse compatibility)
@@ -38,6 +40,14 @@ make update_test
 make lint
 # Uses golangci-lint with 20 minute timeout
 ```
+
+### Formatting
+```bash
+make hooks      # once per clone: enable .githooks (gofmt pre-commit check)
+make fmt-check  # fail if any Go file is not gofmt-formatted (also run in CI)
+```
+The pre-commit hook rejects a commit whose staged Go files are not
+gofmt-formatted. Run `gofmt -w` on the reported files and stage them again.
 
 ### Run benchmarks
 ```bash

@@ -27,6 +27,8 @@ Entries are grouped as:
 
 ### Breaking
 
+- The module requires Go 1.27 (`go.mod` said `go 1.21.0`). Consumers on an
+  older toolchain must upgrade or let Go download the toolchain.
 - `ASTVisitor` has a new method, `VisitStreamClause(*StreamClause) error`
   (#102, #106). `StreamClause.Accept` now dispatches to it; it used to call
   only `Enter`/`Leave`. A visitor that embeds `DefaultASTVisitor` or

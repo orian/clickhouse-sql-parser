@@ -440,7 +440,8 @@ func (p *Parser) peekIsEndOfStatement() bool {
 // queries like `SELECT a, limit FROM t` or `SELECT a, from, b FROM t`
 // without backtick escaping. Backticked identifiers are tokenized as
 // TokenKindIdent (not TokenKindKeyword), so trailing-comma handling for
-// keyword-named tables — e.g. `SELECT count(*), FROM `limit`` — is preserved.
+// keyword-named tables, e.g. the backticked table in
+// SELECT count(*), FROM `limit`, is preserved.
 //
 // End-of-statement (EOF or `;`) is intentionally NOT included here. It's a
 // valid disambiguator only in expression position (the current keyword IS
