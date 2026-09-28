@@ -1152,7 +1152,7 @@ func (visitor DefaultASTVisitor) VisitShowExpr(s *ShowStmt) error {
 func (visitor DefaultASTVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 	visitor.Enter(d)
 	defer visitor.Leave(d)
-	if err := d.Target.Accept(visitor.Self); err != nil {
+	if err := d.targetExpr().Accept(visitor.Self); err != nil {
 		return err
 	}
 	return d.OutputClauses.accept(visitor.Self)

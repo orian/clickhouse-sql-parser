@@ -428,13 +428,30 @@ func (p *Parser) peekIsEndOfStatement() bool {
 	return next.Kind == ";"
 }
 
+// peekClauseStarterFunctionCall reports whether the next token is a clause
+// starter followed by `(`. Such a token can be a function name, so it does
+// not disambiguate the current keyword as a bare projection identifier.
+func (p *Parser) peekClauseStarterFunctionCall() bool {
+	state := p.lexer.saveState()
+	defer p.lexer.restoreState(state)
+
+	if err := p.lexer.consumeToken(); err != nil || !p.matchClauseStarterKeyword() {
+		return false
+	}
+	if err := p.lexer.consumeToken(); err != nil {
+		return false
+	}
+	return p.matchTokenKind(TokenKindLParen)
+}
+
 // keywordIsSelectItemIdentifier reports whether the current keyword token is
 // being used as a bare column-reference identifier inside a SELECT projection
-// rather than starting a clause/expression. This is true when the next token
-// is `,`, `AS`, or another clause-starter keyword — any of which prove the
-// current keyword cannot legally begin a clause or expression (clause/expr
-// starters always require a value/expression next, never another
-// clause-starter or a list separator).
+// rather than starting a clause or expression. This is true when the next
+// token is `,`, `AS`, or a clause-starter keyword that is not itself followed
+// by `(`. Clause starters require a value or expression next, so another
+// clause starter or a list separator disambiguates the current keyword. A
+// clause-starter followed by `(` may instead be a function call (for example,
+// `FORMAT(...)` in `FROM format(...)`).
 //
 // ClickHouse server accepts essentially every reserved word as a bare column
 // name in a projection; matching that behavior here lets the parser handle
@@ -456,7 +473,7 @@ func (p *Parser) keywordIsSelectItemIdentifier() bool {
 	}
 	return p.peekTokenKind(TokenKindComma) ||
 		p.peekKeyword(KeywordAs) ||
-		p.peekIsClauseStarterKeyword()
+		(p.peekIsClauseStarterKeyword() && !p.peekClauseStarterFunctionCall())
 }
 
 // isSelectItemTerminatorKeyword checks whether the current token is a keyword

@@ -8505,6 +8505,16 @@ type DescribeStmt struct {
 	StatementEnd Pos
 	DescribeType string // e.g., "TABLE", empty if not used
 	Target       *TableIdentifier
+	// TargetExpr is set for a non-identifier target such as a table function.
+	// Target remains available for table identifiers for source compatibility.
+	TargetExpr Expr
+}
+
+func (d *DescribeStmt) targetExpr() Expr {
+	if d.TargetExpr != nil {
+		return d.TargetExpr
+	}
+	return d.Target
 }
 
 func (d *DescribeStmt) Pos() Pos {
@@ -8516,7 +8526,7 @@ func (d *DescribeStmt) End() Pos {
 }
 
 func (d *DescribeStmt) baseEnd() Pos {
-	return d.Target.End()
+	return d.targetExpr().End()
 }
 
 func (d *DescribeStmt) String() string {
@@ -8530,7 +8540,7 @@ func (d *DescribeStmt) baseString() string {
 		builder.WriteString(d.DescribeType)
 		builder.WriteString(" ")
 	}
-	builder.WriteString(d.Target.String())
+	builder.WriteString(d.targetExpr().String())
 	return builder.String()
 }
 

@@ -1401,7 +1401,7 @@ func (p *PrintVisitor) VisitDescribeExpr(d *DescribeStmt) error {
 		builder.WriteString(d.DescribeType)
 		builder.WriteByte(' ')
 	}
-	if err := d.Target.Accept(p); err != nil {
+	if err := d.targetExpr().Accept(p); err != nil {
 		return err
 	}
 	return p.printOutputClauses(&d.OutputClauses)

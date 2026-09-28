@@ -17,6 +17,11 @@ unless noted) and **Additive**.
 
 ## Unreleased
 
+### Additive
+
+- Table functions whose names are keywords now parse after `FROM` and `DESC`,
+  including `FROM format(...)`, `FROM values(...)` and `DESC format(...)` (#132).
+
 ## v1.1.1 (2026-09-28)
 
 ### Breaking
