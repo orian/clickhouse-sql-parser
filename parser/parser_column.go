@@ -900,14 +900,18 @@ func (p *Parser) parseColumnsExpr(pos Pos) (*ColumnExpr, error) {
 	}, nil
 }
 
-// isColumnsMatcher reports whether expr selects a set of columns, `*`, `t.*`
-// or COLUMNS(...), which is what column transformers apply to.
+// isColumnsMatcher reports whether expr selects a set of columns, `*`, `t.*`,
+// `db.t.*` or COLUMNS(...), which is what column transformers apply to.
 func isColumnsMatcher(expr Expr) bool {
 	switch e := expr.(type) {
 	case *Ident:
 		return e.Name == "*" && !e.isQuoted()
 	case *NestedIdentifier:
 		return e.DotIdent != nil && e.DotIdent.Name == "*"
+	case *Path:
+		// db.t.* (#152)
+		last := e.Fields[len(e.Fields)-1]
+		return last.Name == "*" && !last.isQuoted()
 	case *FunctionExpr:
 		return strings.EqualFold(e.Name.Name, "COLUMNS")
 	case *BinaryOperation:

@@ -17,6 +17,13 @@ unless noted) and **Additive**.
 
 ## Unreleased
 
+### Additive
+
+- **Newly accepted input**: a star qualified by database and table,
+  `SELECT db.t.* FROM db.t`, with column transformers (`db.t.* EXCEPT (a)`)
+  (#152). It parses as a `*Path` whose last field is the `*` identifier;
+  `t.*` is still a `*NestedIdentifier`.
+
 ## v1.1.0 (2026-09-28)
 
 ### Breaking
