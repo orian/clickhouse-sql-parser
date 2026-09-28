@@ -51,8 +51,13 @@ gofmt-formatted. Run `gofmt -w` on the reported files and stage them again.
 
 ### Run benchmarks
 ```bash
-go test -bench=. -benchmem ./parser
+make bench                       # parse, String() and PrintVisitor benchmarks
+make bench-compare BASE=v1.0.4   # compare BASE with HEAD on identical inputs
 ```
+`bench-compare` (`scripts/bench_compare.sh`) checks both refs out into
+temporary worktrees, runs the current benchmarks in both on the fixtures they
+both parse, alternating rounds, and prints a `benchstat` comparison. Use it
+for changes that may affect performance (e.g. the parser or PrintVisitor).
 
 ## Architecture Overview
 
