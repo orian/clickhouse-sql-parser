@@ -522,14 +522,13 @@ func (p *Parser) parseColumnExpr(pos Pos) (Expr, error) { //nolint:funlen
 	case p.matchTokenKind(TokenKindLBracket):
 		return p.parseArrayParams(p.Pos())
 	case p.matchTokenKind(TokenKindLBrace):
-		// The map literal string also starts with '{', so we need to check the next token
-		// to determine if it is a map literal or a query param.
-		// Treat both identifiers and keywords as identifier-like for placeholders.
-		// parseIdent accepts keywords-as-ident, so this is safe.
-		if p.peekTokenKind(TokenKindIdent) || p.peekTokenKind(TokenKindKeyword) {
-			return p.parseQueryParam(p.Pos())
+		// In an expression `{` starts a query parameter, as in ClickHouse. A
+		// `{'key': value}` map literal is valid only in INSERT ... VALUES data
+		// and as a SETTINGS value (parseSettingsExpr) (#50).
+		if p.inValues > 0 && p.peekTokenKind(TokenKindString) {
+			return p.parseMapLiteral(p.Pos())
 		}
-		return p.parseMapLiteral(p.Pos())
+		return p.parseQueryParam(p.Pos())
 	case p.matchTokenKind(TokenKindDot):
 		return p.parseNumber(p.Pos())
 	case p.matchTokenKind(TokenKindQuestionMark):
@@ -901,6 +900,24 @@ func (p *Parser) parseColumnsExpr(pos Pos) (*ColumnExpr, error) {
 	}, nil
 }
 
+// isColumnsMatcher reports whether expr selects a set of columns, `*`, `t.*`
+// or COLUMNS(...), which is what column transformers apply to.
+func isColumnsMatcher(expr Expr) bool {
+	switch e := expr.(type) {
+	case *Ident:
+		return e.Name == "*" && !e.isQuoted()
+	case *NestedIdentifier:
+		return e.DotIdent != nil && e.DotIdent.Name == "*"
+	case *FunctionExpr:
+		return strings.EqualFold(e.Name.Name, "COLUMNS")
+	case *BinaryOperation:
+		// `* LIKE 'pattern'` / `t.* ILIKE 'pattern'` select columns by name.
+		op := strings.ToUpper(string(e.Operation))
+		return (op == "LIKE" || op == "ILIKE") && isColumnsMatcher(e.LeftExpr)
+	}
+	return false
+}
+
 // matchExceptSetOperation reports whether the current EXCEPT starts a set
 // operation (`EXCEPT [DISTINCT|ALL] SELECT ...`, `EXCEPT (SELECT ...)`) rather
 // than the column transformer `* EXCEPT (columns)`.
@@ -924,7 +941,9 @@ func (p *Parser) parseSelectItem() (*SelectItem, error) {
 	}
 
 	modifiers := make([]*FunctionExpr, 0)
-	for {
+	// Column transformers (EXCEPT, APPLY, REPLACE) follow only a matcher:
+	// `*`, `t.*` or COLUMNS(...) (#50).
+	for isColumnsMatcher(expr) {
 		if (p.matchKeyword(KeywordExcept) && !p.matchExceptSetOperation()) || p.matchKeyword(KeywordApply) || p.matchKeyword(KeywordReplace) {
 			modifier, err := p.parseFunctionExpr(p.Pos())
 			if err != nil {

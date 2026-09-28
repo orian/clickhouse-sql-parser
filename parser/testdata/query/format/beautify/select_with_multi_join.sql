@@ -13,9 +13,9 @@ select
 from
     t1
         join t2 on true
-        join t3
+        join t3 on true
         join t4 on true
-        join t5
+        join t5 on true
 
 
 -- Beautify SQL:
@@ -24,4 +24,4 @@ WITH
   t2 AS (SELECT 'value2' AS value),
   t3 AS (SELECT 'value3' AS value)
 SELECT t1.value AS value1, t2.value AS value2, t3.value AS value3
-FROM t1 JOIN t2 ON true JOIN t3 JOIN t4 ON true JOIN t5;
+FROM t1 JOIN t2 ON true JOIN t3 ON true JOIN t4 ON true JOIN t5 ON true;

@@ -161,6 +161,27 @@ Available functions:
 - `FindAll(root Expr, predicate func(Expr) bool) []Expr`
 - `Transform(root Expr, transformer func(Expr) Expr) Expr`
 
+## Known differences from ClickHouse
+
+The parser follows the grammar of ClickHouse 26.8 and rejects what ClickHouse
+rejects, with a few deliberate exceptions. It also accepts:
+
+- **`?` placeholders**, e.g. `SELECT * FROM t WHERE id = ?`. Client-side
+  drivers use them; ClickHouse itself only has `{name:Type}` parameters.
+- **`ATTACH DICTIONARY d (…) PRIMARY KEY … SOURCE(…) …` with a full
+  definition.** ClickHouse's SQL parser accepts only `ATTACH DICTIONARY d`,
+  but its metadata files (`metadata/<db>/<dictionary>.sql`) store dictionaries
+  in this form, and tools that read them need to parse it.
+- **`INSERT INTO t [(columns)]` with no `VALUES`, `FORMAT` or `SELECT`.**
+  Clients send such inserts with the data out of band, and query logs record
+  them this way.
+- **`CREATE LIVE VIEW`**, which ClickHouse 26.8 removed but older servers
+  support.
+
+The parser's output can also differ from ClickHouse's own formatter without
+changing the meaning (for example `LAYOUT(FLAT)` is printed as
+`LAYOUT(FLAT())`); see [#66](https://github.com/orian/clickhouse-sql-parser/issues/66).
+
 ## Testing
 
 ```bash

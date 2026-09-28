@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 297,
+    "StatementEnd": 313,
     "HasParen": false,
     "Group": null,
     "With": {
@@ -315,48 +315,48 @@
               "HasFinal": false
             },
             "Right": {
-              "JoinPos": 266,
+              "JoinPos": 274,
               "Left": {
                 "Table": {
-                  "TablePos": 271,
-                  "TableEnd": 273,
+                  "TablePos": 279,
+                  "TableEnd": 281,
                   "Alias": null,
                   "Expr": {
                     "Database": null,
                     "Table": {
                       "Name": "t4",
                       "QuoteType": 1,
-                      "NamePos": 271,
-                      "NameEnd": 273
+                      "NamePos": 279,
+                      "NameEnd": 281
                     }
                   },
                   "HasFinal": false,
                   "Stream": null
                 },
-                "StatementEnd": 273,
+                "StatementEnd": 281,
                 "SampleRatio": null,
                 "HasFinal": false
               },
               "Right": {
-                "JoinPos": 290,
+                "JoinPos": 298,
                 "Left": {
                   "Table": {
-                    "TablePos": 295,
-                    "TableEnd": 297,
+                    "TablePos": 303,
+                    "TableEnd": 305,
                     "Alias": null,
                     "Expr": {
                       "Database": null,
                       "Table": {
                         "Name": "t5",
                         "QuoteType": 1,
-                        "NamePos": 295,
-                        "NameEnd": 297
+                        "NamePos": 303,
+                        "NameEnd": 305
                       }
                     },
                     "HasFinal": false,
                     "Stream": null
                   },
-                  "StatementEnd": 297,
+                  "StatementEnd": 305,
                   "SampleRatio": null,
                   "HasFinal": false
                 },
@@ -364,24 +364,43 @@
                 "Modifiers": [
                   "JOIN"
                 ],
-                "Constraints": null
+                "Constraints": {
+                  "OnPos": 306,
+                  "On": {
+                    "ListPos": 309,
+                    "ListEnd": 313,
+                    "HasDistinct": false,
+                    "Items": [
+                      {
+                        "Expr": {
+                          "Name": "true",
+                          "QuoteType": 1,
+                          "NamePos": 309,
+                          "NameEnd": 313
+                        },
+                        "Alias": null
+                      }
+                    ],
+                    "HasTrailingComma": false
+                  }
+                }
               },
               "Modifiers": [
                 "JOIN"
               ],
               "Constraints": {
-                "OnPos": 274,
+                "OnPos": 282,
                 "On": {
-                  "ListPos": 277,
-                  "ListEnd": 281,
+                  "ListPos": 285,
+                  "ListEnd": 289,
                   "HasDistinct": false,
                   "Items": [
                     {
                       "Expr": {
                         "Name": "true",
                         "QuoteType": 1,
-                        "NamePos": 277,
-                        "NameEnd": 281
+                        "NamePos": 285,
+                        "NameEnd": 289
                       },
                       "Alias": null
                     }
@@ -393,7 +412,26 @@
             "Modifiers": [
               "JOIN"
             ],
-            "Constraints": null
+            "Constraints": {
+              "OnPos": 258,
+              "On": {
+                "ListPos": 261,
+                "ListEnd": 265,
+                "HasDistinct": false,
+                "Items": [
+                  {
+                    "Expr": {
+                      "Name": "true",
+                      "QuoteType": 1,
+                      "NamePos": 261,
+                      "NameEnd": 265
+                    },
+                    "Alias": null
+                  }
+                ],
+                "HasTrailingComma": false
+              }
+            }
           },
           "Modifiers": [
             "JOIN"

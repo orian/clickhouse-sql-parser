@@ -200,6 +200,14 @@ Entries are grouped as:
   (#89). `FROM a PASTE JOIN b` used to print as `FROM a AS PASTE JOIN b`
   (PASTE taken as an alias of `a`), which ClickHouse rejects. The kinds are
   in `JoinExpr.Modifiers` (`"NATURAL"`, `"PASTE"`).
+- `array join` / `left array join` in lower case is an ARRAY JOIN (#50). The
+  join modifiers keep their source case and were compared case-sensitively,
+  so a lower-case ARRAY JOIN was parsed as an ordinary join whose "table" was
+  the first array expression; `JoinExpr.Left` is now the `*ColumnExprList`,
+  as for `ARRAY JOIN`.
+- In an expression, `{` always starts a query parameter (#50). A
+  `{'key': value}` map literal is accepted only in `INSERT … VALUES` data
+  and as a `SETTINGS` value, where ClickHouse accepts it.
 - `PrintVisitor.VisitOrderByExpr` prints `WITH FILL` (#47). It used to drop the
   clause when an ORDER BY element was printed directly; it now matches
   `OrderExpr.String()`.
@@ -238,6 +246,15 @@ Entries are grouped as:
 - `INSERT INTO t VALUES (…) FORMAT x` (#87). After `VALUES` everything is row
   data, and ClickHouse fails at runtime with `CANNOT_PARSE_INPUT_ASSERTION_FAILED`.
 - A repeated `WITH TIES`, and `LIMIT n BY … WITH TIES` (#90).
+- SQL that ClickHouse rejects with a syntax error (#50):
+  - a `JOIN` without `ON`/`USING`, other than `CROSS`, `NATURAL`, `PASTE` and
+    `ARRAY` joins (`SELECT * FROM a JOIN b`);
+  - column transformers (`EXCEPT`, `APPLY`, `REPLACE`) after anything but
+    `*`, `t.*`, `COLUMNS(…)` or a `* LIKE|ILIKE 'pattern'` matcher
+    (`SELECT c0 REPLACE(c0 AS c1) FROM t`);
+  - `WITH CUBE`/`WITH ROLLUP` after `GROUP BY CUBE(…)`/`ROLLUP(…)`;
+  - a `{'key': value}` map literal in an ordinary expression
+    (`SELECT {'a': 1}`), or nested in a `SETTINGS` map value.
 - `SYSTEM START|STOP DISTRIBUTED MERGES|FETCHES|TTL MERGES`, which ClickHouse
   rejects (#108). They used to be printed as `… MERGES MERGES`, a different
   statement. Use `SYSTEM START|STOP MERGES|FETCHES|TTL MERGES`.
@@ -349,6 +366,10 @@ Entries are grouped as:
   - `CREATE [UNIQUE] INDEX [IF NOT EXISTS] i ON [db.]t [ON CLUSTER c]
     <expr | (expr [ASC|DESC], …)> [TYPE t] [GRANULARITY n]` and
     `DROP INDEX [IF EXISTS] i ON [db.]t [ON CLUSTER c]` (#135).
+  - `{'key': value}` map literals in `INSERT … VALUES` rows, including nested
+    in arrays (#50);
+  - lower-case `array join` with any expression, e.g.
+    `array join ['a', 'b'] AS x` (#50).
   - `{name:Identifier}` query parameters wherever a table, database or other
     name is expected: `SELECT * FROM {db:Identifier}.{t:Identifier}`,
     `CREATE TABLE {db:Identifier}.t …`, `DROP DATABASE {db:Identifier}`,

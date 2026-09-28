@@ -12,6 +12,6 @@ select
 from
     t1
         join t2 on true
-        join t3
+        join t3 on true
         join t4 on true
-        join t5
+        join t5 on true
