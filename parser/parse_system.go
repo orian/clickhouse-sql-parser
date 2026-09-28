@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -634,6 +635,9 @@ func (p *Parser) parseCreateRole(pos Pos) (*CreateRole, error) {
 			return nil, err
 		}
 		roleNames = append(roleNames, roleName)
+	}
+	if err := checkClusterAfterLastRole(roleNames); err != nil {
+		return nil, err
 	}
 	statementEnd := roleNames[len(roleNames)-1].End()
 
@@ -1369,14 +1373,6 @@ func (p *Parser) parsePrivilegeClause(pos Pos) (*PrivilegeClause, error) {
 		}, nil
 	case p.tryConsumeKeywords(KeywordSystem):
 		return p.parsePrivilegeSystem(pos)
-	case p.tryConsumeKeywords(KeywordAdmin):
-		if err := p.expectKeyword(KeywordOption); err != nil {
-			return nil, err
-		}
-		return &PrivilegeClause{
-			PrivilegePos: pos,
-			Keywords:     []string{KeywordAdmin, KeywordOption},
-		}, nil
 	case p.matchOneOfKeywords(KeywordOptimize, KeywordTruncate):
 		keyword := p.last().String
 		_ = p.lexer.consumeToken()
@@ -1454,6 +1450,10 @@ func (p *Parser) parseGrantSource(_ Pos) (*TableIdentifier, error) {
 	if err != nil {
 		return nil, err
 	}
+	// `*.table` is not a valid grant target in ClickHouse (#50).
+	if ident.Name == "*" && dotIdent.Name != "*" {
+		return nil, errors.New("expected db.table, db.* or *.*, got *.table")
+	}
 	return &TableIdentifier{
 		Database: ident,
 		Table:    dotIdent,
@@ -1490,6 +1490,14 @@ func (p *Parser) parseGrantPrivilegeStmt(pos Pos) (*GrantPrivilegeStmt, error) {
 	if err != nil {
 		return nil, err
 	}
+	// A column list needs a concrete table: not db.* or *.* (#50).
+	if on.Table.Name == "*" {
+		for _, privilege := range privileges {
+			if privilege.Params != nil {
+				return nil, errors.New("a privilege with a column list needs a table, not a wildcard")
+			}
+		}
+	}
 
 	if err := p.expectKeyword(KeywordTo); err != nil {
 		return nil, err
@@ -1504,6 +1512,12 @@ func (p *Parser) parseGrantPrivilegeStmt(pos Pos) (*GrantPrivilegeStmt, error) {
 	options, err := p.parseGrantOptions(p.Pos())
 	if err != nil {
 		return nil, err
+	}
+	for _, option := range options {
+		// WITH ADMIN OPTION belongs to granting roles, not privileges (#50).
+		if strings.EqualFold(option, KeywordAdmin) {
+			return nil, errors.New("WITH ADMIN OPTION is only valid when granting roles")
+		}
 	}
 	if len(options) != 0 {
 		statementEnd = p.prevEnd()
@@ -1543,6 +1557,18 @@ func (p *Parser) parseAlterRole(pos Pos) (*AlterRole, error) {
 		}
 		roleRenamePairs = append(roleRenamePairs, roleRenamePair)
 	}
+	// ClickHouse renames one role per statement, and ON CLUSTER follows the
+	// last role name (#50).
+	roleNames := make([]*RoleName, 0, len(roleRenamePairs))
+	for _, pair := range roleRenamePairs {
+		if pair.NewName != nil && len(roleRenamePairs) > 1 {
+			return nil, errors.New("ALTER ROLE ... RENAME TO takes a single role")
+		}
+		roleNames = append(roleNames, pair.RoleName)
+	}
+	if err := checkClusterAfterLastRole(roleNames); err != nil {
+		return nil, err
+	}
 	statementEnd := roleRenamePairs[len(roleRenamePairs)-1].End()
 
 	settings, err := p.tryParseRoleSettings(p.Pos())
@@ -1560,6 +1586,18 @@ func (p *Parser) parseAlterRole(pos Pos) (*AlterRole, error) {
 		RoleRenamePairs: roleRenamePairs,
 		Settings:        settings,
 	}, nil
+}
+
+// checkClusterAfterLastRole rejects ON CLUSTER after any role name but the
+// last: in ClickHouse it follows the whole list (`CREATE ROLE r1, r2 ON
+// CLUSTER c`), so `CREATE ROLE r1 ON CLUSTER c, r2` is a syntax error (#50).
+func checkClusterAfterLastRole(roleNames []*RoleName) error {
+	for _, roleName := range roleNames[:len(roleNames)-1] {
+		if roleName.OnCluster != nil {
+			return errors.New("ON CLUSTER must follow the last role name")
+		}
+	}
+	return nil
 }
 
 func (p *Parser) parseRoleRenamePair(_ Pos) (*RoleRenamePair, error) {
