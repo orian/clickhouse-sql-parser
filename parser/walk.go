@@ -1657,6 +1657,12 @@ func Walk(node Expr, fn WalkFunc) bool {
 		if !Walk(n.Name, fn) || !Walk(n.Table, fn) || !Walk(n.OnCluster, fn) {
 			return false
 		}
+	case *ColumnTransformer:
+		for _, arg := range n.Args {
+			if !Walk(arg, fn) {
+				return false
+			}
+		}
 	case *DistinctOn:
 		for _, ident := range n.Idents {
 			if !Walk(ident, fn) {

@@ -1437,34 +1437,21 @@
         },
         "Modifiers": [
           {
-            "Name": {
-              "Name": "EXCEPT",
-              "QuoteType": 1,
-              "NamePos": 545,
-              "NameEnd": 551
-            },
-            "Params": {
-              "LeftParenPos": 552,
-              "RightParenPos": 554,
-              "Items": {
-                "ListPos": 553,
-                "ListEnd": 554,
-                "HasDistinct": false,
-                "Items": [
-                  {
-                    "Expr": {
-                      "Name": "a",
-                      "QuoteType": 1,
-                      "NamePos": 553,
-                      "NameEnd": 554
-                    },
-                    "Alias": null
-                  }
-                ],
-                "HasTrailingComma": false
-              },
-              "ColumnArgList": null
-            }
+            "TransformerPos": 545,
+            "TransformerEnd": 555,
+            "Kind": "EXCEPT",
+            "HasParen": true,
+            "Args": [
+              {
+                "Expr": {
+                  "Name": "a",
+                  "QuoteType": 1,
+                  "NamePos": 553,
+                  "NameEnd": 554
+                },
+                "Alias": null
+              }
+            ]
           }
         ],
         "Alias": null

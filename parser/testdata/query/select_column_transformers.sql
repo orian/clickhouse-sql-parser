@@ -1,0 +1,11 @@
+SELECT * EXCEPT a FROM t;
+SELECT * EXCEPT STRICT (a, b) FROM t;
+SELECT * EXCEPT 'x.*' FROM t;
+SELECT * EXCEPT a, b FROM t;
+SELECT * REPLACE a + 1 AS a FROM t;
+SELECT * REPLACE STRICT (a + 1 AS a, b * 2 AS b) FROM t;
+SELECT * APPLY toString FROM t;
+SELECT * APPLY x -> x + 1 FROM t;
+SELECT * APPLY(quantile(0.9)) FROM t;
+SELECT t.* EXCEPT a APPLY length FROM t;
+SELECT * EXCEPT (strict) FROM t;

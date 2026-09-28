@@ -26,9 +26,61 @@ type DDL interface {
 
 type SelectItem struct {
 	Expr Expr
-	// Please refer: https://clickhouse.com/docs/en/sql-reference/statements/select#select-modifiers
-	Modifiers []*FunctionExpr
+	// Modifiers are the column transformers after a column matcher, e.g.
+	// `* EXCEPT (a) APPLY(toString)`. See
+	// https://clickhouse.com/docs/en/sql-reference/statements/select#select-modifiers
+	Modifiers []*ColumnTransformer
 	Alias     *Ident
+}
+
+// ColumnTransformer is a column transformer after a column matcher (`*`,
+// `t.*`, `db.t.*`, COLUMNS(...)): `EXCEPT [STRICT] columns`,
+// `REPLACE [STRICT] replacements` or `APPLY function` (#126).
+type ColumnTransformer struct {
+	TransformerPos Pos
+	TransformerEnd Pos
+	// Kind is "EXCEPT", "REPLACE" or "APPLY".
+	Kind   string
+	Strict bool `json:",omitempty"`
+	// HasParen records parentheses around Args: `EXCEPT (a, b)` rather than
+	// `EXCEPT a`.
+	HasParen bool
+	// Args are the excluded columns or the regex string (EXCEPT), the
+	// `expr AS name` replacements as *ColumnExpr with an alias (REPLACE), or
+	// the one applied function name, function or lambda (APPLY).
+	Args []Expr
+}
+
+func (c *ColumnTransformer) Pos() Pos { return c.TransformerPos }
+
+func (c *ColumnTransformer) End() Pos { return c.TransformerEnd }
+
+func (c *ColumnTransformer) String() string {
+	var builder strings.Builder
+	builder.WriteString(c.Kind)
+	if c.Strict {
+		builder.WriteString(" STRICT")
+	}
+	builder.WriteByte(' ')
+	if c.HasParen {
+		builder.WriteByte('(')
+	}
+	for i, arg := range c.Args {
+		if i > 0 {
+			builder.WriteString(", ")
+		}
+		builder.WriteString(arg.String())
+	}
+	if c.HasParen {
+		builder.WriteByte(')')
+	}
+	return builder.String()
+}
+
+func (c *ColumnTransformer) Accept(visitor ASTVisitor) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	return visitor.VisitColumnTransformer(c)
 }
 
 func (s *SelectItem) Pos() Pos {

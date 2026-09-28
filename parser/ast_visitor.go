@@ -199,6 +199,7 @@ type ASTVisitor interface {
 	VisitShowExpr(expr *ShowStmt) error
 	VisitDescribeExpr(expr *DescribeStmt) error
 	VisitSelectItem(expr *SelectItem) error
+	VisitColumnTransformer(expr *ColumnTransformer) error
 	VisitTargetPairExpr(expr *TargetPair) error
 	VisitDistinctOn(expr *DistinctOn) error
 	VisitBoolLiteral(expr *BoolLiteral) error
