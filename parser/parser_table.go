@@ -2297,6 +2297,8 @@ func (p *Parser) parseAssignmentValues(pos Pos) (*AssignmentValues, error) {
 	if err := p.expectTokenKind(TokenKindLParen); err != nil {
 		return nil, err
 	}
+	p.inValues++
+	defer func() { p.inValues-- }()
 
 	var value Expr
 	var err error
@@ -2305,6 +2307,9 @@ func (p *Parser) parseAssignmentValues(pos Pos) (*AssignmentValues, error) {
 		switch {
 		case p.matchTokenKind(TokenKindLParen):
 			value, err = p.parseAssignmentValues(p.Pos())
+		case p.matchTokenKind(TokenKindLBrace) && p.peekTokenKind(TokenKindString):
+			// a map, e.g. {'a': 1}, read by the Values format (#50)
+			value, err = p.parseMapLiteral(p.Pos())
 		case p.matchTokenKind(TokenKindLBrace):
 			// placeholder with type, e.g. {a :Int32}, {b :DateTime(6)}
 			value, err = p.parseTypedPlaceholder(p.Pos())

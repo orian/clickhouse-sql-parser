@@ -106,7 +106,7 @@ func TestFindAll_MultipleMatches(t *testing.T) {
 }
 
 func TestWalk_TableIdentifierRewriting(t *testing.T) {
-	sql := `SELECT a, COUNT(b) FROM group_by_all GROUP BY CUBE(a) WITH CUBE WITH TOTALS ORDER BY a;`
+	sql := `SELECT a, COUNT(b) FROM group_by_all GROUP BY CUBE(a) WITH TOTALS ORDER BY a;`
 	parser := NewParser(sql)
 	stmts, err := parser.ParseStmts()
 	require.NoError(t, err)

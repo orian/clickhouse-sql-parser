@@ -8,6 +8,10 @@ import (
 
 type Parser struct {
 	lexer *Lexer
+	// inValues is set while an INSERT ... VALUES row is parsed. ClickHouse
+	// reads VALUES data with its Values format, which accepts `{'k': v}` map
+	// literals; in SQL expressions `{` starts a query parameter (#50).
+	inValues int
 }
 
 func NewParser(buffer string) *Parser {

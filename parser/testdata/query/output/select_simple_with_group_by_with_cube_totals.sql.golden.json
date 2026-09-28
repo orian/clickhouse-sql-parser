@@ -1,7 +1,7 @@
 [
   {
     "SelectPos": 0,
-    "StatementEnd": 86,
+    "StatementEnd": 76,
     "HasParen": false,
     "Group": null,
     "With": null,
@@ -83,7 +83,7 @@
     "Where": null,
     "GroupBy": {
       "GroupByPos": 37,
-      "GroupByEnd": 75,
+      "GroupByEnd": 65,
       "AggregateType": "CUBE",
       "Expr": {
         "LeftParenPos": 50,
@@ -107,28 +107,28 @@
         },
         "ColumnArgList": null
       },
-      "WithCube": true,
+      "WithCube": false,
       "WithRollup": false,
       "WithTotals": true
     },
     "WithTotal": false,
     "Having": null,
     "OrderBy": {
-      "OrderPos": 76,
-      "ListEnd": 86,
+      "OrderPos": 66,
+      "ListEnd": 76,
       "Items": [
         {
-          "OrderPos": 76,
+          "OrderPos": 66,
           "Expr": {
             "Name": "a",
             "QuoteType": 1,
-            "NamePos": 85,
-            "NameEnd": 86
+            "NamePos": 75,
+            "NameEnd": 76
           },
           "Alias": null,
           "Direction": "",
           "Fill": null,
-          "OrderEnd": 86
+          "OrderEnd": 76
         }
       ],
       "Interpolate": null

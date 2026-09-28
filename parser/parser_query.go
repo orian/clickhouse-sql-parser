@@ -294,6 +294,12 @@ func (p *Parser) parseJoinTableExpr(_ Pos) (Expr, error) {
 	}
 }
 
+// hasJoinModifier reports whether modifiers contain the join keyword kw.
+// Modifiers keep their source case (`array join`), so compare ignoring case.
+func hasJoinModifier(modifiers []string, kw string) bool {
+	return slices.ContainsFunc(modifiers, func(m string) bool { return strings.EqualFold(m, kw) })
+}
+
 // matchJoinKindWord reports whether the current token is PASTE or NATURAL,
 // which ClickHouse reads as a join kind, never as an implicit alias (#89).
 func (p *Parser) matchJoinKindWord() bool {
@@ -367,7 +373,7 @@ func (p *Parser) parseJoinRightExpr(pos Pos) (expr Expr, err error) {
 	modifiers = append(modifiers, KeywordJoin)
 
 	// Check if this is an ARRAY JOIN
-	if slices.Contains(modifiers, KeywordArray) {
+	if hasJoinModifier(modifiers, KeywordArray) {
 		// For ARRAY JOIN, parse column expression list instead of table expression
 		expr, err = p.parseColumnExprList(p.Pos())
 		if err != nil {
@@ -393,11 +399,15 @@ func (p *Parser) parseJoinRightExpr(pos Pos) (expr Expr, err error) {
 	if err != nil {
 		return nil, err
 	}
-	// NATURAL and PASTE joins take no ON/USING in ClickHouse.
+	// NATURAL and PASTE joins take no ON/USING in ClickHouse; CROSS may omit
+	// it; every other JOIN requires one (#50).
 	var constrains Expr
-	if !slices.Contains(modifiers, "NATURAL") && !slices.Contains(modifiers, "PASTE") {
+	if !hasJoinModifier(modifiers, "NATURAL") && !hasJoinModifier(modifiers, "PASTE") {
 		if constrains, err = p.tryParseJoinConstraints(p.Pos()); err != nil {
 			return nil, err
+		}
+		if constrains == nil && !hasJoinModifier(modifiers, KeywordCross) {
+			return nil, fmt.Errorf("JOIN requires ON or USING, got %q", p.lastTokenText())
 		}
 	}
 
@@ -645,6 +655,11 @@ func (p *Parser) parseGroupByClause(pos Pos) (*GroupByClause, error) {
 		case p.matchKeyword(KeywordCube), p.matchKeyword(KeywordRollup):
 			if groupBy.WithCube || groupBy.WithRollup || groupBy.WithTotals {
 				return nil, fmt.Errorf("unexpected WITH %s after GROUP BY modifiers", p.last().String)
+			}
+			// GROUP BY CUBE(...)/ROLLUP(...) already is `... WITH CUBE/ROLLUP`
+			// in ClickHouse, which rejects a second one (#50).
+			if strings.EqualFold(aggregateType, KeywordCube) || strings.EqualFold(aggregateType, KeywordRollup) {
+				return nil, fmt.Errorf("unexpected WITH %s after GROUP BY %s(...)", p.last().String, strings.ToUpper(aggregateType))
 			}
 			if p.tryConsumeKeywords(KeywordCube) {
 				groupBy.WithCube = true
