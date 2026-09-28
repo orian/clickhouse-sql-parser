@@ -6,11 +6,11 @@ SELECT t.* APPLY(toString) FROM t3 AS t;
 
 
 -- Beautify SQL:
-SELECT COLUMNS('c') REPLACE(c0 AS c1)
+SELECT COLUMNS('c') REPLACE (c0 AS c1)
 FROM t0;
-SELECT * REPLACE(i + 1 AS i)
+SELECT * REPLACE (i + 1 AS i)
 FROM t1;
-SELECT * REPLACE(i + 1 AS i) EXCEPT(j) APPLY(sum)
+SELECT * REPLACE (i + 1 AS i) EXCEPT (j) APPLY (sum)
 FROM t2;
-SELECT t.* APPLY(toString)
+SELECT t.* APPLY (toString)
 FROM t3 AS t;

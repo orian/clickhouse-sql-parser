@@ -3951,3 +3951,26 @@ func (p *PrintVisitor) VisitDropIndex(d *DropIndex) error {
 	}
 	return nil
 }
+
+func (p *PrintVisitor) VisitColumnTransformer(c *ColumnTransformer) error {
+	p.builder.WriteString(c.Kind)
+	if c.Strict {
+		p.builder.WriteString(" STRICT")
+	}
+	p.builder.WriteByte(' ')
+	if c.HasParen {
+		p.builder.WriteByte('(')
+	}
+	for i, arg := range c.Args {
+		if i > 0 {
+			p.builder.WriteString(", ")
+		}
+		if err := arg.Accept(p); err != nil {
+			return err
+		}
+	}
+	if c.HasParen {
+		p.builder.WriteByte(')')
+	}
+	return nil
+}

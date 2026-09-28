@@ -3074,3 +3074,14 @@ func (visitor DefaultASTVisitor) VisitDropIndex(d *DropIndex) error {
 	}
 	return nil
 }
+
+func (visitor DefaultASTVisitor) VisitColumnTransformer(c *ColumnTransformer) error {
+	visitor.Enter(c)
+	defer visitor.Leave(c)
+	for _, arg := range c.Args {
+		if err := arg.Accept(visitor.Self); err != nil {
+			return err
+		}
+	}
+	return nil
+}

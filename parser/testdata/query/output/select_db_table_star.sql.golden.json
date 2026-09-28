@@ -116,34 +116,21 @@
         },
         "Modifiers": [
           {
-            "Name": {
-              "Name": "EXCEPT",
-              "QuoteType": 1,
-              "NamePos": 39,
-              "NameEnd": 45
-            },
-            "Params": {
-              "LeftParenPos": 46,
-              "RightParenPos": 48,
-              "Items": {
-                "ListPos": 47,
-                "ListEnd": 48,
-                "HasDistinct": false,
-                "Items": [
-                  {
-                    "Expr": {
-                      "Name": "a",
-                      "QuoteType": 1,
-                      "NamePos": 47,
-                      "NameEnd": 48
-                    },
-                    "Alias": null
-                  }
-                ],
-                "HasTrailingComma": false
-              },
-              "ColumnArgList": null
-            }
+            "TransformerPos": 39,
+            "TransformerEnd": 49,
+            "Kind": "EXCEPT",
+            "HasParen": true,
+            "Args": [
+              {
+                "Expr": {
+                  "Name": "a",
+                  "QuoteType": 1,
+                  "NamePos": 47,
+                  "NameEnd": 48
+                },
+                "Alias": null
+              }
+            ]
           }
         ],
         "Alias": null
@@ -229,80 +216,54 @@
         },
         "Modifiers": [
           {
-            "Name": {
-              "Name": "REPLACE",
-              "QuoteType": 1,
-              "NamePos": 75,
-              "NameEnd": 82
-            },
-            "Params": {
-              "LeftParenPos": 82,
-              "RightParenPos": 93,
-              "Items": {
-                "ListPos": 83,
-                "ListEnd": 93,
-                "HasDistinct": false,
-                "Items": [
-                  {
-                    "Expr": {
-                      "LeftExpr": {
-                        "Name": "a",
-                        "QuoteType": 1,
-                        "NamePos": 83,
-                        "NameEnd": 84
-                      },
-                      "Operation": "+",
-                      "RightExpr": {
-                        "NumPos": 87,
-                        "NumEnd": 88,
-                        "Literal": "1",
-                        "Base": 10
-                      },
-                      "HasGlobal": false,
-                      "HasNot": false
-                    },
-                    "Alias": {
-                      "Name": "a",
-                      "QuoteType": 1,
-                      "NamePos": 92,
-                      "NameEnd": 93
-                    }
-                  }
-                ],
-                "HasTrailingComma": false
-              },
-              "ColumnArgList": null
-            }
+            "TransformerPos": 75,
+            "TransformerEnd": 94,
+            "Kind": "REPLACE",
+            "HasParen": true,
+            "Args": [
+              {
+                "Expr": {
+                  "LeftExpr": {
+                    "Name": "a",
+                    "QuoteType": 1,
+                    "NamePos": 83,
+                    "NameEnd": 84
+                  },
+                  "Operation": "+",
+                  "RightExpr": {
+                    "NumPos": 87,
+                    "NumEnd": 88,
+                    "Literal": "1",
+                    "Base": 10
+                  },
+                  "HasGlobal": false,
+                  "HasNot": false
+                },
+                "Alias": {
+                  "Name": "a",
+                  "QuoteType": 1,
+                  "NamePos": 92,
+                  "NameEnd": 93
+                }
+              }
+            ]
           },
           {
-            "Name": {
-              "Name": "APPLY",
-              "QuoteType": 1,
-              "NamePos": 95,
-              "NameEnd": 100
-            },
-            "Params": {
-              "LeftParenPos": 100,
-              "RightParenPos": 109,
-              "Items": {
-                "ListPos": 101,
-                "ListEnd": 109,
-                "HasDistinct": false,
-                "Items": [
-                  {
-                    "Expr": {
-                      "Name": "toString",
-                      "QuoteType": 1,
-                      "NamePos": 101,
-                      "NameEnd": 109
-                    },
-                    "Alias": null
-                  }
-                ],
-                "HasTrailingComma": false
-              },
-              "ColumnArgList": null
-            }
+            "TransformerPos": 95,
+            "TransformerEnd": 110,
+            "Kind": "APPLY",
+            "HasParen": true,
+            "Args": [
+              {
+                "Expr": {
+                  "Name": "toString",
+                  "QuoteType": 1,
+                  "NamePos": 101,
+                  "NameEnd": 109
+                },
+                "Alias": null
+              }
+            ]
           }
         ],
         "Alias": null

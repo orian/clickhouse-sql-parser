@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -900,6 +901,114 @@ func (p *Parser) parseColumnsExpr(pos Pos) (*ColumnExpr, error) {
 	}, nil
 }
 
+// parseColumnTransformer parses one column transformer (#126):
+//
+//	EXCEPT [STRICT] column | 'regex' | (column, ...) | ('regex')
+//	REPLACE [STRICT] expr AS name | (expr AS name, ...)
+//	APPLY function | lambda | (function | lambda)
+//
+// As in ClickHouse, STRICT right after EXCEPT/REPLACE is always the modifier.
+func (p *Parser) parseColumnTransformer() (*ColumnTransformer, error) {
+	transformer := &ColumnTransformer{TransformerPos: p.Pos(), Kind: strings.ToUpper(p.last().String)}
+	_ = p.lexer.consumeToken()
+	if transformer.Kind != KeywordApply && p.matchUnquotedIdent("STRICT") {
+		transformer.Strict = true
+		_ = p.lexer.consumeToken()
+	}
+	if p.matchTokenKind(TokenKindLParen) {
+		params, err := p.parseFunctionParams(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		transformer.HasParen = true
+		if params.Items != nil {
+			transformer.Args = params.Items.Items
+		}
+	} else {
+		arg, err := p.parseColumnTransformerArg(transformer.Kind)
+		if err != nil {
+			return nil, err
+		}
+		transformer.Args = []Expr{arg}
+	}
+	transformer.TransformerEnd = p.prevEnd()
+	if err := checkColumnTransformerArgs(transformer); err != nil {
+		return nil, err
+	}
+	return transformer, nil
+}
+
+// parseColumnTransformerArg parses the single, unparenthesised argument of a
+// column transformer.
+func (p *Parser) parseColumnTransformerArg(kind string) (Expr, error) {
+	// `* EXCEPT FROM t`: a clause keyword is not a column (#126).
+	if p.atEOF() || p.matchClauseStarterKeyword() {
+		return nil, fmt.Errorf("expected an argument after %s, got %q", kind, p.lastTokenText())
+	}
+	switch kind {
+	case KeywordExcept:
+		if p.matchTokenKind(TokenKindString) {
+			return p.parseString(p.Pos())
+		}
+		return p.parseIdent()
+	case KeywordReplace:
+		expr, err := p.parseExpr(p.Pos())
+		if err != nil {
+			return nil, err
+		}
+		if err := p.expectKeyword(KeywordAs); err != nil {
+			return nil, err
+		}
+		alias, err := p.parseIdent()
+		if err != nil {
+			return nil, err
+		}
+		return &ColumnExpr{Expr: expr, Alias: alias}, nil
+	default: // APPLY
+		return p.parseExpr(p.Pos())
+	}
+}
+
+// checkColumnTransformerArgs checks the arguments ClickHouse accepts: EXCEPT
+// takes column names or a single regex string, REPLACE takes `expr AS name`
+// items and APPLY takes exactly one function or lambda.
+func checkColumnTransformerArgs(t *ColumnTransformer) error {
+	if len(t.Args) == 0 {
+		return fmt.Errorf("%s needs at least one argument", t.Kind)
+	}
+	unwrap := func(e Expr) Expr {
+		if c, ok := e.(*ColumnExpr); ok && c.Alias == nil {
+			return c.Expr
+		}
+		return e
+	}
+	switch t.Kind {
+	case KeywordExcept:
+		if _, isRegex := unwrap(t.Args[0]).(*StringLiteral); isRegex {
+			if len(t.Args) > 1 {
+				return errors.New("EXCEPT takes either column names or a single regex string")
+			}
+			return nil
+		}
+		for _, arg := range t.Args {
+			if _, isName := unwrap(arg).(*Ident); !isName {
+				return fmt.Errorf("EXCEPT expects column names, got %q", arg.String())
+			}
+		}
+	case KeywordReplace:
+		for _, arg := range t.Args {
+			if c, ok := arg.(*ColumnExpr); !ok || c.Alias == nil {
+				return fmt.Errorf("REPLACE expects `expr AS name`, got %q", arg.String())
+			}
+		}
+	case KeywordApply:
+		if len(t.Args) != 1 {
+			return errors.New("APPLY takes a single function or lambda")
+		}
+	}
+	return nil
+}
+
 // isColumnsMatcher reports whether expr selects a set of columns, `*`, `t.*`,
 // `db.t.*` or COLUMNS(...), which is what column transformers apply to.
 func isColumnsMatcher(expr Expr) bool {
@@ -944,12 +1053,12 @@ func (p *Parser) parseSelectItem() (*SelectItem, error) {
 		return nil, err
 	}
 
-	modifiers := make([]*FunctionExpr, 0)
+	modifiers := make([]*ColumnTransformer, 0)
 	// Column transformers (EXCEPT, APPLY, REPLACE) follow only a matcher:
-	// `*`, `t.*` or COLUMNS(...) (#50).
+	// `*`, `t.*`, `db.t.*` or COLUMNS(...) (#50).
 	for isColumnsMatcher(expr) {
 		if (p.matchKeyword(KeywordExcept) && !p.matchExceptSetOperation()) || p.matchKeyword(KeywordApply) || p.matchKeyword(KeywordReplace) {
-			modifier, err := p.parseFunctionExpr(p.Pos())
+			modifier, err := p.parseColumnTransformer()
 			if err != nil {
 				return nil, err
 			}
@@ -977,6 +1086,10 @@ func (p *Parser) parseSelectItem() (*SelectItem, error) {
 		}
 	default:
 		alias = p.tryParseIdent()
+	}
+	// A column matcher selects several columns and takes no alias (#126).
+	if alias != nil && isColumnsMatcher(expr) {
+		return nil, fmt.Errorf("a column matcher %s cannot have an alias", expr.String())
 	}
 
 	return &SelectItem{

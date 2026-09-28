@@ -17,8 +17,33 @@ unless noted) and **Additive**.
 
 ## Unreleased
 
+### Breaking
+
+- **Column transformers** have their own node (#126): `SelectItem.Modifiers`
+  is `[]*ColumnTransformer` (was `[]*FunctionExpr`), with `Kind` (`"EXCEPT"`,
+  `"REPLACE"`, `"APPLY"`), `Strict`, `HasParen` and `Args`. `ASTVisitor` has a
+  new method, `VisitColumnTransformer`; visitors embedding `DefaultASTVisitor`
+  or `PrintVisitor` inherit it.
+
+### Changed behavior
+
+- Column transformers print with a space before parentheses, as in
+  ClickHouse: `* EXCEPT (a) APPLY (sum)` (was `EXCEPT(a) APPLY(sum)`) (#126).
+
+### Newly rejected input
+
+- An alias on a column matcher: `SELECT * AS x`, `t.* AS x`,
+  `COLUMNS(…) AS x`, `* EXCEPT (a) AS x` (#126).
+- Column transformer arguments ClickHouse rejects: `EXCEPT (t.a)`, mixing a
+  regex with names in `EXCEPT`, `REPLACE (a)` without `AS`, `APPLY(f, g)`,
+  and `EXCEPT strict` (STRICT is always the modifier; write `EXCEPT (strict)`)
+  (#126).
+
 ### Additive
 
+- **Newly accepted input**: column transformers without parentheses and with
+  `STRICT`: `* EXCEPT a`, `* EXCEPT STRICT (a, b)`, `* EXCEPT 'regex'`,
+  `* REPLACE a + 1 AS a`, `* APPLY toString`, `* APPLY x -> x + 1` (#126).
 - **Newly accepted input**: a star qualified by database and table,
   `SELECT db.t.* FROM db.t`, with column transformers (`db.t.* EXCEPT (a)`)
   (#152). It parses as a `*Path` whose last field is the `*` identifier;
