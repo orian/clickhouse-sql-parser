@@ -250,9 +250,34 @@ func (p *Parser) parseUUID() (*UUID, error) {
 	if err != nil {
 		return nil, err
 	}
+	if !isUUIDLiteral(uuidString.Literal) {
+		return nil, fmt.Errorf("invalid UUID %q: expected 32 hex digits, optionally as 8-4-4-4-12", uuidString.Literal)
+	}
 	return &UUID{
 		Value: uuidString,
 	}, nil
+}
+
+// isUUIDLiteral reports whether s is a UUID ClickHouse can parse: 32 hex
+// digits, either plain or grouped 8-4-4-4-12 with dashes (#50).
+func isUUIDLiteral(s string) bool {
+	if len(s) == 36 {
+		for _, i := range []int{8, 13, 18, 23} {
+			if s[i] != '-' {
+				return false
+			}
+		}
+		s = strings.ReplaceAll(s, "-", "")
+	}
+	if len(s) != 32 {
+		return false
+	}
+	for _, c := range s {
+		if !('0' <= c && c <= '9' || 'a' <= c && c <= 'f' || 'A' <= c && c <= 'F') {
+			return false
+		}
+	}
+	return true
 }
 
 func (p *Parser) tryParseUUID() (*UUID, error) {

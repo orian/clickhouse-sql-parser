@@ -1,5 +1,5 @@
 -- Origin SQL:
-CREATE TABLE IF NOT EXISTS test.events_local UUID '1234' ON CLUSTER 'default_cluster' (
+CREATE TABLE IF NOT EXISTS test.events_local UUID '12345678-1234-1234-1234-123456789012' ON CLUSTER 'default_cluster' (
     f0 String,
     f1 String,
     f2 String,
@@ -14,7 +14,7 @@ PARTITION BY toYYYYMMDD(f3)
 ORDER BY (f0,f1,f2);
 
 -- Beautify SQL:
-CREATE TABLE IF NOT EXISTS test.events_local UUID '1234'
+CREATE TABLE IF NOT EXISTS test.events_local UUID '12345678-1234-1234-1234-123456789012'
 ON CLUSTER 'default_cluster' (
   f0 String,
   f1 String,

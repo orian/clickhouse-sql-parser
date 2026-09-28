@@ -464,6 +464,9 @@ func (p *Parser) parseCreateTable(pos Pos, orReplace bool) (*CreateTable, error)
 	if err != nil {
 		return nil, err
 	}
+	if orReplace && createTable.IfNotExists {
+		return nil, errors.New("OR REPLACE cannot be combined with IF NOT EXISTS")
+	}
 
 	tableIdentifier, err := p.parseTableIdentifier(p.Pos())
 	if err != nil {
@@ -2456,6 +2459,10 @@ func (p *Parser) parseRenameStmt(pos Pos) (*RenameStmt, error) {
 			return nil, err
 		}
 		tablePairList = append(tablePairList, tablePair)
+	}
+	// ClickHouse renames one database per statement (#50).
+	if renameTarget == KeywordDatabase && len(tablePairList) > 1 {
+		return nil, errors.New("RENAME DATABASE takes a single pair")
 	}
 
 	renameStmt := &RenameStmt{

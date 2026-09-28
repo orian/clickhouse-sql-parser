@@ -3,6 +3,7 @@ package parser
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 func (p *Parser) parseAlterTable(pos Pos) (*AlterTable, error) {
@@ -461,9 +462,70 @@ func (p *Parser) parsePartitionClause(pos Pos) (*PartitionClause, error) {
 		if err != nil {
 			return nil, err
 		}
+		if !isPartitionValue(expr) {
+			return nil, fmt.Errorf("PARTITION needs a literal, a tuple or a query parameter, got %q", expr.String())
+		}
 		partition.Expr = expr
 	}
 	return partition, nil
+}
+
+// isPartitionValue reports whether expr is a partition value ClickHouse
+// accepts after PARTITION (#50): a literal (number, optionally signed;
+// string; NULL; true/false; array of literals), a query parameter, tuple(...), or a
+// parenthesised tuple, or a CAST of one of these (CAST(v, 'T'), _CAST(v,
+// 'T'), v::T). Any expression may appear inside a tuple of two or
+// more elements, but a bare identifier, function call or operator
+// expression is a syntax error, as is a single parenthesised non-literal.
+func isPartitionValue(expr Expr) bool {
+	switch e := expr.(type) {
+	case *QueryParam:
+		return true
+	case *CastExpr:
+		// CAST(value, 'T'), CAST(value AS T) and value::T of a partition value.
+		return isPartitionValue(e.Expr)
+	case *BinaryOperation:
+		return e.Operation == TokenKindDash && isPartitionValue(e.LeftExpr)
+	case *FunctionExpr:
+		if strings.EqualFold(e.Name.Name, "_CAST") {
+			return e.Params != nil && e.Params.Items != nil && len(e.Params.Items.Items) > 0 &&
+				isPartitionValue(e.Params.Items.Items[0])
+		}
+		return strings.EqualFold(e.Name.Name, "tuple")
+	case *ParamExprList:
+		if e.Items == nil || len(e.Items.Items) != 1 {
+			return true
+		}
+		return isPartitionValue(e.Items.Items[0])
+	case *ColumnExpr:
+		return isPartitionValue(e.Expr)
+	}
+	return isPartitionLiteral(expr)
+}
+
+// isPartitionLiteral reports whether expr is a literal partition value.
+func isPartitionLiteral(expr Expr) bool {
+	switch e := expr.(type) {
+	case *NumberLiteral, *StringLiteral, *BoolLiteral:
+		return true
+	case *Ident:
+		// NULL, true and false are parsed as identifiers in expressions.
+		return !e.isQuoted() && (strings.EqualFold(e.Name, "NULL") ||
+			strings.EqualFold(e.Name, "true") || strings.EqualFold(e.Name, "false"))
+	case *UnaryExpr:
+		_, isNumber := e.Expr.(*NumberLiteral)
+		return isNumber && (e.Kind == TokenKindMinus || e.Kind == TokenKindPlus)
+	case *ColumnExpr:
+		return isPartitionLiteral(e.Expr)
+	case *ArrayParamList:
+		for _, item := range e.Items.Items {
+			if !isPartitionLiteral(item) {
+				return false
+			}
+		}
+		return true
+	}
+	return false
 }
 
 // Syntax: ALTER TABLE ATTACH partitionClause (FROM tableIdentifier)?

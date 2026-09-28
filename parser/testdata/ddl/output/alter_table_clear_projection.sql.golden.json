@@ -3,7 +3,7 @@
     "Format": null,
     "OutputSettings": null,
     "AlterPos": 0,
-    "StatementEnd": 71,
+    "StatementEnd": 73,
     "TableIdentifier": {
       "Database": null,
       "Table": {
@@ -17,7 +17,7 @@
     "AlterExprs": [
       {
         "ClearPos": 21,
-        "StatementEnd": 71,
+        "StatementEnd": 73,
         "IfExists": false,
         "ProjectionName": {
           "Ident": {
@@ -31,10 +31,9 @@
         "PartitionExpr": {
           "PartitionPos": 47,
           "Expr": {
-            "Name": "partition_name",
-            "QuoteType": 1,
-            "NamePos": 57,
-            "NameEnd": 71
+            "LiteralPos": 58,
+            "LiteralEnd": 72,
+            "Literal": "partition_name"
           },
           "ID": null,
           "All": false
