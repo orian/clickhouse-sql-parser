@@ -67,6 +67,18 @@ clickhouse-sql-update:
 clickhouse-sql-strict:
 	go test ./parser -run '^TestClickHouseSQL$$' -clickhouse-sql-strict -count=1 -timeout 3m
 
+.PHONY: bench bench-compare
+
+# bench runs the parser benchmarks (parse, String() and PrintVisitor).
+bench:
+	go test ./parser -run '^$$' -bench . -benchmem
+
+# bench-compare compares the benchmarks of BASE (e.g. a tag) and HEAD on
+# identical inputs: make bench-compare BASE=v1.0.4
+BASE ?= $(shell git describe --tags --abbrev=0)
+bench-compare:
+	scripts/bench_compare.sh $(BASE)
+
 FUZZ_TIME ?= 30s
 FUZZ_PARALLEL ?= 4
 FUZZ_TIMEOUT ?= 5m
