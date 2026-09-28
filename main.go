@@ -10,7 +10,7 @@ import (
 	clickhouse "github.com/orian/clickhouse-sql-parser/parser"
 )
 
-const VERSION = "1.1.0"
+const VERSION = "1.1.1"
 const help = `
 Usage: clickhouse-sql-parser [YOUR SQL STRING] -f [YOUR SQL FILE] -format -beautify
 `

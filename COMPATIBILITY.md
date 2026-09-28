@@ -17,6 +17,8 @@ unless noted) and **Additive**.
 
 ## Unreleased
 
+## v1.1.1 (2026-09-28)
+
 ### Breaking
 
 - **Column transformers** have their own node (#126): `SelectItem.Modifiers`
