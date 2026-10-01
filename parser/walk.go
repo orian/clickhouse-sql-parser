@@ -1638,7 +1638,7 @@ func Walk(node Expr, fn WalkFunc) bool {
 			return false
 		}
 	case *DescribeStmt:
-		if !Walk(n.Target, fn) {
+		if !Walk(n.targetExpr(), fn) {
 			return false
 		}
 	case *CreateIndex:

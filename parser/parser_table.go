@@ -1002,6 +1002,28 @@ func (p *Parser) parseTableArg(pos Pos) (Expr, error) {
 	return p.parseExpr(pos)
 }
 
+// parseKeywordTableFunction parses a table function whose name is a keyword.
+// It is called only when the keyword is followed by an opening parenthesis.
+func (p *Parser) parseKeywordTableFunction() (*TableFunctionExpr, error) {
+	token := p.last()
+	if err := p.expectTokenKind(TokenKindKeyword); err != nil {
+		return nil, err
+	}
+	args, err := p.parseTableArgList(p.Pos())
+	if err != nil {
+		return nil, err
+	}
+	return &TableFunctionExpr{
+		Name: &Ident{
+			NamePos:   token.Pos,
+			NameEnd:   token.End,
+			Name:      token.String,
+			QuoteType: token.QuoteType,
+		},
+		Args: args,
+	}, nil
+}
+
 func (p *Parser) parseTableArgList(pos Pos) (*TableArgListExpr, error) {
 	if err := p.expectTokenKind(TokenKindLParen); err != nil {
 		return nil, err
@@ -2160,16 +2182,30 @@ func (p *Parser) parseDescribeStmt(pos Pos) (*DescribeStmt, error) {
 		describeType = "TABLE"
 	}
 
-	tableIdent, err := p.parseTableIdentifier(p.Pos())
+	var tableIdent *TableIdentifier
+	var targetExpr Expr
+	var err error
+	if p.matchTokenKind(TokenKindKeyword) && p.peekTokenKind(TokenKindLParen) {
+		targetExpr, err = p.parseKeywordTableFunction()
+	} else {
+		tableIdent, err = p.parseTableIdentifier(p.Pos())
+	}
 	if err != nil {
 		return nil, err
 	}
 
+	var statementEnd Pos
+	if targetExpr != nil {
+		statementEnd = targetExpr.End()
+	} else {
+		statementEnd = tableIdent.End()
+	}
 	return &DescribeStmt{
 		DescribePos:  pos,
-		StatementEnd: tableIdent.End(),
+		StatementEnd: statementEnd,
 		DescribeType: describeType,
 		Target:       tableIdent,
+		TargetExpr:   targetExpr,
 	}, nil
 }
 
