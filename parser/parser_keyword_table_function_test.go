@@ -8,19 +8,25 @@ func TestParser_KeywordNamedTableFunctions(t *testing.T) {
 		sql          string
 		wantFrom     bool
 		wantDescribe bool
-		wantFunction bool
+		wantFunction string
 	}{
 		{
 			name:         "format in FROM",
 			sql:          `SELECT * FROM format(JSONEachRow, 'a String', '{"a":"x"}')`,
 			wantFrom:     true,
-			wantFunction: true,
+			wantFunction: "format",
+		},
+		{
+			name:         "values in FROM",
+			sql:          `SELECT * FROM values('a String', ('x'))`,
+			wantFrom:     true,
+			wantFunction: "values",
 		},
 		{
 			name:         "format in DESCRIBE",
 			sql:          `DESC format(JSONEachRow, '{"x" : 1}')`,
 			wantDescribe: true,
-			wantFunction: true,
+			wantFunction: "format",
 		},
 		{
 			name: "keyword column before FROM",
@@ -50,18 +56,18 @@ func TestParser_KeywordNamedTableFunctions(t *testing.T) {
 					t.Errorf("expected a DescribeStmt with a function TargetExpr, got %#v", stmts[0])
 				}
 			}
-			if tt.wantFunction {
+			if tt.wantFunction != "" {
 				found := false
 				Walk(stmts[0], func(expr Expr) bool {
 					if function, ok := expr.(*TableFunctionExpr); ok {
-						if name, ok := function.Name.(*Ident); ok && name.Name == "format" {
+						if name, ok := function.Name.(*Ident); ok && name.Name == tt.wantFunction {
 							found = true
 						}
 					}
 					return true
 				})
 				if !found {
-					t.Error("AST traversal did not reach the format table function")
+					t.Errorf("AST traversal did not reach the %s table function", tt.wantFunction)
 				}
 			}
 		})
